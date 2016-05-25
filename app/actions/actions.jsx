@@ -12,13 +12,6 @@ export var updateEventsData = (updatedData) => {
   };
 };
 
-export var updatePlayersData = (updatedData) => {
-  return {
-    type: 'UPDATE_PLAYERS_DATA',
-    updatedData
-  };
-};
-
 export var updateUserData = (updatedData) => {
   return {
     type: 'UPDATE_USER_DATA',
