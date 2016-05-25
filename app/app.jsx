@@ -1,15 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {Route, Router, IndexRoute, hashHistory} from 'react-router';
+import {hashHistory} from 'react-router';
 // App imports
-import GoTApp from 'GoTApp';
-import Main from 'Main';
-import Profile from 'Profile';
 import * as actions from 'actions';
-var store = require('configureStore').configure();
-
-// Load fixtures
+import router from 'app/router';
+// App fixtures
 import * as fixtures from 'fixtures';
 
 // Load Foundation
@@ -18,6 +14,7 @@ $(document).foundation();
 // App CSS
 require('style!css!sass!applicationStyles');
 
+var store = require('configureStore').configure();
 // Redux testing
 store.subscribe(() => {
   var state = store.getState();
@@ -30,14 +27,28 @@ store.dispatch(actions.updateBetsData(fixtures.Bets));
 store.dispatch(actions.updateUserData(fixtures.User));
 
 
+
+//// Login / Logout functionality
+//// Saving for later.
+
+// firebase.auth().onAuthStateChanged((authData) => {
+//   if (authData) {
+//     // Logged in
+//     store.dispatch(actions.login(authData.ma, authData.uid));
+//     store.dispatch(actions.startAddTodos());
+//     hashHistory.push('/todos');
+//   } else {
+//     store.dispatch(actions.logout());
+//     hashHistory.push('/');
+//     // logged out
+//   }
+// });
+
+
+
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory}>
-      <Route path="/" component={GoTApp}>
-        <Route path="profile" component={Profile}/>
-        <IndexRoute component={Main}/>
-      </Route>
-    </Router>
+    {router}
   </Provider>,
   document.getElementById('app')
 );
