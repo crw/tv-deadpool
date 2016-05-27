@@ -58,15 +58,6 @@ describe('Actions', () => {
       expect(res).toEqual(action);
     });
 
-    it('should generate SET_MONEY action', () => {
-      var action = {
-        type: 'SET_MONEY',
-        newBalance: 200
-      }
-      var res = actions.setMoney(action.newBalance);
-      expect(res).toEqual(action);
-    });
-
   });
 
   describe('Authentication Actions', () => {

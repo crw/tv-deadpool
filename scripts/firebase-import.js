@@ -22,22 +22,39 @@ firebase.initializeApp(config);
 var db = firebase.database();
 var ref = db.ref();
 
-var eventKeys = [];
+var eventIdMap = {};
 var eventsRef = ref.child('events');
 eventsRef.remove();
 fixtures.Events.forEach((event) => {
-  eventKeys.push(eventsRef.push(event).key);
+  let key = eventsRef.push(event).key;
+  eventIdMap[event.id] = key;
+  eventsRef.child(key).update({id: key});
 });
 
-var betKeys = [];
+var betIdMap = {};
+Object.keys(eventIdMap).forEach((id) => {
+  betIdMap[eventIdMap[id]] = [];
+});
+
 var betsRef = ref.child('bets');
 betsRef.remove();
 fixtures.Bets.forEach((bet) => {
-  betKeys.push(betsRef.push(bet).key);
+  let key = betsRef.push(bet).key;
+  let eventKey = eventIdMap[bet.event_id]
+  betIdMap[eventKey].push(key);
+  betsRef.child(key).update({event_id: eventKey});
 });
 
-console.log(eventKeys);
-console.log(betKeys);
+
+Object.keys(betIdMap).forEach((eventKey) => {
+  let updateData = {};
+  betIdMap[eventKey].forEach((betKey) => {
+    updateData[betKey] = true;
+  });
+  eventsRef.child(eventKey).update({ bets: updateData });
+});
+
+
 
 ref.once("value", function(snapshot) {
   console.log(snapshot.val());

@@ -71,11 +71,6 @@ export var userReducer = (state = {}, action) => {
         }
       }
       return state;
-    case 'SET_MONEY':
-      return {
-        ...state,
-        balance: action.newBalance
-      };
     case 'LOGOUT':
       return {};
     default:
