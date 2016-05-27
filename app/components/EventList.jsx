@@ -1,8 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux';
+// App imports
 import Event from 'Event';
 
 
-export default class EventList extends React.Component {
+export class EventList extends React.Component {
   static propTypes = {
     events: React.PropTypes.array.isRequired,
   };
@@ -34,3 +36,10 @@ export default class EventList extends React.Component {
     );
   }
 }
+
+
+export default connect((state) => {
+  return {
+    events: state.events
+  };
+})(EventList);

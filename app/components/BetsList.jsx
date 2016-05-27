@@ -1,7 +1,7 @@
 import React from 'react';
 // App components
 import Bet from 'Bet';
-import {Bets} from 'fixtures';
+import {Bets} from 'app/fixtures';
 
 
 export default class BetsList extends React.Component {

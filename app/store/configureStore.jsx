@@ -1,18 +1,20 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
-var {userReducer, eventsReducer, betsReducer, playersReducer} = require('reducers');
+import * as reducers from 'reducers';
+
 
 export var configure = (initialState = {}) => {
   var reducer = redux.combineReducers({
-    user: userReducer,
-    events: eventsReducer,
-    bets: betsReducer,
-    players: playersReducer
+    user:    reducers.userReducer,
+    events:  reducers.eventsReducer,
+    bets:    reducers.betsReducer,
+    players: reducers.playersReducer,
+    login:   reducers.loginReducer
   });
 
   var store = redux.createStore(reducer, initialState, redux.compose(
     redux.applyMiddleware(thunk),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
+    (process.env.NODE_ENV !== 'production' && window.devToolsExtension) ? window.devToolsExtension() : f => f
   ));
 
   return store;

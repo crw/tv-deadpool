@@ -69,104 +69,36 @@ describe('Actions', () => {
 
   });
 
+  describe('Authentication Actions', () => {
+    it('should generate LOGIN action', () => {
+      var action = {
+        type: 'LOGIN',
+        token: 'abcd',
+        uid: '1234'
+      };
+      var res = actions.login(action.uid, action.token);
+      expect(res).toEqual(action);
+    });
 
-  // describe('Thunk Actions', () => {
+    it('should generate LOGOUT action', () => {
+      var action = {type: 'LOGOUT'};
+      var res = actions.logout();
+      expect(res).toEqual(action);
+    });
 
-  //   var uid = 'abc123';
-  //   var todosRef;
-  //   var testTodoRef;
-  //   var testTodoId;
+    it('should generate START_LOGIN_GOOGLE action', () => {
+      var action = {type: 'START_LOGIN_GOOGLE'};
+      var res = actions.startLoginGoogle();
+      expect(res).toEqual(action);
+    });
 
-  //   var testTodo = {
-  //     text: 'Test startToggleTodo',
-  //     completed: false,
-  //     createdAt: 3000
-  //   };
+    it('should generate START_LOGOUT action', () => {
+      var action = {type: 'START_LOGOUT'};
+      var res = actions.startLogout();
+      expect(res).toEqual(action);
+    });
 
-  //   beforeEach((done) => {
-  //     console.log(process.env.FIREBASE_SERVICE_ACCOUNT_FILE);
-  //     var token = firebase.auth().createCustomToken(uid);
-  //     // var todosRef = firebaseRef.child('todos');
+  });
 
-  //     firebase.auth().signInWithCustomToken(token).then(() => {
-  //       todosRef = getUserRef(uid).child('todos');
-  //     }, () => {
-  //       todosRef = getUserRef(uid).child('todos');
-  //     }).then(() => {
-  //       return todosRef.remove();
-  //     }).then(() => {
-  //       testTodoRef = todosRef.push();
-  //       return testTodoRef.set(testTodo);
-  //     }).then(() => {
-  //       testTodoId = testTodoRef.key;
-  //       done();
-  //     }, done);
-  //   });
-
-  //   afterEach((done) => {
-  //     todosRef.remove((e) => done(e));
-  //   });
-
-  //   it('should create todo and dispatch ADD_TODO', (done) => {
-  //     const store = createMockStore({login: {uid}});
-  //     const todoText = 'My todo item';
-
-  //     store.dispatch(actions.startAddTodo(todoText)).then(() => {
-  //       const actions = store.getActions();
-  //       expect(actions[0]).toInclude({
-  //         type: 'ADD_TODO'
-  //       });
-  //       expect(actions[0].todo).toInclude({
-  //         text: todoText
-  //       });
-  //       done();
-  //     }).catch(done);
-  //   });
-
-  //   it('should toggle todo and dispatch TOGGLE_TODO action', (done) => {
-  //     const store = createMockStore({
-  //       login: {
-  //         uid
-  //       },
-  //       todos: [{
-  //         id: testTodoId,
-  //         text: 'Test startToggleTodo',
-  //         completed: false,
-  //         completedAt: undefined,
-  //         createdAt: 3000
-  //       }]});
-
-  //     store.dispatch(actions.startToggleTodo(testTodoId)).then(() => {
-  //       const actions = store.getActions();
-
-  //       testTodoRef.once('value').then((snapshot) => {
-  //         var val = snapshot.val();
-  //         expect(val.completed).toBe(true);
-  //         expect(val.completedAt).toBeA('number');
-  //         expect(actions[0]).toInclude({
-  //           type: 'TOGGLE_TODO'
-  //         });
-  //         expect(actions[0].todo).toInclude({
-  //           id: testTodoId,
-  //           completed: true
-  //         });
-  //         done();
-  //       }, done);
-  //     }, done);
-  //   });
-
-  //   it('should fetch todos and generate ADD_TODOS action', (done) => {
-  //     const store = createMockStore({login: {uid}});
-  //     store.dispatch(actions.startAddTodos()).then(() => {
-  //       const actions = store.getActions();
-  //       expect(actions[0].type).toEqual('ADD_TODOS');
-  //       expect(actions[0].todos.length).toBe(1);
-  //       expect(actions[0].todos[0]).toInclude(testTodo);
-  //       done();
-  //     }, done);
-
-  //   });
-
-  // });
 
 });

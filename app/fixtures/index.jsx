@@ -1,40 +1,57 @@
+import moment from 'moment';
+
 export var User = {
-  id: '1',
-  login_id: 'crw@crw.xyz',
   name: 'Craig',
-  pic: undefined,
   balance: 70,
   winnings: 0,
   losses: 0,
+  labels: {
+    'AVClub Staffer': true
+  },
   bets: [
     {
       id: '1',
       amount: 30,
       comment: 'Seems like a safe bet',
-      created_at: '2016-05-23T22:58:00Z',
-      updated_at: '2016-05-23T22:58:00Z'
+      created_at: moment().unix(),
+      updated_at: moment().unix()
     }
-  ]
+  ],
+  created_at: moment().unix(),
+  updated_at: moment().unix()
 };
+
+export var scoreboard = [
+  {
+    uid: '123',
+    winnings: 150,
+    losses: 250,
+    balance: 0,
+    updated_at: moment().unix(),
+    labels: {
+      'AVClub Staffer': true
+    }
+  }
+];
 
 export var Bets = [
   {
     id: '1',
     event_id: '5',
     name: 'Loras Tyrell',
-    desc: undefined,
+    desc: '',
     odds: {
       payout: 3,
       wager: 1
     },
-    paid: undefined,
+    paid: false,
     closed: false,
-    note: undefined,
+    note: '',
     official: true,
     order: 1,
     published: true,
-    created_at: '',
-    updated_at: ''
+    created_at: moment().unix(),
+    updated_at: moment().unix()
   }, {
     id: '2',
     event_id: '5',
@@ -44,87 +61,87 @@ export var Bets = [
       payout: 4,
       wager: 1
     },
-    paid: undefined,
+    paid: false,
     closed: false,
-    note: undefined,
+    note: '',
     official: true,
     order: 2,
     published: true,
-    created_at: '',
-    updated_at: ''
+    created_at: moment().unix(),
+    updated_at: moment().unix()
   }, {
     id: '3',
     event_id: '5',
     name: 'Rickon Stark',
-    desc: undefined,
+    desc: '',
     odds: {
       payout: 4,
       wager: 1
     },
-    paid: undefined,
+    paid: false,
     closed: false,
-    note: undefined,
+    note: '',
     official: true,
     order: 3,
     published: true,
-    created_at: '',
-    updated_at: ''
+    created_at: moment().unix(),
+    updated_at: moment().unix()
   }, {
     id: '4',
     event_id: '5',
     name: 'Jorah Mormont',
-    desc: undefined,
+    desc: '',
     odds: {
       payout: 5,
       wager: 1
     },
-    paid: undefined,
+    paid: false,
     closed: false,
-    note: undefined,
+    note: '',
     official: true,
     order: 3,
     published: true,
-    created_at: '',
-    updated_at: ''
+    created_at: moment().unix(),
+    updated_at: moment().unix()
   }, {
     id: '5',
     event_id: '4',
     name: 'Ramsay Bolton',
-    desc: undefined,
+    desc: '',
     odds: {
       payout: 2,
       wager: 1
     },
     paid: false,
     closed: true,
-    note: undefined,
+    note: '',
     official: true,
     order: 1,
     published: true,
-    created_at: '2016-05-13T08:00:00Z',
-    updated_at: undefined
+    created_at: moment().unix(),
+    updated_at: moment().unix()
   }, {
     id: '6',
     event_id: '4',
     name: 'Rickon Stark',
-    desc: undefined,
+    desc: '',
     odds: {
       payout: 3,
       wager: 1
     },
     paid: false,
     closed: true,
-    note: undefined,
+    note: '',
     official: true,
     order: 2,
     published: true,
-    created_at: '2016-05-13T08:00:00Z',
-    updated_at: undefined
+    created_at: moment().unix(),
+    updated_at: moment().unix()
   }, {
     id: '7',
     event_id: '4',
     name: 'Osha',
-    desc: undefined,
+    desc: '',
     odds: {
       payout: 4,
       wager: 1
@@ -135,8 +152,8 @@ export var Bets = [
     official: true,
     order: 2,
     published: true,
-    created_at: '2016-05-13T08:00:00Z',
-    updated_at: undefined
+    created_at: moment().unix(),
+    updated_at: moment().unix()
   }
 ];
 
@@ -154,8 +171,8 @@ export var Events = [
     article: 'http://www.avclub.com/article/beware-greyscale-here-are-weeks-game-thrones-dead--236988',
     order: 5,
     published: true,
-    created_at: '2016-05-22T22:57:00Z',
-    updated_at: undefined
+    created_at: moment().unix(),
+    updated_at: moment().unix()
   }, {
     id: '4',
     type: 'TV_EPISODE',
@@ -163,14 +180,14 @@ export var Events = [
     episode: 4,
     series: 'Game of Thrones',
     name: 'Book of the Stranger',
-    aired: false,
+    aired: true,
     air_at: '2016-05-16T02:00:00Z',
     lock_at: '2016-05-15T02:00:00Z',
     article: 'http://www.avclub.com/article/all-boltons-must-die-here-are-weeks-game-thrones-d-236628',
-    order: 5,
+    order: 4,
     published: true,
-    created_at: '2016-05-22T22:57:00Z',
-    updated_at: undefined
+    created_at: moment().unix(),
+    updated_at: moment().unix()
   }
 ];
 

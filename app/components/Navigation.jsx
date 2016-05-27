@@ -1,9 +1,27 @@
 import React from 'react';
-var {Link, IndexLink} = require('react-router');
+import {connect} from 'react-redux';
+import {Link, IndexLink} from 'react-router';
+// App imports
+import {startLogout} from 'actions';
 
 
-export var Navigation = React.createClass({
-  render: function () {
+export class Navigation extends React.Component {
+  static propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+  };
+
+  constructor(props) {
+    super(props);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout(e) {
+    var {dispatch} = this.props;
+    e.preventDefault();
+    dispatch(startLogout());
+  }
+
+  render() {
     return (
       <div className="top-bar">
         <div className="top-bar-left">
@@ -14,19 +32,22 @@ export var Navigation = React.createClass({
             <li>
               <IndexLink to="/" activeClassName="link-active">Bets</IndexLink>
             </li>
+            <li>
+              <Link to="/profile" activeClassName="link-active">You</Link>
+            </li>
           </ul>
         </div>
         <div className="top-bar-right">
           <ul className="menu">
             <li>
-              <Link to="/profile" activeClassName="link-active">Your Profile</Link>
+              <a href="#" onClick={this.handleLogout}>Logout</a>
             </li>
           </ul>
         </div>
       </div>
     );
   }
-});
+}
 
 
-export default Navigation;
+export default connect()(Navigation);

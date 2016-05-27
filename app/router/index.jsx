@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Router, IndexRoute, hashHistory} from 'react-router';
 // App components
 import GoTApp from 'GoTApp';
-import Main from 'Main';
+import GameBoard from 'GameBoard';
 import Profile from 'Profile';
 // import firebase from 'TodoFirebase';
 
@@ -25,7 +25,7 @@ export default (
   <Router history={hashHistory}>
     <Route path="/" component={GoTApp}>
       <Route path="profile" component={Profile}/>
-      <IndexRoute component={Main}/>
+      <IndexRoute component={GameBoard}/>
     </Route>
   </Router>
 );

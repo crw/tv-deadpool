@@ -1,16 +1,18 @@
 {
-  "name": "got-deadpool",
+  "name": "tv-deadpool",
   "private": true,
   "version": "1.0.0",
   "description": "TV Show Dead Pool game.",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/crw/got-deadpool.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crw/tv-deadpool.git"
   },
   "author": "Craig Wright",
   "license": "UNLICENSED",
   "main": "index.js",
   "scripts": {
+    "dev": "webpack -d",
+    "dist": "webpack -p",
     "test": "karma start",
     "start": "node server.js"
   },
@@ -24,7 +26,10 @@
     "css-loader": "^0.23.1",
     "expect": "^1.14.0",
     "express": "^4.13.4",
+    "extract-text-webpack-plugin": "^0.9.0",
+    "file-loader": "^0.8.1",
     "firebase": "^3.0.2",
+    "font-awesome": "^4.6.3",
     "foundation-sites": "^6.2.0",
     "jquery": "^2.2.1",
     "moment": "^2.12.0",
@@ -42,9 +47,11 @@
     "sass-loader": "^3.1.2",
     "script-loader": "^0.6.1",
     "style-loader": "^0.13.1",
+    "url-loader": "^0.5.5",
     "webpack": "^1.12.13"
   },
   "devDependencies": {
+    "babel-cli": "^6.9.0",
     "deep-freeze-strict": "^1.1.1",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2.2",

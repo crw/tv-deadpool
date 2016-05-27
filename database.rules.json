@@ -1,0 +1,12 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth.uid === 'secret-service-worker'",
+    "users": {
+      "$uid": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    }
+  }
+}
