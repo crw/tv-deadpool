@@ -23,26 +23,30 @@ export class Navigation extends React.Component {
 
   render() {
     return (
-      <div className="top-bar">
-        <div className="top-bar-left">
-          <ul className="menu">
-            <li className="menu-text">
-              TV Deadpool
-            </li>
-            <li>
-              <IndexLink to="/" activeClassName="link-active">Bets</IndexLink>
-            </li>
-            <li>
-              <Link to="/profile" activeClassName="link-active">You</Link>
-            </li>
-          </ul>
-        </div>
-        <div className="top-bar-right">
-          <ul className="menu">
-            <li>
-              <a href="#" onClick={this.handleLogout}>Logout</a>
-            </li>
-          </ul>
+      <div className="top-bar navigation">
+        <div className="row">
+          <div className="small-12 columns">
+            <div className="top-bar-left">
+              <ul className="menu">
+                <li className="menu-text">
+                  TV Deadpool
+                </li>
+                <li>
+                  <IndexLink to="/" activeClassName="link-active">Bets</IndexLink>
+                </li>
+                <li>
+                  <Link to="/profile" activeClassName="link-active">You</Link>
+                </li>
+              </ul>
+            </div>
+            <div className="top-bar-right">
+              <ul className="menu">
+                <li>
+                  <a href="#" onClick={this.handleLogout}>Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     );

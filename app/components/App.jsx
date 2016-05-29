@@ -6,7 +6,9 @@ var GoTApp = (props) => {
   return (
     <div>
       <Navigation />
-      {props.children}
+      <div className="content">
+        {props.children}
+      </div>
     </div>
   );
 };

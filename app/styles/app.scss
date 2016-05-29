@@ -5,11 +5,38 @@
 @import "foundation";
 @include foundation-everything();
 
+// Slight Foundation Tweak
+@media screen and (min-width: 40em) {
+  .column, .columns {
+      padding-left: .5rem;
+      padding-right: .5rem;
+  }
+  .row .row {
+      margin-left: inherit;
+      margin-right: inherit;
+  }
+}
+
+// Mixins
+@import "components/cheesy-black-gradient";
+
 // Components
 @import "components/balance";
 @import "components/bet";
-@import "components/cheesy-black-gradient";
+@import "components/container";
 @import "components/event";
 @import "components/navigation";
 @import "components/wager";
 @import "components/wager-form";
+
+.content {
+  margin-top: 3.5rem;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}

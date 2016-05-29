@@ -1,5 +1,6 @@
 import moment from 'moment';
 // App imports
+import {now} from 'app/utils';
 import {getUserRef} from 'app/api/firebase';
 import PROVIDERS from 'app/constants/providers';
 
@@ -66,27 +67,6 @@ export var placeWager = (bet) => {
   };
 };
 
-// export var testPlaceWager = (betId, wager, balance) => {
-
-//   return (dispatch, getStore) => {
-
-//     let userRef = getUserRef(getStore().login.uid);
-
-//     var newBalance = balance;
-
-//     var updateData = { };
-//     updateData['balance'] = newBalance;
-//     updateData[`wagers/${betId}`] = {
-//       id: betId,
-//       updated_at: moment().unix(),
-//       wager,
-//       comment: 'testing wagers and balances'
-//     };
-//     userRef.update(updateData).then(() => {}, (e) => {
-//       console.log('Error placing wager:', e);
-//     });
-//   };
-// };
 
 export var startPlaceWager = (betId, wager, comment) => {
   return (dispatch, getStore) => {
@@ -98,13 +78,13 @@ export var startPlaceWager = (betId, wager, comment) => {
     var newBalance = user.balance + prevWagerAmount - wager;
 
     if (newBalance >= 0) {
-      var createData = (!prevWager) ? {created_at: moment().unix()} : {};
+      var createData = !prevWager ? {created_at: now()} : {created_at: prevWager.created_at};
       var updateData = { };
       updateData['balance'] = newBalance;
       updateData[`wagers/${betId}`] = {
         ...createData,
         id: betId,
-        updated_at: moment().unix(),
+        updated_at: now(),
         wager,
         comment
       };
@@ -168,14 +148,14 @@ export var startLoginWith = (providerData) => {
           return {
             ...newUserData,
             balance: 100,
-            created_at: moment().unix()
+            created_at: now()
           };
         } else {
           // Existing user, just updating to latest data
           return {
             ...user,
             ...newUserData,
-            updated_at: moment().unix()
+            updated_at: now()
           };
         }
       }, (error, committed) => {

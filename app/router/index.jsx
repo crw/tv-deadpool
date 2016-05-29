@@ -1,31 +1,16 @@
 import React from 'react';
 import {Route, Router, IndexRoute, hashHistory} from 'react-router';
 // App components
-import GoTApp from 'GoTApp';
+import App from 'App';
 import GameBoard from 'GameBoard';
 import Profile from 'Profile';
-// import firebase from 'TodoFirebase';
 
-
-// var requireLogin = (nextState, replace, next) => {
-//   if (!firebase.auth().currentUser) {
-//     replace('/');
-//   }
-//   next();
-// };
-
-// var redirectIfLoggedIn = (nextState, replace, next) => {
-//   if (firebase.auth().currentUser) {
-//     replace('/');
-//   }
-//   next();
-// };
 
 export default (
   <Router history={hashHistory}>
-    <Route path="/" component={GoTApp}>
-      <Route path="profile" component={Profile}/>
+    <Route path="/" component={App}>
       <IndexRoute component={GameBoard}/>
+      <Route path="profile" component={Profile}/>
     </Route>
   </Router>
 );

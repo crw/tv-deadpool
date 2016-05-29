@@ -18,6 +18,16 @@ export function sortObjectsByKey(key = 'order', reverse=false) {
   };
 }
 
+/**
+ * Is it an object?
+ */
 export function isObject(obj) {
   return (typeof obj === "object") && (obj !== null);
+}
+
+/**
+ * Returns the time now in milliseconds from Jan 1, 1970 UTC.
+ */
+export function now() {
+  return Date.now();
 }

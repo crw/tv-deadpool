@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 // App imports
+import {now} from 'app/utils';
 import Wager from 'Wager';
 import WagerForm from 'WagerForm';
 
@@ -15,7 +16,7 @@ export class Bet extends React.Component {
 
 
   render() {
-    var {id, odds_payout, odds_wager, name, desc, closed} = this.props;
+    var {id, odds_payout, odds_wager, name, desc, closed, login} = this.props;
 
     return (
       <div className="bet__container">
@@ -28,8 +29,8 @@ export class Bet extends React.Component {
             <span className="desc">{desc}</span>
           </div>
         </div>
-        <Wager id={id}/>
-        {(closed) ? '' : <WagerForm id={id}/>}
+        { login ? <Wager id={id}/> : ''}
+        { login && !closed ? <WagerForm id={id}/> : ''}
       </div>
     );
   }
@@ -38,6 +39,7 @@ export class Bet extends React.Component {
 export default connect((state, ownProps) => {
   return {
     ...state.bets[ownProps.id],
-    closed: state.events[state.bets[ownProps.id].event_id].closed
+    closed: state.events[state.bets[ownProps.id].event_id].lock_at < now(),
+    login: state.login
   };
 })(Bet);

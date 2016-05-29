@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-let i = 1;
+let i = 0;
 
 export const Bets = {
   '6': [
@@ -12,10 +12,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'Septa Unella',
       desc: '',
@@ -24,10 +24,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'Loras Tyrell',
       desc: '',
@@ -36,10 +36,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'Kevan Lannister',
       desc: '',
@@ -48,10 +48,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'Meera Reed',
       desc: '',
@@ -60,10 +60,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'Tommen Baratheon',
       desc: '',
@@ -72,10 +72,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'Daario Naharis',
       desc: '',
@@ -84,10 +84,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'Any of the Greyjoys',
       desc: '',
@@ -96,22 +96,22 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
-      name: 'The field',
+      name: 'The Field',
       desc: 'Samwell Tarly, Randyll Tarly, Gilly, any of the people in the pyramid at Meereen (Tyrion, Varys, Grey Worm, or Missandei), any of Daenerys’ new khaleesi friends, or any of the wolves',
       odds_payout: 15,
       odds_wager: 1,
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'The Mountain',
       desc: '',
@@ -120,10 +120,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'Margaery Tyrell',
       desc: '',
@@ -132,10 +132,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'Olenna Tyrell',
       desc: '',
@@ -144,10 +144,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'Littlefinger',
       desc: '',
@@ -156,10 +156,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'The Night’s King',
       desc: '',
@@ -168,10 +168,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'Jaime Lannister',
       desc: '',
@@ -180,10 +180,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'Bran',
       desc: '',
@@ -192,10 +192,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'Any of the dragons',
       desc: '',
@@ -204,10 +204,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'Over on total deaths: 5.5',
       desc: '',
@@ -216,10 +216,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
       name: 'Under on total deaths: 5.5',
       desc: '',
@@ -228,10 +228,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-27T09:00:00Z').unix(),
-      updated_at: moment('2016-05-27T09:00:00Z').unix()
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }
   ],
   '5': [
@@ -243,10 +243,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: i=1,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Kevan Lannister',
       desc: 'The Hand of the King',
@@ -255,10 +255,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Rickon Stark',
       desc: '',
@@ -267,10 +267,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Jorah Mormont',
       desc: '',
@@ -279,10 +279,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Daario Naharis',
       desc: '',
@@ -291,10 +291,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Theon, Yara, or Aeron Greyjoy',
       desc: '',
@@ -303,10 +303,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'The Field',
       desc: 'Grand Maester Pycelle, The Night’s King, Meera Reed, Leaf, Daenerys’ new khaleesi friend, the High Priestess Of The Dosh Khaleen, or any of the emissaries Tyrion made a deal with this past week',
@@ -315,10 +315,10 @@ export const Bets = {
       paid: true,
       note: 'Leaf.',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Robin Arryn',
       desc: '',
@@ -327,10 +327,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Varys',
       desc: '',
@@ -339,10 +339,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Grey Worm',
       desc: '',
@@ -351,10 +351,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Littlefinger',
       desc: '',
@@ -363,10 +363,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Littlefinger',
       desc: '',
@@ -375,10 +375,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'No one on our list dies',
       desc: '',
@@ -387,10 +387,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'The Three-Eyed Raven',
       desc: '',
@@ -399,10 +399,10 @@ export const Bets = {
       paid: true,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Ramsay Bolton',
       desc: '',
@@ -411,10 +411,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Missandei',
       desc: '',
@@ -423,10 +423,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Bran Stark',
       desc: '',
@@ -435,10 +435,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Melisandre',
       desc: '',
@@ -447,10 +447,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Over on total deaths: 4 ½',
       desc: '',
@@ -459,10 +459,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
       name: 'Under on total deaths: 4 ½',
       desc: '',
@@ -471,10 +471,10 @@ export const Bets = {
       paid: true,
       note: 'Three-Eyed Raven, Summer, Leaf, Hodor.',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-20T00:00:00Z').unix(),
-      updated_at: moment('2016-05-20T00:00:00Z').unix()
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }
   ],
 
@@ -487,10 +487,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: i=1,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Rickon Stark',
       desc: '',
@@ -499,10 +499,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Osha',
       desc: '',
@@ -511,10 +511,10 @@ export const Bets = {
       paid: true,
       note: 'Stabbed in the neck by Ramsay Bolton.',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Tommen Baratheon',
       desc: '',
@@ -523,10 +523,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Theon Greyjoy',
       desc: '',
@@ -535,10 +535,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Yara Greyjoy',
       desc: '',
@@ -547,10 +547,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Aeron Greyjoy',
       desc: '',
@@ -559,10 +559,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Smalljon Umber',
       desc: '',
@@ -571,10 +571,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Khal Moro',
       desc: '',
@@ -583,10 +583,10 @@ export const Bets = {
       paid: true,
       note: 'Burned alive in Vaes Dothrak by Daenerys Targaryen.',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Grey Worm',
       desc: '',
@@ -595,10 +595,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Eddison Tollett',
       desc: '',
@@ -607,10 +607,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Tormund Giantsbane',
       desc: '',
@@ -619,10 +619,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'One of the wolves dies',
       desc: '',
@@ -631,10 +631,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Walder Frey',
       desc: '',
@@ -643,10 +643,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Loras Tyrell',
       desc: '',
@@ -655,10 +655,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Littlefinger',
       desc: '',
@@ -667,10 +667,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Qyburn',
       desc: '',
@@ -679,10 +679,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Ellaria Sand',
       desc: '',
@@ -691,10 +691,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Any one of the Sand Snakes',
       desc: '',
@@ -703,10 +703,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Gilly',
       desc: '',
@@ -715,10 +715,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Samwell Tarly',
       desc: '',
@@ -727,10 +727,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Randyll Tarly',
       desc: '',
@@ -739,10 +739,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Ser Gregor Clegane',
       desc: '(a.k.a. The Mountain, a.k.a. Robert Strong)',
@@ -751,10 +751,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'No one on our list dies',
       desc: '',
@@ -763,10 +763,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Robin Arryn',
       desc: '',
@@ -775,10 +775,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Davos Seaworth',
       desc: '',
@@ -787,10 +787,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Over on deaths: 3 ½',
       desc: '',
@@ -799,10 +799,10 @@ export const Bets = {
       paid: true,
       note: 'Osha, Khal Moro, Khal Rhalko, Khal Forzo.',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
       name: 'Under on deaths: 3 ½',
       desc: '',
@@ -811,10 +811,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }
   ],
   '3': [
@@ -826,10 +826,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: i=1,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Alliser Thorne',
       desc: '',
@@ -838,10 +838,10 @@ export const Bets = {
       paid: true,
       note: 'Executed by Jon Snow.',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Tommen Baratheon',
       desc: '',
@@ -850,10 +850,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Jorah Mormont',
       desc: '',
@@ -862,10 +862,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Theon Greyjoy',
       desc: '',
@@ -874,10 +874,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Ramsay Bolton',
       desc: '',
@@ -886,10 +886,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'No one from our list dies this week',
       desc: '',
@@ -898,10 +898,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'The High Sparrow',
       desc: '',
@@ -910,10 +910,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Podrick Payne',
       desc: '',
@@ -922,10 +922,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Olly',
       desc: '',
@@ -934,10 +934,10 @@ export const Bets = {
       paid: true,
       note: 'Executed by Jon Snow.',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Brienne Of Tarth',
       desc: '',
@@ -946,10 +946,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Varys',
       desc: '',
@@ -958,10 +958,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Grey Worm',
       desc: '',
@@ -970,10 +970,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Jaime Lannister',
       desc: '',
@@ -982,10 +982,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Margaery Tyrell',
       desc: '',
@@ -994,10 +994,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Sansa Stark',
       desc: '',
@@ -1006,10 +1006,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Any of the dragons',
       desc: '',
@@ -1018,10 +1018,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Melisandre',
       desc: '',
@@ -1030,10 +1030,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Over on total deaths: 4 ½',
       desc: '',
@@ -1042,10 +1042,10 @@ export const Bets = {
       paid: true,
       note: 'Alliser Thorne, Olly, Othell Yarwyck, Bowen Marsh, Shaggydog, Ser Arthur Dayne, Gerold Hightower.',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
       name: 'Under on total deaths: 4 ½',
       desc: '',
@@ -1054,10 +1054,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-05-06T00:00:00Z').unix(),
-      updated_at: moment('2016-05-06T00:00:00Z').unix()
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }
   ],
   '2': [
@@ -1069,10 +1069,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: i=1,
       published: true,
-      created_at: moment('2016-04-29T00:00:00Z').unix(),
-      updated_at: moment('2016-04-29T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
       name: 'Davos Seaworth',
       desc: '',
@@ -1081,10 +1081,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-04-29T00:00:00Z').unix(),
-      updated_at: moment('2016-04-29T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
       name: 'Theon Greyjoy',
       desc: '',
@@ -1093,10 +1093,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-04-29T00:00:00Z').unix(),
-      updated_at: moment('2016-04-29T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
       name: 'Jorah Mormont',
       desc: '',
@@ -1105,10 +1105,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-04-29T00:00:00Z').unix(),
-      updated_at: moment('2016-04-29T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
       name: 'Tommen Baratheon',
       desc: '',
@@ -1117,10 +1117,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-04-29T00:00:00Z').unix(),
-      updated_at: moment('2016-04-29T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
       name: 'Ellaria Sand',
       desc: '',
@@ -1129,10 +1129,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-04-29T00:00:00Z').unix(),
-      updated_at: moment('2016-04-29T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
       name: 'Loras Tyrell',
       desc: '',
@@ -1141,10 +1141,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-04-29T00:00:00Z').unix(),
-      updated_at: moment('2016-04-29T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
       name: 'Tyrion Lannister',
       desc: '',
@@ -1153,10 +1153,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-04-29T00:00:00Z').unix(),
-      updated_at: moment('2016-04-29T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
       name: 'Melisandre',
       desc: '',
@@ -1165,10 +1165,10 @@ export const Bets = {
       paid: false,
       note: '',
       official: true,
-      order: i++,
+      order: ++i,
       published: true,
-      created_at: moment('2016-04-29T00:00:00Z').unix(),
-      updated_at: moment('2016-04-29T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }
   ]
 };

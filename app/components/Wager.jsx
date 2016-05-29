@@ -1,4 +1,4 @@
-import moment from 'moment';
+import {now} from 'app/utils';
 import React from 'react';
 import {connect} from 'react-redux';
 // App imports
@@ -69,7 +69,7 @@ export default connect((state, ownProps) => {
     };
   let paid = bet.paid;
   let payout = (wager.wager * bet.odds_payout) / bet.odds_wager;
-  let closed = event.lock_at < moment().unix();
+  let closed = event.lock_at < now();
   return {
     ...wager,
     paid,

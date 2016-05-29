@@ -15,8 +15,13 @@ export class Balance extends React.Component {
     var {balance} = this.props;
 
     return (
-      <div className="player-balance">
-        Balance: ${balance.toLocaleString({currency: 'USD'})}
+      <div className="player-balance container">
+        <div className="balance-label">
+          Balance:
+        </div>
+        <div className="balance-value">
+          ${balance.toLocaleString({currency: 'USD'})}
+        </div>
       </div>
     );
   }
@@ -24,6 +29,6 @@ export class Balance extends React.Component {
 
 export default connect((state) => {
   return {
-    balance: state.user.balance
+    balance: state.user.balance || 0
   };
 })(Balance);
