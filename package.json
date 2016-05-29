@@ -14,7 +14,10 @@
     "dev": "webpack -d",
     "dist": "webpack -p",
     "test": "karma start",
-    "start": "node server.js"
+    "start": "node server.js",
+    "start-dev": "webpack-dev-server --content-base public/ --port 3000",
+    "babel": "babel-node",
+    "lint": "eslint"
   },
   "dependencies": {
     "axios": "^0.11.0",
@@ -53,12 +56,14 @@
   "devDependencies": {
     "babel-cli": "^6.9.0",
     "deep-freeze-strict": "^1.1.1",
+    "eslint": "^2.10.2",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2.2",
     "karma-mocha": "^0.2.2",
     "karma-mocha-reporter": "^2.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "webpack-dev-server": "^1.14.1"
   }
 }

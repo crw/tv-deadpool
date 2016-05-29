@@ -2,8 +2,238 @@ import moment from 'moment';
 
 let i = 1;
 
-export var Bets = {
-  '6': [],
+export const Bets = {
+  '6': [
+    {
+      name: 'The High Sparrow',
+      desc: '',
+      odds_payout: 2,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'Septa Unella',
+      desc: '',
+      odds_payout: 2,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'Loras Tyrell',
+      desc: '',
+      odds_payout: 3,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'Kevan Lannister',
+      desc: '',
+      odds_payout: 4,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'Meera Reed',
+      desc: '',
+      odds_payout: 5,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'Tommen Baratheon',
+      desc: '',
+      odds_payout: 8,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'Daario Naharis',
+      desc: '',
+      odds_payout: 10,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'Any of the Greyjoys',
+      desc: '',
+      odds_payout: 10,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'The field',
+      desc: 'Samwell Tarly, Randyll Tarly, Gilly, any of the people in the pyramid at Meereen (Tyrion, Varys, Grey Worm, or Missandei), any of Daenerys’ new khaleesi friends, or any of the wolves',
+      odds_payout: 15,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'The Mountain',
+      desc: '',
+      odds_payout: 20,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'Margaery Tyrell',
+      desc: '',
+      odds_payout: 25,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'Olenna Tyrell',
+      desc: '',
+      odds_payout: 25,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'Littlefinger',
+      desc: '',
+      odds_payout: 25,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'The Night’s King',
+      desc: '',
+      odds_payout: 50,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'Jaime Lannister',
+      desc: '',
+      odds_payout: 50,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'Bran',
+      desc: '',
+      odds_payout: 100,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'Any of the dragons',
+      desc: '',
+      odds_payout: 100,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'Over on total deaths: 5.5',
+      desc: '',
+      odds_payout: 1,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }, {
+      name: 'Under on total deaths: 5.5',
+      desc: '',
+      odds_payout: 1,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: i++,
+      published: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix(),
+      updated_at: moment('2016-05-27T09:00:00Z').unix()
+    }
+  ],
   '5': [
     {
       name: 'Loras Tyrell',
@@ -279,7 +509,7 @@ export var Bets = {
       odds_payout: 4,
       odds_wager: 1,
       paid: true,
-      note: 'Stabbed to death by Ramsay Bolton.',
+      note: 'Stabbed in the neck by Ramsay Bolton.',
       official: true,
       order: i++,
       published: true,
@@ -351,7 +581,7 @@ export var Bets = {
       odds_payout: 10,
       odds_wager: 1,
       paid: true,
-      note: 'Murdered by Daenerys.',
+      note: 'Burned alive in Vaes Dothrak by Daenerys Targaryen.',
       official: true,
       order: i++,
       published: true,
@@ -566,8 +796,8 @@ export var Bets = {
       desc: '',
       odds_payout: 1,
       odds_wager: 1,
-      paid: false,
-      note: '',
+      paid: true,
+      note: 'Osha, Khal Moro, Khal Rhalko, Khal Forzo.',
       official: true,
       order: i++,
       published: true,
@@ -809,8 +1039,8 @@ export var Bets = {
       desc: '',
       odds_payout: 1,
       odds_wager: 1,
-      paid: false,
-      note: '',
+      paid: true,
+      note: 'Alliser Thorne, Olly, Othell Yarwyck, Bowen Marsh, Shaggydog, Ser Arthur Dayne, Gerold Hightower.',
       official: true,
       order: i++,
       published: true,
@@ -841,8 +1071,8 @@ export var Bets = {
       official: true,
       order: i++,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix(),
+      updated_at: moment('2016-04-29T00:00:00Z').unix()
     }, {
       name: 'Davos Seaworth',
       desc: '',
@@ -853,8 +1083,8 @@ export var Bets = {
       official: true,
       order: i++,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix(),
+      updated_at: moment('2016-04-29T00:00:00Z').unix()
     }, {
       name: 'Theon Greyjoy',
       desc: '',
@@ -865,8 +1095,8 @@ export var Bets = {
       official: true,
       order: i++,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix(),
+      updated_at: moment('2016-04-29T00:00:00Z').unix()
     }, {
       name: 'Jorah Mormont',
       desc: '',
@@ -877,8 +1107,8 @@ export var Bets = {
       official: true,
       order: i++,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix(),
+      updated_at: moment('2016-04-29T00:00:00Z').unix()
     }, {
       name: 'Tommen Baratheon',
       desc: '',
@@ -889,8 +1119,8 @@ export var Bets = {
       official: true,
       order: i++,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix(),
+      updated_at: moment('2016-04-29T00:00:00Z').unix()
     }, {
       name: 'Ellaria Sand',
       desc: '',
@@ -901,8 +1131,8 @@ export var Bets = {
       official: true,
       order: i++,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix(),
+      updated_at: moment('2016-04-29T00:00:00Z').unix()
     }, {
       name: 'Loras Tyrell',
       desc: '',
@@ -913,8 +1143,8 @@ export var Bets = {
       official: true,
       order: i++,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix(),
+      updated_at: moment('2016-04-29T00:00:00Z').unix()
     }, {
       name: 'Tyrion Lannister',
       desc: '',
@@ -925,8 +1155,8 @@ export var Bets = {
       official: true,
       order: i++,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix(),
+      updated_at: moment('2016-04-29T00:00:00Z').unix()
     }, {
       name: 'Melisandre',
       desc: '',
@@ -937,8 +1167,11 @@ export var Bets = {
       official: true,
       order: i++,
       published: true,
-      created_at: moment('2016-05-13T00:00:00Z').unix(),
-      updated_at: moment('2016-05-13T00:00:00Z').unix()
+      created_at: moment('2016-04-29T00:00:00Z').unix(),
+      updated_at: moment('2016-04-29T00:00:00Z').unix()
     }
   ]
 };
+
+
+export default Bets;

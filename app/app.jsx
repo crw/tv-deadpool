@@ -6,8 +6,6 @@ import {hashHistory} from 'react-router';
 import {getCurrentUser} from 'app/api/firebase';
 import * as actions from 'actions';
 import router from 'app/router';
-// App fixtures
-import * as fixtures from 'app/fixtures';
 
 
 // Load Foundation
@@ -19,15 +17,12 @@ require('font-awesome/css/font-awesome.css');
 
 
 var store = require('configureStore').configure();
-// Redux testing
-// store.subscribe(() => {
-//   var state = store.getState();
-//   console.log('State updated:', state);
-// })
 
-// // Redux fixtures setup
-store.dispatch(actions.updateEventsData(fixtures.Events));
-store.dispatch(actions.updateBetsData(fixtures.Bets));
+
+
+// Fetch Events and Bets data
+store.dispatch(actions.startEventsData());
+store.dispatch(actions.startBetsData());
 
 
 //// Login / Logout functionality
@@ -36,7 +31,7 @@ store.dispatch(actions.updateBetsData(fixtures.Bets));
 firebase.auth().onAuthStateChanged((authData) => {
   if (authData) {
     // Logged in
-    console.log('Authorizing:', authData);
+    console.log('Authorizing:', authData.providerData[0].providerId, authData.uid);
     store.dispatch(actions.login(authData.uid));
     store.dispatch(actions.startFetchUser());
     // hashHistory.push('/todos');

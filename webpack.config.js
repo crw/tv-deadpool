@@ -20,7 +20,7 @@ module.exports = {
     jquery: 'jQuery'
   },
   plugins: [
-    new ExtractTextPlugin('./public/bundle.css'),
+    new ExtractTextPlugin('bundle.css'),
     new webpack.ProvidePlugin({
       '$': 'jquery',
       'jQuery': 'jquery'
@@ -41,8 +41,9 @@ module.exports = {
     })
   ],
   output: {
-    path: __dirname,
-    filename: './public/bundle.js'
+    path: path.join(__dirname, 'public/'),
+    publicPath: '',
+    filename: 'bundle.js'
   },
   resolve: {
     root: __dirname,

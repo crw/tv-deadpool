@@ -11,12 +11,30 @@ export var updateBetsData = (updatedData) => {
   };
 };
 
+export var startBetsData = () => {
+  return (dispatch, getStore) => {
+    let betsRef = firebase.database().ref('bets');
+    betsRef.on('value', (snapshot) => {
+      dispatch(updateBetsData(snapshot.val()));
+    });
+  };
+}
+
 export var updateEventsData = (updatedData) => {
   return {
     type: 'UPDATE_EVENTS_DATA',
     updatedData
   };
 };
+
+export var startEventsData = () => {
+  return (dispatch, getStore) => {
+    let eventsRef = firebase.database().ref('events');
+    eventsRef.on('value', (snapshot) => {
+      dispatch(updateEventsData(snapshot.val()));
+    });
+  };
+}
 
 /********************************
  * User Data Manipulation Actions
@@ -34,44 +52,67 @@ export var startFetchUser = () => {
     var uid = getStore().login.uid;
     var userRef = getUserRef(uid);
 
-    return userRef.once('value').then((snapshot) => {
+    return userRef.on('value', (snapshot) => {
       var val = snapshot.val() || {};
       dispatch(updateUserData(val));
     });
   };
 };
 
-export var placeBet = (bet_id, wager, comment) => {
+export var placeWager = (bet) => {
   return {
-    type: 'PLACE_BET',
-    bet_id,
-    wager,
-    comment
+    type: 'PLACE_WAGER',
+    bet
   };
 };
 
-export var startPlaceWager = (bet_id, wager, comment) => {
+// export var testPlaceWager = (betId, wager, balance) => {
+
+//   return (dispatch, getStore) => {
+
+//     let userRef = getUserRef(getStore().login.uid);
+
+//     var newBalance = balance;
+
+//     var updateData = { };
+//     updateData['balance'] = newBalance;
+//     updateData[`wagers/${betId}`] = {
+//       id: betId,
+//       updated_at: moment().unix(),
+//       wager,
+//       comment: 'testing wagers and balances'
+//     };
+//     userRef.update(updateData).then(() => {}, (e) => {
+//       console.log('Error placing wager:', e);
+//     });
+//   };
+// };
+
+export var startPlaceWager = (betId, wager, comment) => {
   return (dispatch, getStore) => {
     var userRef = getUserRef(getStore().login.uid);
     var user = getStore().user;
-    var bet = (user.bets && user.bets.bet_id) ? user.bets.bet_id : null;
-    var prevWager = (bet) ? bet.wager : 0;
+    var prevWager = (user.wagers && user.wagers[betId]) ? user.wagers[betId] : null;
+    var prevWagerAmount = (prevWager) ? prevWager.wager : 0;
     // Refund the previous wager, charge the new wager.
-    var newBalance = (user.balance + prevWager) - wager;
+    var newBalance = user.balance + prevWagerAmount - wager;
 
     if (newBalance >= 0) {
-      var createData = (!bet) ? {created_at: moment().unix()} : {};
-      var updateData = {
-        balance: newBalance,
-        bets.bet_id {
-          ...createData,
-          updated_at: moment().unix(),
-          wager,
-          comment
-        }
+      var createData = (!prevWager) ? {created_at: moment().unix()} : {};
+      var updateData = { };
+      updateData['balance'] = newBalance;
+      updateData[`wagers/${betId}`] = {
+        ...createData,
+        id: betId,
+        updated_at: moment().unix(),
+        wager,
+        comment
       };
       userRef.update(updateData).then(() => {
-        dispatch(placeBet(bet_id, wager, comment));
+        userRef.child(`wagers/${betId}`).once('value').then((snapshot) => {
+          let val = snapshot.val();
+          // dispatch(placeWager(snapshot.val()));
+        });
       }, (e) => {
         console.log('Error placing wager:', e);
       });

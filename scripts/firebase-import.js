@@ -1,8 +1,6 @@
-var firebase = require('firebase');
-var fixtures = require('../app/fixtures');
-
-console.log(process.env.FIREBASE_API_KEY);
-console.log(process.env.FIREBASE_SERVICE_ACCOUNT_FILE);
+import firebase from 'firebase';
+import Events from '../app/fixtures/Events.jsx';
+import Bets from '../app/fixtures/Bets.jsx';
 
 // Initialize the app with a custom auth variable, limiting the server's access
 var config = {
@@ -17,45 +15,56 @@ var config = {
 };
 firebase.initializeApp(config);
 
+console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
+
 
 // The app only has access as defined in the Security Rules
 var db = firebase.database();
 var ref = db.ref();
 
-var eventIdMap = {};
+var eventKeys = {};
 var eventsRef = ref.child('events');
 eventsRef.remove();
-fixtures.Events.forEach((event) => {
+Events.forEach((event) => {
   let key = eventsRef.push(event).key;
-  eventIdMap[event.id] = key;
+  eventKeys[event.id] = key;
   eventsRef.child(key).update({id: key});
 });
 
-var betIdMap = {};
-Object.keys(eventIdMap).forEach((id) => {
-  betIdMap[eventIdMap[id]] = [];
-});
 
 var betsRef = ref.child('bets');
 betsRef.remove();
-fixtures.Bets.forEach((bet) => {
-  let key = betsRef.push(bet).key;
-  let eventKey = eventIdMap[bet.event_id]
-  betIdMap[eventKey].push(key);
-  betsRef.child(key).update({event_id: eventKey});
+var betsEventMap = {};
+
+Object.keys(Bets).forEach((eventId) => {
+  let bets = Bets[eventId];
+  betsEventMap[eventKeys[eventId]] = [];
+
+  bets.forEach((bet) => {
+    let eventKey = eventKeys[eventId];
+    let key = betsRef.push(bet).key;
+    betsRef.child(key).update({
+      id: key,
+      event_id: eventKey
+    });
+    betsEventMap[eventKey].push(key);
+  });
 });
 
 
-Object.keys(betIdMap).forEach((eventKey) => {
+Object.keys(betsEventMap).forEach((eventKey) => {
   let updateData = {};
-  betIdMap[eventKey].forEach((betKey) => {
+  betsEventMap[eventKey].forEach((betKey) => {
     updateData[betKey] = true;
   });
   eventsRef.child(eventKey).update({ bets: updateData });
 });
 
 
+ref.child('events').once("value", function(snapshot) {
+  console.log(snapshot.val());
+});
 
-ref.once("value", function(snapshot) {
+ref.child('bets').once("value", function(snapshot) {
   console.log(snapshot.val());
 });

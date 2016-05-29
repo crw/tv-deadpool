@@ -27,7 +27,7 @@ export class Navigation extends React.Component {
         <div className="top-bar-left">
           <ul className="menu">
             <li className="menu-text">
-              GoT/AVClub Deadpool
+              TV Deadpool
             </li>
             <li>
               <IndexLink to="/" activeClassName="link-active">Bets</IndexLink>

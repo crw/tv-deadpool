@@ -1,12 +1,31 @@
-{
-  "rules": {
-    ".read": "auth != null",
-    ".write": "auth.uid === 'secret-service-worker'",
+{"rules":
+  {
+    ".read":"auth != null",
+    ".write":"auth.uid === 'secret-service-worker'",
     "users": {
       "$uid": {
-        ".read": "auth != null",
-        ".write": "auth != null"
+        ".write":"auth != null && auth.uid === $uid",
+        "balance": {
+          ".validate": "(!data.exists() && newData.val() === 100) || data.val() === newData.val() || (data.exists() && newData.exists() && newData.isNumber() && newData.val() >= 0)"
+        },
+        "wagers": {
+          "$wager_id": {
+            "wager": {
+              ".validate": "newData.val() >= 0 && (
+              (data.exists() && data.parent().parent().parent().child('balance').val() + data.val() - newData.val() === newData.parent().parent().parent().child('balance').val())
+              ||
+              (!data.exists() && data.parent().parent().parent().child('balance').val() - newData.val() === newData.parent().parent().parent().child('balance').val())
+              )"
+            }
+          }
+        }
       }
+    },
+    "events": {
+      ".read": true
+    },
+    "bets": {
+      ".read": true
     }
   }
 }

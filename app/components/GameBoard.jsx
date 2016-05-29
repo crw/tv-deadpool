@@ -16,12 +16,14 @@ export class GameBoard extends React.Component {
   }
 
   render() {
-    var {user} = this.props;
+    var {login} = this.props;
 
     return (
-      <div>
-        { jQuery.isEmptyObject(user) ? <Login/> : <Balance/> }
-        <EventList/>
+      <div className="row">
+        <div className="column small-12">
+          { login ? <Login/> : <Balance/> }
+          <EventList/>
+        </div>
       </div>
     );
   }
@@ -29,7 +31,6 @@ export class GameBoard extends React.Component {
 
 export default connect((state) => {
   return {
-    user: state.user,
     login: state.login
   };
 })(GameBoard);

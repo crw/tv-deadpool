@@ -3,8 +3,13 @@
 // Foundation
 @import "base/foundation-settings";
 @import "foundation";
-@include foundation-everything;
+@include foundation-everything();
 
 // Components
-@import "components/navigation";
+@import "components/balance";
+@import "components/bet";
+@import "components/cheesy-black-gradient";
 @import "components/event";
+@import "components/navigation";
+@import "components/wager";
+@import "components/wager-form";

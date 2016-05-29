@@ -5,7 +5,7 @@ import Wager from 'Wager';
 import WagerForm from 'WagerForm';
 
 
-export default class Bet extends React.Component {
+export class Bet extends React.Component {
   static propTypes = {
   };
 
@@ -15,20 +15,29 @@ export default class Bet extends React.Component {
 
 
   render() {
-    var {id, odds, name, desc} = this.props;
+    var {id, odds_payout, odds_wager, name, desc, closed} = this.props;
 
     return (
-      <div className="bet">
-        <div>
-          <span className="odds"> {odds.payout}:{odds.wager} </span>
-          <span className="name">{name}</span>
-        </div>
-        <div>
-          <span className="desc">{desc}</span>
+      <div className="bet__container">
+        <div className="bet">
+          <div className="title">
+            <span className="odds">{odds_payout}:{odds_wager}</span>
+            <span className="name">{name}</span>
+          </div>
+          <div body>
+            <span className="desc">{desc}</span>
+          </div>
         </div>
         <Wager id={id}/>
-        <WagerForm id={id}/>
+        {(closed) ? '' : <WagerForm id={id}/>}
       </div>
     );
   }
 }
+
+export default connect((state, ownProps) => {
+  return {
+    ...state.bets[ownProps.id],
+    closed: state.events[state.bets[ownProps.id].event_id].closed
+  };
+})(Bet);

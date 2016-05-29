@@ -1,31 +1,24 @@
 import React from 'react';
+import {connect} from 'react-redux';
 // App components
 import Bet from 'Bet';
-import {Bets} from 'app/fixtures';
+import {sortObjectsByKey} from 'app/utils';
+import {toArray as firebaseToArray} from 'app/api/firebase';
 
 
-export default class BetsList extends React.Component {
+export class BetsList extends React.Component {
   static propTypes = {
     bets: React.PropTypes.array.isRequired,
-    eventid: React.PropTypes.string.isRequired
+    eventId: React.PropTypes.string.isRequired
   };
 
-  static defaultProps = {
-    bets: Bets
-  };
 
   constructor(props) {
     super(props);
   }
 
   render() {
-    var {bets, eventid} = this.props;
-
-    bets = bets.filter((bet) => {
-      if (bet.event_id === eventid) {
-        return bet;
-      }
-    });
+    var {bets, eventId} = this.props;
 
     var renderBets = () => {
       if (bets.length === 0) {
@@ -35,7 +28,7 @@ export default class BetsList extends React.Component {
       }
       return bets.map((bet) => {
         return (
-          <Bet key={bet.id} {...bet}/>
+          <Bet key={bet.id} id={bet.id}/>
         );
       });
     };
@@ -47,3 +40,12 @@ export default class BetsList extends React.Component {
     );
   }
 }
+
+export default connect((state, ownProps) => {
+  let bets = state.bets || {};
+  let sortedBets = firebaseToArray(state.bets).sort(sortObjectsByKey()).filter(
+    (bet) => { return (bet.event_id === ownProps.eventId) ? bet : undefined; });
+  return {
+    bets: sortedBets
+  };
+})(BetsList);

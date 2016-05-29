@@ -47,14 +47,18 @@ describe('Actions', () => {
   });
 
   describe('Data manipulators', () => {
-    it('should generate PLACE_BET action', () => {
+    it('should generate PLACE_WAGER action', () => {
       var action = {
-        type: 'PLACE_BET',
-        bet_id: '123',
-        wager: 30,
-        comment: 'Some comment'
+        type: 'PLACE_WAGER',
+        bet: {
+          id: '123',
+          wager: 30,
+          comment: 'Some comment',
+          created_at: 600,
+          updated_at: 1200
+        }
       };
-      var res = actions.placeBet(action.bet_id, action.wager, action.comment);
+      var res = actions.placeWager(action.bet);
       expect(res).toEqual(action);
     });
 

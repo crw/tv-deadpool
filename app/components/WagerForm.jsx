@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 // App imports
-import {placeBet} from 'actions';
+import {startPlaceWager} from 'actions';
 
 export class WagerForm extends React.Component {
   static propTypes = {
@@ -14,12 +14,14 @@ export class WagerForm extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
+    let {id, dispatch} = this.props;
     var wager = parseInt(this.refs.wager.value, 10);
     var comment = this.refs.comment.value;
-
+// var comment = parseInt(this.refs.comment.value, 10);
+    e.preventDefault();
     if (typeof wager === 'number' && wager >= 0) {
-      this.props.dispatch(placeBet(this.props.id, wager, comment));
+      // dispatch(testPlaceWager(id, wager, comment));
+      dispatch(startPlaceWager(id, wager, comment));
       this.refs.wager.value = '';
       this.refs.comment.value = '';
     }
@@ -27,15 +29,21 @@ export class WagerForm extends React.Component {
 
   render() {
     return (
-      <form ref="form" onSubmit={this.handleSubmit}>
-        <label>
-          <input type="text" ref="wager" placeholder="Wager in dollars."/>
-        </label>
-        <label>
-          <input type="text" ref="comment" placeholder="Notes about this wager."/>
-        </label>
-        <button type="submit" className="button">Wager</button>
-      </form>
+      <div className="wager-form">
+        <form ref="form" onSubmit={this.handleSubmit}>
+          <div className="row small-collapse">
+            <div className="small-3 columns">
+              <input ref="wager" className="" placeholder="Wager" type="number"/>
+            </div>
+            <div className="small-6 columns">
+                <input ref="comment" className="" placeholder="Notes" type="text"/>
+            </div>
+            <div className="small-3 columns">
+              <input type="submit" className="secondary button" value="Place Bet"/>
+            </div>
+          </div>
+        </form>
+      </div>
     );
   }
 }
