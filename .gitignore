@@ -3,4 +3,5 @@ node_modules
 bower_components
 config/
 public/bundle.js
+public/bundle.css
 
