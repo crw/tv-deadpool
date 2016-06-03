@@ -28,7 +28,8 @@ export class Balance extends React.Component {
 }
 
 export default connect((state) => {
+  let user = (state.login && state.login.user) || null;
   return {
-    balance: state.user.balance || 0
+    balance: (user && user.balance) || 0
   };
 })(Balance);

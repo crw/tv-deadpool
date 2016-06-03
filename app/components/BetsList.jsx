@@ -137,7 +137,8 @@ export class BetsList extends React.Component {
 }
 
 export default connect((state, ownProps) => {
-  let wagers = (state.user && state.user.wagers) || {};
+  let user = (state.login && state.login.user) || null;
+  let wagers = (user && user.wagers) || {};
   return {
     wagers,
     bets: state.bets || {},

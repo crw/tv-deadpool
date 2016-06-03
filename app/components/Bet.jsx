@@ -14,7 +14,7 @@ export class Bet extends React.Component {
     name: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired,
     closed: PropTypes.bool.isRequired,
-    login: PropTypes.object.isRequired,
+    validUser: PropTypes.bool.isRequired,
     paid: PropTypes.bool.isRequired
   };
 
@@ -24,7 +24,7 @@ export class Bet extends React.Component {
 
 
   render() {
-    var {id, odds_payout, odds_wager, name, desc, note, closed, login, paid, resolved} = this.props;
+    var {id, odds_payout, odds_wager, name, desc, note, closed, validUser, paid, resolved} = this.props;
 
     var renderWinLose = () => {
       if (!closed || !resolved) {
@@ -47,8 +47,8 @@ export class Bet extends React.Component {
             { (note) ? <div className="note">Editor's Note: {note}</div> : '' }
           </div>
         </div>
-        { login ? <Wager id={id}/> : ''}
-        { login && !closed ? <WagerForm id={id}/> : ''}
+        { validUser ? <Wager id={id}/> : ''}
+        { validUser && !closed ? <WagerForm id={id}/> : ''}
       </div>
     );
   }
@@ -60,6 +60,6 @@ export default connect((state, ownProps) => {
   return {
     ...bet,
     closed: event.lock_at < now(),
-    login: state.login
+    validUser: state.login ? true : false
   };
 })(Bet);

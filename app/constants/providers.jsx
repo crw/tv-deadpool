@@ -6,6 +6,10 @@ export const PROVIDERS = {
     provider: firebase.auth.GithubAuthProvider,
     scope: ['user:email']
   },
+  twitter: {
+    provider: firebase.auth.TwitterAuthProvider,
+    scope: []
+  },
   google: {
     provider: firebase.auth.GoogleAuthProvider,
     scope: [

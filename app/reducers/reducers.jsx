@@ -10,15 +10,6 @@ export var eventsReducer = (state = {}, action) => {
   };
 };
 
-// export var playersReducer = (state = [], action) => {
-//   switch(action.type) {
-//     case 'UPDATE_PLAYERS_DATA':
-//       return action.updatedData;
-//     default:
-//       return state;
-//   };
-// };
-
 export var betsReducer = (state = {}, action) => {
   switch(action.type) {
     case 'UPDATE_BETS_DATA':
@@ -28,12 +19,22 @@ export var betsReducer = (state = {}, action) => {
   };
 };
 
-export var userReducer = (state = {}, action) => {
+export var usersReducer = (state = {}, action) => {
+
+  let id;
+  let newUser = {};
+  let actionKey = '';
+
   switch(action.type) {
     case 'UPDATE_USER_DATA':
-      return action.updatedData;
-    // case 'UPDATE_LOGGEDIN_USER':
-    //   return state;
+      actionKey = 'updatedData';
+    case 'UPDATE_USER':
+      actionKey = actionKey || 'userData';
+      newUser[action[actionKey].id] = action[actionKey];
+      return {
+        ...state,
+        ...newUser
+      }
     case 'PLACE_WAGER':
       if (!state) {
         return state;
@@ -60,14 +61,17 @@ export var userReducer = (state = {}, action) => {
   };
 };
 
-
 export var loginReducer = (state = null, action) => {
   switch(action.type) {
     case 'LOGIN':
       return {
-        token: action.token,
         uid: action.uid
       };
+    case 'UPDATE_USER_DATA':
+      return {
+        ...state,
+        user: action.updatedData
+      }
     case 'LOGOUT':
       return null;
     default:

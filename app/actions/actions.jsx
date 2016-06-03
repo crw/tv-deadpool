@@ -1,7 +1,7 @@
 import moment from 'moment';
 // App imports
 import {now} from 'app/utils';
-import {getUserRef} from 'app/api/firebase';
+import {getUserRef, getSecureRef} from 'app/api/firebase';
 import PROVIDERS from 'app/constants/providers';
 
 
@@ -37,6 +37,7 @@ export var startEventsData = () => {
   };
 }
 
+
 /********************************
  * User Data Manipulation Actions
  ********************************/
@@ -48,14 +49,35 @@ export var updateUserData = (updatedData) => {
   };
 };
 
+export var updateUser = (userData) => {
+  return {
+    type: 'UPDATE_USER',
+    userData
+  };
+}
+
+export const startGetUser = (uid) => {
+  return (dispatch, getStore) => {
+    var userRef = getUserRef(uid);
+
+    return userRef.once('value').then(
+      (snapshot) => {
+        dispatch(updateUser(snapshot.val() || {}));
+      },
+      (e) => {
+        console.log('startGetUser error:', e);
+      }
+    );
+  };
+};
+
 export var startFetchUser = () => {
   return (dispatch, getStore) => {
     var uid = getStore().login.uid;
     var userRef = getUserRef(uid);
 
     return userRef.on('value', (snapshot) => {
-      var val = snapshot.val() || {};
-      dispatch(updateUserData(val));
+      dispatch(updateUserData(snapshot.val() || {}));
     });
   };
 };
@@ -71,7 +93,7 @@ export var placeWager = (bet) => {
 export var startPlaceWager = (betId, wager, comment) => {
   return (dispatch, getStore) => {
     var userRef = getUserRef(getStore().login.uid);
-    var user = getStore().user;
+    var user = getStore().login.user;
     var prevWager = (user.wagers && user.wagers[betId]) ? user.wagers[betId] : null;
     var prevWagerAmount = (prevWager) ? prevWager.wager : 0;
     // Refund the previous wager, charge the new wager.
@@ -88,14 +110,7 @@ export var startPlaceWager = (betId, wager, comment) => {
         wager,
         comment
       };
-      userRef.update(updateData).then(() => {
-        userRef.child(`wagers/${betId}`).once('value').then((snapshot) => {
-          let val = snapshot.val();
-          // dispatch(placeWager(snapshot.val()));
-        });
-      }, (e) => {
-        console.log('Error placing wager:', e);
-      });
+      userRef.update(updateData);
     };
   };
 };
@@ -105,10 +120,9 @@ export var startPlaceWager = (betId, wager, comment) => {
  * Authentication Actions
  ********************************/
 
-export var login = (uid, token) => {
+export var login = (uid) => {
   return {
     type: 'LOGIN',
-    token,
     uid
   };
 };
@@ -120,6 +134,7 @@ export var logout = () => {
 };
 
 export var startLoginWith = (providerData) => {
+
   return (dispatch, getStore) => {
     var provider = new providerData.provider();
     providerData.scope.forEach((scope) => {
@@ -127,45 +142,53 @@ export var startLoginWith = (providerData) => {
     });
 
     return firebase.auth().signInWithPopup(provider).then((result) => {
-      var userRef = getUserRef(result.user.uid);
-
       // On successful authentication, we need to store this fresh user data.
       // This may be a new OR an existing user. Transaction lets us
       // create or update based on existing state.
       //
       // Note that actually retrieving the new user data happens in the
       // observer, registered in app.jsx.
-      userRef.transaction((user) => {
-        var newUserData = {
-            uid: result.user.uid,
+      let id = result.user.uid;
+      let errorFunc = (error, committed) => {
+        if (!committed) { console.log(error); }
+      };
+      console.log(id);
+      console.log(result);
+
+      getUserRef(id).transaction((user) => {
+        return (user === null) ?
+          // Brand new user, need to set new user data
+          {
+            id,
+            balance: 100,
+            created_at: now()
+          } : undefined;
+      }, errorFunc);
+
+      getSecureRef(id).transaction((secure) => {
+        var secureData = {
             displayName: result.user.displayName,
             email: result.user.email,
             photo: result.user.photoURL,
             credential: result.credential
         };
-        if (user === null) {
+        return (secure === null) ?
           // Brand new user, need to set new user data
-          return {
-            ...newUserData,
-            balance: 100,
+          {
+            ...secureData,
+            id,
             created_at: now()
-          };
-        } else {
-          // Existing user, just updating to latest data
-          return {
-            ...user,
-            ...newUserData,
+          } :
+          // Existing user, just update to latest data
+          {
+            ...secure,
+            ...secureData,
             updated_at: now()
-          };
-        }
-      }, (error, committed) => {
-        if (!committed) {
-          console.log(error);
-        }
-      });
+          }
+      }, errorFunc);
     });
-  }
-}
+  };
+};
 
 export var startLoginGoogle = () => {
   return startLoginWith(PROVIDERS.google);
@@ -175,8 +198,8 @@ export var startLoginFacebook = () => {
   return startLoginWith(PROVIDERS.facebook);
 };
 
-export var startLoginGithub = () => {
-  return startLoginWith(PROVIDERS.github);
+export var startLoginTwitter = () => {
+  return startLoginWith(PROVIDERS.twitter);
 };
 
 export var startLogout = () => {

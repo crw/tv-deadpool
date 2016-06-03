@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {IndexLink, Link} from 'react-router';
 // App imports
 import NavLink from 'NavLink';
 import {startLogout} from 'actions';
@@ -48,13 +49,13 @@ export class Navigation extends React.Component {
                   TVDeadpool.xyz
                 </li>
                 <li>
-                  <NavLink to="/" onlyActiveOnIndex={true}>Bets</NavLink>
+                  <IndexLink to="/" activeClassName="link-active">Bets</IndexLink>
                 </li>
                 <li>
-                  <NavLink to="/profile">You</NavLink>
+                  <Link to="/profile" activeClassName="link-active">You</Link>
                 </li>
                 <li>
-                  <NavLink to="/about">About</NavLink>
+                  <Link to="/about" activeClassName="link-active">About</Link>
                 </li>
               </ul>
             </div>

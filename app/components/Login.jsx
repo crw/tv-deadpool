@@ -13,7 +13,7 @@ export class Login extends React.Component {
 
     this.handleLoginGoogle = this.handleLoginGoogle.bind(this);
     this.handleLoginFacebook = this.handleLoginFacebook.bind(this);
-    this.handleLoginGithub = this.handleLoginGithub.bind(this);
+    this.handleLoginTwitter = this.handleLoginTwitter.bind(this);
   }
 
   handleLoginGoogle(e) {
@@ -28,10 +28,10 @@ export class Login extends React.Component {
     dispatch(actions.startLoginFacebook());
   }
 
-  handleLoginGithub(e) {
+  handleLoginTwitter(e) {
     var {dispatch} = this.props;
     e.preventDefault();
-    dispatch(actions.startLoginGithub());
+    dispatch(actions.startLoginTwitter());
   }
 
   render() {
@@ -39,13 +39,13 @@ export class Login extends React.Component {
       <div className="callout callout-auth">
         <h3>Login to play!</h3>
         <div>
+          <button className="button" onClick={this.handleLoginTwitter}>Login with <i className="fa fw fa-twitter 3x"/></button>
+        </div>
+        <div>
           <button className="button" onClick={this.handleLoginGoogle}>Login with <i className="fa fw fa-google 3x"/></button>
         </div>
         <div>
           <button className="button" onClick={this.handleLoginFacebook}>Login with <i className="fa fw fa-facebook 3x"/></button>
-        </div>
-        <div>
-          <button className="button" onClick={this.handleLoginGithub}>Login with <i className="fa fw fa-github 3x"/></button>
         </div>
       </div>
     );

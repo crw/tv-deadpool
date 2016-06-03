@@ -29,17 +29,19 @@ store.dispatch(actions.startBetsData());
 //// Saving for later.
 
 firebase.auth().onAuthStateChanged((authData) => {
-  if (authData) {
-    // Logged in
-    console.log('Authorizing:', authData.providerData[0].providerId, authData.uid);
-    store.dispatch(actions.login(authData.uid));
-    store.dispatch(actions.startFetchUser());
-    // hashHistory.push('/todos');
-  } else {
-    console.log('Deauthorizing:', authData, getCurrentUser());
-    store.dispatch(actions.logout());
-    // hashHistory.push('/');
-    // logged out
+  try {
+    if (authData) {
+      // Logged in
+      console.log('Authorizing:', authData.providerData[0].providerId, authData.uid);
+      store.dispatch(actions.login(authData.uid));
+      store.dispatch(actions.startFetchUser());
+    } else {
+      console.log('Deauthorizing:', authData, getCurrentUser());
+      store.dispatch(actions.logout());
+      // logged out
+    }
+  } catch (e) {
+    console.log('onAuthStateChanged Exception:', e);
   }
 });
 

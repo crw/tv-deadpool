@@ -5,10 +5,9 @@ import * as reducers from 'reducers';
 
 export var configure = (initialState = {}) => {
   var reducer = redux.combineReducers({
-    user:    reducers.userReducer,
+    users:   reducers.usersReducer,
     events:  reducers.eventsReducer,
     bets:    reducers.betsReducer,
-    players: reducers.playersReducer,
     login:   reducers.loginReducer
   });
 

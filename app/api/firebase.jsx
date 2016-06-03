@@ -14,6 +14,10 @@ export var getUserRef = (uid) => {
   return firebase.database().ref(`users/${uid}`);
 };
 
+export var getSecureRef = (uid) => {
+  return firebase.database().ref(`secure/${uid}`);
+};
+
 export var getCurrentUser = () => {
   return firebase.auth().currentUser;
 }

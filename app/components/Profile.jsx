@@ -3,11 +3,17 @@ import {connect} from 'react-redux';
 
 export class Profile extends React.Component {
   static propTypes = {
-    name: React.PropTypes.string,
+    // name: React.PropTypes.string,
   };
 
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    let {dispatch, userId} = this.props;
+
+    dispatch(fetchUser(userId));
   }
 
   render() {

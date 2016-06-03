@@ -58,8 +58,9 @@ export class Wager extends Component {
 export default connect((state, ownProps) => {
   let betId = ownProps.id;
   let bet = state.bets[betId];
-  let wager = (state.user && state.user.wagers && state.user.wagers[betId]) || {};
-  let payout = (wager.wager) ? ((wager.wager * bet.odds_payout) / bet.odds_wager) + wager.wager : 0;
+  let user = (state.login && state.login.user) || {};
+  let wager = (user && user.wagers && user.wagers[betId]) || {};
+  let payout = (wager.wager) ? Math.floor(((wager.wager * bet.odds_payout) / bet.odds_wager) + wager.wager) : 0;
   return {
     ...wager,
     paid: bet.paid,

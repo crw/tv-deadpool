@@ -1,5 +1,6 @@
 const Users = {
   'avclub-staffer-1': {
+    id: 'avclub-staffer-1',
     balance: 595,
     displayName: 'Erik Adams',
     created_at: Date.now(),
@@ -92,6 +93,7 @@ const Users = {
     }
   },
   'avclub-staffer-2': {
+    id: 'avclub-staffer-2',
     balance: 0,
     displayName: 'David Anthony',
     created_at: Date.now(),
@@ -142,6 +144,7 @@ const Users = {
     }
   },
   'avclub-staffer-3': {
+    id: 'avclub-staffer-3',
     balance: 100,
     displayName: 'Danette Chavez',
     created_at: Date.now(),
@@ -192,6 +195,7 @@ const Users = {
     }
   },
   'avclub-staffer-4': {
+    id: 'avclub-staffer-4',
     balance: 648,
     displayName: 'Marah Eakin',
     created_at: Date.now(),
@@ -322,6 +326,7 @@ const Users = {
     }
   },
   'avclub-staffer-5': {
+    id: 'avclub-staffer-5',
     balance: 165,
     displayName: 'Josh Modell',
     created_at: Date.now(),
@@ -383,6 +388,7 @@ const Users = {
     }
   },
   'avclub-staffer-6': {
+    id: 'avclub-staffer-6',
     balance: 480,
     displayName: 'Caity PenzeyMoog',
     created_at: Date.now(),
@@ -512,6 +518,7 @@ const Users = {
     }
   },
   'avclub-staffer-7': {
+    id: 'avclub-staffer-7',
     balance: 585,
     displayName: 'Katie Rife',
     created_at: Date.now(),
@@ -625,6 +632,7 @@ const Users = {
     }
   },
   'avclub-staffer-8': {
+    id: 'avclub-staffer-8',
     balance: 1680,
     displayName: 'John Teti',
     created_at: Date.now(),
@@ -688,6 +696,7 @@ const Users = {
     }
   },
   'avclub-staffer-9': {
+    id: 'avclub-staffer-9',
     balance: 515,
     displayName: 'Nick Wanserski',
     created_at: Date.now(),
@@ -759,6 +768,7 @@ const Users = {
     }
   },
   'avclub-staffer-10': {
+    id: 'avclub-staffer-10',
     balance: 245,
     displayName: 'Alex McCown',
     created_at: Date.now(),
