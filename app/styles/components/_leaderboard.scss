@@ -1,0 +1,24 @@
+.leaderboard {
+
+  margin-top: 2rem;
+
+  .title {
+    border: 1px solid $border-color;
+
+    font-size: 2rem;
+    padding: 0.25rem;
+    color: $light-color;
+    @include cheesy-black-gradient();
+
+  }
+
+  .standings {
+    border: 1px solid $border-color;
+    border-top: 0px;
+    padding: 0.25rem;
+    padding-left: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+}
