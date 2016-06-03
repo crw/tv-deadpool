@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "tv-deadpool-dev"
+    "default": "tv-deadpool-dev",
+    "production": "tv-deadpool"
   }
 }
