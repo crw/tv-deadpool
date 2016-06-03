@@ -2,7 +2,7 @@ import React from 'react';
 import Navigation from 'Navigation';
 
 
-var GoTApp = (props) => {
+var App = (props) => {
   return (
     <div>
       <Navigation />
@@ -14,4 +14,4 @@ var GoTApp = (props) => {
 };
 
 
-module.exports = GoTApp;
+module.exports = App;
