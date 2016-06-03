@@ -85,10 +85,8 @@ export default class About extends React.Component {
         <h2>Acknowledgements</h2>
         <p>
           Thanks to Marah Eakin, Caitlin PenzeyMoog, Katie Rife, Myles McNutt and the staff of the AVClub for
-          their comprehensive coverage of the <i>Game of Thrones</i> series. Thanks to <a href="http://www.mead.io/" target="_blank">Andrew Mead
-          </a> for <a href="https://www.udemy.com/the-complete-react-web-app-developer-course/" target="_blank">teaching me the technology
-          </a> to bang this site out in a week and a half. And thanks to the amazing community of commentors on the AVClub,
-          you are an inspiration.
+          their comprehensive coverage of the <i>Game of Thrones</i> series. Thanks to oddsmaker Benjamin Eckstein.
+          And thanks to the amazing community of commentors on the AVClub, you are an inspiration.
         </p>
       </div>
       </div>
