@@ -8,33 +8,128 @@ import {toArray as firebaseToArray} from 'app/api/firebase';
 
 export class BetsList extends React.Component {
   static propTypes = {
-    bets: React.PropTypes.array.isRequired,
+    bets: React.PropTypes.object.isRequired,
     eventId: React.PropTypes.string.isRequired
   };
 
 
   constructor(props) {
     super(props);
+    this.state = {
+      sortBy: 'avc',
+      filterByWagers: false
+    };
+
+    this.getSortedBets  = this.getSortedBets.bind(this);
+    this.getFilterFunc  = this.getFilterFunc.bind(this);
+    this.handleSort     = this.handleSort.bind(this);
+    this.handleFilterBy = this.handleFilterBy.bind(this);
+  }
+
+  sortByAVC(bets) {
+    return firebaseToArray(bets).sort(sortObjectsByKey());
+  }
+
+  sortByWinLoss(bets) {
+    return firebaseToArray(bets).sort((a, b) => {
+        if (a.paid && !b.paid) {
+          return -1;
+        } else if (!a.paid && b.paid) {
+          return 1;
+        } else {
+          return sortObjectsByKey()(a, b);
+        }
+      });
+  }
+
+  getSortedBets(bets, sortBy='avc') {
+    switch(sortBy) {
+      case 'winloss':
+        return this.sortByWinLoss(bets);
+      case 'avc':
+      default:
+        return this.sortByAVC(bets);
+    }
+  }
+
+  getFilterFunc() {
+    let {filterByWagers} = this.state;
+    let {wagers} = this.props;
+    let wagerIds = Object.keys(wagers);
+    return (bet) => {
+      return (!filterByWagers || wagerIds.find(el => el === bet.id));
+    }
+  }
+
+  handleSort(e) {
+    e.preventDefault();
+    let sortBy = e.target.dataset.sortby;
+    this.setState({
+      sortBy
+    });
+  }
+
+  handleFilterBy(e) {
+    e.preventDefault();
+    let filterBy = e.currentTarget.dataset.filterby;
+    switch(filterBy) {
+      case 'wagers':
+        let filterByWagers = !this.state.filterByWagers;
+        this.setState({filterByWagers});
+    }
   }
 
   render() {
-    var {bets, eventId} = this.props;
+    let {bets, eventId, resolved} = this.props;
+    let {sortBy, filterByWagers} = this.state;
 
-    var renderBets = () => {
-      if (bets.length === 0) {
-        return (
-          <p className="container__message">No bets have been created for this event.</p>
-        );
+    let renderBets = () => {
+      let sortedBets = this.getSortedBets(bets, sortBy).filter(
+        (bet) => { return (bet.event_id === eventId) ? bet : undefined; }
+      );
+      if (sortedBets.length === 0) {
+        return <p className="container__message">No bets have been created for this event.</p>;
       }
-      return bets.map((bet) => {
-        return (
-          <Bet key={bet.id} id={bet.id}/>
-        );
+
+      let filteredBets = sortedBets.filter(this.getFilterFunc());
+
+      if (filteredBets.length === 0) {
+        return <p className="container__message">No bets match your criteria.</p>;
+      }
+      return filteredBets.map((bet) => {
+        return <Bet key={bet.id} id={bet.id}/>;
       });
     };
 
     return (
       <div className="bets-list">
+        <div className="bets__navigation row">
+          <div className="bets__sortby small-6 columns">
+              { (resolved) ? (
+                  <div>
+                    Sort by:
+                      {' '}
+                      <a href="#"
+                        className={ (sortBy === 'avc') ? 'sortby-link active' : 'sortby-link'}
+                        data-sortby="avc"
+                        onClick={this.handleSort}>AVClub Order</a>
+                      {' - '}
+                      <a href="#"
+                        className={sortBy === 'winloss' ? 'sortby-link active' : 'sortby-link'}
+                        data-sortby="winloss"
+                        onClick={this.handleSort}>Win/Loss</a>
+                  </div>
+                )
+                : ''
+              }
+          </div>
+          <div className="bets__filterby small-6 columns align-right">
+            <label data-filterby="wagers" onClick={this.handleFilterBy}>
+              <input type="checkbox" checked={filterByWagers}/>
+              Hide Bets Without Wagers
+            </label>
+          </div>
+        </div>
         {renderBets()}
       </div>
     );
@@ -42,10 +137,10 @@ export class BetsList extends React.Component {
 }
 
 export default connect((state, ownProps) => {
-  let bets = state.bets || {};
-  let sortedBets = firebaseToArray(state.bets).sort(sortObjectsByKey()).filter(
-    (bet) => { return (bet.event_id === ownProps.eventId) ? bet : undefined; });
+  let wagers = (state.user && state.user.wagers) || {};
   return {
-    bets: sortedBets
+    wagers,
+    bets: state.bets || {},
+    resolved: state.events[ownProps.eventId].resolved
   };
 })(BetsList);

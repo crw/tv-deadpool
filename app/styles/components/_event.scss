@@ -1,7 +1,7 @@
 .event {
   border: 1px solid $border-color;
 
-  .header {
+  > .header {
 
     padding: 0.5rem 0.2rem 0.5rem 0.5rem;
     font-weight: bold;
@@ -32,7 +32,7 @@
     }
   }
 
-  .body {
+  > .body {
 
     background-color: $lightgrey;
     padding: 0.5rem;

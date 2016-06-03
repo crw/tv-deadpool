@@ -15,7 +15,7 @@
     "dist": "webpack -p",
     "test": "karma start",
     "start": "node server.js",
-    "start-dev": "webpack-dev-server --content-base public/ --port 3000",
+    "start:dev": "webpack-dev-server --content-base public/ --port 3000 --history-api-fallback",
     "babel": "babel-node",
     "lint": "eslint"
   },

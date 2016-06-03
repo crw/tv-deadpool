@@ -45,9 +45,7 @@ export class Event extends React.Component {
           <div className="episode-aired">{closed? 'Aired' : 'Airs'}: {moment(air_at).format(prettyDateFormat)}</div>
           <div className="episode-locked">{closed? 'Closed' : 'Closes'}: {moment(lock_at).format(prettyDateFormat)}</div>
         </div>
-        <div>
-          <BetsList eventId={id}/>
-        </div>
+        <BetsList eventId={id}/>
       </div>
     );
   }

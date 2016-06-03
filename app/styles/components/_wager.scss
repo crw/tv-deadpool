@@ -1,13 +1,26 @@
 .wager {
   color: $grey;
-  font-size: 1.25rem;
+  font-family: monospace;
+  font-size: 1.5rem;
 
-  > span {
-    margin-right: 1rem;
+  .amount {
+    border: 2px solid $border-color;
+    padding: .1rem .5rem;
+    box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.75);
   }
 
   .comment {
+    font-size: 1rem;
     font-style: italic;
   }
 
+  .wager__won {
+    border-color: $color-winning;
+    color: $color-winning;
+  }
+
+  .wager__lost {
+    border-color: $color-losing;
+    color: $color-losing;
+  }
 }

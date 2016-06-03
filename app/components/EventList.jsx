@@ -20,13 +20,6 @@ export class EventList extends React.Component {
 
     this.handleClickNext = this.handleClickNext.bind(this);
     this.handleClickPrev = this.handleClickPrev.bind(this);
-    this.componentWillMount = this.componentWillMount.bind(this);
-  }
-
-  componentWillMount() {
-    // this.setState({
-    //   currentEventIndex: 0
-    // });
   }
 
   handleClickNext(e) {
@@ -65,7 +58,9 @@ export class EventList extends React.Component {
     var renderPrevHandler = () => {
       if (events.length !== 0 && currentEventIndex !== events.length-1) {
         return (
-          <a href="#" onClick={this.handleClickPrev}><i className="fa fa-fw fa-arrow-left"/> Previous Event</a>
+          <button className="button secondary" onClick={this.handleClickPrev}>
+            <i className="fa fa-fw fa-arrow-left"/> Previous Event
+          </button>
         );
       }
     }
@@ -73,7 +68,9 @@ export class EventList extends React.Component {
     var renderNextHandler = () => {
       if (events.length !== 0 && currentEventIndex !== 0) {
         return (
-          <a href="#" onClick={this.handleClickNext}>Next Event <i className="fa fa-fw fa-arrow-right"/></a>
+          <button className="button secondary" onClick={this.handleClickNext}>
+            Next Event <i className="fa fa-fw fa-arrow-right"/>
+          </button>
         );
       }
     }
@@ -81,7 +78,7 @@ export class EventList extends React.Component {
     return (
       <div className="container event-list">
 
-        <div className="row container__navigation">
+        <div className="row small-collapse container__navigation">
           <div className="small-6 align-left columns">
             {renderPrevHandler()}
           </div>

@@ -1,8 +1,8 @@
 var moment = require('moment');
 
-m = moment();
+let convertDate = process.env.DATE_TO_CONVERT;
 
-console.log(m.unix());
-console.log(m.format());
-console.log(moment.unix(m.unix()).format());
-console.log(moment.unix(1464220523).format());
+console.log('Original Date', convertDate);
+let unix = moment(convertDate).unix()*1000;
+console.log('Unix:', unix);
+console.log(moment(unix).format());

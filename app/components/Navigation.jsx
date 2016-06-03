@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link, IndexLink} from 'react-router';
 // App imports
+import NavLink from 'NavLink';
 import {startLogout} from 'actions';
 
 
@@ -22,6 +22,22 @@ export class Navigation extends React.Component {
   }
 
   render() {
+    let {login} = this.props;
+
+    let renderLogout = () => {
+      if (login) {
+        return (
+          <div className="top-bar-right">
+            <ul className="menu">
+              <li>
+                <a href="#" onClick={this.handleLogout}>Logout</a>
+              </li>
+            </ul>
+          </div>
+        );
+      }
+    };
+
     return (
       <div className="top-bar navigation">
         <div className="row">
@@ -29,23 +45,20 @@ export class Navigation extends React.Component {
             <div className="top-bar-left">
               <ul className="menu">
                 <li className="menu-text">
-                  TV Deadpool
+                  TVDeadpool.xyz
                 </li>
                 <li>
-                  <IndexLink to="/" activeClassName="link-active">Bets</IndexLink>
+                  <NavLink to="/" onlyActiveOnIndex={true}>Bets</NavLink>
                 </li>
                 <li>
-                  <Link to="/profile" activeClassName="link-active">You</Link>
+                  <NavLink to="/profile">You</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/about">About</NavLink>
                 </li>
               </ul>
             </div>
-            <div className="top-bar-right">
-              <ul className="menu">
-                <li>
-                  <a href="#" onClick={this.handleLogout}>Logout</a>
-                </li>
-              </ul>
-            </div>
+            {renderLogout()}
           </div>
         </div>
       </div>
@@ -54,4 +67,8 @@ export class Navigation extends React.Component {
 }
 
 
-export default connect()(Navigation);
+export default connect((state) => {
+  return {
+    login: state.login
+  };
+})(Navigation);

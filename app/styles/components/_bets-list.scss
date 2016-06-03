@@ -1,0 +1,20 @@
+.bets-list {
+
+  .container__message {
+    padding: 1rem 1rem 0 1rem;
+  }
+
+  .bets__navigation {
+    border-bottom: 1px solid $border-color;
+    font-size: .875rem;
+    padding: 0.25rem;
+
+    input {
+      margin-bottom: 0;
+    }
+  }
+
+  .sortby-link.active {
+    font-weight: bold;
+  }
+}
