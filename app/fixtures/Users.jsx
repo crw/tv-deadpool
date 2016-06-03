@@ -1,7 +1,7 @@
 const Users = {
   'avclub-staffer-1': {
     id: 'avclub-staffer-1',
-    balance: 595,
+    balance: 375,
     displayName: 'Erik Adams',
     created_at: Date.now(),
     updated_at: Date.now(),
@@ -89,12 +89,33 @@ const Users = {
         comment: "",
         created_at: Date.now(),
         updated_at: Date.now()
+      },
+      'gameofthrones-6-7-21': {
+        id: "gameofthrones-6-7-21",
+        wager: 50,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-4': {
+        id: "gameofthrones-6-7-4",
+        wager: 20,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-6': {
+        id: "gameofthrones-6-7-6",
+        wager: 20,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
       }
     }
   },
   'avclub-staffer-2': {
     id: 'avclub-staffer-2',
-    balance: 0,
+    balance: 40,
     displayName: 'David Anthony',
     created_at: Date.now(),
     updated_at: Date.now(),
@@ -140,12 +161,19 @@ const Users = {
         comment: "",
         created_at: Date.now(),
         updated_at: Date.now()
+      },
+      'gameofthrones-6-7-4': {
+        id: "gameofthrones-6-7-4",
+        wager: 40,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
       }
     }
   },
   'avclub-staffer-3': {
     id: 'avclub-staffer-3',
-    balance: 100,
+    balance: 70,
     displayName: 'Danette Chavez',
     created_at: Date.now(),
     updated_at: Date.now(),
@@ -191,133 +219,9 @@ const Users = {
         comment: "",
         created_at: Date.now(),
         updated_at: Date.now()
-      }
-    }
-  },
-  'avclub-staffer-4': {
-    id: 'avclub-staffer-4',
-    balance: 648,
-    displayName: 'Marah Eakin',
-    created_at: Date.now(),
-    updated_at: Date.now(),
-    wagers: {
-      'gameofthrones-6-2-1': {
-        id: 'gameofthrones-6-2-1',
-        wager: 20,
-        comment: "",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      }, 'gameofthrones-6-3-17': {
-        id: 'gameofthrones-6-3-17',
-        wager: 1,
-        comment: "Once I lose some cash, I'm a wimpy better, but I like these odds.",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      }, 'gameofthrones-6-3-2': {
-        id: 'gameofthrones-6-3-2',
-        wager: 2,
-        comment: "",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      }, 'gameofthrones-6-3-7': {
-        id: 'gameofthrones-6-3-7',
-        wager: 2,
-        comment: "",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      }, 'gameofthrones-6-3-10': {
-        id: 'gameofthrones-6-3-10',
-        wager: 5,
-        comment: "",
-        created_at: Date.now(),
-        updated_at: Date.now()
       },
-      'gameofthrones-6-4-27': {
-        id: "gameofthrones-6-4-27",
-        wager: 50,
-        comment: "I’m liking that 3.5 number, especially once you realize how many Thrones characters have actual names.",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      },
-      'gameofthrones-6-4-25': {
-        id: "gameofthrones-6-4-25",
-        wager: 20,
-        comment: "",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      },
-      'gameofthrones-6-4-24': {
-        id: "gameofthrones-6-4-24",
-        wager: 20,
-        comment: "",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      },
-      'gameofthrones-6-4-3': {
-        id: "gameofthrones-6-4-3",
-        wager: 10,
-        comment: "",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      },
-      'gameofthrones-6-5-7': {
-        id: "gameofthrones-6-5-7",
-        wager: 30,
-        comment: "I’m spreading my money around and hoping to come out ahead.",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      },
-      'gameofthrones-6-5-6': {
-        id: "gameofthrones-6-5-6",
-        wager: 20,
-        comment: "",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      },
-      'gameofthrones-6-5-2': {
-        id: "gameofthrones-6-5-2",
-        wager: 20,
-        comment: "",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      },
-      'gameofthrones-6-5-19': {
-        id: "gameofthrones-6-5-19",
-        wager: 20,
-        comment: "",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      },
-      'gameofthrones-6-6-1': {
-        id: "gameofthrones-6-6-1",
-        wager: 100,
-        comment: "I’ve got to keep betting high to keep making the big bucks.",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      },
-      'gameofthrones-6-6-2': {
-        id: "gameofthrones-6-6-2",
-        wager: 100,
-        comment: "",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      },
-      'gameofthrones-6-6-9': {
-        id: "gameofthrones-6-6-9",
-        wager: 5,
-        comment: "",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      },
-      'gameofthrones-6-6-18': {
-        id: "gameofthrones-6-6-18",
-        wager: 50,
-        comment: "",
-        created_at: Date.now(),
-        updated_at: Date.now()
-      },
-      'gameofthrones-6-6-20': {
-        id: "gameofthrones-6-6-20",
+      'gameofthrones-6-7-6': {
+        id: "gameofthrones-6-7-6",
         wager: 10,
         comment: "",
         created_at: Date.now(),
@@ -327,7 +231,7 @@ const Users = {
   },
   'avclub-staffer-5': {
     id: 'avclub-staffer-5',
-    balance: 165,
+    balance: 245,
     displayName: 'Josh Modell',
     created_at: Date.now(),
     updated_at: Date.now(),
@@ -384,12 +288,40 @@ const Users = {
         comment: "That’s it.",
         created_at: Date.now(),
         updated_at: Date.now()
+      },
+      'gameofthrones-6-7-18': {
+        id: "gameofthrones-6-7-18",
+        wager: 100,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-12': {
+        id: "gameofthrones-6-7-12",
+        wager: 10,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-18': {
+        id: "gameofthrones-6-7-18",
+        wager: 20,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-6': {
+        id: "gameofthrones-6-7-6",
+        wager: 20,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
       }
     }
   },
   'avclub-staffer-6': {
     id: 'avclub-staffer-6',
-    balance: 480,
+    balance: 230,
     displayName: 'Caity PenzeyMoog',
     created_at: Date.now(),
     updated_at: Date.now(),
@@ -514,12 +446,54 @@ const Users = {
         comment: "",
         created_at: Date.now(),
         updated_at: Date.now()
+      },
+      'gameofthrones-6-7-4': {
+        id: "gameofthrones-6-7-4",
+        wager: 20,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-12': {
+        id: "gameofthrones-6-7-12",
+        wager: 10,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-15': {
+        id: "gameofthrones-6-7-15",
+        wager: 10,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-13': {
+        id: "gameofthrones-6-7-13",
+        wager: 20,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-18': {
+        id: "gameofthrones-6-7-18",
+        wager: 20,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-21': {
+        id: "gameofthrones-6-7-21",
+        wager: 20,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
       }
     }
   },
   'avclub-staffer-7': {
     id: 'avclub-staffer-7',
-    balance: 585,
+    balance: 505,
     displayName: 'Katie Rife',
     created_at: Date.now(),
     updated_at: Date.now(),
@@ -628,12 +602,19 @@ const Users = {
         comment: "",
         created_at: Date.now(),
         updated_at: Date.now()
+      },
+      'gameofthrones-6-7-4': {
+        id: "gameofthrones-6-7-4",
+        wager: 40,
+        comment: "That’s it. I lost a lot of money last week.",
+        created_at: Date.now(),
+        updated_at: Date.now()
       }
     }
   },
   'avclub-staffer-8': {
     id: 'avclub-staffer-8',
-    balance: 1680,
+    balance: 1426,
     displayName: 'John Teti',
     created_at: Date.now(),
     updated_at: Date.now(),
@@ -689,6 +670,41 @@ const Users = {
       'gameofthrones-6-6-12': {
         id: "gameofthrones-6-6-12",
         wager: 74,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-4': {
+        id: "gameofthrones-6-7-4",
+        wager: 100,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-13': {
+        id: "gameofthrones-6-7-13",
+        wager: 100,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-8': {
+        id: "gameofthrones-6-7-8",
+        wager: 35,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-12': {
+        id: "gameofthrones-6-7-12",
+        wager: 63,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-18': {
+        id: "gameofthrones-6-7-18",
+        wager: 10,
         comment: "",
         created_at: Date.now(),
         updated_at: Date.now()
@@ -764,12 +780,40 @@ const Users = {
         comment: "",
         created_at: Date.now(),
         updated_at: Date.now()
+      },
+      'gameofthrones-6-7-21': {
+        id: "gameofthrones-6-7-21",
+        wager: 50,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-18': {
+        id: "gameofthrones-6-7-18",
+        wager: 50,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-3': {
+        id: "gameofthrones-6-7-3",
+        wager: 20,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-4': {
+        id: "gameofthrones-6-7-4",
+        wager: 40,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
       }
     }
   },
   'avclub-staffer-10': {
     id: 'avclub-staffer-10',
-    balance: 245,
+    balance: 205,
     displayName: 'Alex McCown',
     created_at: Date.now(),
     updated_at: Date.now(),
@@ -819,6 +863,27 @@ const Users = {
       'gameofthrones-6-6-9': {
         id: "gameofthrones-6-6-9",
         wager: 10,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-6': {
+        id: "gameofthrones-6-7-6",
+        wager: 50,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-4': {
+        id: "gameofthrones-6-7-4",
+        wager: 20,
+        comment: "",
+        created_at: Date.now(),
+        updated_at: Date.now()
+      },
+      'gameofthrones-6-7-13': {
+        id: "gameofthrones-6-7-13",
+        wager: 20,
         comment: "",
         created_at: Date.now(),
         updated_at: Date.now()

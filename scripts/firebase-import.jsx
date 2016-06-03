@@ -1,9 +1,10 @@
 import firebase from 'firebase';
-import Events from '../app/fixtures/Events.jsx';
-import Bets from '../app/fixtures/Bets.jsx';
+// import Events from '../app/fixtures/Events.jsx';
+// import Bets from '../app/fixtures/Bets.jsx';
 // import Events from '../app/fixtures/s6e7-event.jsx';
 // import Bets from '../app/fixtures/s6e7-bets.jsx';
 // import Users from '../app/fixtures/Users.jsx';
+import User_marahe from '../app/fixtures/User-marahe';
 
 
 // Initialize the app with a custom auth variable, limiting the server's access
@@ -45,61 +46,70 @@ var normalizeBetId = (season, episode, order) => {
 var db = firebase.database();
 var ref = db.ref();
 
-// REMOVE ALL BETS && EVENTS DATA?
-// eventsRef.remove();
-// betsRef.remove();
 
+if (typeof Events !== "undefined" && typeof Bets !== "undefined") {
 
-var eventKeys = {};
-var eventsRef = ref.child('events');
-Events.forEach((event) => {
-  let originalId = event.id;
-  let id = normalizeEventId(event);
-  let updateData = {
-    ...event,
-    id
-  };
-  eventsRef.child(id).update(updateData);
-  eventKeys[originalId] = id;
-});
+  var eventsRef = ref.child('events');
+  var betsRef = ref.child('bets');
 
+  // REMOVE ALL BETS && EVENTS DATA?
+  // eventsRef.remove();
+  // betsRef.remove();
 
-var betsRef = ref.child('bets');
-var betsEventMap = {};
-
-Object.keys(Bets).forEach((eventId) => {
-  let bets = Bets[eventId];
-  betsEventMap[eventKeys[eventId]] = [];
-
-  bets.forEach((bet) => {
-    let event_id = eventKeys[eventId];
-    let id = normalizeBetId('gameofthrones-6', eventId, bet.order);
+  var eventKeys = {};
+  Events.forEach((event) => {
+    let originalId = event.id;
+    let id = normalizeEventId(event);
     let updateData = {
-      ...bet,
-      id,
-      event_id
+      ...event,
+      id
     };
-    betsRef.child(id).update(updateData);
-    betsEventMap[event_id].push(id);
+    eventsRef.child(id).update(updateData);
+    eventKeys[originalId] = id;
   });
-});
 
-Object.keys(betsEventMap).forEach((eventKey) => {
-  let updateData = {};
-  betsEventMap[eventKey].forEach((betKey) => {
-    updateData[betKey] = true;
+
+  var betsEventMap = {};
+  Object.keys(Bets).forEach((eventId) => {
+    let bets = Bets[eventId];
+    betsEventMap[eventKeys[eventId]] = [];
+
+    bets.forEach((bet) => {
+      let event_id = eventKeys[eventId];
+      let id = normalizeBetId('gameofthrones-6', eventId, bet.order);
+      let updateData = {
+        ...bet,
+        id,
+        event_id
+      };
+      betsRef.child(id).update(updateData);
+      betsEventMap[event_id].push(id);
+    });
   });
-  eventsRef.child(eventKey).update({ bets: updateData });
-});
+
+  Object.keys(betsEventMap).forEach((eventKey) => {
+    let updateData = {};
+    betsEventMap[eventKey].forEach((betKey) => {
+      updateData[betKey] = true;
+    });
+    eventsRef.child(eventKey).update({ bets: updateData });
+  });
+
+}
 
 if (typeof Users !== "undefined") {
   ref.child('users').update(Users);
 }
 
-ref.child('events').once("value", function(snapshot) {
-  console.log(snapshot.val());
-});
+if (typeof User_marahe !== "undefined") {
+  let id = Object.keys(User_marahe)[0];
+  ref.child(`users/${id}/wagers`).update(User_marahe[id].wagers);
+}
 
-ref.child('bets').once("value", function(snapshot) {
-  console.log(snapshot.val());
-});
+// ref.child('events').once("value", function(snapshot) {
+//   console.log(snapshot.val());
+// });
+
+// ref.child('bets').once("value", function(snapshot) {
+//   console.log(snapshot.val());
+// });
