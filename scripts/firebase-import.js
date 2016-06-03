@@ -1,7 +1,9 @@
 import firebase from 'firebase';
 import Events from '../app/fixtures/Events.jsx';
 import Bets from '../app/fixtures/Bets.jsx';
-import Users from '../app/fixtures/Users.jsx';
+// import Events from '../app/fixtures/s6e7-event.jsx';
+// import Bets from '../app/fixtures/s6e7-bets.jsx';
+// import Users from '../app/fixtures/Users.jsx';
 
 
 // Initialize the app with a custom auth variable, limiting the server's access
@@ -43,24 +45,26 @@ var normalizeBetId = (season, episode, order) => {
 var db = firebase.database();
 var ref = db.ref();
 
+// REMOVE ALL BETS && EVENTS DATA?
+// eventsRef.remove();
+// betsRef.remove();
+
+
 var eventKeys = {};
 var eventsRef = ref.child('events');
-eventsRef.remove();
 Events.forEach((event) => {
   let originalId = event.id;
   let id = normalizeEventId(event);
-  let updateData = {};
-  updateData[id] = {
+  let updateData = {
     ...event,
     id
   };
-  eventsRef.update(updateData);
+  eventsRef.child(id).update(updateData);
   eventKeys[originalId] = id;
 });
 
 
 var betsRef = ref.child('bets');
-betsRef.remove();
 var betsEventMap = {};
 
 Object.keys(Bets).forEach((eventId) => {
@@ -70,17 +74,15 @@ Object.keys(Bets).forEach((eventId) => {
   bets.forEach((bet) => {
     let event_id = eventKeys[eventId];
     let id = normalizeBetId('gameofthrones-6', eventId, bet.order);
-    let updateData = {};
-    updateData[id] = {
+    let updateData = {
       ...bet,
       id,
       event_id
     };
-    betsRef.update(updateData);
+    betsRef.child(id).update(updateData);
     betsEventMap[event_id].push(id);
   });
 });
-
 
 Object.keys(betsEventMap).forEach((eventKey) => {
   let updateData = {};
@@ -90,7 +92,9 @@ Object.keys(betsEventMap).forEach((eventKey) => {
   eventsRef.child(eventKey).update({ bets: updateData });
 });
 
-ref.child('users').update(Users);
+if (typeof Users !== "undefined") {
+  ref.child('users').update(Users);
+}
 
 ref.child('events').once("value", function(snapshot) {
   console.log(snapshot.val());
