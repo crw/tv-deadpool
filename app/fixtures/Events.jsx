@@ -12,8 +12,9 @@ export const Events = [
     air_at: moment('2016-06-06T01:00:00Z').unix()*1000,
     lock_at: moment('2016-06-06T00:00:00Z').unix()*1000,
     article: '',
-    order: 5,
+    order: 6,
     published: false,
+    resolved: false,
     created_at: moment('2016-05-27T00:00:00Z').unix()*1000,
     updated_at: moment('2016-05-27T00:00:00Z').unix()*1000
   },{
@@ -29,6 +30,7 @@ export const Events = [
     article: 'http://www.avclub.com/article/its-high-sparrow-time-here-are-weeks-game-thrones--237341',
     order: 5,
     published: true,
+    resolved: true,
     created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
     updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
   },{
@@ -44,6 +46,7 @@ export const Events = [
     article: 'http://www.avclub.com/article/beware-greyscale-here-are-weeks-game-thrones-dead--236988',
     order: 4,
     published: true,
+    resolved: true,
     created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
     updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
   }, {
@@ -59,6 +62,7 @@ export const Events = [
     article: 'http://www.avclub.com/article/all-boltons-must-die-here-are-weeks-game-thrones-d-236628',
     order: 3,
     published: true,
+    resolved: true,
     created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
     updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
   }, {
@@ -74,6 +78,7 @@ export const Events = [
     article: 'http://www.avclub.com/article/watch-out-waif-here-are-weeks-game-thrones-dead-po-236278',
     order: 2,
     published: true,
+    resolved: true,
     created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
     updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
   }, {
@@ -89,6 +94,7 @@ export const Events = [
     article: 'http://www.avclub.com/article/heres-weeks-game-thrones-dead-pool-complete-profes-235929',
     order: 1,
     published: true,
+    resolved: true,
     created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
     updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
   }

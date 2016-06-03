@@ -14,6 +14,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -26,6 +27,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -38,6 +40,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -50,6 +53,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -62,6 +66,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -74,6 +79,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -86,6 +92,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -98,6 +105,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -110,6 +118,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -122,6 +131,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -134,6 +144,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -146,6 +157,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -158,6 +170,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -170,6 +183,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -182,6 +196,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -194,6 +209,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -206,6 +222,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -218,6 +235,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }, {
@@ -225,11 +243,26 @@ export const Bets = {
       desc: '',
       odds_payout: 1,
       odds_wager: 1,
+      paid: true,
+      note: '',
+      official: true,
+      order: ++i,
+      published: true,
+      resolved: true,
+      created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
+    }, {
+      name: 'Bran, Jon Snow, and Sansa end up together at the end of the season.',
+      desc: 'This special bet will be resolved at the end of the season.',
+      odds_payout: 5,
+      odds_wager: 1,
       paid: false,
       note: '',
       official: true,
       order: ++i,
       published: true,
+      resolved: false,
+      seasonal: true,
       created_at: moment('2016-05-27T09:00:00Z').unix()*1000,
       updated_at: moment('2016-05-27T09:00:00Z').unix()*1000
     }
@@ -245,6 +278,7 @@ export const Bets = {
       official: true,
       order: i=1,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -257,6 +291,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -269,6 +304,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -281,6 +317,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -293,6 +330,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -305,6 +343,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -317,6 +356,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -329,6 +369,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -341,6 +382,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -353,6 +395,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -365,6 +408,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -377,6 +421,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -389,6 +434,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -401,6 +447,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -413,6 +460,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -425,6 +473,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -437,6 +486,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -449,6 +499,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -461,6 +512,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }, {
@@ -473,11 +525,25 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
+      created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
+    }, {
+      name: 'Jon Snow will find a dragon inside the wall and ride it. It\'ll spit ice instead of fire.',
+      desc: 'This special bet will be resolved at the end of the season.',
+      odds_payout: 3,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: ++i,
+      published: true,
+      resolved: false,
+      seasonal: true,
       created_at: moment('2016-05-20T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-20T00:00:00Z').unix()*1000
     }
   ],
-
   '4': [
     {
       name: 'Ramsay Bolton',
@@ -489,6 +555,7 @@ export const Bets = {
       official: true,
       order: i=1,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -501,6 +568,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -513,6 +581,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -525,6 +594,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -537,6 +607,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -549,6 +620,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -561,6 +633,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -573,6 +646,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -585,6 +659,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -597,6 +672,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -609,6 +685,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -621,6 +698,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -633,6 +711,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -645,6 +724,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -657,6 +737,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -669,6 +750,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -681,6 +763,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -693,6 +776,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -705,6 +789,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -717,6 +802,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -729,6 +815,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -741,6 +828,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -753,6 +841,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -765,6 +854,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -777,6 +867,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -789,6 +880,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -801,6 +893,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }, {
@@ -813,6 +906,21 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
+      created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
+    }, {
+      name: 'Rickon’s direwolf did not really die. It’s a trick!',
+      desc: 'This special bet will be resolved at the end of the season.',
+      odds_payout: 3,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: ++i,
+      published: true,
+      resolved: false,
+      seasonal: true,
       created_at: moment('2016-05-13T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-13T00:00:00Z').unix()*1000
     }
@@ -828,6 +936,7 @@ export const Bets = {
       official: true,
       order: i=1,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -840,6 +949,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -852,6 +962,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -864,6 +975,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -876,6 +988,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -888,6 +1001,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -900,6 +1014,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -912,6 +1027,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -924,6 +1040,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -936,6 +1053,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -948,6 +1066,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -960,6 +1079,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -972,6 +1092,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -984,6 +1105,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -996,6 +1118,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -1008,6 +1131,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -1020,6 +1144,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -1032,6 +1157,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -1044,6 +1170,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }, {
@@ -1056,6 +1183,35 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
+    }, {
+      name: 'The Hound comes back to life.',
+      desc: 'This special bet will be resolved at the end of the season.',
+      odds_payout: 6,
+      odds_wager: 5,
+      paid: false,
+      note: '',
+      official: true,
+      order: ++i,
+      published: true,
+      resolved: false,
+      seasonal: true,
+      created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
+      updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
+    }, {
+      name: 'Daenerys Targaryen sleeps with Khal Moro, and then kills him.',
+      desc: 'This special bet will be resolved at the end of the season.',
+      odds_payout: 3,
+      odds_wager: 1,
+      paid: false,
+      note: '',
+      official: true,
+      order: ++i,
+      published: true,
+      resolved: false,
+      seasonal: true,
       created_at: moment('2016-05-06T00:00:00Z').unix()*1000,
       updated_at: moment('2016-05-06T00:00:00Z').unix()*1000
     }
@@ -1071,6 +1227,7 @@ export const Bets = {
       official: true,
       order: i=1,
       published: true,
+      resolved: true,
       created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
       updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
@@ -1083,6 +1240,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
       updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
@@ -1095,6 +1253,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
       updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
@@ -1107,6 +1266,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
       updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
@@ -1119,6 +1279,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
       updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
@@ -1131,6 +1292,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
       updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
@@ -1143,6 +1305,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
       updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
@@ -1155,6 +1318,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
       updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }, {
@@ -1167,6 +1331,7 @@ export const Bets = {
       official: true,
       order: ++i,
       published: true,
+      resolved: true,
       created_at: moment('2016-04-29T00:00:00Z').unix()*1000,
       updated_at: moment('2016-04-29T00:00:00Z').unix()*1000
     }
