@@ -40,7 +40,7 @@ export class Bet extends React.Component {
         <div className="bet">
           <div className="title">
             {renderWinLose()}{' '}
-            {odds_payout}:{odds_wager} {name} {id}
+            {odds_payout}:{odds_wager} {name}
           </div>
           <div className="body">
             { (desc) ? <div className="desc">{desc}</div> : '' }
