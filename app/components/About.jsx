@@ -32,7 +32,7 @@ export default class About extends React.Component {
           href="http://www.avclub.com/features/you-win-or-you-die/" target="_blank">You
           Win Or You Die</a></i>, the list of available deadpool bets with official odds. Please read
           the article for its in-depth, considered analysis of the positions. As soon
-          as they are uploaded to the site, the betting window is open. Every starts with $100 fake dollars,
+          as they are uploaded to the site, the betting window is open. Everyone starts with $100 fake dollars,
           per the AVClub rules.
         </p>
         <p>
@@ -55,6 +55,18 @@ export default class About extends React.Component {
           Results will be tallied using an off-line script. Expect updates Tuesday through Wednesday. Then we
           anxiously await Friday's article and the cycle repeats.
         </p>
+        <p>
+          A few notes about the wager-placing interface. You may place a wager on any position, but it is not required.
+          Any position not taken is considered to be a wager of $0. If you want to leave a comment on a position without
+          wagering on it, enter "0" as your wager and your comment. You can change your wagers any time up to the time the episode closes, at
+          which point the bets are "locked" in. The special season-long bets are only available while the episode is open,
+          once the episode closes you may not place a wager on those positions. The special season-long bets will be reconciled
+          at the end of the season, so even if you "win" you will not see your winnings until the finale.
+        </p>
+        <p>
+          The cost of your wager is deducted immediately from your overall balance. If you win a wager, your wager is refunded.
+          So, for example, if you bet $5 against 20:1 odds and win, you would receive $105 (20/1 * wager + wager).
+        </p>
         <h2>Why?</h2>
         <p>
           Purely for your own entertainment. This is not a real betting site. The dollar amount is just a means of
@@ -64,7 +76,7 @@ export default class About extends React.Component {
           You may also ask, "why now," with only four episodes left in the season. Unfortunately, I didn't start
           working on this until just before the sixth episode. If this is popular enough, and I am not shut down,
           and they finish Season 7 before GRRM finishes the next book (which should be a bet), and the AVClub keeps
-          up this awesome feature or I somehow get a professional bookie to make odds, we can start fresh next season!
+          up this entertaining feature or I somehow get a professional bookie to make odds, we can start fresh next season!
         </p>
         <h2>Having difficulties?</h2>
         <p>
@@ -73,7 +85,7 @@ export default class About extends React.Component {
         <h2>Acknowledgements</h2>
         <p>
           Thanks to Marah Eakin, Caitlin PenzeyMoog, Katie Rife, Myles McNutt and the staff of the AVClub for
-          their awesome coverage of the <i>Game of Thrones</i> series. Thanks to <a href="http://www.mead.io/" target="_blank">Andrew Mead
+          their comprehensive coverage of the <i>Game of Thrones</i> series. Thanks to <a href="http://www.mead.io/" target="_blank">Andrew Mead
           </a> for <a href="https://www.udemy.com/the-complete-react-web-app-developer-course/" target="_blank">teaching me the technology
           </a> to bang this site out in a week and a half. And thanks to the amazing community of commentors on the AVClub,
           you are an inspiration.
