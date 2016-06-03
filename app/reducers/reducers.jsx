@@ -72,6 +72,11 @@ export var loginReducer = (state = null, action) => {
         ...state,
         user: action.updatedData
       }
+    case 'UPDATE_SECURE':
+      return {
+        ...state,
+        secure: action.data
+      }
     case 'LOGOUT':
       return null;
     default:

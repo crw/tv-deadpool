@@ -133,6 +133,14 @@ export var logout = () => {
   }
 };
 
+export var updateSecure = (data) => {
+  return {
+    type: 'UPDATE_SECURE',
+    data
+  };
+};
+
+
 export var startLoginWith = (providerData) => {
 
   return (dispatch, getStore) => {
@@ -149,11 +157,9 @@ export var startLoginWith = (providerData) => {
       // Note that actually retrieving the new user data happens in the
       // observer, registered in app.jsx.
       let id = result.user.uid;
-      let errorFunc = (error, committed) => {
-        if (!committed) { console.log(error); }
+      let errorFunc = (error) => {
+        console.log('Transaction error occured:', error);
       };
-      console.log(id);
-      console.log(result);
 
       getUserRef(id).transaction((user) => {
         return (user === null) ?
@@ -163,7 +169,7 @@ export var startLoginWith = (providerData) => {
             balance: 100,
             created_at: now()
           } : undefined;
-      }, errorFunc);
+      }).catch(errorFunc);
 
       getSecureRef(id).transaction((secure) => {
         var secureData = {
@@ -185,6 +191,10 @@ export var startLoginWith = (providerData) => {
             ...secureData,
             updated_at: now()
           }
+      }).then((result) => {
+        if (result.committed) {
+          dispatch(updateSecure(result.snapshot.val()));
+        }
       }, errorFunc);
     });
   };
