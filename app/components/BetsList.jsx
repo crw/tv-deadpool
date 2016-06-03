@@ -112,7 +112,7 @@ export class BetsList extends React.Component {
                       <a href="#"
                         className={ (sortBy === 'avc') ? 'sortby-link active' : 'sortby-link'}
                         data-sortby="avc"
-                        onClick={this.handleSort}>AVClub Order</a>
+                        onClick={this.handleSort}>Article Order</a>
                       {' - '}
                       <a href="#"
                         className={sortBy === 'winloss' ? 'sortby-link active' : 'sortby-link'}
