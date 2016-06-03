@@ -31,3 +31,21 @@ export function isObject(obj) {
 export function now() {
   return Date.now();
 }
+
+/**
+ * Returns the value at the specified key, the default value, or undefined.
+ * @param object {foo: { bar: { baz: 4 } } }
+ * @param string "foo.bar.baz"
+ * @param value default value if no value is found at that key.
+ */
+export function getKey(obj, keyStr, defaultValue = undefined) {
+  let keys = keyStr.split('.');
+  let ref = obj;
+  for (let i = 0; i < keys.length; i++) {
+    if (!isObject(ref)) {
+      return defaultValue;
+    }
+    ref = ref[keys[i]];
+  }
+  return (ref === null || ref === undefined) ? defaultValue : ref;
+}
