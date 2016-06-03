@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+// App imports
+import {getKey} from 'app/utils';
+import {startGetUser} from 'actions';
+import EventList from 'EventList';
+
 
 export class Profile extends React.Component {
   static propTypes = {
-    // name: React.PropTypes.string,
+    // name: PropTypes.string,
   };
 
   constructor(props) {
@@ -11,43 +16,53 @@ export class Profile extends React.Component {
   }
 
   componentDidMount() {
-    let {dispatch, userId} = this.props;
+    let {id, dispatch, userId} = this.props;
 
-    dispatch(fetchUser(userId));
+    if (!id) {
+      dispatch(startGetUser(userId));
+    }
   }
 
   render() {
-    return (
-      <div>
-        <div className="header ">
-          <div className="user-pic">
-            <img src={profile_pic_url}/>
-          </div>
-          <div className="user-name">
-            {name}
-          </div>
-        </div>
+    let {id, balance, winnings, losses} = this.props;
 
+    return (id) ?
+      <div>
         <div className="score row">
           <div className="balance">
             Balance: {balance}
           </div>
           <div className="winnings">
-            Winnings: {overall_winnings}
+            Winnings: {winnings}
           </div>
           <div className="losses">
-            Losses: {overall_losses}
+            Losses: {losses}
           </div>
         </div>
-
-        <EventList/>
-
+        <EventList userId={id}/>
       </div>
-    );
+      : <div/>;
   }
 }
-
+/*
+            <div className="header ">
+              <div className="user-photo">
+                <img src={photo}/>
+              </div>
+              <div className="username">
+                {displayName || 'A man with no name'}
+              </div>
+            </div>
+*/
 
 export default connect((state, ownProps) => {
-
+  let userId = ownProps.userId || getKey(state, 'login.uid');
+  let user = getKey(state, `users.${userId}`, {});
+  let winnings = getKey(state, `leaderboard.${userId}.winnings`, 0);
+  let losses = getKey(state, `leaderboard.${userId}.losses`, 0);
+  return {
+    ...user,
+    winnings,
+    losses
+  };
 })(Profile);

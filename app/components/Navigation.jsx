@@ -52,9 +52,6 @@ export class Navigation extends React.Component {
                   <IndexLink to="/" activeClassName="link-active">Bets</IndexLink>
                 </li>
                 <li>
-                  <Link to="/profile" activeClassName="link-active">You</Link>
-                </li>
-                <li>
                   <Link to="/about" activeClassName="link-active">About</Link>
                 </li>
               </ul>
@@ -66,7 +63,11 @@ export class Navigation extends React.Component {
     );
   }
 }
-
+/*
+                <li>
+                  <Link to="/profile" activeClassName="link-active">You</Link>
+                </li>
+*/
 
 export default connect((state) => {
   return {
