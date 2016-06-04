@@ -4,7 +4,8 @@ import firebase from 'firebase';
 // import Events from '../app/fixtures/s6e7-event.jsx';
 // import Bets from '../app/fixtures/s6e7-bets.jsx';
 // import Users from '../app/fixtures/Users.jsx';
-import User_marahe from '../app/fixtures/User-marahe';
+// import User_marahe from '../app/fixtures/User-marahe';
+import User_mccown from '../app/fixtures/User-mccown-10';
 
 
 // Initialize the app with a custom auth variable, limiting the server's access
@@ -106,6 +107,10 @@ if (typeof User_marahe !== "undefined") {
   ref.child(`users/${id}/wagers`).update(User_marahe[id].wagers);
 }
 
+if (typeof User_mccown !== "undefined") {
+  let id = Object.keys(User_mccown)[0];
+  ref.child(`users/${id}/wagers`).update(User_mccown[id].wagers);
+}
 // ref.child('events').once("value", function(snapshot) {
 //   console.log(snapshot.val());
 // });
