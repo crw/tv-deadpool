@@ -49,3 +49,24 @@ export function getKey(obj, keyStr, defaultValue = undefined) {
   }
   return (ref === null || ref === undefined) ? defaultValue : ref;
 }
+
+/**
+ * Converts a Firebase "array" hash into a Javascript array, useful as
+ * javascript arrays can be sorted, filtered, and mapped.
+ * @param firebaseArray object "array" from Firebase. Each entry will have "key"
+ *     mapped to the item key from the object.
+ * @return array
+ */
+export function toArray(firebaseArray) {
+  if (isObject(firebaseArray)) {
+    let itemsArr = [];
+    Object.keys(firebaseArray).forEach((item) => {
+      itemsArr.push(firebaseArray[item])
+      // Preserve the key, which is often the ID for the object.
+      itemsArr[itemsArr.length-1].key = item;
+    });
+    return itemsArr;
+  } else {
+    throw 'Invalid data, not an object.';
+  }
+}

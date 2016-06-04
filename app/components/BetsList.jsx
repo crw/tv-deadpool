@@ -2,8 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 // App components
 import Bet from 'Bet';
-import {sortObjectsByKey} from 'app/utils';
-import {toArray as firebaseToArray} from 'app/api/firebase';
+import {sortObjectsByKey, toArray as firebaseToArray} from 'app/utils';
 
 
 export class BetsList extends React.Component {
