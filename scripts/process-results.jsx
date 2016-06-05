@@ -84,8 +84,10 @@ function processUserWagers(user, events, bets) {
     if (event.resolved) {
 
       let eventWinnings = 0;
+      let totalWinnings = 0;
       let eventLosses = 0;
       let costOfPlay = 0;
+      let payout = 0;
 
       if (wagers[event.id]) {
 
@@ -94,7 +96,9 @@ function processUserWagers(user, events, bets) {
           let bet = bets[wager.id];
           if (bet.resolved) {
             if (bet.paid) {
-              eventWinnings = eventWinnings + Math.floor((bet.odds_payout * wager.wager) / bet.odds_wager) + wager.wager;
+              payout = Math.floor((bet.odds_payout * wager.wager) / bet.odds_wager);
+              eventWinnings = eventWinnings + payout;
+              totalWinnings = totalWinnings + payout + wager.wager;
             } else {
               eventLosses = eventLosses - wager.wager
             }
@@ -103,7 +107,7 @@ function processUserWagers(user, events, bets) {
       }
       let cheated = (balance - costOfPlay < 0);
       let balanceBeforeWinnings = balance - costOfPlay;
-      balance = balance - costOfPlay + eventWinnings;
+      balance = balance - costOfPlay + totalWinnings;
       eventsSummary[event.id] = {
         cheated,
         balance,
