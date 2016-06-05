@@ -1,0 +1,5 @@
+.component__title {
+  padding: 0.25rem 0.5rem;
+  color: $light-color;
+  @include cheesy-black-gradient();
+}

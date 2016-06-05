@@ -1,12 +1,8 @@
 .player-balance {
 
   .balance-label {
-    border: 1px solid $border-color;
-
+    @extend .component__title;
     font-size: 2rem;
-    padding: 0.25rem;
-    color: $light-color;
-    @include cheesy-black-gradient();
 
   }
 

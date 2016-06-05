@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import moment from 'moment';
 // App imports
-import {now} from 'app/utils';
-import {prettyDateFormat} from 'app/constants/formats'
+import {now, getKey} from 'app/utils';
+import {PRETTY_DATE_FORMAT, LOCALE, CURRENCY_FORMAT} from 'app/constants/formats'
 import BetsList from 'BetsList';
 
 export class Event extends React.Component {
@@ -23,7 +23,7 @@ export class Event extends React.Component {
   }
 
   render() {
-    let {id, season, episode, series, name, article, air_at, lock_at} = this.props;
+    let {id, season, episode, series, name, article, air_at, lock_at, resolved, userId, results} = this.props;
 
     let closed = now() > lock_at;
 
@@ -31,6 +31,37 @@ export class Event extends React.Component {
       return closed ?
         <div className="float-right episode-status closed">Closed</div> :
         <div className="float-right episode-status open">Open</div>;
+    };
+
+    var renderResults = () => {
+      return (
+        <div className="results row ">
+          <div className="result balance small-4 columns">
+            <div className="title">
+              Balance
+            </div>
+            <div className="body">
+              {results.balance.toLocaleString(LOCALE, CURRENCY_FORMAT)}
+            </div>
+          </div>
+          <div className="result winnings small-4 columns">
+            <div className="title">
+              Winnings
+            </div>
+            <div className="body">
+              {results.winnings.toLocaleString(LOCALE, CURRENCY_FORMAT)}
+            </div>
+          </div>
+          <div className="result losses small-4 columns">
+            <div className="title">
+              Losses
+            </div>
+            <div className="body">
+              {results.losses.toLocaleString(LOCALE, CURRENCY_FORMAT)}
+            </div>
+          </div>
+        </div>
+      );
     };
 
     return (
@@ -42,9 +73,10 @@ export class Event extends React.Component {
         </div>
         <div className="body">
           <div className="episode-number">Season {season}, Episode {episode}</div>
-          <div className="episode-aired">{closed? 'Aired' : 'Airs'}: {moment(air_at).format(prettyDateFormat)}</div>
-          <div className="episode-locked">{closed? 'Closed' : 'Closes'}: {moment(lock_at).format(prettyDateFormat)}</div>
+          <div className="episode-aired">{closed? 'Aired' : 'Airs'}: {moment(air_at).format(PRETTY_DATE_FORMAT)}</div>
+          <div className="episode-locked">{closed? 'Closed' : 'Closes'}: {moment(lock_at).format(PRETTY_DATE_FORMAT)}</div>
         </div>
+        { resolved && userId && results ? renderResults() : '' }
         <BetsList eventId={id}/>
       </div>
     );
@@ -52,7 +84,12 @@ export class Event extends React.Component {
 }
 
 export default connect((state, ownProps) => {
+  let eventId = ownProps.id;
+  let userId = ownProps.userId || getKey(state, 'login.uid', null);
+  let results = getKey(state, `leaderboard.${userId}.events.${eventId}`, null);
   return {
-    ...state.events[ownProps.id]
+    userId,
+    results,
+    ...state.events[eventId]
   };
 })(Event);

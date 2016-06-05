@@ -3,12 +3,8 @@
   margin-top: 2rem;
 
   .title {
-    border: 1px solid $border-color;
-
+    @extend .component__title;
     font-size: 2rem;
-    padding: 0.25rem;
-    color: $light-color;
-    @include cheesy-black-gradient();
   }
 
   .row {
@@ -18,7 +14,6 @@
 
   .leaderboard__navigation {
     border: 1px solid $border-color;
-    border-top: 0;
     font-size: .875rem;
     padding: 0.25rem;
   }

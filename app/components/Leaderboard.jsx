@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 // App imports
+import {LOCALE, CURRENCY_FORMAT} from 'app/constants/formats'
 import {getKey, sortObjectsByKey, toArray} from 'app/utils';
 import {startFetchLabel} from 'actions';
 
@@ -63,10 +64,10 @@ export class Leaderboard extends React.Component {
               <div className="number-order small-1 columns">
                 {i++}.
               </div>
-              <div className="small-2 columns">
-                <span className={key}>${leader[key].toLocaleString()}</span>
+              <div className="align-right small-3 columns">
+                <span className={key}>{leader[key].toLocaleString(LOCALE, CURRENCY_FORMAT)}</span>
               </div>
-              <div className="small-9 columns">
+              <div className="small-8 columns">
                 {leader.displayName} {thisUser ? ' (You)' : ''}
               </div>
             </div>
