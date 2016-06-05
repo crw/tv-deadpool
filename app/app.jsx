@@ -23,6 +23,7 @@ var store = require('configureStore').configure();
 // Fetch Events and Bets data
 store.dispatch(actions.startEventsData());
 store.dispatch(actions.startBetsData());
+store.dispatch(actions.startLeaderboardData());
 
 
 //// Login / Logout functionality

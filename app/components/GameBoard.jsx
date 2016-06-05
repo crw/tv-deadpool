@@ -22,7 +22,7 @@ export class GameBoard extends React.Component {
       <div className="row">
         <div className="small-12 medium-4 medium-push-8 columns">
           { login ? <Balance/> : <Login/> }
-          <Leaderboard />
+          <Leaderboard label="AVClub Staffers"/>
         </div>
         <div className="small-12 medium-8 medium-pull-4 columns">
           <EventList/>

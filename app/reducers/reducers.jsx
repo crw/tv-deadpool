@@ -83,3 +83,31 @@ export var loginReducer = (state = null, action) => {
       return state;
   }
 };
+
+export var leaderboardReducer = (state = {}, action) => {
+  switch(action.type) {
+    case 'UPDATE_LEADERBOARD_DATA':
+      return {
+        ...state,
+        ...action.updatedData
+      }
+    case 'UPDATE_LEADERBOARD_ENTRY':
+      return {
+        ...state,
+        ...action.data
+      }
+    default:
+      return state;
+  }
+};
+
+export var labelsReducer = (state = {}, action) => {
+  switch(action.type) {
+    case 'UPDATE_LABEL':
+      let newState = {...state};
+      newState[action.label] = action.data;
+      return newState;
+    default:
+      return state;
+  }
+};

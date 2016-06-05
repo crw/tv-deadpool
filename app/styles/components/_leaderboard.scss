@@ -9,7 +9,18 @@
     padding: 0.25rem;
     color: $light-color;
     @include cheesy-black-gradient();
+  }
 
+  .row {
+    margin-left: inherit;
+    margin-right: inherit;
+  }
+
+  .leaderboard__navigation {
+    border: 1px solid $border-color;
+    border-top: 0;
+    font-size: .875rem;
+    padding: 0.25rem;
   }
 
   .standings {
@@ -18,7 +29,30 @@
     padding: 0.25rem;
     padding-left: 1rem;
     font-size: 1rem;
+  }
+
+  .link-active {
     font-weight: bold;
+  }
+
+  .result-row {
+    height: 1.5rem;
+
+    &:hover {
+      background-color: $lightgrey;
+    }
+  }
+
+  .current-user {
+    background-color: gold;
+  }
+
+  .winnings, .balance {
+    color: $color-winning;
+  }
+
+  .losses {
+    color: $color-losing;
   }
 
 }

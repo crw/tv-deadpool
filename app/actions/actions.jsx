@@ -37,6 +37,39 @@ export var startEventsData = () => {
   };
 }
 
+export var updateLeaderboardData = (updatedData) => {
+  return {
+    type: 'UPDATE_LEADERBOARD_DATA',
+    updatedData
+  };
+};
+
+export var startLeaderboardData = () => {
+  return (dispatch, getStore) => {
+    let lbRef = firebase.database().ref('leaderboard');
+    lbRef.on('value', (snapshot) => {
+      dispatch(updateLeaderboardData(snapshot.val()));
+    });
+  };
+};
+
+export var updateLabel = (label, data) => {
+  return {
+    type: 'UPDATE_LABEL',
+    label,
+    data
+  };
+};
+
+export var startFetchLabel = (label) => {
+  return (dispatch, getStore) => {
+    let labelRef = firebase.database().ref(`labels/${label}`);
+    labelRef.once('value').then((snapshot) => {
+      dispatch(updateLabel(label, snapshot.val()));
+    });
+  };
+};
+
 
 /********************************
  * User Data Manipulation Actions

@@ -24,9 +24,11 @@ export class Bet extends React.Component {
 
 
   render() {
-    var {id, odds_payout, odds_wager, name, desc, note, closed, validUser, paid, resolved} = this.props;
+    const {id, odds_payout, odds_wager, name, desc, note, closed, validUser, paid, resolved} = this.props;
 
-    var renderWinLose = () => {
+    const __DEV__ = process.env.NODE_ENV === 'development';
+
+    const renderWinLose = () => {
       if (!closed || !resolved) {
         return '';
       }
@@ -40,7 +42,7 @@ export class Bet extends React.Component {
         <div className="bet">
           <div className="title">
             {renderWinLose()}{' '}
-            {odds_payout}:{odds_wager} {name}
+            {odds_payout}:{odds_wager} {name} { (__DEV__) ?  <span><br />{id}</span> : ''}
           </div>
           <div className="body">
             { (desc) ? <div className="desc">{desc}</div> : '' }

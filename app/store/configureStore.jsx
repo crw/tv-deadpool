@@ -8,7 +8,9 @@ export var configure = (initialState = {}) => {
     users:   reducers.usersReducer,
     events:  reducers.eventsReducer,
     bets:    reducers.betsReducer,
-    login:   reducers.loginReducer
+    login:   reducers.loginReducer,
+    leaderboard: reducers.leaderboardReducer,
+    labels:  reducers.labelsReducer
   });
 
   var store = redux.createStore(reducer, initialState, redux.compose(
