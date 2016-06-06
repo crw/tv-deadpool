@@ -4,7 +4,9 @@ import moment from 'moment';
 // App imports
 import {now, getKey} from 'app/utils';
 import {PRETTY_DATE_FORMAT, LOCALE, CURRENCY_FORMAT} from 'app/constants/formats'
+import * as urls from 'app/constants/urls';
 import BetsList from 'BetsList';
+
 
 export class Event extends React.Component {
   static propTypes = {
@@ -23,7 +25,7 @@ export class Event extends React.Component {
   }
 
   render() {
-    let {id, season, episode, series, name, article, air_at, lock_at, resolved, userId, results} = this.props;
+    let {id, season, episode, series, name, article, confirmation, air_at, lock_at, resolved, userId, results} = this.props;
 
     let closed = now() > lock_at;
 
@@ -64,6 +66,26 @@ export class Event extends React.Component {
       );
     };
 
+    var renderConfirmation = () => {
+      return closed && !resolved ?
+        (
+          <div>
+            Results will be posted after bring confirmed in <i><a href={urls.AVCLUB_ALL_MEN_MUST_DIE_URL} target="_blank">All Men Must Die</a></i>.
+          </div>
+        ) :
+        (resolved ?
+          (confirmation ? (
+              <div>
+                Results: <i><a href={confirmation} target="_blank">All Men Must Die</a></i>.
+              </div>
+            ) : (
+              <div>
+                Results: <i><a href={urls.AVCLUB_ALL_MEN_MUST_DIE_URL} target="_blank">No article this week.</a></i>
+              </div>
+            )) :
+          '');
+    };
+
     return (
       <div className="event">
         <div className="header">
@@ -75,6 +97,7 @@ export class Event extends React.Component {
           <div className="episode-number">Season {season}, Episode {episode}</div>
           <div className="episode-aired">{closed? 'Aired' : 'Airs'}: {moment(air_at).format(PRETTY_DATE_FORMAT)}</div>
           <div className="episode-locked">{closed? 'Closed' : 'Closes'}: {moment(lock_at).format(PRETTY_DATE_FORMAT)}</div>
+          {renderConfirmation()}
         </div>
         { resolved && userId && results ? renderResults() : '' }
         <BetsList eventId={id}/>
