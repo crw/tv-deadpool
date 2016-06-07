@@ -25,6 +25,24 @@ export function isObject(obj) {
   return (typeof obj === "object") && (obj !== null);
 }
 
+
+export function isEmpty(obj) {
+
+    // null and undefined are "empty"
+    if (obj == null) return true;
+
+    // Assume if it has a length property with a non-zero value
+    // that that property is correct.
+    if (obj.length > 0)    return false;
+    if (obj.length === 0)  return true;
+
+    // Otherwise, does it have any properties of its own?
+    if (Object.getOwnPropertyNames(obj).length > 0) return false;
+
+    return true;
+}
+
+
 /**
  * Returns the time now in milliseconds from Jan 1, 1970 UTC.
  */

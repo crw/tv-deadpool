@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
 // App imports
 import {LOCALE, CURRENCY_FORMAT} from 'app/constants/formats'
 import {getKey, sortObjectsByKey, toArray} from 'app/utils';
@@ -68,7 +69,9 @@ export class Leaderboard extends React.Component {
                 <span className={key}>{leader[key].toLocaleString(LOCALE, CURRENCY_FORMAT)}</span>
               </div>
               <div className="small-8 columns">
-                {leader.displayName} {thisUser ? ' (You)' : ''}
+                <Link className="user-link" to={'/profile/' + leader.key}>
+                  {leader.displayName} {thisUser ? ' (You)' : ''}
+                </Link>
               </div>
             </div>
           );

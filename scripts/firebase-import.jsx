@@ -1,11 +1,16 @@
 import firebase from 'firebase';
+//// EVENTS
 // import Events from '../app/fixtures/Events.jsx';
-// import Bets from '../app/fixtures/Bets.jsx';
 // import Events from '../app/fixtures/s6e7-event.jsx';
+import Events from '../app/fixtures/s6e8-event.jsx';
+//// BETS
+// import Bets from '../app/fixtures/Bets.jsx';
 // import Bets from '../app/fixtures/s6e7-bets.jsx';
+import Bets from '../app/fixtures/s6e8-bets.jsx';
+//// USERS
 // import Users from '../app/fixtures/Users.jsx';
 // import User_marahe from '../app/fixtures/User-marahe';
-import User_mccown from '../app/fixtures/User-mccown-10';
+// import User_mccown from '../app/fixtures/User-mccown-10';
 
 
 // Initialize the app with a custom auth variable, limiting the server's access

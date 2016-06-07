@@ -14,7 +14,7 @@ $(document).foundation();
 // App CSS
 require('style!css!sass!applicationStyles');
 require('font-awesome/css/font-awesome.css');
-
+require('./styles/fonts/gameofthrones/stylesheet.css');
 
 var store = require('configureStore').configure();
 

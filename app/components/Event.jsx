@@ -100,7 +100,7 @@ export class Event extends React.Component {
           {renderConfirmation()}
         </div>
         { resolved && userId && results ? renderResults() : '' }
-        <BetsList eventId={id}/>
+        <BetsList eventId={id} userId={userId}/>
       </div>
     );
   }

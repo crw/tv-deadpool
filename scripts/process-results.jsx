@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 // App imports
-import {isObject, sortObjectsByKey, getKey} from '../app/utils/index.jsx';
+import {DEFAULT_DISPLAY_NAME as CONST_DEFAULT_DISPLAY_NAME} from '../app/constants/strings';
+import {isObject, sortObjectsByKey, getKey} from '../app/utils';
 
 // Initialize the app with a custom auth variable, limiting the server's access
 var config = {
@@ -16,7 +17,7 @@ var config = {
 firebase.initializeApp(config);
 
 const INITIAL_BALANCE = 100;
-const DEFAULT_DISPLAY_NAME = 'A Faceless Man';
+const DEFAULT_DISPLAY_NAME = CONST_DEFAULT_DISPLAY_NAME;
 
 console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
 

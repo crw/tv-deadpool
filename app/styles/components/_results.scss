@@ -1,0 +1,34 @@
+
+  .results {
+    background-color: $lightgrey;
+    border-bottom: 1px solid $border-color;
+    padding-bottom: .5rem;
+    text-align: center;
+  }
+
+  .result {
+
+    .title {
+      @include cheesy-black-gradient();
+      font-weight: bold;
+      color: $lightgrey;
+    }
+
+    .body {
+      background-color: white;
+      border: 1px solid $border-color;
+      font-weight: bold;
+    }
+
+    &.winnings {
+      .body {
+        color: $color-winning;
+      }
+    }
+
+    &.losses {
+      .body {
+        color: $color-losing;
+      }
+    }
+  }

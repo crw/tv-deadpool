@@ -2,7 +2,7 @@ import {now} from 'app/utils';
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 // App imports
-
+import {getKey} from 'app/utils';
 
 export class Wager extends Component {
   static propTypes = {
@@ -58,8 +58,9 @@ export class Wager extends Component {
 export default connect((state, ownProps) => {
   let betId = ownProps.id;
   let bet = state.bets[betId];
-  let user = (state.login && state.login.user) || {};
-  let wager = (user && user.wagers && user.wagers[betId]) || {};
+  let userId = ownProps.userId || getKey(state, 'login.uid', null);
+  let user = getKey(state, `users.${userId}`, {});
+  let wager = getKey(user, `wagers.${betId}`, {});
   let payout = (wager.wager) ? Math.floor(((wager.wager * bet.odds_payout) / bet.odds_wager) + wager.wager) : 0;
   return {
     ...wager,

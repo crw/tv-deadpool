@@ -1,0 +1,26 @@
+.profile {
+
+  .profile__header {
+    @extend .component__title;
+
+    font-family: 'GameOfThrones';
+    font-size: 2rem;
+    padding: 1rem 0;
+    text-align: center;
+    word-spacing: 1rem;
+  }
+
+  .profile__body {
+    background-color: $lightgrey;
+    border: 1px solid $border-color;
+    padding-top: 1rem;
+
+    .results {
+      border-bottom: 0;
+
+      .result {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

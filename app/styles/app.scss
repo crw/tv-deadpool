@@ -17,6 +17,10 @@
   }
 }
 
+BODY {
+  font-family: Verdana, Geneva, sans-serif;
+}
+
 // Mixins
 @import "components/cheesy-black-gradient";
 
@@ -30,6 +34,8 @@
 @import "components/event-list";
 @import "components/leaderboard";
 @import "components/navigation";
+@import "components/profile";
+@import "components/results";
 @import "components/wager";
 @import "components/wager-form";
 

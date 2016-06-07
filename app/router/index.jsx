@@ -11,8 +11,9 @@ export default (
   <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={GameBoard}/>
-      <Route path="profile" component={Profile}/>
-      <Route path="about" component={About}/>
+      <Route path="/profile" component={Profile}/>
+      <Route path="/profile/:userId" component={Profile}/>
+      <Route path="/about" component={About}/>
     </Route>
   </Router>
 );

@@ -50,4 +50,16 @@
     color: $color-losing;
   }
 
+  .user-link {
+    color: $grey;
+
+    &:visited, &:active, &:hover {
+      color: $grey;
+    }
+
+    &:hover {
+      font-weight: bold;
+    }
+  }
+
 }

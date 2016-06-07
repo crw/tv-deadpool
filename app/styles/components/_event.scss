@@ -10,7 +10,9 @@
 
     .series-title {
       color: white;
+      font-family: 'Gotham';
       font-size: 1.5rem;
+
     }
 
     .episode-title {
@@ -41,40 +43,5 @@
       font-weight: bold;
     }
 
-  }
-
-  .results {
-    background-color: $lightgrey;
-    border-bottom: 1px solid $border-color;
-    padding-bottom: .5rem;
-    text-align: center;
-
-
-    .title {
-      @include cheesy-black-gradient();
-      font-weight: bold;
-      color: $lightgrey;
-    }
-
-    .body {
-      background-color: white;
-      border: 1px solid $border-color;
-      font-weight: bold;
-    }
-  }
-
-  .result {
-
-    &.winnings {
-      .body {
-        color: $color-winning;
-      }
-    }
-
-    &.losses {
-      .body {
-        color: $color-losing;
-      }
-    }
   }
 }

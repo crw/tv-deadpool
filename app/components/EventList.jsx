@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 // App imports
-import {sortObjectsByKey, toArray as firebaseToArray} from 'app/utils';
+import {getKey, sortObjectsByKey, toArray as firebaseToArray} from 'app/utils';
 import Event from 'Event';
 
 
@@ -40,7 +40,7 @@ export class EventList extends React.Component {
   }
 
   render() {
-    let {events} = this.props;
+    let {events, userId} = this.props;
     let {currentEventIndex} = this.state;
 
     var renderEvents = () => {
@@ -50,7 +50,7 @@ export class EventList extends React.Component {
         );
       }
       return (
-        <Event key={events[currentEventIndex].id} id={events[currentEventIndex].id}/>
+        <Event key={events[currentEventIndex].id} id={events[currentEventIndex].id} userId={userId}/>
       );
     };
 
@@ -93,7 +93,8 @@ export class EventList extends React.Component {
 }
 
 
-export default connect((state) => {
+export default connect((state, ownProps) => {
+  let userId = ownProps.userId || getKey(state, 'login.uid', null);
   let events = state.events || {};
   let sortedEvents = firebaseToArray(events).sort(sortObjectsByKey('order', true)).filter(
     (event) => { return event.published; });

@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 // App components
 import Bet from 'Bet';
-import {sortObjectsByKey, toArray as firebaseToArray} from 'app/utils';
+import {getKey, sortObjectsByKey, isEmpty, toArray as firebaseToArray} from 'app/utils';
 
 
 export class BetsList extends React.Component {
@@ -16,7 +16,7 @@ export class BetsList extends React.Component {
     super(props);
     this.state = {
       sortBy: 'avc',
-      filterByWagers: false
+      filterByWagers: props.filterByWagers || false
     };
 
     this.getSortedBets  = this.getSortedBets.bind(this);
@@ -79,7 +79,7 @@ export class BetsList extends React.Component {
   }
 
   render() {
-    let {bets, eventId, resolved} = this.props;
+    let {bets, eventId, resolved, userId} = this.props;
     let {sortBy, filterByWagers} = this.state;
 
     let renderBets = () => {
@@ -96,7 +96,7 @@ export class BetsList extends React.Component {
         return <p className="container__message">No bets match your criteria.</p>;
       }
       return filteredBets.map((bet) => {
-        return <Bet key={bet.id} id={bet.id}/>;
+        return <Bet key={bet.id} id={bet.id} userId={userId}/>;
       });
     };
 
@@ -124,7 +124,7 @@ export class BetsList extends React.Component {
           </div>
           <div className="bets__filterby small-6 columns align-right">
             <label data-filterby="wagers" onClick={this.handleFilterBy}>
-              <input type="checkbox" checked={filterByWagers}/>
+              { filterByWagers ? <input type="checkbox" checked="true"/> : <input type="checkbox"/> }
               Hide Bets Without Wagers
             </label>
           </div>
@@ -136,10 +136,13 @@ export class BetsList extends React.Component {
 }
 
 export default connect((state, ownProps) => {
-  let user = (state.login && state.login.user) || null;
-  let wagers = (user && user.wagers) || {};
+  let userId = ownProps.userId || getKey(state, 'login.uid', null);
+  let user = getKey(state, `users.${userId}`, null);
+  let wagers = getKey(user, 'wagers', {});
+  let filterByWagers = userId !== getKey(state, 'login.uid', null);
   return {
     wagers,
+    filterByWagers,
     bets: state.bets || {},
     resolved: state.events[ownProps.eventId].resolved
   };
