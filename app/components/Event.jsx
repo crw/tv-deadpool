@@ -70,7 +70,7 @@ export class Event extends React.Component {
       return closed && !resolved ?
         (
           <div>
-            Results will be posted after bring confirmed in <i><a href={urls.AVCLUB_ALL_MEN_MUST_DIE_URL} target="_blank">All Men Must Die</a></i>.
+            Results will be posted after being confirmed in <i><a href={urls.AVCLUB_ALL_MEN_MUST_DIE_URL} target="_blank">All Men Must Die</a></i>.
           </div>
         ) :
         (resolved ?
