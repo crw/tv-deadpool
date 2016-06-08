@@ -75,17 +75,10 @@ export var startFetchLabel = (label) => {
  * User Data Manipulation Actions
  ********************************/
 
-export var updateUserData = (updatedData) => {
-  return {
-    type: 'UPDATE_USER_DATA',
-    updatedData
-  };
-};
-
-export var updateUser = (userData) => {
+export var updateUser = (data) => {
   return {
     type: 'UPDATE_USER',
-    userData
+    data
   };
 }
 
@@ -104,13 +97,17 @@ export const startGetUser = (uid) => {
   };
 };
 
-export var startFetchUser = () => {
+export var startFetchLoginUser = () => {
   return (dispatch, getStore) => {
     var uid = getStore().login.uid;
     var userRef = getUserRef(uid);
 
     return userRef.on('value', (snapshot) => {
-      dispatch(updateUserData(snapshot.val() || {}));
+      try {
+        dispatch(updateUser(snapshot.val() || {}));
+      } catch (e) {
+        console.log(e);
+      }
     });
   };
 };

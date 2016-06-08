@@ -20,17 +20,10 @@ export var betsReducer = (state = {}, action) => {
 };
 
 export var usersReducer = (state = {}, action) => {
-
-  let id;
-  let newUser = {};
-  let actionKey = '';
-
   switch(action.type) {
-    case 'UPDATE_USER_DATA':
-      actionKey = 'updatedData';
     case 'UPDATE_USER':
-      actionKey = actionKey || 'userData';
-      newUser[action[actionKey].id] = action[actionKey];
+      let newUser = {};
+      newUser[action.data.id] = action.data;
       return {
         ...state,
         ...newUser
@@ -67,10 +60,15 @@ export var loginReducer = (state = null, action) => {
       return {
         uid: action.uid
       };
-    case 'UPDATE_USER_DATA':
-      return {
-        ...state,
-        user: action.updatedData
+    case 'UPDATE_USER':
+      let user = action.data;
+      if (state.uid === user.id) {
+        return {
+          ...state,
+          user
+        }
+      } else {
+        return state;
       }
     case 'UPDATE_SECURE':
       return {

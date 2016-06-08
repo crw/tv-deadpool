@@ -34,8 +34,12 @@ firebase.auth().onAuthStateChanged((authData) => {
     if (authData) {
       // Logged in
       console.log('Authorizing:', authData.providerData[0].providerId, authData.uid);
-      store.dispatch(actions.login(authData.uid));
-      store.dispatch(actions.startFetchUser());
+      try {
+        store.dispatch(actions.login(authData.uid));
+        store.dispatch(actions.startFetchLoginUser());
+      } catch (e) {
+        console.log(e);
+      }
     } else {
       console.log('Deauthorizing:', authData, getCurrentUser());
       store.dispatch(actions.logout());
