@@ -117,6 +117,12 @@ export default connect((state, ownProps) => {
       members.push(uid);
     }
   }
+  // Special case: The Field (all players)
+  if (label === 'The Field') {
+    let avclub = Object.keys(getKey(state, 'labels.AVClub Staffers', {}));
+    members = Object.keys(getKey(state, 'leaderboard'), {});
+    members = members.filter((member) => { return avclub.indexOf(member) < 0; });
+  }
   let leaders = toArray(state.leaderboard).filter(
     (leader) => {
       return members.indexOf(leader.key) !== -1;
