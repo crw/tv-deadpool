@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 // App imports
-import {now} from 'app/utils';
+import {now, getKey} from 'app/utils';
 import Wager from 'Wager';
 import WagerForm from 'WagerForm';
 

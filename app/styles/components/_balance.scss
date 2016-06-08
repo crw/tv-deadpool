@@ -1,5 +1,26 @@
 .player-balance {
 
+  .player-display-name {
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    padding-left: 0.1rem;
+
+    .display-name {
+      border: 1px solid white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      font-family: 'GameOfThrones';
+      padding: 0.5rem;
+      padding-bottom: 0.1rem;
+      word-spacing: 0.35rem;
+
+      &:hover {
+        border: 1px solid black;
+      }
+    }
+
+  }
+
   .balance-label {
     @extend .component__title;
     font-size: 2rem;
