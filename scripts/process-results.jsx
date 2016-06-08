@@ -135,7 +135,10 @@ function processAllWagers(users, events, bets) {
   let leaderboard = {};
   for (let userId of Object.keys(users)) {
     let user = users[userId];
-    leaderboard[user.id] = processUserWagers(user, events, bets);
+    let wagers = getKey(user, 'wagers', null);
+    if (wagers && wagers.length !== 0) {
+      leaderboard[user.id] = processUserWagers(user, events, bets);
+    }
   }
   return leaderboard;
 }
@@ -162,8 +165,17 @@ ref.once('value').then((snapshot) => {
 
   try {
     leaderboard = processAllWagers(users, events, bets);
+
+    let updateData = {};
+
+    for (let userId of Object.keys(leaderboard)) {
+      updateData[`users/${userId}/balance`] = leaderboard[userId].balance;
+    }
+
     ref.child('leaderboard').set(leaderboard).then(() => {
-      process.exit(0);
+      ref.update(updateData).then((snapshot) => {
+        process.exit(0);
+      });
     });
   } catch (e) {
     console.log('Exception', e);
