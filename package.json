@@ -2,7 +2,7 @@
   "name": "tv-deadpool",
   "private": true,
   "version": "1.0.0",
-  "description": "TV Show Dead Pool game.",
+  "description": "TV show deadpool game.",
   "repository": {
     "type": "git",
     "url": "https://github.com/crw/tv-deadpool.git"
@@ -13,6 +13,7 @@
   "scripts": {
     "dev": "webpack -d",
     "dist": "webpack -p",
+    "deploy": "firebase use tv-deadpool && firebase deploy"
     "test": "karma start",
     "start": "node server.js",
     "start:dev": "webpack-dev-server --inline --content-base public/ --port 3000 --history-api-fallback",
@@ -27,8 +28,6 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "css-loader": "^0.23.1",
-    "expect": "^1.14.0",
-    "express": "^4.13.4",
     "extract-text-webpack-plugin": "^0.9.0",
     "file-loader": "^0.8.1",
     "firebase": "^3.0.2",
@@ -38,7 +37,6 @@
     "moment": "^2.12.0",
     "node-env-file": "^0.1.8",
     "node-sass": "^3.4.2",
-    "node-uuid": "^1.4.7",
     "react": "^0.14.7",
     "react-addons-test-utils": "^0.14.6",
     "react-dom": "^0.14.7",
@@ -57,6 +55,7 @@
     "babel-cli": "^6.9.0",
     "deep-freeze-strict": "^1.1.1",
     "eslint": "^2.10.2",
+    "expect": "^1.14.0",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2.2",
     "karma-mocha": "^0.2.2",
