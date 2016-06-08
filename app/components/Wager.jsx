@@ -2,6 +2,7 @@ import {now} from 'app/utils';
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 // App imports
+import {LOCALE, CURRENCY_FORMAT} from 'app/constants/formats';
 import {getKey} from 'app/utils';
 
 export class Wager extends Component {
@@ -37,8 +38,7 @@ export class Wager extends Component {
     let renderPayout = () => {
       if (resolved) {
         return (paid) ?
-          <span className={renderClass("wager-payout")}> Winnings: ${payout.toLocaleString()}</span> :
-          ''; //<span className={renderClass("wager-payout")}> Losses: ${wager.toLocaleString()}</span> ;
+          <span className={renderClass("wager-payout")}> Winnings: {payout.toLocaleString(LOCALE, CURRENCY_FORMAT)}</span> : '';
       }
     };
 
@@ -46,7 +46,7 @@ export class Wager extends Component {
 
     return (
       <div className="wager">
-        {(wager) ? <span className={renderClass("amount")}>${wager.toLocaleString()}</span> : ''}
+        {(wager) ? <span className={renderClass("amount")}>{wager.toLocaleString(LOCALE, CURRENCY_FORMAT)}</span> : ''}
         {(wager) ? renderPayout() : ''}
         {(comment) ? <span className="comment"> Note: {comment}</span> : ''}
       </div>
@@ -61,7 +61,7 @@ export default connect((state, ownProps) => {
   let userId = ownProps.userId || getKey(state, 'login.uid', null);
   let user = getKey(state, `users.${userId}`, {});
   let wager = getKey(user, `wagers.${betId}`, {});
-  let payout = (wager.wager) ? Math.floor(((wager.wager * bet.odds_payout) / bet.odds_wager) + wager.wager) : 0;
+  let payout = (wager.wager) ? Math.floor((wager.wager * bet.odds_payout) / bet.odds_wager) : 0;
   return {
     ...wager,
     paid: bet.paid,
