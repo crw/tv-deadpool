@@ -51,8 +51,13 @@ export class Navigation extends React.Component {
                 <li>
                   <IndexLink to="/" activeClassName="link-active">Bets</IndexLink>
                 </li>
+                { login ? (
+                    <li>
+                      <Link to="/profile" activeClassName="link-active">You</Link>
+                    </li>
+                  ) : <li/> }
                 <li>
-                  <Link to="/profile" activeClassName="link-active">You</Link>
+                  <Link to="/help" activeClassName="link-active">Help</Link>
                 </li>
                 <li>
                   <Link to="/about" activeClassName="link-active">About</Link>

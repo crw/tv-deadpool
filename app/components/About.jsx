@@ -14,17 +14,19 @@ export default class About extends React.Component {
       <div className="row">
       <div className="small-12 medium-8 medium-centered columns">
         <p className="callout alert">
-          <b>DISCLAIMER: This site is in no way associated with <a href="http://avclub.com" target="_blank">AVClub.com</a>.</b>
+          <b>DISCLAIMER: This site is not associated with <a href="http://avclub.com" target="_blank">AVClub.com</a>.</b>
         </p>
         <h2>Brief Intro</h2>
         <p>
-          Howdy and welcome the totally fake-money TV Deadpool site, inspired by the <i><a
-          href="http://www.avclub.com/features/you-win-or-you-die/" target="_blank">You
-          Win Or You Die</a></i> feature on the AVClub, edited weekly by <a
+          Welcome TVDeadpool.xyz, the television show deadpool fake-money betting site,
+          inspired by the <i><a href="http://www.avclub.com/features/you-win-or-you-die/" target="_blank">You
+          Win Or You Die</a></i> feature posted weekly on the AVClub by <a
           href="http://www.avclub.com/author/Marah%20Eakin/" target="_blank">Marah Eakin</a>.
         </p>
         <p>
-          TVDeadpool.xyz is an independent site being run gratis by an inspired fan.
+          TVDeadpool.xyz is an independent site being run gratis by <a
+          href="https://twitter.com/c_r_w" target="_blank">Craig Wright</a>. Site update announcements will be posted from <a
+          href="https://twitter.com/c0diator" target="_blank">@c0diator</a>.
         </p>
         <h2>How It Works</h2>
         <p>
@@ -52,7 +54,7 @@ export default class About extends React.Component {
           a named character.
         </p>
         <p>
-          Results will be tallied using an off-line script. Expect updates Tuesday through Wednesday. Then we
+          Results will be tallied using an offline script. Expect updates Tuesday/Wednesday. Then we
           anxiously await Friday's article and the cycle repeats.
         </p>
         <p>
@@ -73,10 +75,11 @@ export default class About extends React.Component {
           keeping score.
         </p>
         <p>
-          You may also ask, "why now," with only four episodes left in the season. Unfortunately, I didn't start
-          working on this until just before the sixth episode. If this is popular enough, and I am not shut down,
-          and they finish Season 7 before GRRM finishes the next book (which should be a bet), and the AVClub keeps
-          up this entertaining feature or I somehow get a professional bookie to make odds, we can start fresh next season!
+          You may also ask, "why now," with only <strike>four</strike> three episodes left in the season. Unfortunately, I didn't start
+          working on this until just before the sixth episode. If this is popular enough,
+          and they finish Season 7 before GRRM finishes the next book, and the AVClub keeps
+          writing this feature or I somehow get a professional bookie to make odds, we can start fresh next season!
+          Theoretically, this site could be used for any kind of bets on other shows or events as well.
         </p>
         <h2>Having difficulties?</h2>
         <p>
@@ -86,7 +89,21 @@ export default class About extends React.Component {
         <p>
           Thanks to Marah Eakin, Caitlin PenzeyMoog, Katie Rife, Myles McNutt and the staff of the AVClub for
           their comprehensive coverage of the <i>Game of Thrones</i> series. Thanks to oddsmaker Benjamin Eckstein.
-          And thanks to the amazing community of commentors on the AVClub, you are an inspiration.
+          Thanks to the amazing community of commentors on the AVClub, you are an inspiration.
+        </p>
+        <p>
+          Thanks to <a href="http://reddit.com/r/gameofthrones" target="_blank">reddit.com/r/gameofthrones</a> for showing up!
+          Y'all are my fan-theory heroes. Stay hype.
+        </p>
+        <p>
+          Thanks also to <a href="http://mead.io" target="_blank">Andrew Mead</a> for
+          his <a href="https://www.udemy.com/the-complete-react-web-app-developer-course/" target="_blank">Udemy course on React</a>.
+          Credit also to <a href="http://fontawesome.io/" target="_blank">Font Awesome</a> for the great icons
+          and <a href="http://allfreefont.com/fonts/13629/game_of_thrones.php" target="_blank">Game of Thrones font</a> by <a href="http://allfreefont.com/search.php?d=1&q=Charlie+Samways" target="_blank">Charlie
+          Samways</a>.
+        </p>
+        <p className="callout">
+          <i><b>Valar morghulis.</b></i>
         </p>
       </div>
       </div>
