@@ -25,7 +25,7 @@ export class Event extends React.Component {
   }
 
   render() {
-    let {id, season, episode, series, name, article, confirmation, air_at, lock_at, resolved, userId, results} = this.props;
+    let {id, season, episode, series, name, article, confirmation, air_at, lock_at, resolved, userId, results, preview} = this.props;
 
     let closed = now() > lock_at;
 
@@ -43,7 +43,7 @@ export class Event extends React.Component {
               Balance
             </div>
             <div className="body">
-              {results.balance.toLocaleString(LOCALE, CURRENCY_FORMAT)}
+              {(results.balance || 0).toLocaleString(LOCALE, CURRENCY_FORMAT)}
             </div>
           </div>
           <div className="result winnings small-4 columns">
@@ -51,7 +51,7 @@ export class Event extends React.Component {
               Winnings
             </div>
             <div className="body">
-              {results.winnings.toLocaleString(LOCALE, CURRENCY_FORMAT)}
+              {(results.winnings || 0).toLocaleString(LOCALE, CURRENCY_FORMAT)}
             </div>
           </div>
           <div className="result losses small-4 columns">
@@ -59,7 +59,7 @@ export class Event extends React.Component {
               Losses
             </div>
             <div className="body">
-              {results.losses.toLocaleString(LOCALE, CURRENCY_FORMAT)}
+              {(results.losses || 0).toLocaleString(LOCALE, CURRENCY_FORMAT)}
             </div>
           </div>
         </div>
@@ -91,7 +91,7 @@ export class Event extends React.Component {
         <div className="header">
           {renderStatus()}
           <div className="series-title">{series}</div>
-          <div className="episode-title"><a href={article} target="_blank">"{name}"</a></div>
+          <div className="episode-title"><a href={article} target="_blank">"{name}"</a>{ preview ? <span> - <a href={preview} target="_blank">Preview</a></span> : ''}</div>
         </div>
         <div className="body">
           <div className="episode-number">Season {season}, Episode {episode}</div>
@@ -99,7 +99,7 @@ export class Event extends React.Component {
           <div className="episode-locked">{closed? 'Closed' : 'Closes'}: {moment(lock_at).format(PRETTY_DATE_FORMAT)}</div>
           {renderConfirmation()}
         </div>
-        { resolved && userId && results ? renderResults() : '' }
+        { resolved && userId && results ? renderResults() : <div className="noresults"/> }
         <BetsList eventId={id} userId={userId}/>
       </div>
     );
