@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 // App imports
-import {DEFAULT_DISPLAY_NAME as CONST_DEFAULT_DISPLAY_NAME} from '../app/constants/strings';
-import {isObject, sortObjectsByKey, getKey} from '../app/utils';
+import {CHARACTER_NAMES, DEFAULT_DISPLAY_NAME} from '../app/constants/strings';
+import {isObject, sortObjectsByKey, getKey, toArray} from '../app/utils';
 
 // Initialize the app with a custom auth variable, limiting the server's access
 var config = {
@@ -17,23 +17,8 @@ var config = {
 firebase.initializeApp(config);
 
 const INITIAL_BALANCE = 100;
-const DEFAULT_DISPLAY_NAME = CONST_DEFAULT_DISPLAY_NAME;
 
 console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
-
-function toArray(firebaseArray) {
-  if (isObject(firebaseArray)) {
-    let itemsArr = [];
-    Object.keys(firebaseArray).forEach((item) => {
-      itemsArr.push(firebaseArray[item])
-      // Preserve the key, which is often the ID for the object.
-      itemsArr[itemsArr.length-1].key = item;
-    });
-    return itemsArr;
-  } else {
-    throw 'Invalid data, not an object.';
-  }
-}
 
 // leaderboard {
 //   uid {
@@ -52,6 +37,11 @@ function toArray(firebaseArray) {
 //     }
 //   }
 // }
+
+function getRandomDisplayName() {
+  return DEFAULT_DISPLAY_NAME;
+  // return CHARACTER_NAMES[Math.floor(Math.random()*CHARACTER_NAMES.length)];
+}
 
 function sortWagersIntoEvents(wagers, events, bets) {
 
@@ -72,12 +62,13 @@ function sortWagersIntoEvents(wagers, events, bets) {
 
 function processUserWagers(user, events, bets) {
 
-  let eventsArr = toArray(events).sort(sortObjectsByKey());
-  let wagers = (user.wagers) ? sortWagersIntoEvents(user.wagers, events, bets) : [];
+  const eventsArr = toArray(events).sort(sortObjectsByKey());
+  const wagers = (user.wagers) ? sortWagersIntoEvents(user.wagers, events, bets) : [];
+  const anon = user.displayName ? false : true;
+  const displayName = user.displayName || /*user.fakeDisplayName ||*/ getRandomDisplayName();
   let balance = INITIAL_BALANCE;
   let winnings = 0;
   let losses = 0;
-  let displayName = user.displayName || DEFAULT_DISPLAY_NAME;
 
   let eventsSummary = {};
 
@@ -123,6 +114,7 @@ function processUserWagers(user, events, bets) {
 
   return {
     displayName,
+    anon,
     events: eventsSummary,
     winnings,
     losses,
@@ -169,7 +161,11 @@ ref.once('value').then((snapshot) => {
     let updateData = {};
 
     for (let userId of Object.keys(leaderboard)) {
-      updateData[`users/${userId}/balance`] = leaderboard[userId].balance;
+      let lbUser = leaderboard[userId];
+      updateData[`users/${userId}/balance`] = lbUser.balance;
+      if (lbUser.anon) {
+        updateData[`users/${userId}/fakeDisplayName`] = lbUser.displayName;
+      }
     }
 
     ref.child('leaderboard').set(leaderboard).then(() => {

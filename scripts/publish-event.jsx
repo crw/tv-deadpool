@@ -20,23 +20,15 @@ console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
 const db = firebase.database();
 const ref = db.ref();
 
-const secureRef = ref.child('secure');
-const userRef = ref.child('users');
+const eventId = 'gameofthrones-6-8';
 
-let users = {};
-let secure = {};
+const eventRef = ref.child(`events/${eventId}`);
 
-userRef.on('value', (snapshot) => {
-  users = snapshot.val();
-  secureRef.once('value').then((snapshot) => {
-    secure = snapshot.val();
-    let i = 0;
-    Object.keys(secure).forEach((key) => {
-      let user = secure[key];
-      console.log(key, user.displayName, '\t\t', users[key].displayName || '-', '\t\t', user.email || '-');
-      i++;
-    });
-    console.log(i + ' users');
-  });
-});
+eventRef.child('published').set(true).then((snapshot) => {
+
+  process.exit(0);
+
+}, (e) => {
+  console.log('Set failed:', e);
+})
 

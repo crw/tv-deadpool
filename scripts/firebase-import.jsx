@@ -86,7 +86,14 @@ if (typeof Events !== "undefined" && typeof Bets !== "undefined") {
       let updateData = {
         ...bet,
         id,
-        event_id
+        event_id,
+        paid: false,
+        note: '',
+        official: true,
+        published: true,
+        resolved: false,
+        created_at: Date.now(),
+        updated_at: Date.now()
       };
       betsRef.child(id).update(updateData);
       betsEventMap[event_id].push(id);

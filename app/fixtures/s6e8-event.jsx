@@ -12,9 +12,9 @@ export const Events = [
     air_at: moment('2016-06-13T01:00:00Z').unix()*1000,
     lock_at: moment('2016-06-13T00:50:00Z').unix()*1000,
     article: '',
-    confirmation: '',
+    confirmation: false,
     preview: 'https://youtu.be/fIOiAfEIk_g',
-    published: true,
+    published: false,
     resolved: false,
     created_at: Date.now(),
     updated_at: Date.now()
