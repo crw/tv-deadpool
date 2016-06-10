@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 // App imports
+import {LOCALE, CURRENCY_FORMAT} from 'app/constants/formats';
 import {getKey} from 'app/utils';
 import {DEFAULT_DISPLAY_NAME} from 'app/constants/strings';
-
+import DisplayNameForm from 'DisplayNameForm';
 
 export class Balance extends React.Component {
   static propTypes = {
-    balance: React.PropTypes.number,
-    displayName: React.PropTypes.string
+    balance:     PropTypes.number,
+    displayName: PropTypes.string
   };
+
 
   constructor(props) {
     super(props);
@@ -18,63 +20,44 @@ export class Balance extends React.Component {
       editingName: false
     };
 
-    this.handleClickEditName = this.handleClickEditName.bind(this);
-    this.handleClickCancelEditName = this.handleClickCancelEditName.bind(this);
+    this.handleEditName = this.handleEditName.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
 
-  componentDidUpdate() {
-    let {editingName} = this.state;
-    let {editname} = this.refs;
-
-    if (editingName) {
-      editname.focus();
-    }
-  }
-
-  handleClickEditName(e) {
+  handleEditName(e) {
     e.preventDefault();
     this.setState({
       editingName: true
     });
   }
 
-  handleClickCancelEditName(e) {
-    e.preventDefault();
-    let {editname} = this.refs;
-    editname.value = '';
+  handleCancel() {
     this.setState({
       editingName: false
     });
   }
 
-  handleSubmit() {
-    return ;
-  }
-
   render() {
-    let {balance, displayName} = this.props;
-    let {editingName} = this.state;
-    let origDisplayName = displayName;
-
-    displayName = displayName || DEFAULT_DISPLAY_NAME;
-    balance = balance || 0;
+    const {id, balance, displayName} = this.props;
+    const {editingName} = this.state;
+    const initialValues = { userId: id };
 
     let renderDisplayName = () => {
-      if (!editingName) {
+      if (editingName) {
         return (
-          <div className="player-display-name">
-            <i className="fa fa-fw fa-user"/>
-            <span onClick={this.handleClickEditName} className="display-name">{displayName}</span>
-          </div>
+          <DisplayNameForm initialValues={initialValues} nameValue={displayName} onCancel={this.handleCancel}/>
         );
       } else {
-        let value = origDisplayName || '';
         return (
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" ref="editname" placeholder="Change your name." value={value}/>
-            <button className="button">Update</button>
-            <button className="button" onClick={this.handleClickCancelEditName}>Cancel</button>
-          </form>
+          <div className="player-display-name row small-collapse">
+            <div className="small-11 columns">
+              <i className="fa fa-fw fa-user"/>
+              <span className="display-name" title="Edit name" onClick={this.handleEditName}>{displayName || DEFAULT_DISPLAY_NAME}</span>
+            </div>
+            <div className="small-1 columns">
+              <i className="fa fa-fw fa-pencil" title="Edit name" onClick={this.handleEditName} />
+            </div>
+          </div>
         );
       }
     };
@@ -86,7 +69,7 @@ export class Balance extends React.Component {
           Balance
         </div>
         <div className="balance-value">
-          ${balance.toLocaleString({currency: 'USD'})}
+          {(balance || 0).toLocaleString(LOCALE, CURRENCY_FORMAT)}
         </div>
       </div>
     );

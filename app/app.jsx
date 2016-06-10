@@ -33,7 +33,7 @@ firebase.auth().onAuthStateChanged((authData) => {
   try {
     if (authData) {
       // Logged in
-      console.log('Authorizing:', authData.providerData[0].providerId, authData.uid);
+      // console.log('Authorizing:', authData.providerData[0].providerId, authData.uid);
       try {
         store.dispatch(actions.login(authData.uid));
         store.dispatch(actions.startFetchLoginUser());
@@ -41,12 +41,12 @@ firebase.auth().onAuthStateChanged((authData) => {
         console.log(e);
       }
     } else {
-      console.log('Deauthorizing:', authData, getCurrentUser());
+      // console.log('Deauthorizing:', authData, getCurrentUser());
       store.dispatch(actions.logout());
       // logged out
     }
   } catch (e) {
-    console.log('onAuthStateChanged Exception:', e);
+    // console.log('onAuthStateChanged Exception:', e);
   }
 });
 

@@ -24,7 +24,7 @@ export class Bet extends React.Component {
 
 
   render() {
-    const {id, odds_payout, odds_wager, name, desc, note, closed, validUser, paid, resolved, userId} = this.props;
+    const {id, odds_payout, odds_wager, name, desc, note, closed, validUser, paid, resolved, userId, loginUserId} = this.props;
 
     const __DEV__ = process.env.NODE_ENV === 'development';
 
@@ -50,20 +50,22 @@ export class Bet extends React.Component {
           </div>
         </div>
         { validUser || userId ? <Wager id={id} userId={userId}/> : ''}
-        { validUser && !closed ? <WagerForm id={id} userId={userId}/> : ''}
+        { validUser && !closed && userId === loginUserId ? <WagerForm id={id} userId={userId}/> : ''}
       </div>
     );
   }
 }
 
 export default connect((state, ownProps) => {
-  let userId = ownProps.userId || getKey(state, 'login.uid', null);
-  let bet = state.bets[ownProps.id];
-  let event = state.events[bet.event_id];
+  const loginUserId = getKey(state, 'login.uid', null);
+  const userId = ownProps.userId || loginUserId;
+  const bet = state.bets[ownProps.id];
+  const event = state.events[bet.event_id];
   return {
     ...bet,
     userId,
+    loginUserId,
     closed: event.lock_at < now(),
-    validUser: state.login ? true : false
+    validUser: !!state.login
   };
 })(Bet);

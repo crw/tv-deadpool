@@ -1,0 +1,20 @@
+.display-name-form {
+
+  .input-group {
+    margin-bottom: 0.2rem;
+  }
+
+  .error {
+    margin: .5rem 0;
+    border: 1px solid $error-color;
+    font-style: italic;
+    color: $error-color;
+    padding: .2rem 1rem;
+    border-radius: 5px;
+    background-color: $error-background-color;
+  }
+
+  BUTTON {
+    white-space: nowrap;
+  }
+}

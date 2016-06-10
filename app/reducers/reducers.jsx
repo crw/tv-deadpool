@@ -20,10 +20,19 @@ export var betsReducer = (state = {}, action) => {
 };
 
 export var usersReducer = (state = {}, action) => {
+  let newUser = {};
+
   switch(action.type) {
     case 'UPDATE_USER':
-      let newUser = {};
       newUser[action.data.id] = action.data;
+      return {
+        ...state,
+        ...newUser
+      }
+    case 'UPDATE_DISPLAY_NAME':
+      let user = state[action.uid];
+      user.displayName = action.displayName;
+      newUser[`${action.uid}`] = user;
       return {
         ...state,
         ...newUser
@@ -60,7 +69,7 @@ export var loginReducer = (state = null, action) => {
       return {
         uid: action.uid
       };
-    case 'UPDATE_USER':
+    case 'UPDATE_USER': {
       let user = action.data;
       if (state.uid === user.id) {
         return {
@@ -70,6 +79,15 @@ export var loginReducer = (state = null, action) => {
       } else {
         return state;
       }
+    }
+    case 'UPDATE_DISPLAY_NAME':{
+      let user = state.user;
+      user.displayName = action.displayName;
+      return {
+        ...state,
+        user
+      }
+    }
     case 'UPDATE_SECURE':
       return {
         ...state,
@@ -86,7 +104,6 @@ export var leaderboardReducer = (state = {}, action) => {
   switch(action.type) {
     case 'UPDATE_LEADERBOARD_DATA':
       return {
-        ...state,
         ...action.updatedData
       }
     case 'UPDATE_LEADERBOARD_ENTRY':

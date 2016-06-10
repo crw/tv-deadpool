@@ -37,7 +37,7 @@ export class Profile extends React.Component {
                 Balance
               </div>
               <div className="body">
-                {results.balance.toLocaleString(LOCALE, CURRENCY_FORMAT)}
+                {(results.balance || 100).toLocaleString(LOCALE, CURRENCY_FORMAT)}
               </div>
             </div>
           </div>
@@ -47,7 +47,7 @@ export class Profile extends React.Component {
                 Winnings
               </div>
               <div className="body">
-                {results.winnings.toLocaleString(LOCALE, CURRENCY_FORMAT)}
+                {(results.winnings || 0).toLocaleString(LOCALE, CURRENCY_FORMAT)}
               </div>
             </div>
             <div className="result losses small-4 small-offset-2 end columns">
@@ -55,7 +55,7 @@ export class Profile extends React.Component {
                 Losses
               </div>
               <div className="body">
-                {results.losses.toLocaleString(LOCALE, CURRENCY_FORMAT)}
+                {(results.losses || 0).toLocaleString(LOCALE, CURRENCY_FORMAT)}
               </div>
             </div>
           </div>

@@ -13,7 +13,7 @@
   "scripts": {
     "dev": "webpack -d",
     "dist": "webpack -p",
-    "deploy": "firebase use tv-deadpool && firebase deploy"
+    "deploy": "firebase use tv-deadpool & firebase deploy",
     "test": "karma start",
     "start": "node server.js",
     "start:dev": "webpack-dev-server --inline --content-base public/ --port 3000 --history-api-fallback",
@@ -43,6 +43,7 @@
     "react-redux": "^4.4.1",
     "react-router": "^2.0.0",
     "redux": "^3.3.1",
+    "redux-form": "^5.2.5",
     "redux-mock-store": "^1.0.2",
     "redux-thunk": "^2.0.1",
     "sass-loader": "^3.1.2",

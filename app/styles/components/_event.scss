@@ -1,6 +1,10 @@
 .event {
   border: 1px solid $border-color;
 
+  .noresults {
+    border-bottom: 1px solid $border-color;
+  }
+
   > .header {
 
     padding: 0.5rem 0.2rem 0.5rem 0.5rem;
@@ -16,6 +20,7 @@
     }
 
     .episode-title {
+      color: white;
       font-style: italic;
     }
 

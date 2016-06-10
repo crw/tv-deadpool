@@ -1,5 +1,7 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
+import {reducer as formReducer} from 'redux-form';
+// App imports
 import * as reducers from 'reducers';
 
 
@@ -10,7 +12,8 @@ export var configure = (initialState = {}) => {
     bets:    reducers.betsReducer,
     login:   reducers.loginReducer,
     leaderboard: reducers.leaderboardReducer,
-    labels:  reducers.labelsReducer
+    labels:  reducers.labelsReducer,
+    form:   formReducer
   });
 
   var store = redux.createStore(reducer, initialState, redux.compose(

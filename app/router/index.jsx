@@ -5,6 +5,7 @@ import App from 'App';
 import GameBoard from 'GameBoard';
 import Profile from 'Profile';
 import About from 'About';
+import Help from 'Help';
 
 
 export default (
@@ -13,6 +14,7 @@ export default (
       <IndexRoute component={GameBoard}/>
       <Route path="/profile" component={Profile}/>
       <Route path="/profile/:userId" component={Profile}/>
+      <Route path="/help" component={Help}/>
       <Route path="/about" component={About}/>
     </Route>
   </Router>

@@ -13,10 +13,15 @@
       padding: 0.5rem;
       padding-bottom: 0.1rem;
       word-spacing: 0.35rem;
+      cursor: pointer;
 
       &:hover {
         border: 1px solid black;
       }
+    }
+
+    .fa-pencil {
+      cursor: pointer;
     }
 
   }

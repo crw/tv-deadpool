@@ -32,7 +32,7 @@
     "names": {
       "$nameid": {
         ".read": true,
-        ".write": "auth != null && (!data.exists() || (data.exists() && !newData.exists()))",
+        ".write": "auth != null && (!data.exists() || (data.exists() && !newData.exists() && data.val() === auth.uid))",
       }
     },
     "events": {
@@ -47,7 +47,15 @@
       }
     },
     "leaderboard": {
-      ".read": true
+      ".read": true,
+      "$uid": {
+        "displayName": {
+          ".write": "$uid === auth.uid"
+        },
+        "anon": {
+          ".write": "$uid === auth.uid"
+        }
+      }
     }
   }
 }

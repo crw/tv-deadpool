@@ -1,6 +1,6 @@
 import moment from 'moment';
 // App imports
-import {now} from 'app/utils';
+import {now, normalizeName} from 'app/utils';
 import {getUserRef, getSecureRef} from 'app/api/firebase';
 import PROVIDERS from 'app/constants/providers';
 
@@ -109,6 +109,58 @@ export var startFetchLoginUser = () => {
         console.log(e);
       }
     });
+  };
+};
+
+export var updateDisplayName = (uid, displayName) => {
+  return {
+    type: 'UPDATE_DISPLAY_NAME',
+    uid,
+    displayName
+  };
+};
+
+export var startUpdateDisplayName = (resolve, reject, uid, displayName) => {
+  return (dispatch, getStore) => {
+    const currentDisplayName = getStore().users[uid].displayName;
+    const ref = firebase.database().ref();
+    let updateData = {};
+    updateData[`users/${uid}/displayName`] = displayName;
+    updateData[`names/${normalizeName(displayName)}`] = uid;
+
+    if (displayName === currentDisplayName) {
+      resolve();
+
+    } else {
+
+      ref.update(updateData).then((snapshot) => {
+
+        // The other firebase actions don't matter and can fail, only this
+        // initial update is important.
+        dispatch(updateDisplayName(uid, displayName));
+        resolve();
+        // Small error func for catch statements.
+        const errFunc = (e) => {
+          console.log('ERROR:', e);
+        };
+        // Updates the Leaderboard name; will also get picked up at next scores run.
+        if (getStore().leaderboard[uid]) {
+          ref.child(`leaderboard/${uid}/displayName`).set(displayName).catch(errFunc);
+          ref.child(`leaderboard/${uid}/anon`).set(false).catch(errFunc);
+        }
+        // Frees their old displayName so others can use it.
+        if (currentDisplayName) {
+          ref.child(`names/${normalizeName(currentDisplayName)}`).remove().catch(errFunc);
+        }
+        ref.child(`users/${uid}/fakeDisplayName`).remove().catch(errFunc);
+
+      }, (e) => {
+        console.log('Add Name Error:', e);
+        reject({
+          displayName: `"${displayName}" is not available.`
+        });
+      });
+    }
   };
 };
 

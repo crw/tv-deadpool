@@ -88,3 +88,10 @@ export function toArray(firebaseArray) {
     throw 'Invalid data, not an object.';
   }
 }
+
+/**
+ * Returns a normalized username for deduplication purposes.
+ */
+export function normalizeName(name) {
+  return name.toLowerCase().replace(/[ \-\_\=\+\/\\\.\,\<\>\;\:\'\"\?\!\@\#\$\%\^\&\*\(\)]/g, '');
+}

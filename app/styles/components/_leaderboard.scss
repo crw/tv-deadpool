@@ -36,6 +36,12 @@
     &:hover {
       background-color: $lightgrey;
     }
+
+    .username {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   .current-user {
