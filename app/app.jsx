@@ -18,39 +18,28 @@ require('./styles/fonts/gameofthrones/stylesheet.css');
 
 var store = require('configureStore').configure();
 
-
-
 // Fetch Events and Bets data
 store.dispatch(actions.startEventsData());
 store.dispatch(actions.startBetsData());
 store.dispatch(actions.startLeaderboardData());
 
 
-//// Login / Logout functionality
-//// Saving for later.
-
 firebase.auth().onAuthStateChanged((authData) => {
-  try {
-    if (authData) {
-      // Logged in
-      // console.log('Authorizing:', authData.providerData[0].providerId, authData.uid);
-      try {
-        store.dispatch(actions.login(authData.uid));
-        store.dispatch(actions.startFetchLoginUser());
-      } catch (e) {
-        console.log(e);
-      }
-    } else {
-      // console.log('Deauthorizing:', authData, getCurrentUser());
-      store.dispatch(actions.logout());
-      // logged out
+  if (authData) {
+    try {
+      store.dispatch(actions.login(authData.uid));
+      store.dispatch(actions.startFetchLoginUser());
+    } catch (e) {
+      console.log('Login error:', e);
     }
-  } catch (e) {
-    // console.log('onAuthStateChanged Exception:', e);
+  } else {
+    try {
+      store.dispatch(actions.logout());
+    } catch (e) {
+      console.log('Logout error:', e);
+    }
   }
 });
-
-
 
 ReactDOM.render(
   <Provider store={store}>
