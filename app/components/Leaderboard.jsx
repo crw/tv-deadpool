@@ -62,7 +62,7 @@ export class Leaderboard extends React.Component {
         (leader) => {
           const thisUser = leader.key === uid;
           const rowclass = thisUser ? 'current-user' : '';
-          const displayName = thisUser && leader.anon ? DEFAULT_DISPLAY_NAME : leader.displayName;
+          const displayName = !thisUser && leader.anon ? <span className="anon">{leader.displayName}</span> : leader.displayName;
 
           const userIcon = thisUser ? (
               <span title="You!">
