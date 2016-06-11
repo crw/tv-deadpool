@@ -63,7 +63,7 @@ export default class About extends React.Component {
           wagering on it, enter "0" as your wager and your comment. You can change your wagers any time up to the time the episode closes, at
           which point the bets are "locked" in. The special season-long bets are only available while the episode is open,
           once the episode closes you may not place a wager on those positions. The special season-long bets will be reconciled
-          at the end of the season, so even if you "win" you will not see your winnings until the finale.
+          on the episode that they occur if they are definitively proven true or false.
         </p>
         <p>
           The cost of your wager is deducted immediately from your overall balance. If you win a wager, your wager is refunded.
