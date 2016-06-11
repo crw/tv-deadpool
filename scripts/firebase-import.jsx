@@ -9,9 +9,9 @@ import firebase from 'firebase';
 // import Bets from '../app/fixtures/s6e8-bets.jsx';
 //// USERS
 // import Users from '../app/fixtures/Users.jsx';
-// import User_marahe from '../app/fixtures/User-marahe';
-// import User_mccown from '../app/fixtures/User-mccown-10';
-import Users from '../app/fixtures/s6e8-users.jsx';
+// import Users from '../app/fixtures/Users-drbootslist';
+// import Users from '../app/fixtures/s6e8-users.jsx';
+
 
 
 // Initialize the app with a custom auth variable, limiting the server's access
@@ -111,6 +111,7 @@ if (typeof Events !== "undefined" && typeof Bets !== "undefined") {
 
 }
 
+
 if (typeof Users !== "undefined") {
 
   // User:
@@ -118,11 +119,12 @@ if (typeof Users !== "undefined") {
     // balance: 375,
     // created_at: Date.now(),
     // updated_at: Date.now(),
-
     // wagers:
         // id: 'gameofthrones-6-2-1',
         // created_at: Date.now(),
         // updated_at: Date.now()
+
+  console.log('Processing users...');
 
   const userIds = Object.keys(Users);
 
@@ -130,6 +132,8 @@ if (typeof Users !== "undefined") {
 
   for (let userId of userIds) {
     let user = Users[userId];
+
+    console.log(`...${userId}`);
 
     updatedData[`${userId}/updated_at`] = Date.now();
 
@@ -145,24 +149,10 @@ if (typeof Users !== "undefined") {
       updatedData[`${userId}/wagers/${wagerId}`] = wager;
     }
   }
+  // console.log(updatedData);
   ref.child('users').update(updatedData).then((snapshot) => {
-    console.log(snapshot.val());
+    // console.log(snapshot.val());
+    console.log('...done.');
   });
 }
 
-// if (typeof User_marahe !== "undefined") {
-//   let id = Object.keys(User_marahe)[0];
-//   ref.child(`users/${id}/wagers`).update(User_marahe[id].wagers);
-// }
-
-// if (typeof User_mccown !== "undefined") {
-//   let id = Object.keys(User_mccown)[0];
-//   ref.child(`users/${id}/wagers`).update(User_mccown[id].wagers);
-// }
-// ref.child('events').once("value", function(snapshot) {
-//   console.log(snapshot.val());
-// });
-
-// ref.child('bets').once("value", function(snapshot) {
-//   console.log(snapshot.val());
-// });

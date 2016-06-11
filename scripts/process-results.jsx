@@ -1,7 +1,8 @@
 import firebase from 'firebase';
 // App imports
-import {CHARACTER_NAMES, DEFAULT_DISPLAY_NAME} from '../app/constants/strings';
 import {isObject, isEmpty, sortObjectsByKey, getKey, toArray} from '../app/utils';
+import {processAllWagers, processOneUser} from './lib';
+
 
 // Initialize the app with a custom auth variable, limiting the server's access
 var config = {
@@ -16,7 +17,6 @@ var config = {
 };
 firebase.initializeApp(config);
 
-const INITIAL_BALANCE = 100;
 
 console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
 
@@ -38,114 +38,6 @@ console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
 //   }
 // }
 
-function getRandomDisplayName() {
-  return DEFAULT_DISPLAY_NAME;
-  // return CHARACTER_NAMES[Math.floor(Math.random()*CHARACTER_NAMES.length)];
-}
-
-function sortWagersIntoEvents(wagers, events, bets) {
-
-  let wagersByEvent = {};
-
-  for (let betId of Object.keys(wagers)) {
-    let eventId = bets[betId].event_id;
-    let wager = wagers[betId];
-
-    if (Array.isArray(wagersByEvent[eventId])) {
-      wagersByEvent[eventId].push(wager);
-    } else {
-      wagersByEvent[eventId] = [wager]
-    }
-  };
-  return wagersByEvent;
-}
-
-function processUserWagers(user, events, bets) {
-
-  const eventsArr = toArray(events).sort(sortObjectsByKey());
-  const wagers = (user.wagers) ? sortWagersIntoEvents(user.wagers, events, bets) : [];
-  const anon = user.displayName ? false : true;
-  const displayName = user.displayName || /*user.fakeDisplayName ||*/ getRandomDisplayName();
-  let balance = INITIAL_BALANCE;
-  let winnings = 0;
-  let losses = 0;
-
-  let eventsSummary = {};
-
-  for (let event of eventsArr) {
-    if (event.resolved) {
-
-      let eventWinnings = 0;
-      let totalWinnings = 0;
-      let eventLosses = 0;
-      let costOfPlay = 0;
-      let payout = 0;
-
-      if (wagers[event.id]) {
-
-        for (let wager of wagers[event.id]) {
-          costOfPlay = costOfPlay + wager.wager;
-          let bet = bets[wager.id];
-          if (bet.resolved) {
-            if (bet.paid) {
-              payout = Math.floor((bet.odds_payout * wager.wager) / bet.odds_wager);
-              eventWinnings = eventWinnings + payout;
-              totalWinnings = totalWinnings + payout + wager.wager;
-            } else {
-              eventLosses = eventLosses - wager.wager
-            }
-          }
-        }
-      }
-      let cheated = (balance - costOfPlay < 0);
-      let balanceBeforeWinnings = balance - costOfPlay;
-      balance = balance - costOfPlay + totalWinnings;
-      eventsSummary[event.id] = {
-        cheated,
-        balance,
-        balanceBeforeWinnings,
-        winnings: eventWinnings,
-        losses: eventLosses
-      };
-      winnings = winnings + eventWinnings;
-      losses = losses + eventLosses;
-    }
-  }
-
-  return {
-    displayName,
-    anon,
-    events: eventsSummary,
-    winnings,
-    losses,
-    balance
-  };
-}
-
-function processAllWagers(users, events, bets) {
-
-  let leaderboard = {};
-  for (let userId of Object.keys(users)) {
-    let user = users[userId];
-    let wagers = getKey(user, 'wagers', null);
-    let wagerIds = [];
-    if (wagers) {
-      wagerIds = Object.keys(wagers).filter((wagerId) => { return wagerId.indexOf('gameofthrones-6-8') === -1 });
-    }
-    if (wagers && wagerIds.length !== 0) {
-      leaderboard[user.id] = processUserWagers(user, events, bets);
-    }
-  }
-  return leaderboard;
-}
-
-function processOneUser(user, events, bets) {
-
-  let leaderboard = {};
-  leaderboard[user.id] = processUserWagers(user, events, bets);
-  return leaderboard;
-}
-
 
 // The app only has access as defined in the Security Rules
 var db = firebase.database();
@@ -160,32 +52,28 @@ ref.once('value').then((snapshot) => {
   let leaderboard;
 
   try {
-    leaderboard = processAllWagers(users, events, bets);
 
+    leaderboard = processAllWagers(users, events, bets);
+    // leaderboard = processOneUser(users['hz9NYEdvzygqx9pDqziRjLrl00h2'], events, bets);
     let updateData = {};
 
     for (let userId of Object.keys(leaderboard)) {
 
       let lbUser = leaderboard[userId];
 
-
       if (!isEmpty(lbUser.events)) {
-
+        updateData[`leaderboard/${userId}`] = lbUser;
         updateData[`users/${userId}/balance`] = lbUser.balance;
-        if (lbUser.anon) {
-          updateData[`users/${userId}/fakeDisplayName`] = lbUser.displayName;
-        }
-
-        ref.child('leaderboard').set(leaderboard).then(() => {
-          ref.update(updateData).then((snapshot) => {
-            console.log(`...${userId} done.`);
-          });
-        });
-
+        console.log(`...${userId} processed.`);
       } else {
         console.log('skipping leaderboard for ' + lbUser.id);
       }
     }
+
+    ref.update(updateData).then((snapshot) => {
+      console.log('...done.');
+    });
+
   } catch (e) {
     console.log('Exception', e);
   }
