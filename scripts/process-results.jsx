@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 // App imports
 import {CHARACTER_NAMES, DEFAULT_DISPLAY_NAME} from '../app/constants/strings';
-import {isObject, sortObjectsByKey, getKey, toArray} from '../app/utils';
+import {isObject, isEmpty, sortObjectsByKey, getKey, toArray} from '../app/utils';
 
 // Initialize the app with a custom auth variable, limiting the server's access
 var config = {
@@ -128,7 +128,11 @@ function processAllWagers(users, events, bets) {
   for (let userId of Object.keys(users)) {
     let user = users[userId];
     let wagers = getKey(user, 'wagers', null);
-    if (wagers && wagers.length !== 0) {
+    let wagerIds = [];
+    if (wagers) {
+      wagerIds = Object.keys(wagers).filter((wagerId) => { return wagerId.indexOf('gameofthrones-6-8') === -1 });
+    }
+    if (wagers && wagerIds.length !== 0) {
       leaderboard[user.id] = processUserWagers(user, events, bets);
     }
   }
@@ -161,18 +165,27 @@ ref.once('value').then((snapshot) => {
     let updateData = {};
 
     for (let userId of Object.keys(leaderboard)) {
+
       let lbUser = leaderboard[userId];
-      updateData[`users/${userId}/balance`] = lbUser.balance;
-      if (lbUser.anon) {
-        updateData[`users/${userId}/fakeDisplayName`] = lbUser.displayName;
+
+
+      if (!isEmpty(lbUser.events)) {
+
+        updateData[`users/${userId}/balance`] = lbUser.balance;
+        if (lbUser.anon) {
+          updateData[`users/${userId}/fakeDisplayName`] = lbUser.displayName;
+        }
+
+        ref.child('leaderboard').set(leaderboard).then(() => {
+          ref.update(updateData).then((snapshot) => {
+            console.log(`...${userId} done.`);
+          });
+        });
+
+      } else {
+        console.log('skipping leaderboard for ' + lbUser.id);
       }
     }
-
-    ref.child('leaderboard').set(leaderboard).then(() => {
-      ref.update(updateData).then((snapshot) => {
-        process.exit(0);
-      });
-    });
   } catch (e) {
     console.log('Exception', e);
   }

@@ -1,4 +1,7 @@
 import firebase from 'firebase';
+import moment from 'moment';
+// App imports
+import {toArray} from '../app/utils';
 
 
 // Initialize the app with a custom auth variable, limiting the server's access
@@ -26,17 +29,32 @@ const userRef = ref.child('users');
 let users = {};
 let secure = {};
 
-userRef.on('value', (snapshot) => {
-  users = snapshot.val();
-  secureRef.once('value').then((snapshot) => {
-    secure = snapshot.val();
-    let i = 0;
-    Object.keys(secure).forEach((key) => {
-      let user = secure[key];
-      console.log(key, user.displayName, '\t\t', users[key].displayName || '-', '\t\t', user.email || '-');
-      i++;
-    });
-    console.log(i + ' users');
+
+function generateStats(users, secure) {
+  const userIds = Object.keys(secure);
+  const secureArr = toArray(secure);
+  const usersArr = toArray(users);
+
+  let count = userIds.length;
+
+  let createdPast24 = secureArr.filter((item) => { return item.created_at > Date.now() - 86400000; }).length;
+
+  let withNames = usersArr.filter((item) => { return item.displayName; }).length;
+
+  let namePct = Math.floor(withNames*100/count);
+
+  let timestamp = moment().format();
+
+  console.log(`${timestamp}: ${count} users, ${createdPast24} created in past 24 hours, ${namePct}% with names (${withNames} total named).`);
+
+}
+
+
+secureRef.on('value', (snapshot) => {
+  secure = snapshot.val();
+  userRef.once('value').then((snapshot) => {
+    users = snapshot.val();
+    generateStats(users, secure);
   });
 });
 

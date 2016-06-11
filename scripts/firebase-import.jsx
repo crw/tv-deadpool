@@ -2,15 +2,16 @@ import firebase from 'firebase';
 //// EVENTS
 // import Events from '../app/fixtures/Events.jsx';
 // import Events from '../app/fixtures/s6e7-event.jsx';
-import Events from '../app/fixtures/s6e8-event.jsx';
+// import Events from '../app/fixtures/s6e8-event.jsx';
 //// BETS
 // import Bets from '../app/fixtures/Bets.jsx';
 // import Bets from '../app/fixtures/s6e7-bets.jsx';
-import Bets from '../app/fixtures/s6e8-bets.jsx';
+// import Bets from '../app/fixtures/s6e8-bets.jsx';
 //// USERS
 // import Users from '../app/fixtures/Users.jsx';
 // import User_marahe from '../app/fixtures/User-marahe';
 // import User_mccown from '../app/fixtures/User-mccown-10';
+import Users from '../app/fixtures/s6e8-users.jsx';
 
 
 // Initialize the app with a custom auth variable, limiting the server's access
@@ -111,18 +112,53 @@ if (typeof Events !== "undefined" && typeof Bets !== "undefined") {
 }
 
 if (typeof Users !== "undefined") {
-  ref.child('users').update(Users);
+
+  // User:
+    // id: 'avclub-staffer-1',
+    // balance: 375,
+    // created_at: Date.now(),
+    // updated_at: Date.now(),
+
+    // wagers:
+        // id: 'gameofthrones-6-2-1',
+        // created_at: Date.now(),
+        // updated_at: Date.now()
+
+  const userIds = Object.keys(Users);
+
+  let updatedData = {};
+
+  for (let userId of userIds) {
+    let user = Users[userId];
+
+    updatedData[`${userId}/updated_at`] = Date.now();
+
+    let wagerIds = Object.keys(user.wagers);
+
+    for (let wagerId of wagerIds) {
+      let wager = user.wagers[wagerId];
+
+      wager.created_at = Date.now();
+      wager.updated_at = Date.now();
+      wager.id = wagerId;
+
+      updatedData[`${userId}/wagers/${wagerId}`] = wager;
+    }
+  }
+  ref.child('users').update(updatedData).then((snapshot) => {
+    console.log(snapshot.val());
+  });
 }
 
-if (typeof User_marahe !== "undefined") {
-  let id = Object.keys(User_marahe)[0];
-  ref.child(`users/${id}/wagers`).update(User_marahe[id].wagers);
-}
+// if (typeof User_marahe !== "undefined") {
+//   let id = Object.keys(User_marahe)[0];
+//   ref.child(`users/${id}/wagers`).update(User_marahe[id].wagers);
+// }
 
-if (typeof User_mccown !== "undefined") {
-  let id = Object.keys(User_mccown)[0];
-  ref.child(`users/${id}/wagers`).update(User_mccown[id].wagers);
-}
+// if (typeof User_mccown !== "undefined") {
+//   let id = Object.keys(User_mccown)[0];
+//   ref.child(`users/${id}/wagers`).update(User_mccown[id].wagers);
+// }
 // ref.child('events').once("value", function(snapshot) {
 //   console.log(snapshot.val());
 // });
