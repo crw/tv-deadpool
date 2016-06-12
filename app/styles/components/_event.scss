@@ -48,5 +48,12 @@
       font-weight: bold;
     }
 
+    .episode-description {
+      border-left: 5px solid $qoute-color;
+      font-style: italic;
+      margin-bottom: 1rem;
+      padding-left: 0.5rem;
+    }
+
   }
 }

@@ -25,7 +25,11 @@ export class Event extends React.Component {
   }
 
   render() {
-    let {id, season, episode, series, name, article, confirmation, air_at, lock_at, resolved, userId, results, preview} = this.props;
+    let {
+      id, season, episode, series, name, description, air_at, lock_at, resolved,
+      article, confirmation, hbo, reddit, preview,
+      userId, results
+    } = this.props;
 
     let closed = now() > lock_at;
 
@@ -91,10 +95,17 @@ export class Event extends React.Component {
         <div className="header">
           {renderStatus()}
           <div className="series-title">{series}</div>
-          <div className="episode-title"><a href={article} target="_blank">"{name}"</a>{ preview ? <span> - <a href={preview} target="_blank">Preview</a></span> : ''}</div>
+          <div className="episode-title">
+            { hbo ? <a href={hbo} target="_blank">"{name}"</a> : <span>"{name}"</span>}
+            { article ? <span> - <a href={article} target="_blank">A.V. Club</a></span> : ''}
+            { preview ? <span> - <a href={preview} target="_blank">Preview</a></span> : ''}
+            { reddit ? <span> - <a href={reddit} target="_blank">reddit</a></span> : ''}
+
+          </div>
         </div>
         <div className="body">
           <div className="episode-number">Season {season}, Episode {episode}</div>
+          { description ? <div className="episode-description">{description}</div> : ''}
           <div className="episode-aired">{closed? 'Aired' : 'Airs'}: {moment(air_at).format(PRETTY_DATE_FORMAT)}</div>
           <div className="episode-locked">{closed? 'Closed' : 'Closes'}: {moment(lock_at).format(PRETTY_DATE_FORMAT)}</div>
           {renderConfirmation()}
