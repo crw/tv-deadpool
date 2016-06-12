@@ -95,3 +95,23 @@ export function toArray(firebaseArray) {
 export function normalizeName(name) {
   return name.toLowerCase().replace(/[ \-\_\=\+\/\\\.\,\<\>\;\:\'\"\?\!\@\#\$\%\^\&\*\(\)]/g, '');
 }
+
+/**
+ * Returns a currency-formatted string from a number.
+ */
+export function toCurrency(value) {
+  if (typeof value !== "number") {
+    value = parseInt(value, 10);
+  }
+  if (value === NaN) {
+    value = 0;
+  }
+  let prefix =  '';
+  let symbol = '$';
+
+  if (value < 0) {
+    value = value * -1;
+    prefix = '-';
+  }
+  return [prefix, symbol, value.toLocaleString()].join('');
+}
