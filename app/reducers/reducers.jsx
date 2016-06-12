@@ -116,6 +116,18 @@ export var leaderboardReducer = (state = {}, action) => {
   }
 };
 
+export var statsReducer = (state = {}, action) => {
+  switch(action.type) {
+    case 'UPDATE_STATS_DATA':
+      return {
+        ...action.updatedData
+      }
+    default:
+      return state;
+  }
+};
+
+
 export var labelsReducer = (state = {}, action) => {
   switch(action.type) {
     case 'UPDATE_LABEL':

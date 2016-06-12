@@ -39,6 +39,7 @@ store.subscribe(() => {
 store.dispatch(actions.startEventsData());
 store.dispatch(actions.startBetsData());
 store.dispatch(actions.startLeaderboardData());
+store.dispatch(actions.startStatsData());
 
 
 firebase.auth().onAuthStateChanged((authData) => {

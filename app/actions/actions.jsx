@@ -53,6 +53,22 @@ export var startLeaderboardData = () => {
   };
 };
 
+export var updateStatsData = (updatedData) => {
+  return {
+    type: 'UPDATE_STATS_DATA',
+    updatedData
+  };
+};
+
+export var startStatsData = () => {
+  return (dispatch, getStore) => {
+    let statsRef = firebase.database().ref('stats');
+    statsRef.on('value', (snapshot) => {
+      dispatch(updateStatsData(snapshot.val()));
+    }, (err) => {console.log(err);} );
+  };
+};
+
 export var updateLabel = (label, data) => {
   return {
     type: 'UPDATE_LABEL',

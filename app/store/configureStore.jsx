@@ -13,6 +13,7 @@ export var configure = (initialState = {}) => {
     login:   reducers.loginReducer,
     leaderboard: reducers.leaderboardReducer,
     labels:  reducers.labelsReducer,
+    stats:   reducers.statsReducer,
     form:   formReducer
   });
 
