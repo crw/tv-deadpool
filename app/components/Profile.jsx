@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {getKey} from 'app/utils';
 import {DEFAULT_DISPLAY_NAME} from 'app/constants/strings'
 import {LOCALE, CURRENCY_FORMAT} from 'app/constants/formats'
+import {INITIAL_BALANCE} from 'app/constants/numbers'
 import {startGetUser} from 'actions';
 import EventList from 'EventList';
 
@@ -37,6 +38,8 @@ export class Profile extends React.Component {
   render() {
     let {id, userId, displayName, results} = this.props;
 
+    const balance = !results.balance && results.balance !== 0 ? INITIAL_BALANCE : results.balance;
+
     var renderResults = () => {
       return (
         <div className="profile__body">
@@ -46,7 +49,7 @@ export class Profile extends React.Component {
                 Balance
               </div>
               <div className="body">
-                {(results.balance || 100).toLocaleString(LOCALE, CURRENCY_FORMAT)}
+                {balance.toLocaleString(LOCALE, CURRENCY_FORMAT)}
               </div>
             </div>
           </div>
