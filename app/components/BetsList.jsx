@@ -16,13 +16,15 @@ export class BetsList extends React.Component {
     super(props);
     this.state = {
       sortBy: 'avc',
-      filterByWagers: props.filterByWagers || false
+      filterByWagers: props.filterByWagers || false,
+      showStats: true
     };
 
     this.getSortedBets  = this.getSortedBets.bind(this);
     this.getFilterFunc  = this.getFilterFunc.bind(this);
     this.handleSort     = this.handleSort.bind(this);
     this.handleFilterBy = this.handleFilterBy.bind(this);
+    this.handleToggleStats = this.handleToggleStats.bind(this);
   }
 
   sortByAVC(bets) {
@@ -78,9 +80,17 @@ export class BetsList extends React.Component {
     }
   }
 
+  handleToggleStats(e) {
+    e.preventDefault();
+
+    this.setState({
+      showStats: !this.state.showStats
+    });
+  }
+
   render() {
     let {bets, eventId, resolved, userId} = this.props;
-    let {sortBy, filterByWagers} = this.state;
+    let {sortBy, filterByWagers, showStats} = this.state;
 
     let renderBets = () => {
       let sortedBets = this.getSortedBets(bets, sortBy).filter(
@@ -96,7 +106,7 @@ export class BetsList extends React.Component {
         return <p className="container__message">No bets match your criteria.</p>;
       }
       return filteredBets.map((bet) => {
-        return <Bet key={bet.id} id={bet.id} userId={userId}/>;
+        return <Bet key={bet.id} id={bet.id} userId={userId} showStats={showStats}/>;
       });
     };
 
@@ -124,8 +134,12 @@ export class BetsList extends React.Component {
           </div>
           <div className="bets__filterby small-6 columns align-right">
             <label data-filterby="wagers" onClick={this.handleFilterBy}>
-              { filterByWagers ? <input type="checkbox" checked="true"/> : <input type="checkbox"/> }
+              { filterByWagers ? <i className="fa fa-fw fa-check-square-o"/> : <i className="fa fa-fw fa-square-o"/> }
               Hide Bets Without Wagers
+            </label>
+            <label onClick={this.handleToggleStats}>
+              { showStats ? <i className="fa fa-fw fa-check-square-o"/> : <i className="fa fa-fw fa-square-o"/> }
+              Show Bet Stats
             </label>
           </div>
         </div>

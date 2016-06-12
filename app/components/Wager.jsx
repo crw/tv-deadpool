@@ -3,7 +3,7 @@ import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 // App imports
 import {LOCALE, CURRENCY_FORMAT} from 'app/constants/formats';
-import {getKey} from 'app/utils';
+import {getKey, toCurrencyString} from 'app/utils';
 
 export class Wager extends Component {
   static propTypes = {
@@ -46,9 +46,10 @@ export class Wager extends Component {
 
     return (
       <div className="wager">
-        {(wager) ? <span className={renderClass("amount")}>{wager.toLocaleString(LOCALE, CURRENCY_FORMAT)}</span> : ''}
+        Your wager:
+        <span className={renderClass("amount")}>{(wager) ? toCurrencyString(wager) : toCurrencyString(0)}</span>
         {(wager) ? renderPayout() : ''}
-        {(comment) ? <span className="comment"> Note: {comment}</span> : ''}
+        {(comment) ? <div className="comment"> Your comment: {comment}</div> : ''}
       </div>
     );
   }

@@ -36,7 +36,7 @@ export class WagerForm extends React.Component {
               <input ref="wager" className="" placeholder="Wager" type="number"/>
             </div>
             <div className="small-6 columns">
-                <input ref="comment" className="" placeholder="Notes" type="text"/>
+                <input ref="comment" className="" placeholder="Comment" type="text"/>
             </div>
             <div className="small-3 columns">
               <input type="submit" className="secondary button" value="Place Bet"/>
