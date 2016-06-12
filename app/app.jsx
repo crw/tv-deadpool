@@ -16,7 +16,21 @@ require('style!css!sass!applicationStyles');
 require('font-awesome/css/font-awesome.css');
 require('./styles/fonts/gameofthrones/stylesheet.css');
 
-var store = require('configureStore').configure();
+let state = {};
+
+try {
+  state = JSON.parse(localStorage.getItem('state')) || {};
+} catch (err) {
+  console.log(err);
+}
+
+var store = require('configureStore').configure(state);
+
+store.subscribe(() => {
+  console.log('State updated.');
+  const state = store.getState();
+  localStorage.setItem('state', JSON.stringify(state));
+});
 
 // Fetch Events and Bets data
 store.dispatch(actions.startEventsData());
