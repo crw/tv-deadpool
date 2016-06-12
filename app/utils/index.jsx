@@ -99,7 +99,7 @@ export function normalizeName(name) {
 /**
  * Returns a currency-formatted string from a number.
  */
-export function toCurrency(value) {
+export function toCurrencyString(value) {
   if (typeof value !== "number") {
     value = parseInt(value, 10);
   }
