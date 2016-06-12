@@ -17,7 +17,6 @@ var config = {
 };
 firebase.initializeApp(config);
 
-
 console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
 
 // leaderboard {
@@ -37,7 +36,6 @@ console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
 //     }
 //   }
 // }
-
 
 // The app only has access as defined in the Security Rules
 var db = firebase.database();
