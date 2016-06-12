@@ -41,11 +41,20 @@ function generateStats(users, secure) {
 
   let withNames = usersArr.filter((item) => { return item.displayName; }).length;
 
+  let withCurrentWagers = usersArr.filter((item) => {
+    let wagers = item.wagers || {};
+    return Object.keys(wagers).filter((wagerId) => {
+      return wagerId.indexOf('gameofthrones-6-8') >= 0;
+    }).length > 0;
+  }).length;
+
   let namePct = Math.floor(withNames*100/count);
+  let wageredPct = Math.floor(withCurrentWagers*100/count);
+
 
   let timestamp = moment().format();
 
-  console.log(`${timestamp}: ${count} users, ${createdPast24} created in past 24 hours, ${namePct}% with names (${withNames} total named).`);
+  console.log(`${timestamp}: ${count} users, ${createdPast24} created in past 24 hours, ${wageredPct}% with wagers (${withCurrentWagers} total), ${namePct}% with names (${withNames} total).`);
 
 }
 
@@ -54,7 +63,11 @@ secureRef.on('value', (snapshot) => {
   secure = snapshot.val();
   userRef.once('value').then((snapshot) => {
     users = snapshot.val();
-    generateStats(users, secure);
+    try {
+      generateStats(users, secure);
+    } catch (err) {
+      console.log(err);
+    }
   });
 });
 
