@@ -86,14 +86,9 @@ export const startGetUser = (uid) => {
   return (dispatch, getStore) => {
     var userRef = getUserRef(uid);
 
-    return userRef.once('value').then(
-      (snapshot) => {
-        dispatch(updateUser(snapshot.val() || {}));
-      },
-      (e) => {
-        console.log('startGetUser error:', e);
-      }
-    );
+    return userRef.on('value', (snapshot) => {
+      dispatch(updateUser(snapshot.val() || {}));
+    });
   };
 };
 

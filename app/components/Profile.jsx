@@ -15,14 +15,23 @@ export class Profile extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.fetchUserData = this.fetchUserData.bind(this);
   }
 
-  componentDidMount() {
-    let {id, userId, dispatch} = this.props;
-
+  fetchUserData() {
+    const {id, userId, dispatch} = this.props;
     if (!id) {
       dispatch(startGetUser(userId));
     }
+  }
+
+  componentDidMount() {
+    this.fetchUserData();
+  }
+
+  componentDidUpdate() {
+    this.fetchUserData();
   }
 
   render() {
@@ -64,7 +73,7 @@ export class Profile extends React.Component {
     };
 
     return (id) ?
-      <div className="profile small-12 medium-8 medium-centered">
+      <div className="profile ">
         <div className="profile__header">
           <div className="username">
             {displayName || DEFAULT_DISPLAY_NAME }
@@ -73,7 +82,12 @@ export class Profile extends React.Component {
         { results ? renderResults() : '' }
         <EventList userId={userId}/>
       </div>
-      : <div/>;
+      :
+      <div className="profile ">
+        <div className="loading">
+          <i className="fa fa-spinner fa-spin fa-3x fa-fw"/>
+        </div>
+      </div>;
 
   }
 }
@@ -82,6 +96,8 @@ export default connect((state, ownProps) => {
   let userId = ownProps.userId || ownProps.params.userId || getKey(state, 'login.uid');
   let user = getKey(state, `users.${userId}`, null);
   let results = getKey(state, `leaderboard.${userId}`, null);
+
+
   return {
     ...user,
     userId,

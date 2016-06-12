@@ -27,9 +27,12 @@ try {
 var store = require('configureStore').configure(state);
 
 store.subscribe(() => {
-  console.log('State updated.');
   const state = store.getState();
-  localStorage.setItem('state', JSON.stringify(state));
+  const storedState = {
+    ...state,
+    users: undefined
+  };
+  localStorage.setItem('state', JSON.stringify(storedState));
 });
 
 // Fetch Events and Bets data
