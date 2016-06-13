@@ -14,6 +14,7 @@ export var configure = (initialState = {}) => {
     leaderboard: reducers.leaderboardReducer,
     labels:  reducers.labelsReducer,
     stats:   reducers.statsReducer,
+    prefs:   reducers.prefsReducer,
     form:   formReducer
   });
 

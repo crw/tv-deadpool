@@ -138,3 +138,26 @@ export var labelsReducer = (state = {}, action) => {
       return state;
   }
 };
+
+
+export var prefsReducer = (state = {}, action) => {
+  switch(action.type) {
+    case 'SET_PREFERENCE': {
+      let newState = {...state};
+      const context = action.context || 'default';
+      newState[context] = newState[context] || {};
+      newState[context][action.pref] = action.value;
+      return newState;
+    }
+    case 'SET_PREFERENCES': {
+      let newState = {...state};
+      const context = action.context || 'default';
+      newState[context] = action.value || {};
+      return newState;
+    }
+    default:
+      return state;
+  }
+};
+
+

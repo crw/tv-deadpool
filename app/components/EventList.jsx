@@ -40,7 +40,7 @@ export class EventList extends React.Component {
   }
 
   render() {
-    let {events, userId} = this.props;
+    let {events, userId, context} = this.props;
     let {currentEventIndex} = this.state;
 
     var renderEvents = () => {
@@ -50,7 +50,11 @@ export class EventList extends React.Component {
         );
       }
       return (
-        <Event key={events[currentEventIndex].id} id={events[currentEventIndex].id} userId={userId}/>
+        <Event
+          key={events[currentEventIndex].id}
+          id={events[currentEventIndex].id}
+          userId={userId}
+          context={context}/>
       );
     };
 
@@ -99,6 +103,7 @@ export default connect((state, ownProps) => {
   let sortedEvents = firebaseToArray(events).sort(sortObjectsByKey('order', true)).filter(
     (event) => { return event.published; });
   return {
+    context: ownProps.context + '/EventList',
     events: sortedEvents
   };
 })(EventList);

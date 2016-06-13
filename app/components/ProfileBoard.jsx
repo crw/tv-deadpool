@@ -16,7 +16,7 @@ export class ProfileBoard extends React.Component {
   }
 
   render() {
-    var {userId} = this.props;
+    var {userId, context} = this.props;
 
     return (
       <div className="row">
@@ -25,7 +25,7 @@ export class ProfileBoard extends React.Component {
           <Leaderboard label="The Field"/>
         </div>
         <div className="small-12 medium-8 medium-pull-4 columns">
-          <Profile userId={userId}/>
+          <Profile userId={userId} context={context}/>
         </div>
       </div>
     );
@@ -34,8 +34,9 @@ export class ProfileBoard extends React.Component {
 
 export default connect((state, ownProps) => {
   let userId = ownProps.userId || ownProps.params.userId || getKey(state, 'login.uid');
-
+  let context = "ProfileBoard";
   return {
+    context,
     userId
   };
 })(ProfileBoard);

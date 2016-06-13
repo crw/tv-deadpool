@@ -16,7 +16,7 @@ export class GameBoard extends React.Component {
   }
 
   render() {
-    var {login} = this.props;
+    var {login, context} = this.props;
 
     return (
       <div className="row">
@@ -26,7 +26,7 @@ export class GameBoard extends React.Component {
           <Leaderboard label="The Field"/>
         </div>
         <div className="small-12 medium-8 medium-pull-4 columns">
-          <EventList/>
+          <EventList context={context}/>
         </div>
       </div>
     );
@@ -35,6 +35,7 @@ export class GameBoard extends React.Component {
 
 export default connect((state) => {
   return {
+    context: 'GameBoard',
     login: state.login
   };
 })(GameBoard);

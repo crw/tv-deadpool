@@ -28,7 +28,7 @@ export class Event extends React.Component {
     let {
       id, season, episode, series, name, description, air_at, lock_at, resolved,
       article, confirmation, hbo, reddit, preview,
-      userId, results
+      userId, results, context
     } = this.props;
 
     let closed = now() > lock_at;
@@ -111,7 +111,7 @@ export class Event extends React.Component {
           {renderConfirmation()}
         </div>
         { resolved && userId && results ? renderResults() : <div className="noresults"/> }
-        <BetsList eventId={id} userId={userId}/>
+        <BetsList eventId={id} userId={userId} context={context}/>
       </div>
     );
   }
@@ -122,6 +122,7 @@ export default connect((state, ownProps) => {
   let userId = ownProps.userId || getKey(state, 'login.uid', null);
   let results = getKey(state, `leaderboard.${userId}.events.${eventId}`, null);
   return {
+    context: ownProps.context + '/Event',
     userId,
     results,
     ...state.events[eventId]

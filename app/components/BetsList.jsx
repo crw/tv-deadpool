@@ -1,8 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 // App components
-import Bet from 'Bet';
 import {getKey, sortObjectsByKey, isEmpty, toArray as firebaseToArray} from 'app/utils';
+import {BETSLIST_SORTBY as SORTBY} from 'app/constants/strings';
+import {setPreference, setPreferences} from 'actions';
+import Bet from 'Bet';
 
 
 export class BetsList extends React.Component {
@@ -14,10 +16,28 @@ export class BetsList extends React.Component {
 
   constructor(props) {
     super(props);
+
+    let {sortBy, filterByWagers, showStats} = props.prefs;
+
+    const {context} = props;
+
+    let defaultSortBy = SORTBY.ARTICLE;
+    let defaultShowStats = true;
+    let defaultFilterByWagers = false;
+
+    if (context.indexOf('ProfileBoard') > -1) {
+      defaultShowStats = false;
+      defaultFilterByWagers = true;
+    }
+
+    sortBy = (typeof sortBy !== 'undefined') ? sortBy : defaultSortBy;
+    showStats = (typeof showStats !== 'undefined') ? showStats : defaultShowStats;
+    filterByWagers = (typeof filterByWagers !== 'undefined') ? filterByWagers : defaultFilterByWagers;
+
     this.state = {
-      sortBy: 'avc',
-      filterByWagers: props.filterByWagers || false,
-      showStats: true
+      sortBy: props.sortBy || sortBy,
+      filterByWagers: props.filterByWagers || filterByWagers,
+      showStats: props.showStats || showStats
     };
 
     this.getSortedBets  = this.getSortedBets.bind(this);
@@ -43,11 +63,11 @@ export class BetsList extends React.Component {
       });
   }
 
-  getSortedBets(bets, sortBy='avc') {
+  getSortedBets(bets, sortBy) {
     switch(sortBy) {
-      case 'winloss':
+      case SORTBY.WIN_LOSS:
         return this.sortByWinLoss(bets);
-      case 'avc':
+      case SORTBY.ARTICLE:
       default:
         return this.sortByAVC(bets);
     }
@@ -64,28 +84,30 @@ export class BetsList extends React.Component {
 
   handleSort(e) {
     e.preventDefault();
+    const {dispatch} = this.props;
     let sortBy = e.target.dataset.sortby;
-    this.setState({
-      sortBy
-    });
+    this.setState({sortBy});
+    dispatch(setPreference(this.props.context, 'sortBy', sortBy));
   }
 
   handleFilterBy(e) {
     e.preventDefault();
+    const {dispatch} = this.props;
     let filterBy = e.currentTarget.dataset.filterby;
     switch(filterBy) {
       case 'wagers':
         let filterByWagers = !this.state.filterByWagers;
         this.setState({filterByWagers});
+        dispatch(setPreference(this.props.context, 'filterByWagers', filterByWagers));
     }
   }
 
   handleToggleStats(e) {
     e.preventDefault();
-
-    this.setState({
-      showStats: !this.state.showStats
-    });
+    const {dispatch} = this.props;
+    const showStats = !this.state.showStats;
+    this.setState({showStats});
+    dispatch(setPreference(this.props.context, 'showStats', showStats));
   }
 
   render() {
@@ -120,12 +142,12 @@ export class BetsList extends React.Component {
                       {' '}
                       <a href="#"
                         className={ (sortBy === 'avc') ? 'sortby-link active' : 'sortby-link'}
-                        data-sortby="avc"
+                        data-sortby={SORTBY.ARTICLE}
                         onClick={this.handleSort}>Article Order</a>
                       {' - '}
                       <a href="#"
                         className={sortBy === 'winloss' ? 'sortby-link active' : 'sortby-link'}
-                        data-sortby="winloss"
+                        data-sortby={SORTBY.WIN_LOSS}
                         onClick={this.handleSort}>Win/Loss</a>
                   </div>
                 )
@@ -150,13 +172,16 @@ export class BetsList extends React.Component {
 }
 
 export default connect((state, ownProps) => {
-  let userId = ownProps.userId || getKey(state, 'login.uid', null);
-  let user = getKey(state, `users.${userId}`, null);
-  let wagers = getKey(user, 'wagers', {});
-  let filterByWagers = userId !== getKey(state, 'login.uid', null);
+  const userId = ownProps.userId || getKey(state, 'login.uid', null);
+  const user = getKey(state, `users.${userId}`, null);
+  const wagers = getKey(user, 'wagers', {});
+  const context = ownProps.context + '/BetsList';
+  const prefs = getKey(state, `prefs.${context}`, {});
+
   return {
+    context,
+    prefs,
     wagers,
-    filterByWagers,
     bets: state.bets || {},
     resolved: state.events[ownProps.eventId].resolved
   };

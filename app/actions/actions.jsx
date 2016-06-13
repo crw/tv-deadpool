@@ -310,3 +310,26 @@ export var startLogout = () => {
     return firebase.auth().signOut();
   };
 };
+
+
+/********************************
+ * Prefs Actions
+ ********************************/
+
+export var setPreference = (context, pref, value) => {
+  return {
+    type: 'SET_PREFERENCE',
+    context,
+    pref,
+    value
+  };
+};
+
+export var setPreferences = (context, value) => {
+  return {
+    type: 'SET_PREFERENCES',
+    context,
+    value
+  };
+};
+

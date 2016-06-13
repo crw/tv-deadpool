@@ -36,7 +36,7 @@ export class Profile extends React.Component {
   }
 
   render() {
-    let {id, userId, displayName, results} = this.props;
+    let {id, userId, displayName, results, context} = this.props;
 
     const balance = !results.balance && results.balance !== 0 ? INITIAL_BALANCE : results.balance;
 
@@ -83,7 +83,7 @@ export class Profile extends React.Component {
           </div>
         </div>
         { results ? renderResults() : '' }
-        <EventList userId={userId}/>
+        <EventList userId={userId} context={context}/>
       </div>
       :
       <div className="profile ">
@@ -99,11 +99,12 @@ export default connect((state, ownProps) => {
   let userId = ownProps.userId || ownProps.params.userId || getKey(state, 'login.uid');
   let user = getKey(state, `users.${userId}`, null);
   let results = getKey(state, `leaderboard.${userId}`, null);
-
+  let context = ownProps.context + '/Profile';
 
   return {
     ...user,
     userId,
-    results
+    results,
+    context
   };
 })(Profile);
