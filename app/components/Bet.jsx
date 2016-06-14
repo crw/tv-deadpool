@@ -92,13 +92,13 @@ export class Bet extends React.Component {
       );
 
     };
-// { (__DEV__) ?  <span><br />{id}</span> : ''}
+
     return (
       <div className="bet__container">
         <div className="bet">
           <div className="title">
             {renderWinLose()}{' '}
-            {odds_payout}:{odds_wager} {name}
+            {odds_payout}:{odds_wager} {name} { (__DEV__) ?  <span><br />{id}</span> : ''}
           </div>
           <div className="body">
             { (desc) ? <div className="desc">{desc}</div> : '' }

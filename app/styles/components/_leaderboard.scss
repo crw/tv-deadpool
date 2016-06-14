@@ -21,9 +21,11 @@
   .standings {
     border: 1px solid $border-color;
     border-top: 0px;
+    max-height: 30.5rem;
+    font-size: 1rem;
+    overflow-y: scroll;
     padding: 0.25rem;
     padding-left: 1rem;
-    font-size: 1rem;
   }
 
   .link-active {

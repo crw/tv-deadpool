@@ -40,9 +40,13 @@ export class Leaderboard extends React.Component {
 
   componentDidMount() {
     let {dispatch, label, leaders} = this.props;
+    let {userScore} = this.refs;
     if (leaders.length === 0) {
       dispatch(startFetchLabel(label));
     }
+
+    userScore.scrollIntoView();
+
   }
 
   render() {
@@ -65,8 +69,8 @@ export class Leaderboard extends React.Component {
           const displayName = !thisUser && leader.anon ? <span className="anon">{leader.displayName}</span> : leader.displayName;
 
           const userIcon = thisUser ? (
-              <span title="You!">
-                <i className="fa  fa-user"/>
+              <span title="You!" ref="userScore">
+                <i className="fa fa-user"/>
               </span>) :
             leader.anon ? (
               <span title="Anonymous user with randomly-generated name.">
