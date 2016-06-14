@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 // App imports
 import {LOCALE, CURRENCY_FORMAT} from 'app/constants/formats';
 import {DEFAULT_DISPLAY_NAME} from 'app/constants/strings';
-import {getKey, sortObjectsByKey, toArray} from 'app/utils';
+import {getKey, sortObjectsByKey, toArray, isElementInViewport} from 'app/utils';
 import {startFetchLabel} from 'actions';
 
 
@@ -45,7 +45,9 @@ export class Leaderboard extends React.Component {
       dispatch(startFetchLabel(label));
     }
 
-    userScore.scrollIntoView();
+    if (!isElementInViewport(userScore)) {
+      userScore.scrollIntoView();
+    }
 
   }
 
