@@ -50,8 +50,12 @@
     }
   }
 
-  .current-user {
+  .login-user {
     background-color: gold;
+  }
+
+  .current-user {
+    background-color: $lightgrey;
   }
 
   .winnings, .balance {

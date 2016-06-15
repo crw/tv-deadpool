@@ -21,8 +21,8 @@ export class ProfileBoard extends React.Component {
     return (
       <div className="row">
         <div className="small-12 medium-4 medium-push-8 columns">
-          <Leaderboard label="AVClub Staffers"/>
-          <Leaderboard label="The Field"/>
+          <Leaderboard label="AVClub Staffers" userId={userId}/>
+          <Leaderboard label="The Field" userId={userId}/>
         </div>
         <div className="small-12 medium-8 medium-pull-4 columns">
           <Profile userId={userId} context={context}/>

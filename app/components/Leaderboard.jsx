@@ -52,7 +52,7 @@ export class Leaderboard extends React.Component {
   }
 
   render() {
-    const {leaders, label, uid} = this.props;
+    const {leaders, label, userId, loginUserId} = this.props;
     const {key} = this.state;
 
     const renderLeaders = () => {
@@ -66,11 +66,18 @@ export class Leaderboard extends React.Component {
 
       return leaders.sort(sortObjectsByKey(key, reverse)).map(
         (leader) => {
-          const thisUser = leader.key === uid;
-          const rowclass = thisUser ? 'current-user' : '';
+          const thisUser = leader.key === userId;
+          const loginUser = leader.key === loginUserId;
+          let rowclass = '';
+          if (loginUser) {
+            rowclass = ' login-user ';
+          } else if (thisUser) {
+            rowclass = ' current-user';
+          }
+
           const displayName = !thisUser && leader.anon ? <span className="anon">{leader.displayName}</span> : leader.displayName;
 
-          const userIcon = thisUser ? (
+          const userIcon = loginUser ? (
               <span title="You!" ref="userScore">
                 <i className="fa fa-user"/>
               </span>) :
@@ -88,7 +95,7 @@ export class Leaderboard extends React.Component {
                 <span className={key}>{(leader[key] || 0).toLocaleString(LOCALE, CURRENCY_FORMAT)}</span>
               </div>
               <div className="username small-8 columns">
-                { uid ? (
+                { loginUserId ? (
                     <Link className="user-link" to={'/profile/' + leader.key}>
                       {userIcon} {displayName}
                     </Link>
@@ -133,11 +140,11 @@ export class Leaderboard extends React.Component {
 export default connect((state, ownProps) => {
   let label = ownProps.label;
   let members = Object.keys(getKey(state, `labels.${label}`, {}));
-  let uid = getKey(state, 'login.uid', null);
+  let loginUserId = getKey(state, 'login.uid', null);
   // Special case; show the logged-in user against the AVClub staffers
-  if (label === 'AVClub Staffers' && members.length !== 0 && uid && getKey(state, `leaderboard.${uid}`, false)) {
-    if (members.indexOf(uid) === -1) {
-      members.push(uid);
+  if (label === 'AVClub Staffers' && members.length !== 0 && loginUserId && getKey(state, `leaderboard.${loginUserId}`, false)) {
+    if (members.indexOf(loginUserId) === -1) {
+      members.push(loginUserId);
     }
   }
   // Special case: The Field (all players)
@@ -151,7 +158,7 @@ export default connect((state, ownProps) => {
       return members.indexOf(leader.key) !== -1;
     });
   return {
-    uid,
+    loginUserId,
     leaders
   };
 })(Leaderboard);
