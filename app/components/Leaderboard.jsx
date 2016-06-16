@@ -44,8 +44,7 @@ export class Leaderboard extends React.Component {
     if (leaders.length === 0) {
       dispatch(startFetchLabel(label));
     }
-
-    if (!isElementInViewport(userScore)) {
+    if (userScore && !isElementInViewport(userScore)) {
       userScore.scrollIntoView();
     }
 
