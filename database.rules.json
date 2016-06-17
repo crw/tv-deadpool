@@ -13,10 +13,11 @@
           "$wager_id": {
             ".validate": "auth.uid === 'secret-service-worker' || root.child('events/'+root.child('bets/'+$wager_id+'/event_id').val()+'/air_at').val() >= now",
             "wager": {
-              ".validate": "auth.uid === 'secret-service-worker' || (newData.val() >= 0 && (
-              (data.exists() && data.parent().parent().parent().child('balance').val() + data.val() - newData.val() === newData.parent().parent().parent().child('balance').val())
-              ||
-              (!data.exists() && data.parent().parent().parent().child('balance').val() - newData.val() === newData.parent().parent().parent().child('balance').val())
+              ".validate": "auth.uid === 'secret-service-worker' ||
+                (!newData.exists() && data.val() === 0) ||
+                (newData.val() >= 0 && (
+                  (data.exists() && data.parent().parent().parent().child('balance').val() + data.val() - newData.val() === newData.parent().parent().parent().child('balance').val()) ||
+                  (!data.exists() && data.parent().parent().parent().child('balance').val() - newData.val() === newData.parent().parent().parent().child('balance').val())
               ))"
             }
           }
@@ -41,6 +42,9 @@
     "bets": {
       ".read": true
     },
+    "stats": {
+      ".read": true
+    },
     "labels": {
       "$labelid": {
         ".read": true
@@ -50,10 +54,10 @@
       ".read": true,
       "$uid": {
         "displayName": {
-          ".write": "$uid === auth.uid"
+          ".write": "$uid === auth.uid && data.exists()"
         },
         "anon": {
-          ".write": "$uid === auth.uid"
+          ".write": "$uid === auth.uid && data.exists()"
         }
       }
     }

@@ -203,7 +203,11 @@ export var startPlaceWager = (betId, wager, comment) => {
         wager,
         comment
       };
-      userRef.update(updateData);
+      userRef.update(updateData).then(() => {
+        if (wager === 0 && comment === '') {
+          userRef.child(`wagers/${betId}`).remove();
+        }
+      });
     };
   };
 };
