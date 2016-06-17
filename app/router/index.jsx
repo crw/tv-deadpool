@@ -12,10 +12,10 @@ export default (
   <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={GameBoard}/>
-      <Route path="/profile" component={ProfileBoard}/>
-      <Route path="/profile/:userId" component={ProfileBoard}/>
-      <Route path="/help" component={Help}/>
-      <Route path="/about" component={About}/>
+      <Route path="profile" component={ProfileBoard}/>
+      <Route path="profile/:userId" component={ProfileBoard}/>
+      <Route path="help" component={Help}/>
+      <Route path="about" component={About}/>
     </Route>
   </Router>
 );
