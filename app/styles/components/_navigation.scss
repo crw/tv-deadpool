@@ -1,10 +1,25 @@
-.navigation {
+.navigation, .top-bar UL {
 
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  z-index: 100;
+  // position: fixed;
+  // top: 0px;
+  // left: 0px;
+  // width: 100%;
+  // z-index: 100;
+
+  background-color: black;
+  color: $lightgrey;
+
+  A {
+    color: white;
+
+    &:visited {
+      color: white;
+    }
+
+    &:hover, &:focus {
+      color: $lightgrey;
+    }
+  }
 
   .link-active {
     font-weight: bold;

@@ -31,7 +31,8 @@ export class Navigation extends React.Component {
           <div className="top-bar-right">
             <ul className="menu">
               <li>
-                <a href="#" onClick={this.handleLogout}>Logout</a>
+                <a href="#" onClick={this.handleLogout}>
+                  <i className="fa fa-fw fa-sign-out"/>Logout</a>
               </li>
             </ul>
           </div>

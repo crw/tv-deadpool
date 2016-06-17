@@ -1,0 +1,47 @@
+.login{
+
+  margin-top: 2rem;
+
+  .title {
+    @extend .component__title;
+    font-size: 2rem;
+  }
+
+  .body {
+    border: 1px solid $border-color;
+    border-top: 0px;
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+}
+
+.button__login {
+  border-radius: 5px;
+  margin: 1rem;
+}
+
+.button__twitter {
+  background-color: #55ACEE;
+
+  &:hover, &:focus {
+    background-color: #3979AA;
+  }
+}
+
+.button__google {
+  background-color: #E33E2B;
+
+  &:hover, &:focus {
+    background-color: #B71C1C;
+  }
+}
+
+.button__facebook {
+  background-color: #3B5998;
+
+  &:hover, &:focus {
+    background-color: #0E1F56;
+  }
+
+}

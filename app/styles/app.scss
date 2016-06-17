@@ -34,6 +34,7 @@ BODY {
 @import "components/event";
 @import "components/event-list";
 @import "components/leaderboard";
+@import "components/login";
 @import "components/navigation";
 @import "components/profile";
 @import "components/results";
@@ -41,7 +42,7 @@ BODY {
 @import "components/wager-form";
 
 .content {
-  margin-top: 3.5rem;
+  margin-top: 0.5rem;
   margin-bottom: 1.5rem;
 }
 

@@ -36,16 +36,18 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <div className="callout callout-auth">
-        <h3>Login to play!</h3>
-        <div>
-          <button className="button" onClick={this.handleLoginTwitter}>Login with <i className="fa fw fa-twitter 3x"/></button>
-        </div>
-        <div>
-          <button className="button" onClick={this.handleLoginGoogle}>Login with <i className="fa fw fa-google 3x"/></button>
-        </div>
-        <div>
-          <button className="button" onClick={this.handleLoginFacebook}>Login with <i className="fa fw fa-facebook 3x"/></button>
+      <div className="login">
+        <div className="title">Login to play!</div>
+        <div className="body">
+          <div>
+            <button className="button button__login button__twitter expanded" onClick={this.handleLoginTwitter}><i className="fa fw fa-twitter 4x"/> Twitter</button>
+          </div>
+          <div>
+            <button className="button button__login button__google expanded" onClick={this.handleLoginGoogle}><i className="fa fw fa-google 4x"/> Google</button>
+          </div>
+          <div>
+            <button className="button button__login button__facebook  expanded" onClick={this.handleLoginFacebook}><i className="fa fw fa-facebook 4x"/> Facebook</button>
+          </div>
         </div>
       </div>
     );
