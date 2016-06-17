@@ -3,14 +3,17 @@ import firebase from 'firebase';
 // import Events from '../app/fixtures/Events.jsx';
 // import Events from '../app/fixtures/s6e7-event.jsx';
 // import Events from '../app/fixtures/s6e8-event.jsx';
+// import Events from '../app/fixtures/s6e9-event.jsx';
 //// BETS
 // import Bets from '../app/fixtures/Bets.jsx';
 // import Bets from '../app/fixtures/s6e7-bets.jsx';
 // import Bets from '../app/fixtures/s6e8-bets.jsx';
+// import Bets from '../app/fixtures/s6e9-bets.jsx';
 //// USERS
 // import Users from '../app/fixtures/Users.jsx';
 // import Users from '../app/fixtures/Users-drbootslist';
 // import Users from '../app/fixtures/s6e8-users.jsx';
+import Users from '../app/fixtures/s6e9-users.jsx';
 
 
 
@@ -71,7 +74,9 @@ if (typeof Events !== "undefined" && typeof Bets !== "undefined") {
       ...event,
       id
     };
-    eventsRef.child(id).update(updateData);
+    eventsRef.child(id).update(updateData).then((snapshot) => {
+      console.log(`Event ${id} (${event.series}, ${event.name}) updated.`);
+    });
     eventKeys[originalId] = id;
   });
 
@@ -96,7 +101,9 @@ if (typeof Events !== "undefined" && typeof Bets !== "undefined") {
         created_at: Date.now(),
         updated_at: Date.now()
       };
-      betsRef.child(id).update(updateData);
+      betsRef.child(id).update(updateData).then((snapshot) => {
+      console.log(`Bet ${id} (${updateData.odds_payout}:${updateData.odds_wager} ${updateData.name}) updated.`);
+    });
       betsEventMap[event_id].push(id);
     });
   });
@@ -106,7 +113,9 @@ if (typeof Events !== "undefined" && typeof Bets !== "undefined") {
     betsEventMap[eventKey].forEach((betKey) => {
       updateData[betKey] = true;
     });
-    eventsRef.child(eventKey).update({ bets: updateData });
+    eventsRef.child(eventKey).update({ bets: updateData }).then((snapshot) => {
+      console.log('Event ' + eventKey + ' bets field updated.')
+    });
   });
 
 }

@@ -29,42 +29,25 @@ const userRef = ref.child('users');
 let users = {};
 let secure = {};
 
-
-function generateStats(users, secure) {
-  const userIds = Object.keys(secure);
-  const secureArr = toArray(secure);
-  const usersArr = toArray(users);
-
-  let count = userIds.length;
-
-  let createdPast24 = secureArr.filter((item) => { return item.created_at > Date.now() - 86400000; }).length;
-
-  let withNames = usersArr.filter((item) => { return item.displayName; }).length;
-
-  let withCurrentWagers = usersArr.filter((item) => {
-    let wagers = item.wagers || {};
-    return Object.keys(wagers).filter((wagerId) => {
-      return wagerId.indexOf('gameofthrones-6-9') >= 0;
-    }).length > 0;
-  }).length;
-
-  let namePct = Math.floor(withNames*100/count);
-  let wageredPct = Math.floor(withCurrentWagers*100/count);
-
-
-  let timestamp = moment().format();
-
-  console.log(`${timestamp}: ${count} users, ${createdPast24} created in past 24 hours, ${wageredPct}% with wagers (${withCurrentWagers} total), ${namePct}% with names (${withNames} total).`);
-
-}
-
+let search = 'Anderson';
 
 secureRef.on('value', (snapshot) => {
   secure = snapshot.val();
   userRef.once('value').then((snapshot) => {
     users = snapshot.val();
     try {
-      generateStats(users, secure);
+
+      let secureArr = toArray(secure);
+
+      for (let secureUser of secureArr) {
+
+        let displayName = secureUser.displayName || '';
+        let email = secureUser.email || '';
+        if (displayName.indexOf(search) !== -1 || email.indexOf(search) !== -1) {
+          console.log(`${secureUser.id}: '${displayName}', '${email}', '${users[secureUser.id].displayName}'`);
+        }
+      }
+
     } catch (err) {
       console.log(err);
     }
