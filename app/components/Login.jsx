@@ -37,7 +37,7 @@ export class Login extends React.Component {
   render() {
     return (
       <div className="login">
-        <div className="title">Login to play!</div>
+        <div className="title"><i className="fa fa-fw fa-sign-in"/> Login to play!</div>
         <div className="body">
           <div>
             <button className="button button__login button__twitter expanded" onClick={this.handleLoginTwitter}><i className="fa fw fa-twitter 4x"/> Twitter</button>
