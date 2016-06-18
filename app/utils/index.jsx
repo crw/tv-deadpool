@@ -103,9 +103,7 @@ export function toCurrencyString(value) {
   if (typeof value !== "number") {
     value = parseInt(value, 10);
   }
-  if (value === NaN) {
-    value = 0;
-  }
+  value = value || 0;
   let prefix =  '';
   let symbol = '$';
 

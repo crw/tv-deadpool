@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 // App imports
 import {LOCALE, CURRENCY_FORMAT} from 'app/constants/formats';
-import {getKey} from 'app/utils';
+import {getKey, toCurrencyString} from 'app/utils';
 import {DEFAULT_DISPLAY_NAME} from 'app/constants/strings';
 import DisplayNameForm from 'DisplayNameForm';
 
@@ -69,7 +69,7 @@ export class Balance extends React.Component {
           Balance
         </div>
         <div className="balance-value">
-          {(balance || 0).toLocaleString(LOCALE, CURRENCY_FORMAT)}
+          {toCurrencyString(balance)}
         </div>
       </div>
     );

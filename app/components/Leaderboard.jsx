@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 // App imports
 import {LOCALE, CURRENCY_FORMAT} from 'app/constants/formats';
 import {DEFAULT_DISPLAY_NAME} from 'app/constants/strings';
-import {getKey, sortObjectsByKey, toArray, isElementInViewport} from 'app/utils';
+import {getKey, sortObjectsByKey, toArray, isElementInViewport, toCurrencyString} from 'app/utils';
 import {startFetchLabel} from 'actions';
 
 
@@ -91,7 +91,7 @@ export class Leaderboard extends React.Component {
                 {i++}.
               </div>
               <div className="align-right small-3 columns">
-                <span className={key}>{(leader[key] || 0).toLocaleString(LOCALE, CURRENCY_FORMAT)}</span>
+                <span className={key}>{toCurrencyString(leader[key])}</span>
               </div>
               <div className="username small-8 columns">
                 { loginUserId ? (

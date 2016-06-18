@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import moment from 'moment';
 // App imports
-import {now, getKey} from 'app/utils';
+import {now, getKey, toCurrencyString} from 'app/utils';
 import {PRETTY_DATE_FORMAT, LOCALE, CURRENCY_FORMAT} from 'app/constants/formats'
 import * as urls from 'app/constants/urls';
 import BetsList from 'BetsList';
@@ -47,7 +47,7 @@ export class Event extends React.Component {
               Balance
             </div>
             <div className="body">
-              {(results.balance || 0).toLocaleString(LOCALE, CURRENCY_FORMAT)}
+              {toCurrencyString(results.balance)}
             </div>
           </div>
           <div className="result winnings small-4 columns">
@@ -55,7 +55,7 @@ export class Event extends React.Component {
               Winnings
             </div>
             <div className="body">
-              {(results.winnings || 0).toLocaleString(LOCALE, CURRENCY_FORMAT)}
+              {toCurrencyString(results.winnings)}
             </div>
           </div>
           <div className="result losses small-4 columns">
@@ -63,7 +63,7 @@ export class Event extends React.Component {
               Losses
             </div>
             <div className="body">
-              {(results.losses || 0).toLocaleString(LOCALE, CURRENCY_FORMAT)}
+              {toCurrencyString(results.losses)}
             </div>
           </div>
         </div>

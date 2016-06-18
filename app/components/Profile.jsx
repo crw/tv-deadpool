@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 // App imports
-import {getKey} from 'app/utils';
+import {getKey, toCurrencyString} from 'app/utils';
 import {DEFAULT_DISPLAY_NAME} from 'app/constants/strings'
 import {LOCALE, CURRENCY_FORMAT} from 'app/constants/formats'
 import {INITIAL_BALANCE} from 'app/constants/numbers'
@@ -49,7 +49,7 @@ export class Profile extends React.Component {
                 Balance
               </div>
               <div className="body">
-                {balance.toLocaleString(LOCALE, CURRENCY_FORMAT)}
+                {toCurrencyString(balance)}
               </div>
             </div>
           </div>
@@ -59,7 +59,7 @@ export class Profile extends React.Component {
                 Winnings
               </div>
               <div className="body">
-                {(results.winnings || 0).toLocaleString(LOCALE, CURRENCY_FORMAT)}
+                {toCurrencyString(results.winnings)}
               </div>
             </div>
             <div className="result losses small-4 small-offset-2 end columns">
@@ -67,7 +67,7 @@ export class Profile extends React.Component {
                 Losses
               </div>
               <div className="body">
-                {(results.losses || 0).toLocaleString(LOCALE, CURRENCY_FORMAT)}
+                {toCurrencyString(results.losses)}
               </div>
             </div>
           </div>
