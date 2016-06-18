@@ -42,7 +42,7 @@ export class Bet extends React.Component {
     } = this.props;
     const {showComments} = this.state;
 
-    const hasComments = !isEmpty(stats.comments) && Object.keys(stats.comments).filter((id) => {return id !== userId}).length > 0;
+    const hasComments = !isEmpty(stats.comments) && Object.keys(stats.comments).length;
 
     const __DEV__ = process.env.NODE_ENV === 'development';
 
@@ -63,13 +63,11 @@ export class Bet extends React.Component {
       let comments = '';
       if (hasComments && showComments) {
         comments = Object.keys(stats.comments).map((commentId) => {
-          if (commentId !== userId) {
-            return (
-              <div className="stats__comment" key={commentId}>
-                <i className="fa fa-chevron-right"/> {stats.comments[commentId]}
-              </div>
-            );
-          }
+          return (
+            <div className="stats__comment" key={commentId}>
+              <i className="fa fa-chevron-right"/> {stats.comments[commentId]}
+            </div>
+          );
         });
         comments = (
           <div className="stats__comments">
@@ -78,11 +76,15 @@ export class Bet extends React.Component {
         );
       }
 
+      let commentsLinkStr = hasComments === 1 ?
+        `${hasComments} user comment` :
+        `${hasComments} user comments`;
+
       return (
         <div className="stats">
           <span className="stats__text"><span className="stats__count">{stats.count}</span> user{stats.count === 1 ? ' has' : 's have'} placed wagers
           totalling <span className="stats__amount">{toCurrencyString(stats.amount)}</span> on
-          this position.</span> { hasComments ? <a href="#" onClick={this.handleToggleComments}>user comments {
+          this position.</span> { hasComments ? <a href="#" onClick={this.handleToggleComments}>{commentsLinkStr} {
             showComments ?
               <i className="fa fa-minus-square-o"/>:
               <i className="fa fa-plus-square-o"/>
