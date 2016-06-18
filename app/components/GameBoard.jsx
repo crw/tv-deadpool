@@ -6,6 +6,7 @@ import EventList from 'EventList';
 import Balance from 'Balance';
 import Leaderboard from 'Leaderboard';
 
+
 export class GameBoard extends React.Component {
   static propTypes = {
     user: React.PropTypes.object
