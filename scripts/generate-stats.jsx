@@ -1,8 +1,5 @@
 import firebase from 'firebase';
-// App imports
-import {isObject, isEmpty, sortObjectsByKey, getKey, toArray} from '../app/utils';
-// import {processAllWagers, processOneUser} from './lib';
-
+import moment from 'moment';
 
 // Initialize the app with a custom auth variable, limiting the server's access
 var config = {
@@ -18,7 +15,7 @@ var config = {
 firebase.initializeApp(config);
 
 
-console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
+console.log('Using Firebase database', process.env.FIREBASE_DATABASE_URL);
 
 // stats:
 //   bets:
@@ -68,7 +65,7 @@ ref.child('users').on('value', (snapshot) => {
     let stats = processStats(users);
 
     ref.child('stats').set(stats).then((snapshot) => {
-      console.log('Stats updated.');
+      console.log(`${moment().format()} Stats updated.`);
     }, errorFunc);
 
   } catch (err) {
