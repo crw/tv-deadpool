@@ -38,7 +38,7 @@ export class Wager extends Component {
     let renderPayout = () => {
       if (resolved) {
         return (paid) ?
-          <span className={renderClass("wager-payout")}> Winnings: {payout.toLocaleString(LOCALE, CURRENCY_FORMAT)}</span> : '';
+          <span className={renderClass("wager-payout")}> Winnings: {toCurrencyString(payout)}</span> : '';
       }
     };
 
@@ -46,9 +46,13 @@ export class Wager extends Component {
 
     return (
       <div className="wager">
-        Your wager:
-        <span className={renderClass("amount")}>{(wager) ? toCurrencyString(wager) : toCurrencyString(0)}</span>
-        {(wager) ? renderPayout() : ''}
+        {wager ? (
+          <div>
+            Your wager:
+            <span className={renderClass("amount")}>{toCurrencyString(wager)}</span>
+            {renderPayout()}
+          </div>
+        ) : '' }
         {(comment) ? <div className="comment"> Your comment: {comment}</div> : ''}
       </div>
     );
