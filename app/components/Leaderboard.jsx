@@ -91,7 +91,7 @@ export class Leaderboard extends React.Component {
                 {i++}.
               </div>
               <div className="align-right small-3 columns">
-                <span className={key}>{toCurrencyString(leader[key])}</span>
+                <span className={leader[key] < 0 ? 'losses' : key}>{toCurrencyString(leader[key])}</span>
               </div>
               <div className="username small-8 columns">
                 { loginUserId ? (
@@ -146,9 +146,14 @@ export default connect((state, ownProps) => {
       members.push(loginUserId);
     }
   }
+
   // Special case: The Field (all players)
   if (label === 'The Field') {
+    // let EXCLUDE = ['Jr9wO5CW1uX2li5HLFepQL9w5bn2', 'mcbLQf1vOUdwKUYbEcAKNqM3IAE2'];
     let avclub = Object.keys(getKey(state, 'labels.AVClub Staffers', {}));
+    // if (EXCLUDE.indexOf(loginUserId) === -1) {
+    //   avclub = avclub.concat(EXCLUDE);
+    // }
     members = Object.keys(getKey(state, 'leaderboard'), {});
     members = members.filter((member) => { return avclub.indexOf(member) < 0; });
   }
