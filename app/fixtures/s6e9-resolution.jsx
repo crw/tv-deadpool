@@ -9,6 +9,6 @@ export const BETS_PAID = [
   'gameofthrones-6-9-5',
   // 20:1 Smalljon Umber
   'gameofthrones-6-9-14',
-  // 1:1 Under on total deaths: 5.5
-  'gameofthrones-6-9-22'
+  // 1:1 Over on total deaths: 5.5
+  'gameofthrones-6-9-21'
 ];
