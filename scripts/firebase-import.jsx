@@ -13,7 +13,12 @@ import firebase from 'firebase';
 // import Users from '../app/fixtures/Users.jsx';
 // import Users from '../app/fixtures/Users-drbootslist';
 // import Users from '../app/fixtures/s6e8-users.jsx';
-import Users from '../app/fixtures/s6e9-users.jsx';
+// import Users from '../app/fixtures/s6e9-users.jsx';
+
+//// S6 E10
+import Events from '../app/fixtures/s6e10-event.jsx';
+import Bets from '../app/fixtures/s6e10-bets.jsx';
+// import Users from '../app/fixtures/s6e10-users.jsx';
 
 
 
@@ -58,6 +63,8 @@ var ref = db.ref();
 
 
 if (typeof Events !== "undefined" && typeof Bets !== "undefined") {
+
+  console.log('Importing Events...');
 
   var eventsRef = ref.child('events');
   var betsRef = ref.child('bets');
