@@ -1,13 +1,14 @@
 import moment from 'moment';
 // App imports
+import * as TYPE from 'app/constants/action_types';
+import PROVIDERS from 'app/constants/providers';
 import {now, normalizeName} from 'app/utils';
 import {getUserRef, getSecureRef} from 'app/api/firebase';
-import PROVIDERS from 'app/constants/providers';
 
 
 export var updateBetsData = (updatedData) => {
   return {
-    type: 'UPDATE_BETS_DATA',
+    type: TYPE.UPDATE_BETS_DATA,
     updatedData
   };
 };
@@ -23,7 +24,7 @@ export var startBetsData = () => {
 
 export var updateEventsData = (updatedData) => {
   return {
-    type: 'UPDATE_EVENTS_DATA',
+    type: TYPE.UPDATE_EVENTS_DATA,
     updatedData
   };
 };
@@ -39,7 +40,7 @@ export var startEventsData = () => {
 
 export var updateLeaderboardData = (updatedData) => {
   return {
-    type: 'UPDATE_LEADERBOARD_DATA',
+    type: TYPE.UPDATE_LEADERBOARD_DATA,
     updatedData
   };
 };
@@ -55,7 +56,7 @@ export var startLeaderboardData = () => {
 
 export var updateStatsData = (updatedData) => {
   return {
-    type: 'UPDATE_STATS_DATA',
+    type: TYPE.UPDATE_STATS_DATA,
     updatedData
   };
 };
@@ -71,7 +72,7 @@ export var startStatsData = () => {
 
 export var updateLabel = (label, data) => {
   return {
-    type: 'UPDATE_LABEL',
+    type: TYPE.UPDATE_LABEL,
     label,
     data
   };
@@ -93,7 +94,7 @@ export var startFetchLabel = (label) => {
 
 export var updateUser = (data) => {
   return {
-    type: 'UPDATE_USER',
+    type: TYPE.UPDATE_USER,
     data
   };
 }
@@ -125,7 +126,7 @@ export var startFetchLoginUser = () => {
 
 export var updateDisplayName = (uid, displayName) => {
   return {
-    type: 'UPDATE_DISPLAY_NAME',
+    type: TYPE.UPDATE_DISPLAY_NAME,
     uid,
     displayName
   };
@@ -177,7 +178,7 @@ export var startUpdateDisplayName = (resolve, reject, uid, displayName) => {
 
 export var placeWager = (bet) => {
   return {
-    type: 'PLACE_WAGER',
+    type: TYPE.PLACE_WAGER,
     bet
   };
 };
@@ -219,20 +220,20 @@ export var startPlaceWager = (betId, wager, comment) => {
 
 export var login = (uid) => {
   return {
-    type: 'LOGIN',
+    type: TYPE.LOGIN,
     uid
   };
 };
 
 export var logout = () => {
   return {
-    type: 'LOGOUT'
+    type: TYPE.LOGOUT
   }
 };
 
 export var updateSecure = (data) => {
   return {
-    type: 'UPDATE_SECURE',
+    type: TYPE.UPDATE_SECURE,
     data
   };
 };
@@ -322,7 +323,7 @@ export var startLogout = () => {
 
 export var setPreference = (context, pref, value) => {
   return {
-    type: 'SET_PREFERENCE',
+    type: TYPE.SET_PREFERENCE,
     context,
     pref,
     value
@@ -331,7 +332,7 @@ export var setPreference = (context, pref, value) => {
 
 export var setPreferences = (context, value) => {
   return {
-    type: 'SET_PREFERENCES',
+    type: TYPE.SET_PREFERENCES,
     context,
     value
   };
