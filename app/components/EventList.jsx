@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 // App imports
 import {getKey, sortObjectsByKey, toArray as firebaseToArray} from 'app/utils';
 import Event from 'Event';
+import ReactDisqusThread from 'react-disqus-thread';
 
 
 export class EventList extends React.Component {
@@ -40,8 +41,9 @@ export class EventList extends React.Component {
   }
 
   render() {
-    let {events, userId, context} = this.props;
-    let {currentEventIndex} = this.state;
+    const {events, userId, context} = this.props;
+    const {currentEventIndex} = this.state;
+    const profilePage = context.indexOf('ProfileBoard') !== -1;
 
     var renderEvents = () => {
       if (events.length === 0) {
@@ -89,8 +91,18 @@ export class EventList extends React.Component {
             {renderNextHandler()}
           </div>
         </div>
-
         {renderEvents()}
+
+        { profilePage ? '' :
+          <div className="disqus">
+            <ReactDisqusThread
+                shortname="tvdeadpoolxyz"
+                identifier={events[currentEventIndex].id}
+                title={events[currentEventIndex].name}
+                url={"https://tvdeadpool.xyz/event/" + events[currentEventIndex].id}
+            />
+          </div>
+        }
       </div>
     );
   }
