@@ -18,7 +18,7 @@ import firebase from 'firebase';
 //// S6 E10
 import Events from '../app/fixtures/s6e10-event.jsx';
 import Bets from '../app/fixtures/s6e10-bets.jsx';
-// import Users from '../app/fixtures/s6e10-users.jsx';
+import Users from '../app/fixtures/s6e10-users.jsx';
 
 
 

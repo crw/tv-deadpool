@@ -123,13 +123,19 @@ export const Bets = {
       odds_wager: 1,
       order: ++i,
     }, {
-      name: 'Over on total deaths: ?',
+      name: 'Daenerys Stormborn or Tyrion Lannister',
+      desc: 'If this bet wins, you will receive a special "+ ∞" icon next to your balance. It will not otherwise impact the results on this site.',
+      odds_payout: 'Never',
+      odds_wager: 1,
+      order: ++i,
+    }, {
+      name: 'Over on total deaths: 6.5',
       desc: '',
       odds_payout: 1,
       odds_wager: 1,
       order: ++i,
     }, {
-      name: 'Under on total deaths: ?',
+      name: 'Under on total deaths: 6.5',
       desc: '',
       odds_payout: 1,
       odds_wager: 1,
