@@ -44,7 +44,7 @@ function generateStats(users, secure) {
   let withCurrentWagers = usersArr.filter((item) => {
     let wagers = item.wagers || {};
     return Object.keys(wagers).filter((wagerId) => {
-      return wagerId.indexOf('gameofthrones-6-9') >= 0;
+      return wagerId.indexOf('gameofthrones-6-10') >= 0;
     }).length > 0;
   }).length;
 

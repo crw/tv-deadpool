@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import {DEFAULT_DISPLAY_NAME as DEFAULT_DISPLAY_NAME} from '../app/constants/strings';
 import {getKey} from '../app/utils';
 // Weekly fixture
-import {EVENT_ID, BETS_PAID} from '../app/fixtures/s6e9-resolution.jsx';
+import {EVENT_ID, BETS_PAID} from '../app/fixtures/s6e10-resolution.jsx';
 
 
 // Initialize the app with a custom auth variable, limiting the server's access
