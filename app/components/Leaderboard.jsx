@@ -83,7 +83,12 @@ export class Leaderboard extends React.Component {
             leader.anon ? (
               <span title="Anonymous user with randomly-generated name.">
                 <i className="fa  fa-question"/>
-              </span>) : '';
+              </span>) :
+            leader.displayName === 'Caity PenzeyMoog' ? (
+              <span title="Accidentally cheated. Shame!">
+                🔔
+              </span>
+            ) : '';
 
           return (
             <div key={leader.key} className={'result-row ' + rowclass}>
