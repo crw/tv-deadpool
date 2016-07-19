@@ -8,7 +8,7 @@
     "url": "https://github.com/crw/tv-deadpool.git"
   },
   "author": "Craig Wright",
-  "license": "UNLICENSED",
+  "license": "GPL-3.0",
   "main": "index.js",
   "scripts": {
     "dev": "webpack -d",
