@@ -1,4 +1,4 @@
-import * as redux from 'redux';
+import {combineReducers, createStore, compose, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {reducer as formReducer} from 'redux-form';
 // App imports
@@ -6,22 +6,16 @@ import * as reducers from 'reducers';
 
 
 export var configure = (initialState = {}) => {
-  var reducer = redux.combineReducers({
-    users:   reducers.usersReducer,
-    events:  reducers.eventsReducer,
-    bets:    reducers.betsReducer,
-    login:   reducers.loginReducer,
-    leaderboard: reducers.leaderboardReducer,
-    labels:  reducers.labelsReducer,
-    stats:   reducers.statsReducer,
-    prefs:   reducers.prefsReducer,
-    form:   formReducer
+
+  const reducer = combineReducers({
+    ...reducers,
+    form: formReducer
   });
 
-  var store = redux.createStore(reducer, initialState, redux.compose(
-    redux.applyMiddleware(thunk),
+  const middleware = compose(
+    applyMiddleware(thunk),
     (process.env.NODE_ENV !== 'production' && window.devToolsExtension) ? window.devToolsExtension() : f => f
-  ));
+  );
 
-  return store;
+  return createStore(reducer, initialState, middleware);
 };

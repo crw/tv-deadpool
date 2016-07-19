@@ -1,61 +1,41 @@
-import moment from 'moment';
+import {handleActions} from 'redux-actions';
+// App imports
+import * as actions from 'actions';
 
 
-export var eventsReducer = (state = {}, action) => {
-  switch(action.type) {
-    case 'UPDATE_EVENTS_DATA':
-      return action.updatedData;
-    default:
-      return state;
-  };
-};
+function createSimpleReducer(action, defaultState) {
+  return handleActions({
+    [action]: (state, action) => {
+      return action.payload;
+    }
+  }, defaultState);
+}
 
-export var betsReducer = (state = {}, action) => {
-  switch(action.type) {
-    case 'UPDATE_BETS_DATA':
-      return action.updatedData;
-    default:
-      return state;
-  };
-};
+export const bets = createSimpleReducer(actions.updateBetsData, {});
+export const stats = createSimpleReducer(actions.updateStatsData, {});
+export const events = createSimpleReducer(actions.updateEventsData, {});
+export const leaderboard = createSimpleReducer(actions.updateLeaderboardData, {});
 
-export var usersReducer = (state = {}, action) => {
-  let newUser = {};
+
+export var users = (state = {}, action) => {
 
   switch(action.type) {
-    case 'UPDATE_USER':
-      newUser[action.data.id] = action.data;
+    case 'UPDATE_USER': {
       return {
         ...state,
-        ...newUser
+        [action.payload.id]: action.payload
       }
-    case 'UPDATE_DISPLAY_NAME':
-      let user = state[action.uid];
-      user.displayName = action.displayName;
-      newUser[`${action.uid}`] = user;
+    }
+    case 'UPDATE_DISPLAY_NAME': {
+      const {uid, displayName} = action.payload;
       return {
         ...state,
-        ...newUser
+        [uid]: {
+          ...state[uid],
+          displayName
+        }
       }
-    case 'PLACE_WAGER':
-      if (!state) {
-        return state;
-      } else {
-        let betId = action.bet.id;
-        let prevWager = state[betId] ? state[betId].wager : 0;
-        let balance = state.balance + prevWager - action.bet.wager;
-        let wagers = {
-          ...state.wagers
-        };
-        wagers[betId] = action.bet;
-        return {
-          ...state,
-          balance,
-          wagers
-        };
-
-      }
-      return state;
+    }
     case 'LOGOUT':
       return {};
     default:
@@ -63,14 +43,14 @@ export var usersReducer = (state = {}, action) => {
   };
 };
 
-export var loginReducer = (state = null, action) => {
+export var login = (state = null, action) => {
   switch(action.type) {
     case 'LOGIN':
       return {
-        uid: action.uid
+        uid: action.payload
       };
     case 'UPDATE_USER': {
-      let user = action.data;
+      let user = action.payload;
       if (state.uid === user.id) {
         return {
           ...state,
@@ -80,18 +60,20 @@ export var loginReducer = (state = null, action) => {
         return state;
       }
     }
-    case 'UPDATE_DISPLAY_NAME':{
-      let user = state.user;
-      user.displayName = action.displayName;
+    case 'UPDATE_DISPLAY_NAME': {
+      const {uid, displayName} = action.payload;
       return {
         ...state,
-        user
+        [uid]: {
+          ...state[uid],
+          displayName
+        }
       }
     }
     case 'UPDATE_SECURE':
       return {
         ...state,
-        secure: action.data
+        secure: action.payload
       }
     case 'LOGOUT':
       return null;
@@ -100,35 +82,8 @@ export var loginReducer = (state = null, action) => {
   }
 };
 
-export var leaderboardReducer = (state = {}, action) => {
-  switch(action.type) {
-    case 'UPDATE_LEADERBOARD_DATA':
-      return {
-        ...action.updatedData
-      }
-    case 'UPDATE_LEADERBOARD_ENTRY':
-      return {
-        ...state,
-        ...action.data
-      }
-    default:
-      return state;
-  }
-};
 
-export var statsReducer = (state = {}, action) => {
-  switch(action.type) {
-    case 'UPDATE_STATS_DATA':
-      return {
-        ...action.updatedData
-      }
-    default:
-      return state;
-  }
-};
-
-
-export var labelsReducer = (state = {}, action) => {
+export var labels = (state = {}, action) => {
   switch(action.type) {
     case 'UPDATE_LABEL':
       let newState = {...state};
@@ -140,19 +95,19 @@ export var labelsReducer = (state = {}, action) => {
 };
 
 
-export var prefsReducer = (state = {}, action) => {
+export var prefs = (state = {}, action) => {
   switch(action.type) {
     case 'SET_PREFERENCE': {
       let newState = {...state};
-      const context = action.context || 'default';
+      const context = action.payload.context || 'default';
       newState[context] = newState[context] || {};
-      newState[context][action.pref] = action.value;
+      newState[context][action.payload.pref] = action.payload.value;
       return newState;
     }
     case 'SET_PREFERENCES': {
       let newState = {...state};
-      const context = action.context || 'default';
-      newState[context] = action.value || {};
+      const context = action.payload.context || 'default';
+      newState[context] = action.payload.prefs || {};
       return newState;
     }
     default:

@@ -1,103 +1,73 @@
+import {createAction} from 'redux-actions';
 import moment from 'moment';
 // App imports
-import * as TYPE from 'app/constants/action_types';
+import * as ACTION_TYPE from 'app/constants/action_types';
+import INITIAL_BALANCE from 'app/constants/numbers';
 import PROVIDERS from 'app/constants/providers';
 import {now, normalizeName} from 'app/utils';
 import {getUserRef, getSecureRef} from 'app/api/firebase';
 
+// Mass Import
+export const updateBetsData = createAction(ACTION_TYPE.UPDATE_BETS_DATA);
+export const updateStatsData = createAction(ACTION_TYPE.UPDATE_STATS_DATA);
+export const updateEventsData = createAction(ACTION_TYPE.UPDATE_EVENTS_DATA);
+export const updateLeaderboardData = createAction(ACTION_TYPE.UPDATE_LEADERBOARD_DATA);
+// Data Update
+export const login = createAction(ACTION_TYPE.LOGIN);
+export const logout = createAction(ACTION_TYPE.LOGOUT);
+export const updateSecure = createAction(ACTION_TYPE.UPDATE_SECURE);
+export const updateUser = createAction(ACTION_TYPE.UPDATE_USER);
+export const updateLabel = createAction(ACTION_TYPE.UPDATE_LABEL, (label, data) => {return {label, data};});
+export const updateDisplayName = createAction(ACTION_TYPE.UPDATE_DISPLAY_NAME, (uid, displayName) => { return {uid, displayName}; });
+// Prefs Actions
+export const setPreference = createAction(ACTION_TYPE.SET_PREFERENCE, (context, pref, value) => { return { context, pref, value }; });
+export const setPreferences = createAction(ACTION_TYPE.SET_PREFERENCES, (context, prefs) => { return { context, prefs }; });
 
-export var updateBetsData = (updatedData) => {
-  return {
-    type: TYPE.UPDATE_BETS_DATA,
-    updatedData
-  };
-};
 
-export var startBetsData = () => {
+export const startBetsData = () => {
   return (dispatch, getStore) => {
     let betsRef = firebase.database().ref('bets');
-    betsRef.on('value', (snapshot) => {
+    return betsRef.on('value', (snapshot) => {
       dispatch(updateBetsData(snapshot.val()));
     });
   };
 }
 
-export var updateEventsData = (updatedData) => {
-  return {
-    type: TYPE.UPDATE_EVENTS_DATA,
-    updatedData
-  };
-};
-
-export var startEventsData = () => {
+export const startEventsData = () => {
   return (dispatch, getStore) => {
     let eventsRef = firebase.database().ref('events');
-    eventsRef.on('value', (snapshot) => {
+    return eventsRef.on('value', (snapshot) => {
       dispatch(updateEventsData(snapshot.val()));
     });
   };
 }
 
-export var updateLeaderboardData = (updatedData) => {
-  return {
-    type: TYPE.UPDATE_LEADERBOARD_DATA,
-    updatedData
-  };
-};
-
-export var startLeaderboardData = () => {
+export const startLeaderboardData = () => {
   return (dispatch, getStore) => {
     let lbRef = firebase.database().ref('leaderboard');
-    lbRef.on('value', (snapshot) => {
+    return lbRef.on('value', (snapshot) => {
       dispatch(updateLeaderboardData(snapshot.val()));
     });
   };
 };
 
-export var updateStatsData = (updatedData) => {
-  return {
-    type: TYPE.UPDATE_STATS_DATA,
-    updatedData
-  };
-};
-
-export var startStatsData = () => {
+export const startStatsData = () => {
   return (dispatch, getStore) => {
     let statsRef = firebase.database().ref('stats');
-    statsRef.on('value', (snapshot) => {
+    return statsRef.on('value', (snapshot) => {
       dispatch(updateStatsData(snapshot.val()));
     }, (err) => {console.log(err);} );
   };
 };
 
-export var updateLabel = (label, data) => {
-  return {
-    type: TYPE.UPDATE_LABEL,
-    label,
-    data
-  };
-};
-
-export var startFetchLabel = (label) => {
+export const startFetchLabel = (label) => {
   return (dispatch, getStore) => {
     let labelRef = firebase.database().ref(`labels/${label}`);
-    labelRef.once('value').then((snapshot) => {
+    return labelRef.once('value').then((snapshot) => {
       dispatch(updateLabel(label, snapshot.val()));
     });
   };
 };
-
-
-/********************************
- * User Data Manipulation Actions
- ********************************/
-
-export var updateUser = (data) => {
-  return {
-    type: TYPE.UPDATE_USER,
-    data
-  };
-}
 
 export const startGetUser = (uid) => {
   return (dispatch, getStore) => {
@@ -109,12 +79,10 @@ export const startGetUser = (uid) => {
   };
 };
 
-export var startFetchLoginUser = () => {
+export const startFetchLoginUser = () => {
   return (dispatch, getStore) => {
     var uid = getStore().login.uid;
-    var userRef = getUserRef(uid);
-
-    return userRef.on('value', (snapshot) => {
+    return getUserRef(uid).on('value', (snapshot) => {
       try {
         dispatch(updateUser(snapshot.val() || {}));
       } catch (e) {
@@ -124,15 +92,7 @@ export var startFetchLoginUser = () => {
   };
 };
 
-export var updateDisplayName = (uid, displayName) => {
-  return {
-    type: TYPE.UPDATE_DISPLAY_NAME,
-    uid,
-    displayName
-  };
-};
-
-export var startUpdateDisplayName = (resolve, reject, uid, displayName) => {
+export const startUpdateDisplayName = (resolve, reject, uid, displayName) => {
   return (dispatch, getStore) => {
     const currentDisplayName = getStore().users[uid].displayName;
     const ref = firebase.database().ref();
@@ -142,19 +102,16 @@ export var startUpdateDisplayName = (resolve, reject, uid, displayName) => {
 
     if (displayName === currentDisplayName) {
       resolve();
+      return new Promise(resolve => resolve());
 
     } else {
-
-      ref.update(updateData).then((snapshot) => {
-
+      return ref.update(updateData).then((snapshot) => {
         // The other firebase actions don't matter and can fail, only this
         // initial update is important.
         dispatch(updateDisplayName(uid, displayName));
         resolve();
         // Small error func for catch statements.
-        const errFunc = (e) => {
-          console.log('ERROR:', e);
-        };
+        const errFunc = (e) => { console.log('ERROR:', e); };
         // Updates the Leaderboard name; will also get picked up at next scores run.
         if (getStore().leaderboard[uid]) {
           ref.child(`leaderboard/${uid}/displayName`).set(displayName).catch(errFunc);
@@ -166,25 +123,15 @@ export var startUpdateDisplayName = (resolve, reject, uid, displayName) => {
         }
         ref.child(`users/${uid}/fakeDisplayName`).remove().catch(errFunc);
 
-      }, (e) => {
+      }).catch((e) => {
         console.log('Add Name Error:', e);
-        reject({
-          displayName: `"${displayName}" is not available.`
-        });
+        reject({ displayName: `"${displayName}" is not available.` });
       });
     }
   };
 };
 
-export var placeWager = (bet) => {
-  return {
-    type: TYPE.PLACE_WAGER,
-    bet
-  };
-};
-
-
-export var startPlaceWager = (betId, wager, comment) => {
+export const startPlaceWager = (betId, wager, comment) => {
   return (dispatch, getStore) => {
     var userRef = getUserRef(getStore().login.uid);
     var user = getStore().login.user;
@@ -193,53 +140,28 @@ export var startPlaceWager = (betId, wager, comment) => {
     // Refund the previous wager, charge the new wager.
     var newBalance = user.balance + prevWagerAmount - wager;
 
-    if (newBalance >= 0) {
-      var createData = !prevWager ? {created_at: now()} : {created_at: prevWager.created_at};
-      var updateData = { };
-      updateData['balance'] = newBalance;
-      updateData[`wagers/${betId}`] = {
-        ...createData,
-        id: betId,
-        updated_at: now(),
-        wager,
-        comment
-      };
-      userRef.update(updateData).then(() => {
-        if (wager === 0 && comment === '') {
-          userRef.child(`wagers/${betId}`).remove();
-        }
-      });
+    if (newBalance < 0) {
+      return new Promise(resolve => resolve());
+    }
+    var createData = !prevWager ? {created_at: now()} : {created_at: prevWager.created_at};
+    var updateData = { };
+    updateData['balance'] = newBalance;
+    updateData[`wagers/${betId}`] = {
+      ...createData,
+      id: betId,
+      updated_at: now(),
+      wager,
+      comment
     };
+    return userRef.update(updateData).then(() => {
+      if (wager === 0 && comment === '') {
+        userRef.child(`wagers/${betId}`).remove();
+      }
+    });
   };
 };
 
-
-/********************************
- * Authentication Actions
- ********************************/
-
-export var login = (uid) => {
-  return {
-    type: TYPE.LOGIN,
-    uid
-  };
-};
-
-export var logout = () => {
-  return {
-    type: TYPE.LOGOUT
-  }
-};
-
-export var updateSecure = (data) => {
-  return {
-    type: TYPE.UPDATE_SECURE,
-    data
-  };
-};
-
-
-export var startLoginWith = (providerData) => {
+export const startLoginWith = (providerData) => {
 
   return (dispatch, getStore) => {
     var provider = new providerData.provider();
@@ -264,7 +186,7 @@ export var startLoginWith = (providerData) => {
           // Brand new user, need to set new user data
           {
             id,
-            balance: 100,
+            balance: INITIAL_BALANCE,
             created_at: now()
           } : undefined;
       }).catch(errorFunc);
@@ -298,43 +220,21 @@ export var startLoginWith = (providerData) => {
   };
 };
 
-export var startLoginGoogle = () => {
+export const startLoginGoogle = () => {
   return startLoginWith(PROVIDERS.google);
 };
 
-export var startLoginFacebook = () => {
+export const startLoginFacebook = () => {
   return startLoginWith(PROVIDERS.facebook);
 };
 
-export var startLoginTwitter = () => {
+export const startLoginTwitter = () => {
   return startLoginWith(PROVIDERS.twitter);
 };
 
-export var startLogout = () => {
+export const startLogout = () => {
   return (dispatch, getStore) => {
     return firebase.auth().signOut();
-  };
-};
-
-
-/********************************
- * Prefs Actions
- ********************************/
-
-export var setPreference = (context, pref, value) => {
-  return {
-    type: TYPE.SET_PREFERENCE,
-    context,
-    pref,
-    value
-  };
-};
-
-export var setPreferences = (context, value) => {
-  return {
-    type: TYPE.SET_PREFERENCES,
-    context,
-    value
   };
 };
 

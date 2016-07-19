@@ -14,13 +14,12 @@ export class WagerForm extends React.Component {
   }
 
   handleSubmit(e) {
-    let {id, dispatch} = this.props;
-    var wager = parseInt(this.refs.wager.value, 10) || 0;
-    var comment = this.refs.comment.value || '';
-// var comment = parseInt(this.refs.comment.value, 10);
     e.preventDefault();
-    if ((typeof wager === 'number' && wager >= 0) ||
-        (typeof comment === 'string' && comment !== '')) {
+    let {id, dispatch} = this.props;
+    let wager = parseInt(this.refs.wager.value, 10) || 0;
+    let comment = this.refs.comment.value || '';
+
+    if (wager >= 0) {
       dispatch(startPlaceWager(id, wager, comment));
       this.refs.wager.value = '';
       this.refs.comment.value = '';
