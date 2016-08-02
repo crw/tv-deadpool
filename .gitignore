@@ -1,7 +1,8 @@
 .DS_Store
 node_modules
 bower_components
-config/
+config/*.env
+config/*.json
 public/bundle.js
 public/bundle.css
 
