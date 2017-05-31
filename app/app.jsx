@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {hashHistory} from 'react-router';
 // App imports
+import firebase from 'app/api/firebase';
 import {getCurrentUser} from 'app/api/firebase';
 import * as actions from 'actions';
 import router from 'app/router';
@@ -12,9 +13,9 @@ import router from 'app/router';
 $(document).foundation();
 
 // App CSS
-require('style!css!sass!applicationStyles');
 require('font-awesome/css/font-awesome.css');
 require('./styles/fonts/gameofthrones/stylesheet.css');
+require('app/styles/app.scss');
 
 let state = {};
 

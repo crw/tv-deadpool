@@ -26,7 +26,7 @@ export const setPreferences = createAction(ACTION_TYPE.SET_PREFERENCES, (context
 
 export const startBetsData = () => {
   return (dispatch, getStore) => {
-    let betsRef = firebase.database().ref('bets');
+    let betsRef = getUserRef('bets');
     return betsRef.on('value', (snapshot) => {
       dispatch(updateBetsData(snapshot.val()));
     });
@@ -35,7 +35,7 @@ export const startBetsData = () => {
 
 export const startEventsData = () => {
   return (dispatch, getStore) => {
-    let eventsRef = firebase.database().ref('events');
+    let eventsRef = getUserRef('events');
     return eventsRef.on('value', (snapshot) => {
       dispatch(updateEventsData(snapshot.val()));
     });
@@ -44,7 +44,7 @@ export const startEventsData = () => {
 
 export const startLeaderboardData = () => {
   return (dispatch, getStore) => {
-    let lbRef = firebase.database().ref('leaderboard');
+    let lbRef = getUserRef('leaderboard');
     return lbRef.on('value', (snapshot) => {
       dispatch(updateLeaderboardData(snapshot.val()));
     });
@@ -53,7 +53,7 @@ export const startLeaderboardData = () => {
 
 export const startStatsData = () => {
   return (dispatch, getStore) => {
-    let statsRef = firebase.database().ref('stats');
+    let statsRef = getUserRef('stats');
     return statsRef.on('value', (snapshot) => {
       dispatch(updateStatsData(snapshot.val()));
     }, (err) => {console.log(err);} );
@@ -62,7 +62,7 @@ export const startStatsData = () => {
 
 export const startFetchLabel = (label) => {
   return (dispatch, getStore) => {
-    let labelRef = firebase.database().ref(`labels/${label}`);
+    let labelRef = getUserRef(`labels/${label}`);
     return labelRef.once('value').then((snapshot) => {
       dispatch(updateLabel(label, snapshot.val()));
     });
@@ -95,7 +95,7 @@ export const startFetchLoginUser = () => {
 export const startUpdateDisplayName = (resolve, reject, uid, displayName) => {
   return (dispatch, getStore) => {
     const currentDisplayName = getStore().users[uid].displayName;
-    const ref = firebase.database().ref();
+    const ref = getUserRef();
     let updateData = {};
     updateData[`users/${uid}/displayName`] = displayName;
     updateData[`names/${normalizeName(displayName)}`] = uid;
