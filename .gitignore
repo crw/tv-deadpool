@@ -5,4 +5,5 @@ config/*.env
 config/*.json
 public/bundle.js
 public/bundle.css
+*.sublime-workspace
 
