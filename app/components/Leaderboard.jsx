@@ -1,4 +1,5 @@
 import React from 'react';
+// import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 // App imports
@@ -10,7 +11,7 @@ import {startFetchLabel} from 'actions';
 
 export class Leaderboard extends React.Component {
   static propTypes = {
-    // name: React.PropTypes.string,
+    // name: PropTypes.string,
   };
 
   static defaultProps = { }

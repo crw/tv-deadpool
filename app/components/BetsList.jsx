@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 // App components
 import {getKey, sortObjectsByKey, isEmpty, toArray as firebaseToArray} from 'app/utils';
@@ -9,8 +10,8 @@ import Bet from 'Bet';
 
 export class BetsList extends React.Component {
   static propTypes = {
-    bets: React.PropTypes.object.isRequired,
-    eventId: React.PropTypes.string.isRequired
+    bets: PropTypes.object.isRequired,
+    eventId: PropTypes.string.isRequired
   };
 
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 // App components
 import {getKey} from 'app/utils';
@@ -8,7 +9,7 @@ import Leaderboard from 'Leaderboard';
 
 export class ProfileBoard extends React.Component {
   static propTypes = {
-    userId: React.PropTypes.string
+    userId: PropTypes.string
   };
 
   constructor(props) {

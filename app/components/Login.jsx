@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Redux from 'react-redux';
 import * as actions from 'actions';
 
 
 export class Login extends React.Component {
   static propTypes = {
-    dispatch: React.PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
   };
 
   constructor(props) {

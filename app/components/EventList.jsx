@@ -1,14 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 // App imports
 import {getKey, sortObjectsByKey, toArray as firebaseToArray} from 'app/utils';
 import Event from 'Event';
-import ReactDisqusThread from 'react-disqus-thread';
+import ReactDisqusComments from 'react-disqus-comments';
 
 
 export class EventList extends React.Component {
   static propTypes = {
-    events: React.PropTypes.array.isRequired,
+    events: PropTypes.array.isRequired,
   };
 
   constructor(props) {
@@ -95,7 +96,7 @@ export class EventList extends React.Component {
 
         { profilePage ? '' :
           <div className="disqus">
-            <ReactDisqusThread
+            <ReactDisqusComments
                 shortname="tvdeadpoolxyz"
                 identifier={events[currentEventIndex].id}
                 title={events[currentEventIndex].name}

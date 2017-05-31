@@ -1,11 +1,12 @@
 import {now} from 'app/utils';
-import React, {PropTypes, Component} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 // App imports
 import {LOCALE, CURRENCY_FORMAT} from 'app/constants/formats';
 import {getKey, toCurrencyString} from 'app/utils';
 
-export class Wager extends Component {
+export class Wager extends React.Component {
   static propTypes = {
     // Props from Wager
     id: PropTypes.string,

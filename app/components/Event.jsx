@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import moment from 'moment';
 // App imports
@@ -10,14 +11,14 @@ import BetsList from 'BetsList';
 
 export class Event extends React.Component {
   static propTypes = {
-    id:  React.PropTypes.string.isRequired,
-    series: React.PropTypes.string.isRequired,
-    season: React.PropTypes.number.isRequired,
-    episode: React.PropTypes.number.isRequired,
-    name: React.PropTypes.string.isRequired,
-    article: React.PropTypes.string.isRequired,
-    air_at: React.PropTypes.number.isRequired,
-    lock_at: React.PropTypes.number.isRequired,
+    id:  PropTypes.string.isRequired,
+    series: PropTypes.string.isRequired,
+    season: PropTypes.number.isRequired,
+    episode: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    article: PropTypes.string.isRequired,
+    air_at: PropTypes.number.isRequired,
+    lock_at: PropTypes.number.isRequired,
   };
 
   constructor(props) {

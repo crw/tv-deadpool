@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 // App components
 import Login from 'Login';
@@ -9,7 +10,7 @@ import Leaderboard from 'Leaderboard';
 
 export class GameBoard extends React.Component {
   static propTypes = {
-    user: React.PropTypes.object
+    user: PropTypes.object
   };
 
   constructor(props) {

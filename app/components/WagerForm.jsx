@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 // App imports
 import {startPlaceWager} from 'actions';
 
 export class WagerForm extends React.Component {
   static propTypes = {
-    name: React.PropTypes.string,
+    name: PropTypes.string,
   };
 
   constructor(props) {
