@@ -1,13 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {IndexLink, Link} from 'react-router';
+import {NavLink} from 'react-router-dom';
 // App imports
 import {startLogout} from 'actions';
 
 
 export class Navigation extends React.Component {
   static propTypes = {
-    dispatch: React.PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -22,9 +23,9 @@ export class Navigation extends React.Component {
   }
 
   render() {
-    let {login} = this.props;
+    const {login} = this.props;
 
-    let renderLogout = () => {
+    const renderLogout = () => {
       if (login) {
         return (
           <div className="top-bar-right">
@@ -49,13 +50,13 @@ export class Navigation extends React.Component {
                   TVDeadpool.xyz
                 </li>
                 <li>
-                  <IndexLink to="/" activeClassName="link-active">Bets</IndexLink>
+                  <NavLink to="/" activeClassName="link-active">Bets</NavLink>
                 </li>
                 <li>
-                  <Link to="help" activeClassName="link-active">Help</Link>
+                  <NavLink to="help" activeClassName="link-active">Help</NavLink>
                 </li>
                 <li>
-                  <Link to="about" activeClassName="link-active">About</Link>
+                  <NavLink to="about" activeClassName="link-active">About</NavLink>
                 </li>
               </ul>
             </div>

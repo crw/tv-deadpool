@@ -1,11 +1,12 @@
 import React from 'react';
-import {Route, Router, IndexRoute, browserHistory} from 'react-router';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 // App components
 import App from 'App';
 import GameBoard from 'GameBoard';
 import ProfileBoard from 'ProfileBoard';
 import About from 'About';
 import Help from 'Help';
+import firebase from 'app/api/firebase';
 
 
 var requireLogin = (nextState, replace, next) => {
@@ -15,14 +16,25 @@ var requireLogin = (nextState, replace, next) => {
   next();
 };
 
+
 export default (
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-      <IndexRoute component={GameBoard}/>
+  <Router basename='/'>
+    <App>
+      <Route exact path="/" component={GameBoard}/>
       <Route path="profile" component={ProfileBoard} onEnter={requireLogin}/>
       <Route path="profile/:userId" component={ProfileBoard} onEnter={requireLogin}/>
       <Route path="help" component={Help}/>
       <Route path="about" component={About}/>
-    </Route>
+    </App>
   </Router>
 );
+
+
+// export default (
+//   <Router basename='/'>
+//     <SiteContainer>
+//       <Route exact path="/topics/" component={ TopicsContainer } />
+//       <Route path="/topics/:topicId/posts" component={ PostsPageContainer } />
+//     </SiteContainer>
+//   </Router>
+// );

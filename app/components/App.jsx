@@ -8,11 +8,11 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
   }
-
+ // location={this.props.location.pathname}
   render() {
     return (
       <div>
-        <Navigation location={this.props.location.pathname}/>
+        <Navigation/>
         <div className="content">
           {this.props.children}
         </div>

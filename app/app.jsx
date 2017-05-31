@@ -6,7 +6,7 @@ import {hashHistory} from 'react-router';
 import firebase from 'app/api/firebase';
 import {getCurrentUser} from 'app/api/firebase';
 import * as actions from 'actions';
-import router from 'app/router';
+import router from 'app/router/index';
 
 
 // Load Foundation
@@ -60,9 +60,13 @@ firebase.auth().onAuthStateChanged((authData) => {
   }
 });
 
-ReactDOM.render(
-  <Provider store={store}>
-    {router}
-  </Provider>,
-  document.getElementById('app')
-);
+const reactRootEl = document.getElementById('app');
+
+if (reactRootEl) {
+  ReactDOM.render((
+    <Provider store={store}>
+      {router}
+    </Provider>
+    ), reactRootEl
+  );
+}
