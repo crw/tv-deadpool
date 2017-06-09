@@ -87,7 +87,7 @@ export var labels = (state = {}, action) => {
   switch(action.type) {
     case 'UPDATE_LABEL':
       let newState = {...state};
-      newState[action.label] = action.data;
+      newState[action.payload.label] = action.payload.data;
       return newState;
     default:
       return state;

@@ -9,9 +9,9 @@ import Leaderboard from 'Leaderboard';
 
 
 export class GameBoard extends React.Component {
-  static propTypes = {
-    user: PropTypes.object
-  };
+  // static propTypes = {
+  //   user: PropTypes.object
+  // };
 
   constructor(props) {
     super(props);
@@ -24,8 +24,8 @@ export class GameBoard extends React.Component {
       <div className="row">
         <div className="small-12 medium-4 medium-push-8 columns">
           { login ? <Balance/> : <Login/> }
-          <Leaderboard label="AVClub Staffers"/>
-          <Leaderboard label="The Field"/>
+          <Leaderboard label="AVClub Staffers" userId="0"/>
+          <Leaderboard label="The Field" userId="0"/>
         </div>
         <div className="small-12 medium-8 medium-pull-4 columns">
           <EventList context={context}/>

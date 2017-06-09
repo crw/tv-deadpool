@@ -46,6 +46,8 @@ export class EventList extends React.Component {
     const {currentEventIndex} = this.state;
     const profilePage = context.indexOf('ProfileBoard') !== -1;
 
+    const renderDisqus = !profilePage && events;
+
     var renderEvents = () => {
       if (events.length === 0) {
         return (
@@ -94,7 +96,7 @@ export class EventList extends React.Component {
         </div>
         {renderEvents()}
 
-        { profilePage ? '' :
+        { renderDisqus ? '' :
           <div className="disqus">
             <ReactDisqusComments
                 shortname="tvdeadpoolxyz"
@@ -116,6 +118,7 @@ export default connect((state, ownProps) => {
   let sortedEvents = firebaseToArray(events).sort(sortObjectsByKey('order', true)).filter(
     (event) => { return event.published; });
   return {
+    userId,
     context: ownProps.context + '/EventList',
     events: sortedEvents
   };

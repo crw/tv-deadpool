@@ -33,7 +33,7 @@ store.subscribe(() => {
     ...state,
     users: undefined
   };
-  localStorage.setItem('state', JSON.stringify(storedState));
+  // localStorage.setItem('state', JSON.stringify(storedState));
 });
 
 // Fetch Events and Bets data

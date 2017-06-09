@@ -1,4 +1,6 @@
-import firebase from 'app/api/firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+// import {firebase} from 'app/api/firebase';
 
 
 export const PROVIDERS = {

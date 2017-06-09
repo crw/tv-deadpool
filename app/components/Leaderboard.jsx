@@ -3,6 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 // App imports
+import LeaderboardEntry from 'LeaderboardEntry';
 import {LOCALE, CURRENCY_FORMAT} from 'app/constants/formats';
 import {DEFAULT_DISPLAY_NAME} from 'app/constants/strings';
 import {getKey, sortObjectsByKey, toArray, isElementInViewport, toCurrencyString} from 'app/utils';
@@ -52,7 +53,7 @@ export class Leaderboard extends React.Component {
   }
 
   render() {
-    const {leaders, label, userId, loginUserId} = this.props;
+    const {leaders, label, userId, authUserId} = this.props;
     const {key} = this.state;
 
     const renderLeaders = () => {
@@ -60,59 +61,29 @@ export class Leaderboard extends React.Component {
         return <div className="container__message">No leaders!</div>;
       }
 
-      let reverse = key !== 'losses';
+      const reverse = key !== 'losses';
       let i = 1;
-
 
       return leaders.sort(sortObjectsByKey(key, reverse)).map(
         (leader) => {
-          const thisUser = leader.key === userId;
-          const loginUser = leader.key === loginUserId;
-          let rowclass = '';
-          if (loginUser) {
-            rowclass = ' login-user ';
-          } else if (thisUser) {
-            rowclass = ' current-user';
-          }
-
-          const displayName = !thisUser && leader.anon ? <span className="anon">{leader.displayName}</span> : leader.displayName;
-
-          const userIcon = loginUser ? (
-              <span title="You!" ref="userScore">
-                <i className="fa fa-user"/>
-              </span>) :
-            leader.anon ? (
-              <span title="Anonymous user with randomly-generated name.">
-                <i className="fa  fa-question"/>
-              </span>) :
-            leader.displayName === 'Caity PenzeyMoog' ? (
-              <span title="Accidentally cheated. Shame!">
-                🔔
-              </span>
-            ) : '';
+          const profileUser = leader.key === userId;
+          const authUser = leader.key === authUserId;
 
           return (
-            <div key={leader.key} className={'result-row ' + rowclass}>
-              <div className="number-order small-1 columns">
-                {i++}.
-              </div>
-              <div className="align-right small-3 columns">
-                <span className={leader[key] < 0 ? 'losses' : key}>{toCurrencyString(leader[key])}</span>
-              </div>
-              <div className="username small-8 columns">
-                { loginUserId ? (
-                    <Link className="user-link" to={'/profile/' + leader.key}>
-                      {userIcon} {displayName}
-                    </Link>
-                  ) : (
-                    <span>{userIcon} {displayName}</span>
-                  )}
-              </div>
-            </div>
+            <LeaderboardEntry {...leader}
+              userId={leader.key}
+              value={leader[key]}
+              index={i++}
+              profileUser={profileUser}
+              authUser={authUser}
+              renderKey={key}
+            />
           );
         }
       );
     };
+
+
 
     return (
       <div className="leaderboard">
@@ -145,11 +116,11 @@ export class Leaderboard extends React.Component {
 export default connect((state, ownProps) => {
   let label = ownProps.label;
   let members = Object.keys(getKey(state, `labels.${label}`, {}));
-  let loginUserId = getKey(state, 'login.uid', null);
+  let authUserId = getKey(state, 'login.uid', null);
   // Special case; show the logged-in user against the AVClub staffers
-  if (label === 'AVClub Staffers' && members.length !== 0 && loginUserId && getKey(state, `leaderboard.${loginUserId}`, false)) {
-    if (members.indexOf(loginUserId) === -1) {
-      members.push(loginUserId);
+  if (label === 'AVClub Staffers' && members.length !== 0 && authUserId && getKey(state, `leaderboard.${authUserId}`, false)) {
+    if (members.indexOf(authUserId) === -1) {
+      members.push(authUserId);
     }
   }
 
@@ -157,7 +128,7 @@ export default connect((state, ownProps) => {
   if (label === 'The Field') {
     // let EXCLUDE = ['Jr9wO5CW1uX2li5HLFepQL9w5bn2', 'mcbLQf1vOUdwKUYbEcAKNqM3IAE2'];
     let avclub = Object.keys(getKey(state, 'labels.AVClub Staffers', {}));
-    // if (EXCLUDE.indexOf(loginUserId) === -1) {
+    // if (EXCLUDE.indexOf(authUserId) === -1) {
     //   avclub = avclub.concat(EXCLUDE);
     // }
     members = Object.keys(getKey(state, 'leaderboard'), {});
@@ -168,7 +139,7 @@ export default connect((state, ownProps) => {
       return members.indexOf(leader.key) !== -1;
     });
   return {
-    loginUserId,
+    authUserId,
     leaders
   };
 })(Leaderboard);
