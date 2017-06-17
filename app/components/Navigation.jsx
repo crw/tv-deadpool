@@ -53,10 +53,13 @@ export class Navigation extends React.Component {
                   <NavLink to="/" activeClassName="link-active">Bets</NavLink>
                 </li>
                 <li>
-                  <NavLink to="help" activeClassName="link-active">Help</NavLink>
+                  <NavLink to="/help" activeClassName="link-active">Help</NavLink>
                 </li>
                 <li>
-                  <NavLink to="about" activeClassName="link-active">About</NavLink>
+                  <NavLink to="/about" activeClassName="link-active">About</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/edit" activeClassName="link-active">Edit</NavLink>
                 </li>
               </ul>
             </div>

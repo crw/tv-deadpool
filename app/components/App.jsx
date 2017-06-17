@@ -2,7 +2,7 @@ import React from 'react';
 import Navigation from 'Navigation';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-// import { Route } from 'react-router-dom';
+import SiteLoading from 'SiteLoading';
 
 
 export class App extends React.Component {
@@ -12,6 +12,10 @@ export class App extends React.Component {
   }
 
   render() {
+    if (!this.props.sync) {
+      return <SiteLoading/>;
+    }
+
     return (
       <div>
         <Navigation location={this.props.location.pathname} />
@@ -23,5 +27,8 @@ export class App extends React.Component {
   }
 };
 
+function mapStateToProps(state) {
+  return {sync: state.api.sync};
+};
 
-export default withRouter(connect()(App));
+export default withRouter(connect(mapStateToProps)(App));

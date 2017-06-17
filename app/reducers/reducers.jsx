@@ -1,5 +1,6 @@
 import {handleActions} from 'redux-actions';
 // App imports
+import * as action_type from 'app/constants/action_types';
 import * as actions from 'actions';
 
 
@@ -43,14 +44,14 @@ export var users = (state = {}, action) => {
   };
 };
 
-export var login = (state = null, action) => {
+export var login = (state = {}, action) => {
   switch(action.type) {
     case 'LOGIN':
       return {
         uid: action.payload
       };
     case 'UPDATE_USER': {
-      let user = action.payload;
+      const user = action.payload;
       if (state.uid === user.id) {
         return {
           ...state,
@@ -76,7 +77,7 @@ export var login = (state = null, action) => {
         secure: action.payload
       }
     case 'LOGOUT':
-      return null;
+      return {};
     default:
       return state;
   }
@@ -95,7 +96,7 @@ export var labels = (state = {}, action) => {
 };
 
 
-export var prefs = (state = {}, action) => {
+export const prefs = (state = {}, action) => {
   switch(action.type) {
     case 'SET_PREFERENCE': {
       let newState = {...state};
@@ -116,3 +117,19 @@ export var prefs = (state = {}, action) => {
 };
 
 
+const defaultAPIState = {
+  sync: false,    // State updated from server at least once
+  updatedAt: undefined // timestamp of most recent update
+};
+export const api = (state = defaultAPIState, action) => {
+  switch(action.type) {
+    case action_type.API_UPDATED: {
+      return {
+        ...state,
+        sync: true
+      }
+    };
+    default:
+      return state;
+  };
+};

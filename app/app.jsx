@@ -58,6 +58,7 @@ firebase.auth().onAuthStateChanged((authData) => {
       console.log('Logout error:', e);
     }
   }
+  store.dispatch(actions.apiUpdated());
 });
 
 const reactRootEl = document.getElementById('app');

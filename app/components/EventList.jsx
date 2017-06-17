@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 // App imports
 import {getKey, sortObjectsByKey, toArray as firebaseToArray} from 'app/utils';
 import Event from 'Event';
-import ReactDisqusComments from 'react-disqus-comments';
+// import ReactDisqusComments from 'react-disqus-comments';
 
 
 export class EventList extends React.Component {
@@ -96,20 +96,20 @@ export class EventList extends React.Component {
         </div>
         {renderEvents()}
 
-        { renderDisqus ? '' :
-          <div className="disqus">
-            <ReactDisqusComments
-                shortname="tvdeadpoolxyz"
-                identifier={events[currentEventIndex].id}
-                title={events[currentEventIndex].name}
-                url={"https://tvdeadpool.xyz/event/" + events[currentEventIndex].id}
-            />
-          </div>
-        }
       </div>
     );
   }
 }
+        // { renderDisqus ? '' :
+        //   <div className="disqus">
+        //     <ReactDisqusComments
+        //         shortname="tvdeadpoolxyz"
+        //         identifier={events[currentEventIndex].id}
+        //         title={events[currentEventIndex].name}
+        //         url={"https://tvdeadpool.xyz/event/" + events[currentEventIndex].id}
+        //     />
+        //   </div>
+        // }
 
 
 export default connect((state, ownProps) => {

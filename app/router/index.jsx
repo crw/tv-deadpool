@@ -6,6 +6,7 @@ import GameBoard from 'GameBoard';
 import ProfileBoard from 'ProfileBoard';
 import About from 'About';
 import Help from 'Help';
+import Edit from 'Edit';
 import firebase from 'app/api/firebase';
 
 
@@ -21,10 +22,11 @@ export default (
   <Router basename='/'>
     <App>
       <Route exact path="/" component={GameBoard}/>
-      <Route path="profile" component={ProfileBoard} onEnter={requireLogin}/>
-      <Route path="profile/:userId" component={ProfileBoard} onEnter={requireLogin}/>
-      <Route path="help" component={Help}/>
-      <Route path="about" component={About}/>
+      <Route exact path="/profile" component={ProfileBoard} onEnter={requireLogin}/>
+      <Route exact path="/profile/:userId" component={ProfileBoard} onEnter={requireLogin}/>
+      <Route exact path="/help" component={Help}/>
+      <Route exact path="/about" component={About}/>
+      <Route exact path="/edit" component={Edit}/>
     </App>
   </Router>
 );

@@ -1,27 +1,37 @@
 import {createAction} from 'redux-actions';
 import moment from 'moment';
 // App imports
-import * as ACTION_TYPE from 'app/constants/action_types';
+import * as action_type from 'app/constants/action_types';
 import INITIAL_BALANCE from 'app/constants/numbers';
 import PROVIDERS from 'app/constants/providers';
 import {now, normalizeName} from 'app/utils';
 import firebase, {getUserRef, getSecureRef} from 'app/api/firebase';
+import { SubmissionError } from 'redux-form';
+
+
+// Small error func for catch statements.
+function errFunc(err) {
+  console.log(this, 'ERR:', err);
+};
+
 
 // Mass Import
-export const updateBetsData = createAction(ACTION_TYPE.UPDATE_BETS_DATA);
-export const updateStatsData = createAction(ACTION_TYPE.UPDATE_STATS_DATA);
-export const updateEventsData = createAction(ACTION_TYPE.UPDATE_EVENTS_DATA);
-export const updateLeaderboardData = createAction(ACTION_TYPE.UPDATE_LEADERBOARD_DATA);
+export const updateBetsData = createAction(action_type.UPDATE_BETS_DATA);
+export const updateStatsData = createAction(action_type.UPDATE_STATS_DATA);
+export const updateEventsData = createAction(action_type.UPDATE_EVENTS_DATA);
+export const updateLeaderboardData = createAction(action_type.UPDATE_LEADERBOARD_DATA);
 // Data Update
-export const login = createAction(ACTION_TYPE.LOGIN);
-export const logout = createAction(ACTION_TYPE.LOGOUT);
-export const updateSecure = createAction(ACTION_TYPE.UPDATE_SECURE);
-export const updateUser = createAction(ACTION_TYPE.UPDATE_USER);
-export const updateLabel = createAction(ACTION_TYPE.UPDATE_LABEL, (label, data) => {return {label, data};});
-export const updateDisplayName = createAction(ACTION_TYPE.UPDATE_DISPLAY_NAME, (uid, displayName) => { return {uid, displayName}; });
+export const login = createAction(action_type.LOGIN);
+export const logout = createAction(action_type.LOGOUT);
+export const updateSecure = createAction(action_type.UPDATE_SECURE);
+export const updateUser = createAction(action_type.UPDATE_USER);
+export const updateLabel = createAction(action_type.UPDATE_LABEL, (label, data) => {return {label, data};});
+export const updateDisplayName = createAction(action_type.UPDATE_DISPLAY_NAME, (uid, displayName) => { return {uid, displayName}; });
 // Prefs Actions
-export const setPreference = createAction(ACTION_TYPE.SET_PREFERENCE, (context, pref, value) => { return { context, pref, value }; });
-export const setPreferences = createAction(ACTION_TYPE.SET_PREFERENCES, (context, prefs) => { return { context, prefs }; });
+export const setPreference = createAction(action_type.SET_PREFERENCE, (context, pref, value) => { return { context, pref, value }; });
+export const setPreferences = createAction(action_type.SET_PREFERENCES, (context, prefs) => { return { context, prefs }; });
+
+export const apiUpdated = createAction(action_type.API_UPDATED);
 
 
 export const startBetsData = () => {
@@ -92,42 +102,44 @@ export const startFetchLoginUser = () => {
   };
 };
 
-export const startUpdateDisplayName = (resolve, reject, uid, displayName) => {
+// export const startCreateSeries = () => {
+
+// }
+
+export const startUpdateDisplayName = (uid, displayName) => {
   return (dispatch, getStore) => {
+
     const currentDisplayName = getStore().users[uid].displayName;
-    const ref = firebase.database().ref();
-    let updateData = {};
-    updateData[`users/${uid}/displayName`] = displayName;
-    updateData[`names/${normalizeName(displayName)}`] = uid;
 
+    // If the name isn't changing, return a clean resolved Promise.
     if (displayName === currentDisplayName) {
-      resolve();
-      return new Promise(resolve => resolve());
-
-    } else {
-      return ref.update(updateData).then((snapshot) => {
-        // The other firebase actions don't matter and can fail, only this
-        // initial update is important.
-        dispatch(updateDisplayName(uid, displayName));
-        resolve();
-        // Small error func for catch statements.
-        const errFunc = (e) => { console.log('ERROR:', e); };
-        // Updates the Leaderboard name; will also get picked up at next scores run.
-        if (getStore().leaderboard[uid]) {
-          ref.child(`leaderboard/${uid}/displayName`).set(displayName).catch(errFunc);
-          ref.child(`leaderboard/${uid}/anon`).set(false).catch(errFunc);
-        }
-        // Frees their old displayName so others can use it.
-        if (currentDisplayName) {
-          ref.child(`names/${normalizeName(currentDisplayName)}`).remove().catch(errFunc);
-        }
-        ref.child(`users/${uid}/fakeDisplayName`).remove().catch(errFunc);
-
-      }).catch((e) => {
-        console.log('Add Name Error:', e);
-        reject({ displayName: `"${displayName}" is not available.` });
-      });
+      return Promise.resolve();
     }
+
+    const ref = firebase.database().ref();
+    // Changes being made; several other side-effects happen later. :(
+    const updateData = {
+      [`users/${uid}/displayName`]: displayName,
+      [`names/${normalizeName(displayName)}`]: uid
+    };
+
+    return ref.update(updateData).then((snapshot) => {
+      // The other firebase actions don't matter and can fail, only this
+      // initial update is important.
+      dispatch(updateDisplayName(uid, displayName));
+
+      // Updates the Leaderboard name; will also get picked up at next scores run.
+      if (getStore().leaderboard[uid]) {
+        ref.child(`leaderboard/${uid}/displayName`).set(displayName).catch(errFunc);
+        ref.child(`leaderboard/${uid}/anon`).set(false).catch(errFunc);
+      }
+
+      // Frees their old displayName so others can use it.
+      if (currentDisplayName) {
+        ref.child(`names/${normalizeName(currentDisplayName)}`).remove().catch(errFunc);
+      }
+      ref.child(`users/${uid}/fakeDisplayName`).remove().catch(errFunc);
+    });
   };
 };
 

@@ -97,14 +97,12 @@ export class Profile extends React.Component {
 }
 
 export default connect((state, ownProps) => {
-  let userId = ownProps.userId || ownProps.params.userId || getKey(state, 'login.uid');
-  let user = getKey(state, `users.${userId}`, null);
-  let results = getKey(state, `leaderboard.${userId}`, null);
+  let user = getKey(state, `users.${ownProps.userId}`, null);
+  let results = getKey(state, `leaderboard.${ownProps.userId}`, null);
   let context = ownProps.context + '/Profile';
 
   return {
     ...user,
-    userId,
     results,
     context
   };

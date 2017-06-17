@@ -12,3 +12,6 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SET_PREFERENCE = 'SET_PREFERENCE';
 export const SET_PREFERENCES = 'SET_PREFERENCES';
+export const API_UPDATED = '@api/updated';
+
+export const CREATE_SERIES = '@series/create';

@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "description": "TVDEADPOOL/TV_SERIES: Describes a television series.",
+  "type": "object",
+  "required": ["id", "type", "title", "published", "created_at", "updated_at"],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "type": {
+        "type": "string",
+        "enum": ["TV_SERIES"]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "seasons": {
+      "type": "array",
+      "description": "array of season object ids that belong to this series record."
+    },
+    "published": {
+      "type": "boolean"
+    },
+    "created_at": {
+      "type": "integer",
+      "description": "unix timestamp in milliseconds"
+    },
+    "updated_at": {
+      "type": "integer",
+      "description": "unix timestamp in milliseconds"
+    }
+  }
+}

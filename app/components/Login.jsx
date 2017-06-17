@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Redux from 'react-redux';
+import {connect} from 'react-redux';
 import * as actions from 'actions';
 
 
 export class Login extends React.Component {
-  static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-  };
+  // static propTypes = {
+  //   dispatch: PropTypes.func.isRequired,
+  // };
 
   constructor(props) {
     super(props);
@@ -56,4 +56,4 @@ export class Login extends React.Component {
 }
 
 
-export default Redux.connect()(Login);
+export default connect()(Login);

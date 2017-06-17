@@ -34,8 +34,8 @@ export class ProfileBoard extends React.Component {
 }
 
 export default connect((state, ownProps) => {
-  let userId = ownProps.userId || ownProps.params.userId || getKey(state, 'login.uid');
-  let context = "ProfileBoard";
+  const userId = ownProps.match.params.userId || getKey(state, 'login.uid');
+  const context = "ProfileBoard";
   return {
     context,
     userId
