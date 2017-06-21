@@ -1,16 +1,10 @@
 import {combineReducers, createStore, compose, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
-import {reducer as formReducer} from 'redux-form';
-// App imports
 import * as reducers from 'reducers';
 
 
 export var configure = (initialState = {}) => {
-
-  const reducer = combineReducers({
-    ...reducers,
-    form: formReducer
-  });
+  const reducer = combineReducers({ ...reducers });
 
   const middleware = compose(
     applyMiddleware(thunk),

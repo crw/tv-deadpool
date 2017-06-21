@@ -36,11 +36,12 @@ store.subscribe(() => {
   // localStorage.setItem('state', JSON.stringify(storedState));
 });
 
-// Fetch Events and Bets data
-store.dispatch(actions.startEventsData());
-store.dispatch(actions.startBetsData());
-store.dispatch(actions.startLeaderboardData());
-store.dispatch(actions.startStatsData());
+// Initialize Firebase; start watching data sources
+store.dispatch(actions.watchSeriesData());
+store.dispatch(actions.watchEventsData());
+store.dispatch(actions.watchBetsData());
+store.dispatch(actions.watchLeaderboardData());
+store.dispatch(actions.watchStatsData());
 
 
 firebase.auth().onAuthStateChanged((authData) => {

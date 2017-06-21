@@ -1,23 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { BAD_WORDS } from 'app/constants/strings';
 import { getKey } from 'app/utils';
+import BAD_WORDS from 'app/constants/bad_words';
+import * as str from 'app/constants/strings';
 
-export const fields = [ 'displayName', 'userId' ];
-
-// Constants!
-const CLS_ICON_USER = 'fa fa-fw fa-user';
-const CLS_ICON_SUBMIT = 'fa fa-fw fa-cog';
-const CLS_ICON_SUBMITTING = CLS_ICON_SUBMIT + ' fa-spin';
-const CLS_ICON_CANCEL = 'fa fa-fw fa-ban';
-const INPUT_PLACEHOLDER_DISPLAYNAME = 'Change your name.';
-const BTN_LABEL_SUBMIT = 'Save';
-const BTN_LABEL_CANCEL = 'Cancel';
 
 // Validators!
 const required = value => (value ? undefined : 'Required');
-const notBadWord = value => (
+const isNotBadWord = value => (
   getKey(BAD_WORDS, value, false) ?
     `"${value}" is not available.` :
     undefined
@@ -26,7 +17,7 @@ const notBadWord = value => (
 // Form!
 export const DisplayNameForm = (props) => {
   const { handleSubmit, onCancel, reset, pristine, invalid, submitting, error } = props;
-  const cls_btn_submit = submitting ? CLS_ICON_SUBMITTING : CLS_ICON_SUBMIT;
+  const cls_btn_submit = submitting ? str.CLS_ICON_SUBMITTING : str.CLS_ICON_SUBMIT;
 
   function handleCancel(e) {
     e.preventDefault();
@@ -40,22 +31,22 @@ export const DisplayNameForm = (props) => {
       <div className="display-name-form">
         <div className="input-group">
           <span className="input-group-label">
-            <i className={CLS_ICON_USER}/>
+            <i className={str.CLS_ICON_USER}/>
           </span>
           <Field
             component="input"
             type="text"
             name="displayName"
             className="input-group-field"
-            placeholder={INPUT_PLACEHOLDER_DISPLAYNAME}
-            validate={[required, notBadWord]}
+            placeholder={str.INPUT_PLACEHOLDER_DISPLAYNAME}
+            validate={[required, isNotBadWord]}
           />
           <div className="input-group-button">
             <button
               type="submit"
               disabled={submitting || pristine || invalid}
               className="button success"
-            ><i className={cls_btn_submit}/> { BTN_LABEL_SUBMIT }</button>
+            ><i className={cls_btn_submit}/> { str.BTN_LABEL_SUBMIT }</button>
           </div>
         </div>
         { error && <div className="error">{error}</div> }
@@ -63,7 +54,7 @@ export const DisplayNameForm = (props) => {
           disabled={submitting}
           className="button secondary"
           onClick={handleCancel}
-        ><i className={CLS_ICON_CANCEL}/> { BTN_LABEL_CANCEL }</button>
+        ><i className={str.CLS_ICON_CANCEL}/> { str.BTN_LABEL_CANCEL }</button>
       </div>
     </form>
   );
@@ -72,8 +63,8 @@ export const DisplayNameForm = (props) => {
 // Produces the "error" object used to display out-of-element errors.
 // Should probably clean up the elements so they can display their own errors,
 // maybe with pop-overs? Something like that.
-const validate = (values) => {
-  const message = required(values.displayName) || notBadWord(values.displayName);
+const validate = ({displayName}) => {
+  const message = required(displayName) || isNotBadWord(displayName);
   if (message) {
     return { _error: message };
   }

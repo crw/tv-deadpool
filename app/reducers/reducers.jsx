@@ -1,4 +1,5 @@
 import {handleActions} from 'redux-actions';
+import {reducer as formReducer} from 'redux-form';
 // App imports
 import * as action_type from 'app/constants/action_types';
 import * as actions from 'actions';
@@ -12,6 +13,7 @@ function createSimpleReducer(action, defaultState) {
   }, defaultState);
 }
 
+export const series = createSimpleReducer(actions.updateSeriesData, {});
 export const bets = createSimpleReducer(actions.updateBetsData, {});
 export const stats = createSimpleReducer(actions.updateStatsData, {});
 export const events = createSimpleReducer(actions.updateEventsData, {});
@@ -133,3 +135,15 @@ export const api = (state = defaultAPIState, action) => {
       return state;
   };
 };
+
+export const form = formReducer.plugin({
+  series: (state, action) => {
+    console.log(action);
+    switch (action.type) {
+      case action_type.SERIES_CREATED:
+        return undefined;
+      default:
+        return state;
+    }
+  }
+});

@@ -2,51 +2,62 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form'
 import {connect} from 'react-redux';
+import * as str from 'app/constants/strings';
 
-const LABEL_SERIES_TITLE = 'Title:';
-const LABEL_SERIES_DESCRIPTON = 'Description:';
-const LABEL_SERIES_PUBLISHED = 'Published?';
-const BUTTON_SUBMIT = 'Create';
+// Initial Values
+const initialValues = {
+  title: '',
+  description: '',
+  published: false
+};
 
-export class SeriesForm extends React.Component {
+// Validators!
+const required = value => (value ? undefined : 'Required');
 
-  constructor(props) {
-    super(props);
-  }
 
-  render() {
+const SimpleInput = ({ input, label, type, meta: { touched, error, warning } }) => (
+  <div>
+    <label htmlFor={input.name}>{label}</label>
+    <input {...input} type={type}/>
+      {touched &&
+        ((error && <div className="error">{error}</div>) ||
+          (warning && <div className="error">{warning}</div>))}
+  </div>
+);
 
-    const { handleSubmit, cancel, pristine, submitting, initialValues } = this.props;
-    const button_text = (submitting) ? <i className="fa fa-fw fa-pulse fa-spinner"/> : BUTTON_SUBMIT;
 
-    return (
-      <form onSubmit={handleSubmit}>
-        <h3>Series Form</h3>
-        <div>
-          <label htmlFor="title">{LABEL_SERIES_TITLE}</label>
-          <Field component="input" type="text" name="title"/>
-        </div>
-        <div>
-          <label htmlFor="description">{LABEL_SERIES_DESCRIPTON}</label>
-          <Field component="input" type="text" name="description"/>
-        </div>
-        <div>
-          <label htmlFor="published">{LABEL_SERIES_PUBLISHED}</label>
-          <Field component="input" type="checkbox" name="published"/>
-        </div>
-        <div>
-          <button type="submit" className="button" disabled={pristine || submitting}>{button_text}</button>
-        </div>
-      </form>
-    );
-  }
+export const SeriesForm = (props) => {
+
+  const { handleSubmit, onCancel, pristine, submitting, invalid } = props;
+  const cls_btn_submit = submitting ? str.CLS_ICON_SUBMITTING : str.CLS_ICON_SUBMIT;
+
+  return (
+    <form onSubmit={handleSubmit} className="display-name-form">
+      <h3>Series Form</h3>
+      <Field
+        component={SimpleInput}
+        type="text"
+        name="title"
+        label={str.LABEL_SERIES_TITLE}
+        validate={[required]}/>
+      <Field component={SimpleInput} type="text" name="description" label={str.LABEL_SERIES_DESCRIPTON}/>
+      <Field component={SimpleInput} type="checkbox" name="published" label={str.LABEL_SERIES_PUBLISHED}/>
+      <div>
+        <button type="submit" className="button success" disabled={pristine || submitting || invalid}>
+          <i className={cls_btn_submit}/> {str.BTN_LABEL_CREATE}
+        </button>
+      </div>
+    </form>
+  );
+};
+
+
+function mapToReduxForm(form, name) {
+  return reduxForm({ form: name })(form);
 }
 
-// function mapStateToProps(state, ownProps) {
-  // const shows =
-// };
+function mapStateToProps(state) {
+  return { initialValues };
+}
 
-export default reduxForm({
-  // a unique name for the form
-  form: 'series'
-})(SeriesForm);
+export default connect(mapStateToProps)(mapToReduxForm(SeriesForm, 'series'));

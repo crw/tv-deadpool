@@ -14,4 +14,5 @@ export const SET_PREFERENCE = 'SET_PREFERENCE';
 export const SET_PREFERENCES = 'SET_PREFERENCES';
 export const API_UPDATED = '@api/updated';
 
-export const CREATE_SERIES = '@series/create';
+export const SERIES_CREATED = '@series/created';
+export const SERIES_UPDATE_DATA = '@series/update/all';

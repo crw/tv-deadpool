@@ -1,15 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getKey } from 'app/utils';
-import { DEFAULT_DISPLAY_NAME } from 'app/constants/strings';
-import DisplayNameForm from 'DisplayNameForm';
 import { SubmissionError } from 'redux-form';
 import { startUpdateDisplayName } from 'actions';
-
-
-const ERROR_DISPLAYNAME = 'Please enter a name.';
-const ERROR_DUPLICATE = (value) => { return `Sorry, "${value}" is not available`};
+import { getKey } from 'app/utils';
+import DisplayNameForm from 'DisplayNameForm';
+import { DEFAULT_DISPLAY_NAME, ERROR_DISPLAYNAME, ERROR_DUPLICATE_FN } from 'app/constants/strings';
 
 
 export class DisplayName extends React.Component {
@@ -49,8 +45,8 @@ export class DisplayName extends React.Component {
 
     return dispatch(startUpdateDisplayName(userId, displayName)).then(() => {
       this.handleEditStop();
-    }, (err) => {
-      throw new SubmissionError({ _error: ERROR_DUPLICATE(displayName) });
+    }).catch((err) => {
+      throw new SubmissionError({ _error: ERROR_DUPLICATE_FN(displayName) });
     });
   };
 

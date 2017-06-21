@@ -4,12 +4,11 @@ import {connect} from 'react-redux';
 import EditForm from 'EditForm';
 import SeriesForm from 'SeriesForm';
 import {normalizeName} from 'app/utils';
+import { startCreateSeries } from 'actions';
+import { SubmissionError } from 'redux-form';
 
 
 export class Edit extends React.Component {
-  // static propTypes = {
-  //   userId: PropTypes.string
-  // };
 
   constructor(props) {
     super(props);
@@ -17,9 +16,17 @@ export class Edit extends React.Component {
   }
 
   handleSubmitSeries(values) {
-    const {dispatch} = this.props;
-    console.log(normalizeName(values.title), values.title, values.description, values.published);
-    // dispatch(createSeries(values.name, values.description));
+    const { dispatch } = this.props;
+    const { title, description, published } = values;
+    const _title = title.trim() || '';
+    const _description = description.trim() || '';
+    const _published = !!published;
+    if (!_title) {
+      throw new SubmissionError({
+        title: 'No title specified.'
+      });
+    }
+    dispatch(startCreateSeries(_title, _description, _published));
   }
 
   render() {
@@ -35,5 +42,6 @@ export class Edit extends React.Component {
     );
   }
 }
+
 
 export default connect()(Edit);

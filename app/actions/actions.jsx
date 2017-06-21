@@ -4,9 +4,10 @@ import moment from 'moment';
 import * as action_type from 'app/constants/action_types';
 import INITIAL_BALANCE from 'app/constants/numbers';
 import PROVIDERS from 'app/constants/providers';
-import {now, normalizeName} from 'app/utils';
+import {now, normalizeName, getKey} from 'app/utils';
 import firebase, {getUserRef, getSecureRef} from 'app/api/firebase';
 import { SubmissionError } from 'redux-form';
+import * as api from 'app/api/firebase';
 
 
 // Small error func for catch statements.
@@ -15,7 +16,10 @@ function errFunc(err) {
 };
 
 
+// API Success / Failure actions
+export const seriesCreated = createAction(action_type.SERIES_CREATED);
 // Mass Import
+export const updateSeriesData = createAction(action_type.SERIES_UPDATE_DATA);
 export const updateBetsData = createAction(action_type.UPDATE_BETS_DATA);
 export const updateStatsData = createAction(action_type.UPDATE_STATS_DATA);
 export const updateEventsData = createAction(action_type.UPDATE_EVENTS_DATA);
@@ -25,6 +29,7 @@ export const login = createAction(action_type.LOGIN);
 export const logout = createAction(action_type.LOGOUT);
 export const updateSecure = createAction(action_type.UPDATE_SECURE);
 export const updateUser = createAction(action_type.UPDATE_USER);
+// @TODO fix these to not use "return".
 export const updateLabel = createAction(action_type.UPDATE_LABEL, (label, data) => {return {label, data};});
 export const updateDisplayName = createAction(action_type.UPDATE_DISPLAY_NAME, (uid, displayName) => { return {uid, displayName}; });
 // Prefs Actions
@@ -34,41 +39,20 @@ export const setPreferences = createAction(action_type.SET_PREFERENCES, (context
 export const apiUpdated = createAction(action_type.API_UPDATED);
 
 
-export const startBetsData = () => {
-  return (dispatch, getStore) => {
-    const betsRef = firebase.database().ref('bets');
-    return betsRef.on('value', (snapshot) => {
-      dispatch(updateBetsData(snapshot.val()));
-    });
-  };
-}
-
-export const startEventsData = () => {
-  return (dispatch, getStore) => {
-    const eventsRef = firebase.database().ref('events');
-    return eventsRef.on('value', (snapshot) => {
-      dispatch(updateEventsData(snapshot.val()));
-    });
-  };
-}
-
-export const startLeaderboardData = () => {
-  return (dispatch, getStore) => {
-    const lbRef = firebase.database().ref('leaderboard');
-    return lbRef.on('value', (snapshot) => {
-      dispatch(updateLeaderboardData(snapshot.val()));
+function watchFirebaseData(refName, actionFn) {
+  return () => (dispatch, getStore) => {
+    const ref = firebase.database().ref(refName);
+    return ref.on('value', (snapshot) => {
+      dispatch(actionFn(snapshot.val()));
     });
   };
 };
 
-export const startStatsData = () => {
-  return (dispatch, getStore) => {
-    const statsRef = firebase.database().ref('stats');
-    return statsRef.on('value', (snapshot) => {
-      dispatch(updateStatsData(snapshot.val()));
-    }, (err) => {console.log(err);} );
-  };
-};
+export const watchSeriesData = watchFirebaseData('series', updateSeriesData);
+export const watchBetsData = watchFirebaseData('bets', updateBetsData);
+export const watchEventsData = watchFirebaseData('events', updateEventsData);
+export const watchLeaderboardData = watchFirebaseData('leaderboard', updateLeaderboardData);
+export const watchStatsData = watchFirebaseData('stats', updateStatsData);
 
 export const startFetchLabel = (label) => {
   return (dispatch, getStore) => {
@@ -102,13 +86,16 @@ export const startFetchLoginUser = () => {
   };
 };
 
-// export const startCreateSeries = () => {
-
-// }
+export const startCreateSeries = (title, description, published) => {
+  return (dispatch, getStore) => {
+    return api.createSeries(title, description, published).then(() => {
+      dispatch(seriesCreated());
+    });
+  };
+};
 
 export const startUpdateDisplayName = (uid, displayName) => {
   return (dispatch, getStore) => {
-
     const currentDisplayName = getStore().users[uid].displayName;
 
     // If the name isn't changing, return a clean resolved Promise.
@@ -138,6 +125,7 @@ export const startUpdateDisplayName = (uid, displayName) => {
       if (currentDisplayName) {
         ref.child(`names/${normalizeName(currentDisplayName)}`).remove().catch(errFunc);
       }
+      // Removes the now-unnecessary fakeDisplayName
       ref.child(`users/${uid}/fakeDisplayName`).remove().catch(errFunc);
     });
   };
@@ -145,25 +133,25 @@ export const startUpdateDisplayName = (uid, displayName) => {
 
 export const startPlaceWager = (betId, wager, comment) => {
   return (dispatch, getStore) => {
-    var userRef = getUserRef(getStore().login.uid);
-    var user = getStore().login.user;
-    var prevWager = (user.wagers && user.wagers[betId]) ? user.wagers[betId] : null;
-    var prevWagerAmount = (prevWager) ? prevWager.wager : 0;
+    const { uid, user } = getStore().login;
+    const userRef = getUserRef(uid);
+    const prevWager = getKey(user.wagers, betId, null);
+    const prevWagerAmount = getKey(prevWager, wager, 0);
     // Refund the previous wager, charge the new wager.
-    var newBalance = user.balance + prevWagerAmount - wager;
+    const newBalance = user.balance + prevWagerAmount - wager;
 
     if (newBalance < 0) {
-      return new Promise(resolve => resolve());
+      return Promise.resolve();
     }
-    var createData = !prevWager ? {created_at: now()} : {created_at: prevWager.created_at};
-    var updateData = { };
-    updateData['balance'] = newBalance;
-    updateData[`wagers/${betId}`] = {
-      ...createData,
-      id: betId,
-      updated_at: now(),
-      wager,
-      comment
+    const updateData = {
+      [`wagers/${betId}`]: {
+        id: betId,
+        wager,
+        comment,
+        created_at: getKey(prevWager, created_at, now()),
+        updated_at: now()
+      },
+      balance: newBalance
     };
     return userRef.update(updateData).then(() => {
       if (wager === 0 && comment === '') {

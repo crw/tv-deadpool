@@ -39,7 +39,7 @@
     "prop-types": "^15.5.10",
     "react": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
-    "react-disqus-comments": "^0.5.2",
+    "react-disqus-comments": "^1.0.3",
     "react-dom": "^15.1.0",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",
@@ -58,7 +58,7 @@
   "devDependencies": {
     "babel-cli": "^6.9.0",
     "deep-freeze-strict": "^1.1.1",
-    "eslint": "^3.19.0",
+    "eslint": "^4.0.0",
     "expect": "^1.14.0",
     "karma": "^1.7.0",
     "karma-chrome-launcher": "^2.1.1",
