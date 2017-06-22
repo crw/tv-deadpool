@@ -10,6 +10,13 @@ export const CURRENCY_FORMAT = { style: 'currency', currency: 'USD', maximumFrac
 export const DEFAULT_DISPLAY_NAME='A Faceless Man';
 
 
+// Words
+export const EDIT = 'edit';
+export const DELETE = 'delete';
+export const SELECT_SERIES = 'Select Series:';
+export const NEW_SERIES = 'Create new series:';
+
+
 // Labels for specific form elements
 export const LABEL_SERIES_TITLE = 'Title:';
 export const LABEL_SERIES_DESCRIPTON = 'Description:';

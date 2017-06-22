@@ -33,7 +33,7 @@ export const SeriesForm = (props) => {
 
   return (
     <form onSubmit={handleSubmit} className="display-name-form">
-      <h3>Series Form</h3>
+      <h3>{str.NEW_SERIES}</h3>
       <Field
         component={SimpleInput}
         type="text"

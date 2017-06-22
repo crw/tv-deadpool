@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import EditForm from 'EditForm';
+import SeriesList from 'SeriesList';
 import SeriesForm from 'SeriesForm';
 import {normalizeName} from 'app/utils';
 import { startCreateSeries } from 'actions';

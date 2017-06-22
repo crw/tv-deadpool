@@ -138,7 +138,6 @@ export const api = (state = defaultAPIState, action) => {
 
 export const form = formReducer.plugin({
   series: (state, action) => {
-    console.log(action);
     switch (action.type) {
       case action_type.SERIES_CREATED:
         return undefined;
