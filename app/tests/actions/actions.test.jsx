@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import expect from 'expect';
 import firebase, {getUserRef} from 'app/api/firebase';
-import * as ACTION_TYPE from 'app/constants/action_types';
+import * as ACTION_TYPE from 'redux/action_types';
 import * as actions from 'actions';
 
 

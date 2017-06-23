@@ -45,12 +45,13 @@ module.exports = {
     modules: [
       __dirname,
       'node_modules',
-      'app/components'
+      'app/components',
+      'app'
     ],
     alias: {
-      actions: 'app/actions/actions.jsx',
-      reducers: 'app/reducers/reducers.jsx',
-      configureStore: 'app/store/configureStore.jsx'
+      actions: 'app/redux/actions.jsx',
+      reducers: 'app/redux/reducers.jsx',
+      configureStore: 'app/redux/configureStore.jsx'
     },
     extensions: ['.js', '.jsx']
   },

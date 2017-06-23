@@ -1,7 +1,7 @@
 import {handleActions} from 'redux-actions';
 import {reducer as formReducer} from 'redux-form';
 // App imports
-import * as action_type from 'app/constants/action_types';
+import * as action_type from 'redux/action_types';
 import * as actions from 'actions';
 
 

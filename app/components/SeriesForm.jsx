@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import * as str from 'app/constants/strings';
 
 // Initial Values
-const initialValues = {
+const defaultValues = {
   title: '',
   description: '',
   published: false
@@ -57,7 +57,7 @@ function mapToReduxForm(form, name) {
 }
 
 function mapStateToProps(state) {
-  return { initialValues };
+  return { initialValues: defaultValues };
 }
 
 export default connect(mapStateToProps)(mapToReduxForm(SeriesForm, 'series'));

@@ -1,13 +1,12 @@
 import {createAction} from 'redux-actions';
 import moment from 'moment';
-// App imports
-import * as action_type from 'app/constants/action_types';
-import INITIAL_BALANCE from 'app/constants/numbers';
-import PROVIDERS from 'app/constants/providers';
-import {now, normalizeName, getKey} from 'app/utils';
-import firebase, {getUserRef, getSecureRef} from 'app/api/firebase';
 import { SubmissionError } from 'redux-form';
-import * as api from 'app/api/firebase';
+import * as action_type from 'redux/action_types';
+import INITIAL_BALANCE from 'constants/numbers';
+import PROVIDERS from 'constants/providers';
+import {now, normalizeName, getKey} from 'utils';
+import firebase, {getUserRef, getSecureRef} from 'api/firebase';
+import * as api from 'api/firebase';
 
 
 // Small error func for catch statements.
