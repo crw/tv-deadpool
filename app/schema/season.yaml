@@ -1,0 +1,45 @@
+---
+$schema: http://json-schema.org/draft-06/schema#
+description: TVDEADPOOL/TV_SEASON: Describes one season of a television series.
+type: object
+required: [ id, type, season, published, series, created_at, updated_at ]
+properties:
+
+  id:
+    type: string
+
+  type:
+      type: string
+      enum: [ TV_SEASON ]
+
+  series:
+    type: string
+    description: id of the parent TV_SERIES
+
+  title:
+    type: string
+
+  description:
+    type: string
+
+  season:
+    type: integer
+
+  bets:
+    type: array
+    description: array of bet object ids that belong to this TV_SEASON.
+
+  published:
+    type: boolean
+
+  lock_at:
+    type: integer
+    description: unix timestamp in milliseconds; no bets taken after this time.
+
+  created_at:
+    type: integer
+    description: unix timestamp in milliseconds
+
+  updated_at:
+    type: integer
+    description: unix timestamp in milliseconds

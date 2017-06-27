@@ -1,0 +1,72 @@
+---
+$schema: http://json-schema.org/draft-06/schema#
+description: "TVDEADPOOL/BET: Describes one bet."
+type: object
+required: [ id, type, series, season, published, created_at, updated_at ]
+properties:
+  # App-specific properties
+  id:
+    type: string
+
+  type:
+    type: string
+    enum: [ "TV_EPISODE_BET", "TV_SEASON_BET" ]
+
+  episode:
+    type: string
+    description: ID of the parent Season.
+
+  season:
+    type: string
+    description: ID of the parent Season.
+
+  # Descriptive properties
+  name:
+    type: string
+    description: Description of what circumstance is covered by this bet.
+
+  desc:
+    type: string
+    description: Additional description; usually clarifying the conditions of bet success or failure.
+
+  note:
+    type: string
+    description: Information about the conditions that caused the bet to win or lose (specific character names in a wildcard bet, for example).
+
+  odds_payout:
+    type: integer
+    description: Multiplier on a successful wager.
+
+  odds_wager:
+    type: integer
+    description: Basis for the payout on a wager (e.g., 3:2 means you get paid 1.5x)
+
+  order:
+    type: integer
+    description: Display order in the list.
+
+  # Status properties
+  official:
+    type: boolean
+    description: Official, AVClub-sanctioned bet or not.
+
+  paid:
+    type: boolean
+    description: True if a winning bet, false if not. Confirmed after the episode airs.
+
+  published:
+    type: boolean
+    description:
+
+  resolved:
+    type: boolean
+    description: True if the bet results have been confirmed.
+
+  # Timestamp properties
+  created_at:
+    type: integer
+    description: unix timestamp in milliseconds
+
+  updated_at:
+    type: integer
+    description: unix timestamp in milliseconds

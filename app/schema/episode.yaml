@@ -1,0 +1,83 @@
+---
+$schema: http://json-schema.org/draft-06/schema#
+description: "TVDEADPOOL/TV_EPISODE: Describes one episode of a television series."
+type: object
+required: [ id, type, series, season, published, created_at, updated_at ]
+properties:
+  # App-specific properties
+  id:
+    type: string
+
+  type:
+    type: string
+    enum: [ "TV_EPISODE" ]
+
+  season:
+    type: string
+    description: ID of the parent Season.
+
+  bets:
+    type: object
+    description: "Hash with entries of format: { betId: true, ... }"
+
+  # Descriptive properties
+  episode:
+    type: integer
+    description: Epsiode number
+
+  order:
+    type: integer
+    description: Display order in the list.
+
+  name:
+    type: string
+    description: Episode title.
+
+  description:
+    type: string
+    description: Canonical episode description as published by show runners.
+
+  article:
+    type: string
+    format: uri
+    description: Link to the AVClub odds-setting article.
+
+  hbo:
+    type: string
+    format: uri
+    description: URI to the show runner's website for the episode in question.
+
+  preview:
+    type: string
+    format: uri
+    description: URI to the official preview for the episode.
+
+  # Status properties
+  published:
+    type: boolean
+    description:  Determines whether or not to show (publish) the episode on the site.
+
+  confirmation:
+    type: boolean
+    description: true if the results of the episode have been confirmed.
+
+  resolved:
+    type: boolean
+    description: True if the background processing has processed the results of this episode.
+
+  # Timestamp properties
+  air_at:
+    type: integer
+    description: unix timestamp in milliseconds
+
+  lock_at:
+    type: integer
+    description: unix timestamp in milliseconds
+
+  created_at:
+    type: integer
+    description: unix timestamp in milliseconds
+
+  updated_at:
+    type: integer
+    description: unix timestamp in milliseconds
