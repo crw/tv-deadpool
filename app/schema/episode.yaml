@@ -58,8 +58,8 @@ properties:
     description:  Determines whether or not to show (publish) the episode on the site.
 
   confirmation:
-    type: boolean
-    description: true if the results of the episode have been confirmed.
+    type: string
+    description: uri to an official article confirming the results.
 
   resolved:
     type: boolean

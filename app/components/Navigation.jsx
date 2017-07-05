@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom';
-// App imports
 import {startLogout} from 'actions';
+import { isLoggedIn } from 'api/firebase';
 
 
 export class Navigation extends React.Component {
@@ -23,22 +23,18 @@ export class Navigation extends React.Component {
   }
 
   render() {
-    const {login} = this.props;
+    const { login } = this.props;
 
-    const renderLogout = () => {
-      if (login) {
-        return (
-          <div className="top-bar-right">
-            <ul className="menu">
-              <li>
-                <a href="#" onClick={this.handleLogout}>
-                  <i className="fa fa-fw fa-sign-out"/>Logout</a>
-              </li>
-            </ul>
-          </div>
-        );
-      }
-    };
+    const logoutHtml = (
+      <div className="top-bar-right">
+        <ul className="menu">
+          <li>
+            <a href="#" onClick={this.handleLogout}>
+              <i className="fa fa-fw fa-sign-out"/>Logout</a>
+          </li>
+        </ul>
+      </div>
+    );
 
     return (
       <div className="top-bar navigation">
@@ -59,11 +55,11 @@ export class Navigation extends React.Component {
                   <NavLink to="/about" activeClassName="link-active">About</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/edit" activeClassName="link-active">Edit</NavLink>
+                  <NavLink to="/admin" activeClassName="link-active">Admin</NavLink>
                 </li>
               </ul>
             </div>
-            {renderLogout()}
+            { isLoggedIn() ? logoutHtml : ''}
           </div>
         </div>
       </div>
@@ -78,8 +74,4 @@ export class Navigation extends React.Component {
                   ) : <li/> }
 */
 
-export default connect((state) => {
-  return {
-    login: state.login
-  };
-})(Navigation);
+export default connect()(Navigation);

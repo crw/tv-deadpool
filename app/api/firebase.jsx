@@ -11,18 +11,26 @@ const firebaseApp = firebase.initializeApp({
 });
 
 
-export const getUserRef = (uid) => {
+export function getUserRef(uid) {
   return firebaseApp.database().ref(`users/${uid}`);
 };
 
-export const getSecureRef = (uid) => {
+export function getSecureRef(uid) {
   return firebaseApp.database().ref(`secure/${uid}`);
 };
 
-export const getCurrentUser = () => {
+export function getCurrentUser() {
   return firebaseApp.auth().currentUser;
 };
 
+
+export function isLoggedIn() {
+  return !!firebaseApp.auth().currentUser;
+}
+
+export function isAdmin() {
+  return true;
+}
 
 export function createSeries(title, description, published) {
 
@@ -33,11 +41,91 @@ export function createSeries(title, description, published) {
       title,
       description,
       published,
+      type: 'TV_SERIES',
       created_at: Date.now(),
       updated_at: Date.now()
     }
   };
   return firebase.database().ref('/series/').update(updateData);
+}
+
+
+export function createSeason(seriesId, season, title, description, published) {
+
+  const seasonId = `${seriesId}-${season.padStart(2, "0")}`;
+  const updateData = {
+    [`/seasons/${seasonId}`]: {
+      id: seasonId,
+      series: seriesId,
+      season,
+      title,
+      description,
+      published,
+      type: 'TV_SEASON',
+      created_at: Date.now(),
+      updated_at: Date.now()
+    },
+    [`/series/${seriesId}/seasons/${seasonId}`]: true
+  };
+  return firebase.database().ref('/').update(updateData);
+}
+
+export function createEpisode(values) {
+
+  const { season, episode } = values;
+
+  const episodeId = `${season}-${episode.toString().padStart(2, "0")}`;
+  const updateData = {
+    [`/episodes/${episodeId}`]: {
+      ...values,
+      resolved: false,
+      id: episodeId,
+      type: 'TV_EPISODE',
+      created_at: Date.now(),
+      updated_at: Date.now()
+    },
+    [`/seasons/${season}/episodes/${episodeId}`]: true
+  }
+  return firebase.database().ref('/').update(updateData);
+}
+
+export function createBet(values) {
+
+  const { episode, nextBetId } = values;
+
+  if (!episode) {
+    throw new Error('episode (id) not defined; required to create Bets');
+  }
+  if (!nextBetId && nextBetId !== 0) {
+    throw new Error('nextBetId not defined; required to create Bets.');
+  }
+
+  const betId = `${episode}-${nextBetId.toString().padStart(2, "0")}`;
+  const updateData = {
+    [`/bets/${betId}`]: {
+      ...values,
+      note: '',
+      official: true,
+      paid: false,
+      resolved: false,
+      id: betId,
+      type: 'TV_EPISODE_BET',
+      created_at: Date.now(),
+      updated_at: Date.now()
+    },
+    [`/episodes/${episode}/bets/${betId}`]: true
+  }
+  return firebase.database().ref('/').update(updateData);
+}
+
+export function editBet(id, values) {
+  const updateData = {
+    [`/bets/${id}`]: {
+      ...values,
+      updated_at: Date.now()
+    }
+  }
+  return firebase.database().ref('/').update(updateData);
 }
 
 

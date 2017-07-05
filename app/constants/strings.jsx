@@ -15,13 +15,27 @@ export const EDIT = 'edit';
 export const DELETE = 'delete';
 export const SELECT_SERIES = 'Select Series:';
 export const NEW_SERIES = 'Create new series:';
+export const NEW_SEASON = 'Create new season:';
+export const NEW_EPISODE = 'Create new episode:';
+export const NEW_BET = 'Create new bet:';
 
 
 // Labels for specific form elements
-export const LABEL_SERIES_TITLE = 'Title:';
-export const LABEL_SERIES_DESCRIPTON = 'Description:';
-export const LABEL_SERIES_PUBLISHED = 'Published?';
-
+export const LABEL_TITLE = 'Title:';
+export const LABEL_DESCRIPTION = 'Description:';
+export const LABEL_PUBLISHED = 'Published?';
+export const LABEL_SEASON_NUMBER = 'Season Number:';
+export const LABEL_EPISODE_NUMBER = 'Episode Number:';
+export const LABEL_ARTICLE_URI = 'URL to AVClub Article:';
+export const LABEL_OFFICIAL_URI = 'URL to Official Webpage:';
+export const LABEL_PREVIEW_URI = 'URL to video preview:';
+export const LABEL_AIR_AT = 'Airs at (RFC3339 Datetime):';
+export const LABEL_LOCK_AT = 'Lock all betting at (RFC3339 Datetime):';
+export const LABEL_BET_ODDS_PAYOUT = 'Odds Payout (e.g. <b>3</b>:1):';
+export const LABEL_BET_ODDS_WAGER = 'Wager (e.g. 3:<b>1</b>):';
+export const LABEL_BET_ORDER = 'Order in the list of bets:';
+export const LABEL_BET_NAME = 'Description of terms:';
+export const LABEL_BET_DESCRIPTION = 'Additional info (usually specific character names for group bets):';
 
 // Icons for common nouns
 export const CLS_ICON_USER = 'fa fa-fw fa-user';

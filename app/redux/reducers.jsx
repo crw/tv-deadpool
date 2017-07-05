@@ -11,9 +11,21 @@ function createSimpleReducer(action, defaultState) {
       return action.payload;
     }
   }, defaultState);
-}
+};
+
+function clearForm(state, action, trigger) {
+  switch (action.type) {
+    case trigger:
+      return undefined;
+    default:
+      return state;
+  }
+};
+
 
 export const series = createSimpleReducer(actions.updateSeriesData, {});
+export const seasons = createSimpleReducer(actions.updateSeasonsData, {});
+export const episodes = createSimpleReducer(actions.updateEpisodesData, {});
 export const bets = createSimpleReducer(actions.updateBetsData, {});
 export const stats = createSimpleReducer(actions.updateStatsData, {});
 export const events = createSimpleReducer(actions.updateEventsData, {});
@@ -137,12 +149,8 @@ export const api = (state = defaultAPIState, action) => {
 };
 
 export const form = formReducer.plugin({
-  series: (state, action) => {
-    switch (action.type) {
-      case action_type.SERIES_CREATED:
-        return undefined;
-      default:
-        return state;
-    }
-  }
+  series: (state, action) => clearForm(state, action, action_type.SERIES_CREATED),
+  season: (state, action) => clearForm(state, action, action_type.SEASON_CREATED),
+  epidode: (state, action) => clearForm(state, action, action_type.EPISODE_CREATED),
+  bet: (state, action) => clearForm(state, action, action_type.BET_CREATED)
 });

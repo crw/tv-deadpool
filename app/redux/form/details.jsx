@@ -1,0 +1,87 @@
+import moment from 'moment';
+import { SubmissionError } from 'redux-form';
+import { isEmpty } from 'utils';
+import { toUnixTime } from 'redux/form/normalizers';
+
+/*
+ * Helper functions
+ */
+function trimObject(orig) {
+  let obj = Object.assign({}, orig);
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      if (typeof obj[key] === 'string') {
+        obj[key] = obj[key].trim();
+      }
+    }
+  }
+  return obj;
+};
+
+
+/**
+ * EPISODE create / update
+ */
+export const episodeFormName = 'episode';
+
+export const episodeDefaults = {
+  episode: '',
+  name: '',
+  description: '',
+  article: '',
+  hbo: '',
+  preview: '',
+  published: false,
+  air_at: '',
+  lock_at: '',
+};
+
+export function episodeValidation (values) {
+
+  let errors = {};
+  let nvals = trimObject(values);
+
+  const air_at = moment(nvals.air_at);
+  if (!air_at.isValid()) {
+    errors.air_at = 'Invalid air date specified.';
+  }
+  nvals.air_at = toUnixTime(air_at);
+
+  const lock_at = moment(nvals.lock_at);
+  if (!lock_at.isValid()) {
+    errors.lock_at = 'Invalid lock date specified.';
+  }
+  nvals.lock_at = toUnixTime(lock_at);
+
+  if (isEmpty(errors)) {
+    return nvals;
+  } else {
+    throw new SubmissionError(errors);
+  }
+};
+
+
+/**
+ * BET create / update
+ */
+export const betFormName = 'bet';
+
+export const betDefaults = {
+  name: '',
+  desc: '',
+  odds_payout: '',
+  odds_wager: '',
+  order: '',
+};
+
+export function betValidation (values) {
+
+  let errors = {};
+  let nvals = trimObject(values);
+
+  if (isEmpty(errors)) {
+    return nvals;
+  } else {
+    throw new SubmissionError(errors);
+  }
+};

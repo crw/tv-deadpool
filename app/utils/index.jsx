@@ -57,6 +57,9 @@ export function now() {
  * @param value default value if no value is found at that key.
  */
 export function getKey(obj, keyStr, defaultValue = undefined) {
+  if (!keyStr) {
+    return defaultValue;
+  }
   let keys = keyStr.split('.');
   let ref = obj;
   for (let i = 0; i < keys.length; i++) {
@@ -75,18 +78,16 @@ export function getKey(obj, keyStr, defaultValue = undefined) {
  *     mapped to the item key from the object.
  * @return array
  */
-export function toArray(firebaseArray) {
-  if (isObject(firebaseArray)) {
-    let itemsArr = [];
-    Object.keys(firebaseArray).forEach((item) => {
-      itemsArr.push(firebaseArray[item])
-      // Preserve the key, which is often the ID for the object.
-      itemsArr[itemsArr.length-1].key = item;
-    });
-    return itemsArr;
-  } else {
-    throw 'Invalid data, not an object.';
+export function toArray(obj) {
+  if (!isObject(obj)) {
+    return undefined;
   }
+  let arr = [];
+  Object.keys(obj).forEach((key) => {
+    arr.push(obj[key])
+    arr[arr.length-1].key = key; // Preserve the key (usually === the object id).
+  });
+  return arr;
 }
 
 /**

@@ -1,47 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import SeriesList from 'SeriesList';
-import SeriesForm from 'SeriesForm';
-import {normalizeName} from 'app/utils';
-import { startCreateSeries } from 'actions';
-import { SubmissionError } from 'redux-form';
+import { connect } from 'react-redux';
+import { Link, Route, Redirect, Switch } from 'react-router-dom';
+import SeriesAdmin from 'admin/SeriesAdmin';
+import Series from 'admin/Series';
+import Season from 'admin/Season';
+import Episode from 'admin/Episode';
+import EditBet from 'admin/EditBet';
 
 
-export class Edit extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.handleSubmitSeries = this.handleSubmitSeries.bind(this);
-  }
-
-  handleSubmitSeries(values) {
-    const { dispatch } = this.props;
-    const { title, description, published } = values;
-    const _title = title.trim() || '';
-    const _description = description.trim() || '';
-    const _published = !!published;
-    if (!_title) {
-      throw new SubmissionError({
-        title: 'No title specified.'
-      });
-    }
-    dispatch(startCreateSeries(_title, _description, _published));
-  }
+export class Admin extends React.Component {
 
   render() {
-    var {userId, context} = this.props;
+
+    const { match: { url } } = this.props;
 
     return (
       <div className="row">
         <div className="small-12 columns">
-          <EditForm/>
-          <SeriesForm onSubmit={this.handleSubmitSeries}/>
+          <Link to={ url + "/series" }>Series/Bets</Link>
+          { ' - ' }
+          <Link to={ url + "/reconcile" }>Reconcile Episode</Link>
+          { ' - ' }
+          <Link to={ url + "/users" }>Users</Link>
+          { ' - ' }
+          <Link to={ url + "/groups" }>Groups</Link>
+        </div>
+        <div className="small-12 columns">
+          <Switch>
+            <Route exact
+              path={ url + "/series/:seriesId/season/:seasonId/episode/:episodeId/bet/:betId" }
+              component={ EditBet }
+            />
+            <Route exact
+              path={ url + "/series/:seriesId/season/:seasonId/episode/:episodeId" }
+              component={ Episode }
+            />
+            <Route exact path={ url + "/series/:seriesId/season/:seasonId" } component={ Season }/>
+            <Route exact path={ url + "/series/:seriesId" } component={ Series }/>
+            <Route path={ url + "/series" } component={ SeriesAdmin }/>
+            <Redirect from={ url } to={ url + "/series" }/>
+          </Switch>
         </div>
       </div>
     );
   }
-}
+};
 
 
-export default connect()(Edit);
+export default connect()(Admin);

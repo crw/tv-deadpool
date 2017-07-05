@@ -1,42 +1,28 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-// App components
+import { isLoggedIn, isAdmin } from 'api/firebase';
 import App from 'App';
 import GameBoard from 'GameBoard';
 import ProfileBoard from 'ProfileBoard';
 import About from 'About';
 import Help from 'Help';
-import Edit from 'Edit';
-import firebase from 'app/api/firebase';
+import Admin from 'admin/Admin';
 
 
-var requireLogin = (nextState, replace, next) => {
-  if (!firebase.auth().currentUser) {
-    replace('/');
-  }
-  next();
-};
+function protectProfile() {
+  return isLoggedIn() ? <Route exact path="/profile" component={ProfileBoard}/> : <Redirect to="/"/>;
+}
 
 
 export default (
   <Router basename='/'>
     <App>
       <Route exact path="/" component={GameBoard}/>
-      <Route exact path="/profile" component={ProfileBoard} onEnter={requireLogin}/>
-      <Route exact path="/profile/:userId" component={ProfileBoard} onEnter={requireLogin}/>
+      <Route exact path="/profile" render={protectProfile}/>
+      <Route exact path="/profile/:userId" component={ProfileBoard}/>
       <Route exact path="/help" component={Help}/>
       <Route exact path="/about" component={About}/>
-      <Route exact path="/edit" component={Edit}/>
+      <Route path="/admin" component={Admin}/>
     </App>
   </Router>
 );
-
-
-// export default (
-//   <Router basename='/'>
-//     <SiteContainer>
-//       <Route exact path="/topics/" component={ TopicsContainer } />
-//       <Route path="/topics/:topicId/posts" component={ PostsPageContainer } />
-//     </SiteContainer>
-//   </Router>
-// );

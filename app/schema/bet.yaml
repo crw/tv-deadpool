@@ -2,7 +2,7 @@
 $schema: http://json-schema.org/draft-06/schema#
 description: "TVDEADPOOL/BET: Describes one bet."
 type: object
-required: [ id, type, series, season, published, created_at, updated_at ]
+required: [ id, type, created_at, updated_at ]
 properties:
   # App-specific properties
   id:
@@ -53,10 +53,6 @@ properties:
   paid:
     type: boolean
     description: True if a winning bet, false if not. Confirmed after the episode airs.
-
-  published:
-    type: boolean
-    description:
 
   resolved:
     type: boolean

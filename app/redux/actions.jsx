@@ -1,11 +1,10 @@
 import {createAction} from 'redux-actions';
 import moment from 'moment';
-import { SubmissionError } from 'redux-form';
 import * as action_type from 'redux/action_types';
 import INITIAL_BALANCE from 'constants/numbers';
 import PROVIDERS from 'constants/providers';
-import {now, normalizeName, getKey} from 'utils';
-import firebase, {getUserRef, getSecureRef} from 'api/firebase';
+import { normalizeName, getKey } from 'utils';
+import firebase, { getUserRef, getSecureRef } from 'api/firebase';
 import * as api from 'api/firebase';
 
 
@@ -17,8 +16,14 @@ function errFunc(err) {
 
 // API Success / Failure actions
 export const seriesCreated = createAction(action_type.SERIES_CREATED);
+export const seasonCreated = createAction(action_type.SEASON_CREATED);
+export const episodeCreated = createAction(action_type.EPISODE_CREATED);
+export const betCreated = createAction(action_type.BET_CREATED);
+export const betUpdated = createAction(action_type.BET_UPDATED);
 // Mass Import
 export const updateSeriesData = createAction(action_type.SERIES_UPDATE_DATA);
+export const updateSeasonsData = createAction(action_type.SEASONS_UPDATE_DATA);
+export const updateEpisodesData = createAction(action_type.EPISODES_UPDATE_DATA);
 export const updateBetsData = createAction(action_type.UPDATE_BETS_DATA);
 export const updateStatsData = createAction(action_type.UPDATE_STATS_DATA);
 export const updateEventsData = createAction(action_type.UPDATE_EVENTS_DATA);
@@ -48,6 +53,8 @@ function watchFirebaseData(refName, actionFn) {
 };
 
 export const watchSeriesData = watchFirebaseData('series', updateSeriesData);
+export const watchSeasonsData = watchFirebaseData('seasons', updateSeasonsData);
+export const watchEpisodesData = watchFirebaseData('episodes', updateEpisodesData);
 export const watchBetsData = watchFirebaseData('bets', updateBetsData);
 export const watchEventsData = watchFirebaseData('events', updateEventsData);
 export const watchLeaderboardData = watchFirebaseData('leaderboard', updateLeaderboardData);
@@ -92,6 +99,40 @@ export const startCreateSeries = (title, description, published) => {
     });
   };
 };
+
+export const startCreateSeason = (seriesId, season, title, description, published) => {
+  return (dispatch, getStore) => {
+    return api.createSeason(seriesId, season, title, description, published).then(() => {
+      dispatch(seasonCreated());
+    });
+  };
+};
+
+export const startCreateEpisode = (values) => {
+  return (dispatch, getStore) => {
+    return api.createEpisode(values).then(() => {
+      dispatch(episodeCreated());
+    });
+  };
+};
+
+export const startCreateBet = (values) => {
+  return (dispatch, getStore) => {
+    return api.createBet(values).then(() => {
+      dispatch(betCreated());
+    });
+  };
+};
+
+export const startEditBet = (id, values) => {
+  return (dispatch, getStore) => {
+    return api.editBet(id, values).then(() => {
+      dispatch(betUpdated());
+    });
+  };
+};
+
+
 
 export const startUpdateDisplayName = (uid, displayName) => {
   return (dispatch, getStore) => {
@@ -147,8 +188,8 @@ export const startPlaceWager = (betId, wager, comment) => {
         id: betId,
         wager,
         comment,
-        created_at: getKey(prevWager, created_at, now()),
-        updated_at: now()
+        created_at: getKey(prevWager, created_at, Date.now()),
+        updated_at: Date.now()
       },
       balance: newBalance
     };
@@ -186,7 +227,7 @@ export const startLoginWith = (providerData) => {
           {
             id,
             balance: INITIAL_BALANCE,
-            created_at: now()
+            created_at: Date.now()
           } : undefined;
       }).catch(errorFunc);
 
@@ -202,13 +243,13 @@ export const startLoginWith = (providerData) => {
           {
             ...secureData,
             id,
-            created_at: now()
+            created_at: Date.now()
           } :
           // Existing user, just update to latest data
           {
             ...secure,
             ...secureData,
-            updated_at: now()
+            updated_at: Date.now()
           }
       }).then((result) => {
         if (result.committed) {

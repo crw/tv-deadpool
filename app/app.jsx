@@ -38,6 +38,8 @@ store.subscribe(() => {
 
 // Initialize Firebase; start watching data sources
 store.dispatch(actions.watchSeriesData());
+store.dispatch(actions.watchSeasonsData());
+store.dispatch(actions.watchEpisodesData());
 store.dispatch(actions.watchEventsData());
 store.dispatch(actions.watchBetsData());
 store.dispatch(actions.watchLeaderboardData());

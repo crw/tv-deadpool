@@ -15,4 +15,10 @@ export const SET_PREFERENCES = 'SET_PREFERENCES';
 export const API_UPDATED = '@api/updated';
 
 export const SERIES_CREATED = '@series/created';
+export const SEASON_CREATED = '@season/created';
+export const EPISODE_CREATED = '@episode/created';
+export const BET_CREATED = '@bet/created';
+export const BET_UPDATED = '@bet/updated';
 export const SERIES_UPDATE_DATA = '@series/update/all';
+export const SEASONS_UPDATE_DATA = '@season/update/all';
+export const EPISODES_UPDATE_DATA = '@episode/update/all';

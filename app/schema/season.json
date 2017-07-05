@@ -3,7 +3,7 @@
   "description": "TVDEADPOOL/TV_SEASON: Describes one season of a television series.",
   "type": "object",
   "required": [
-    "id", "type", "title", "published", "series_id", "season", "lock_at", "created_at", "updated_at"
+    "id", "type", "season", "published", "series_id", "created_at", "updated_at"
   ],
   "properties": {
     "id": {
@@ -13,7 +13,7 @@
         "type": "string",
         "enum": ["TV_SEASON"]
     },
-    "series_id": {
+    "series": {
       "type": "string",
       "description": "id of the parent TV_SERIES"
     },
