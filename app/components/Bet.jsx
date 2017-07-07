@@ -10,7 +10,10 @@ import WagerForm from 'WagerForm';
 export class Bet extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
-    odds_payout: PropTypes.number.isRequired,
+    odds_payout: PropTypes.oneOfType([
+                  PropTypes.string,
+                  PropTypes.number,
+                ]).isRequired,
     odds_wager: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired,
