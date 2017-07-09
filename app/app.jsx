@@ -7,7 +7,7 @@ import firebase from 'app/api/firebase';
 import {getCurrentUser} from 'app/api/firebase';
 import * as actions from 'actions';
 import router from 'app/router/index';
-
+import * as str from 'constants/strings';
 
 // Load Foundation
 $(document).foundation();
@@ -44,7 +44,7 @@ store.dispatch(actions.watchEventsData());
 store.dispatch(actions.watchBetsData());
 store.dispatch(actions.watchLeaderboardData());
 store.dispatch(actions.watchStatsData());
-
+store.dispatch(actions.startFetchLabel(str.EXCLUDE_LIST));
 
 firebase.auth().onAuthStateChanged((authData) => {
   if (authData) {

@@ -8,42 +8,33 @@ import {LOCALE, CURRENCY_FORMAT} from 'app/constants/formats';
 import {DEFAULT_DISPLAY_NAME} from 'app/constants/strings';
 import {getKey, sortObjectsByKey, toArray, isElementInViewport, toCurrencyString} from 'app/utils';
 import {startFetchLabel} from 'actions';
+import * as str from 'constants/strings';
+
+const KEY = {
+  BALANCE: 'balance',
+  WINNINGS: 'winnings',
+  LOSSES: 'losses'
+}
 
 
 export class Leaderboard extends React.Component {
-  static propTypes = {
-    // name: PropTypes.string,
-  };
-
-  static defaultProps = { }
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      key: 'balance'
-    };
-
-    this.setKey = this.setKey.bind(this);
     this.handleSetKey = this.handleSetKey.bind(this);
-  }
-
-  setKey(key) {
-    this.setState({
-      key
-    });
+    this.state = { key: KEY.BALANCE };
   }
 
   handleSetKey(e) {
     e.preventDefault();
     let key = e.target.dataset.key;
-    this.setKey(key);
+    this.setState({ key });
   }
 
   componentDidMount() {
-    let {dispatch, label, leaders} = this.props;
-    let {userScore} = this.refs;
-    if (leaders.length === 0) {
+    let { dispatch, label, leaders } = this.props;
+    let { userScore } = this.refs;
+    if (leaders.length === 0 && label !== str.THE_FIELD) {
       dispatch(startFetchLabel(label));
     }
     if (userScore && !isElementInViewport(userScore)) {
@@ -56,56 +47,49 @@ export class Leaderboard extends React.Component {
     const {leaders, label, userId, authUserId} = this.props;
     const {key} = this.state;
 
+    const activeNavLink = keyLink => key === keyLink ? 'link-active ' : '';
+
+    const navLink = (navkey, label) => (
+      <a href="#"
+        data-key={ navkey }
+        className={ activeNavLink(navkey) }
+        onClick={ this.handleSetKey }>{ label }</a>
+    );
+
     const renderLeaders = () => {
       if (leaders.length === 0) {
         return <div className="container__message">No leaders!</div>;
       }
 
-      const reverse = key !== 'losses';
+      const reverse = key !== KEY.LOSSES;
       let i = 1;
 
       return leaders.sort(sortObjectsByKey(key, reverse)).map(
-        (leader) => {
-          const profileUser = leader.key === userId;
-          const authUser = leader.key === authUserId;
-
-          return (
-            <LeaderboardEntry {...leader}
-              userId={leader.key}
-              value={leader[key]}
-              index={i++}
-              profileUser={profileUser}
-              authUser={authUser}
-              renderKey={key}
-            />
-          );
-        }
+        leader => (
+          <LeaderboardEntry {...leader}
+            userId={leader.key}
+            value={leader[key]}
+            index={i++}
+            profileUser={leader.key === userId}
+            authUser={leader.key === authUserId}
+            renderKey={key}
+          />
+        )
       );
     };
-
-
 
     return (
       <div className="leaderboard">
         <div className="title">
-          {label}
+          { label }
         </div>
         <div className="leaderboard__navigation">
-          <a href="#"
-            data-key="balance"
-            className={(key==='balance') ? 'link-active' : ''}
-            onClick={this.handleSetKey}>Balance</a>{' - '}
-          <a href="#"
-            data-key="winnings"
-            className={(key==='winnings') ? 'link-active ' : ''}
-            onClick={this.handleSetKey}>Total Won</a>{' - '}
-          <a href="#"
-            data-key="losses"
-            className={(key==='losses') ? 'link-active ' : ''}
-            onClick={this.handleSetKey}>Total Lost</a>
+          { navLink(KEY.BALANCE, str.BALANCE) }{' - '}
+          { navLink(KEY.WINNINGS, str.WINNINGS) }{' - '}
+          { navLink(KEY.LOSSES, str.LOSSES) }
         </div>
         <div className="standings row">
-          {renderLeaders()}
+          { renderLeaders() }
         </div>
       </div>
     );
@@ -113,33 +97,38 @@ export class Leaderboard extends React.Component {
 }
 
 
-export default connect((state, ownProps) => {
-  let label = ownProps.label;
-  let members = Object.keys(getKey(state, `labels.${label}`, {}));
-  let authUserId = getKey(state, 'login.uid', null);
-  // Special case; show the logged-in user against the AVClub staffers
-  if (label === 'AVClub Staffers' && members.length !== 0 && authUserId && getKey(state, `leaderboard.${authUserId}`, false)) {
-    if (members.indexOf(authUserId) === -1) {
-      members.push(authUserId);
+
+function mapStateToProps(state, ownProps) {
+  const { label } = ownProps;
+  const { labels, leaderboard, login: { uid } } = state;
+
+  let members = Object.keys(getKey(labels, label, {}));
+
+  // Special cases
+  switch (label) {
+    // Special case: show the logged-in user with the AVClub staffers
+    case str.AVC_STAFFERS: {
+      if (members.length !== 0 &&
+        getKey(leaderboard, uid, false) &&
+        members.indexOf(uid) === -1) {
+
+          members.push(uid);
+      }
+      break;
+    }
+    // Special case: The Field (all players excluding staff)
+    case str.THE_FIELD: {
+      const exclude_list = Object.keys(Object.assign({},
+        getKey(labels, str.EXCLUDE_LIST, {}),
+        getKey(labels, str.AVC_STAFFERS, {})
+      ));
+      members = Object.keys(leaderboard).filter(member => exclude_list.indexOf(member) < 0);
+      break;
     }
   }
+  const leaders = toArray(leaderboard).filter(leader => members.indexOf(leader.key) > -1);
+  return { authUserId: uid, leaders };
+};
 
-  // Special case: The Field (all players)
-  if (label === 'The Field') {
-    // let EXCLUDE = ['Jr9wO5CW1uX2li5HLFepQL9w5bn2', 'mcbLQf1vOUdwKUYbEcAKNqM3IAE2'];
-    let avclub = Object.keys(getKey(state, 'labels.AVClub Staffers', {}));
-    // if (EXCLUDE.indexOf(authUserId) === -1) {
-    //   avclub = avclub.concat(EXCLUDE);
-    // }
-    members = Object.keys(getKey(state, 'leaderboard'), {});
-    members = members.filter((member) => { return avclub.indexOf(member) < 0; });
-  }
-  let leaders = toArray(state.leaderboard).filter(
-    (leader) => {
-      return members.indexOf(leader.key) !== -1;
-    });
-  return {
-    authUserId,
-    leaders
-  };
-})(Leaderboard);
+
+export default connect(mapStateToProps)(Leaderboard);
