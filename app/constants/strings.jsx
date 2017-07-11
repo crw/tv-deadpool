@@ -16,9 +16,15 @@ export const DELETE = 'delete';
 export const SELECT_SERIES = 'Select Series:';
 export const NEW_SERIES = 'Create new series:';
 export const NEW_SEASON = 'Create new season:';
+export const UPDATE_SEASON = 'Update season';
 export const NEW_EPISODE = 'Create new episode:';
 export const NEW_BET = 'Create new bet:';
-
+export const THE_FIELD = 'The Field';
+export const AVC_STAFFERS = 'AVClub Staffers';
+export const EXCLUDE_LIST = 'EXCLUDE';
+export const BALANCE = 'Balance';
+export const WINNINGS = 'Total Won';
+export const LOSSES = 'Total Lost';
 
 // Labels for specific form elements
 export const LABEL_TITLE = 'Title:';
@@ -36,6 +42,7 @@ export const LABEL_BET_ODDS_WAGER = 'Wager (e.g. 3:<b>1</b>):';
 export const LABEL_BET_ORDER = 'Order in the list of bets:';
 export const LABEL_BET_NAME = 'Description of terms:';
 export const LABEL_BET_DESCRIPTION = 'Additional info (usually specific character names for group bets):';
+export const LABEL_SEASON_LOCK_AT = 'Close season at (RFC3339 Datetime):';
 
 // Icons for common nouns
 export const CLS_ICON_USER = 'fa fa-fw fa-user';

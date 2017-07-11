@@ -57,11 +57,6 @@ var normalizeBetId = (season, episode, order) => {
   ].join('-');
 };
 
-// The app only has access as defined in the Security Rules
-var db = firebase.database();
-var ref = db.ref();
-
-
 if (typeof Events !== "undefined" && typeof Bets !== "undefined") {
 
   console.log('Importing Events...');

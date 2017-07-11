@@ -9,11 +9,7 @@ import Balance from 'Balance';
 import Leaderboard from 'Leaderboard';
 
 
-
 export class GameBoard extends React.Component {
-  // static propTypes = {
-  //   user: PropTypes.object
-  // };
 
   constructor(props) {
     super(props);

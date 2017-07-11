@@ -16,6 +16,7 @@ export const API_UPDATED = '@api/updated';
 
 export const SERIES_CREATED = '@series/created';
 export const SEASON_CREATED = '@season/created';
+export const SEASON_UPDATED = '@season/updated';
 export const EPISODE_CREATED = '@episode/created';
 export const BET_CREATED = '@bet/created';
 export const BET_UPDATED = '@bet/updated';

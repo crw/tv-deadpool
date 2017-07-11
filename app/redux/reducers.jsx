@@ -13,12 +13,23 @@ function createSimpleReducer(action, defaultState) {
   }, defaultState);
 };
 
-function clearForm(state, action, trigger) {
-  switch (action.type) {
-    case trigger:
-      return undefined;
-    default:
-      return state;
+// function clearForm(state, action, trigger) {
+//   switch (action.type) {
+//     case trigger:
+//       return undefined;
+//     default:
+//       return state;
+//   }
+// };
+
+function clearForm(trigger) {
+  return (state, action) => {
+    switch (action.type) {
+      case trigger:
+        return undefined;
+      default:
+        return state;
+    }
   }
 };
 
@@ -100,7 +111,7 @@ export var login = (state = {}, action) => {
 
 export var labels = (state = {}, action) => {
   switch(action.type) {
-    case 'UPDATE_LABEL':
+    case action_type.UPDATE_LABEL:
       let newState = {...state};
       newState[action.payload.label] = action.payload.data;
       return newState;
@@ -149,8 +160,8 @@ export const api = (state = defaultAPIState, action) => {
 };
 
 export const form = formReducer.plugin({
-  series: (state, action) => clearForm(state, action, action_type.SERIES_CREATED),
-  season: (state, action) => clearForm(state, action, action_type.SEASON_CREATED),
-  epidode: (state, action) => clearForm(state, action, action_type.EPISODE_CREATED),
-  bet: (state, action) => clearForm(state, action, action_type.BET_CREATED)
+  series: clearForm(action_type.SERIES_CREATED),
+  season: clearForm(action_type.SEASON_CREATED),
+  epidode: clearForm(action_type.EPISODE_CREATED),
+  bet: clearForm(action_type.BET_CREATED)
 });

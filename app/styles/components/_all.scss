@@ -1,7 +1,5 @@
-.component__title {
-  padding: 0.25rem 0.5rem;
-  color: $light-color;
-  @include cheesy-black-gradient();
+html, body, #app {
+  height: 100%;
 }
 
 FORM {
@@ -15,4 +13,17 @@ FORM {
     border-radius: 5px;
     background-color: $error-background-color;
   }
+}
+
+.component__title {
+  padding: 0.25rem 0.5rem;
+  color: $light-color;
+  @include cheesy-black-gradient();
+}
+
+.site-loading {
+  position: relative;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
 }

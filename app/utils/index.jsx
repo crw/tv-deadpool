@@ -25,11 +25,14 @@ export function isObject(obj) {
   return (typeof obj === "object") && (obj !== null);
 }
 
-
+/**
+ * @param object required to be type object
+ * @return bool
+ */
 export function isEmpty(obj) {
 
     // null and undefined are "empty"
-    if (obj == null) return true;
+    if (obj === null || obj === undefined) return true;
 
     // Assume if it has a length property with a non-zero value
     // that that property is correct.
@@ -55,20 +58,15 @@ export function now() {
  * @param object {foo: { bar: { baz: 4 } } }
  * @param string "foo.bar.baz"
  * @param value default value if no value is found at that key.
+ * @see https://medium.com/javascript-inside/safely-accessing-deeply-nested-values-in-javascript-99bf72a0855a
+ * @see https://glebbahmutov.com/blog/call-me-maybe/
  */
 export function getKey(obj, keyStr, defaultValue = undefined) {
-  if (!keyStr) {
-    return defaultValue;
-  }
-  let keys = keyStr.split('.');
-  let ref = obj;
-  for (let i = 0; i < keys.length; i++) {
-    if (!isObject(ref)) {
-      return defaultValue;
-    }
-    ref = ref[keys[i]];
-  }
-  return (ref === null || ref === undefined) ? defaultValue : ref;
+
+  if (!keyStr) return defaultValue;
+
+  return keyStr.split('.').reduce((xs, x) =>
+    (isObject(xs) && xs[x] !== undefined) ? xs[x] : defaultValue, obj);
 }
 
 /**

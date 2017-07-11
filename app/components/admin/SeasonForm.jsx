@@ -1,18 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { getKey } from 'utils';
 import { SimpleInput } from 'redux/form/components';
-import { required } from 'redux/form/validators';
+import { required, isValidDatetime } from 'redux/form/validators';
+import { seasonFormName, seasonInitialValues } from 'redux/form/details';
 import * as str from 'app/constants/strings';
-
-// Initial Values
-const defaultValues = {
-  title: '',
-  description: '',
-  season: '',
-  published: false
-};
 
 
 export const SeasonForm = (props) => {
@@ -22,11 +17,12 @@ export const SeasonForm = (props) => {
 
   return (
     <form onSubmit={handleSubmit} className="display-name-form">
-      <h3>{str.NEW_SEASON}</h3>
       <Field component={SimpleInput} type="number" name="season" validate={[required]} label={str.LABEL_SEASON_NUMBER}/>
       <Field component={SimpleInput} type="checkbox" name="published" label={str.LABEL_PUBLISHED}/>
       <Field component={SimpleInput} type="text" name="title" label={str.LABEL_TITLE}/>
       <Field component={SimpleInput} type="text" name="description" label={str.LABEL_DESCRIPTION}/>
+      <Field component={SimpleInput} type="text" name="lock_at"
+        validate={[required, isValidDatetime]} label={str.LABEL_SEASON_LOCK_AT}/>
       <div>
         <button type="submit" className="button success" disabled={pristine || submitting || invalid}>
           <i className={cls_btn_submit}/> {str.BTN_LABEL_CREATE}
@@ -38,7 +34,9 @@ export const SeasonForm = (props) => {
 
 
 function mapStateToProps(state, ownProps) {
-  return { initialValues: defaultValues };
-}
+  const season = getKey(state.seasons, ownProps.seasonId);
+  const initialValues = seasonInitialValues(season);
+  return { initialValues };
+};
 
-export default connect(mapStateToProps)(reduxForm({ form: 'season' })(SeasonForm));
+export default connect(mapStateToProps)(reduxForm({ form: seasonFormName })(SeasonForm));

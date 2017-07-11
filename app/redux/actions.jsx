@@ -1,11 +1,11 @@
-import {createAction} from 'redux-actions';
 import moment from 'moment';
-import * as action_type from 'redux/action_types';
-import INITIAL_BALANCE from 'constants/numbers';
-import PROVIDERS from 'constants/providers';
+import { createAction } from 'redux-actions';
 import { normalizeName, getKey } from 'utils';
 import firebase, { getUserRef, getSecureRef } from 'api/firebase';
 import * as api from 'api/firebase';
+import * as action_type from 'redux/action_types';
+import INITIAL_BALANCE from 'constants/numbers';
+import PROVIDERS from 'constants/providers';
 
 
 // Small error func for catch statements.
@@ -17,6 +17,7 @@ function errFunc(err) {
 // API Success / Failure actions
 export const seriesCreated = createAction(action_type.SERIES_CREATED);
 export const seasonCreated = createAction(action_type.SEASON_CREATED);
+export const seasonUpdated = createAction(action_type.SEASON_UPDATED);
 export const episodeCreated = createAction(action_type.EPISODE_CREATED);
 export const betCreated = createAction(action_type.BET_CREATED);
 export const betUpdated = createAction(action_type.BET_UPDATED);
@@ -33,12 +34,16 @@ export const login = createAction(action_type.LOGIN);
 export const logout = createAction(action_type.LOGOUT);
 export const updateSecure = createAction(action_type.UPDATE_SECURE);
 export const updateUser = createAction(action_type.UPDATE_USER);
-// @TODO fix these to not use "return".
-export const updateLabel = createAction(action_type.UPDATE_LABEL, (label, data) => {return {label, data};});
-export const updateDisplayName = createAction(action_type.UPDATE_DISPLAY_NAME, (uid, displayName) => { return {uid, displayName}; });
+
+export const updateLabel = createAction(
+  action_type.UPDATE_LABEL, (label, data) => ({ label, data }));
+export const updateDisplayName = createAction(
+  action_type.UPDATE_DISPLAY_NAME, (uid, displayName) => ({ uid, displayName }));
 // Prefs Actions
-export const setPreference = createAction(action_type.SET_PREFERENCE, (context, pref, value) => { return { context, pref, value }; });
-export const setPreferences = createAction(action_type.SET_PREFERENCES, (context, prefs) => { return { context, prefs }; });
+export const setPreference = createAction(
+  action_type.SET_PREFERENCE, (context, pref, value) => ({ context, pref, value }));
+export const setPreferences = createAction(
+  action_type.SET_PREFERENCES, (context, prefs) => ({ context, prefs }));
 
 export const apiUpdated = createAction(action_type.API_UPDATED);
 
@@ -100,13 +105,22 @@ export const startCreateSeries = (title, description, published) => {
   };
 };
 
-export const startCreateSeason = (seriesId, season, title, description, published) => {
+export const startCreateSeason = (values) => {
   return (dispatch, getStore) => {
-    return api.createSeason(seriesId, season, title, description, published).then(() => {
+    return api.createSeason(values).then(() => {
       dispatch(seasonCreated());
     });
   };
 };
+
+export const startEditSeason = (id, values) => {
+  return (dispatch, getStore) => {
+    return api.editSeason(id, values).then(() => {
+      dispatch(seasonUpdated());
+    });
+  };
+};
+
 
 export const startCreateEpisode = (values) => {
   return (dispatch, getStore) => {

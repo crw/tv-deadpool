@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getKey } from 'app/utils';
+import { startCreateEpisode, startEditSeason } from 'actions';
+import { episodeValidation, seasonValidation } from 'redux/form/details';
 import EpisodeList from 'admin/EpisodeList';
 import EpisodeForm from 'admin/EpisodeForm';
-import { getKey } from 'app/utils';
-import { startCreateEpisode, startCreateBet } from 'actions';
-import { episodeValidation } from 'redux/form/details';
+import SeasonForm from 'admin/SeasonForm';
+import * as str from 'constants/strings';
 
 
 export class Season extends React.Component {
@@ -13,6 +15,7 @@ export class Season extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitSeason = this.handleSubmitSeason.bind(this);
   }
 
   handleSubmit(values) {
@@ -24,10 +27,16 @@ export class Season extends React.Component {
     dispatch(startCreateEpisode(values));
   }
 
-  render() {
-    const { id, title, description, published  } = this.props;
+  handleSubmitSeason(values) {
+    const { season: { id }, dispatch } = this.props;
+    values = seasonValidation(values);
+    dispatch(startEditSeason(id, values));
+  }
 
-    if (id === undefined) {
+  render() {
+    const { season } = this.props;
+
+    if (season === undefined || season.id === undefined) {
       return (
         <div>
           <div className="error">Error: Season not found.</div>
@@ -37,12 +46,9 @@ export class Season extends React.Component {
 
     return (
       <div className="row">
-        <div className="small-12 columns">
-          <h3>{ title }</h3>
-          <div>{ description }</div>
-          <div>{ published ? 'Published' : 'Not published' }</div>
-        </div>
-        <EpisodeList seasonId={id} />
+        <h3>{str.UPDATE_SEASON}</h3>
+        <SeasonForm seasonId={season.id} onSubmit={this.handleSubmitSeason}/>
+        <EpisodeList seasonId={season.id}/>
         <EpisodeForm onSubmit={this.handleSubmit}/>
       </div>
     );
@@ -50,9 +56,9 @@ export class Season extends React.Component {
 };
 
 function mapStateToProps(state, ownProps) {
-  const { seriesId, seasonId } = ownProps.match.params;
+  const { seasonId } = ownProps.match.params;
   const season = getKey(state.seasons, seasonId, undefined);
-  return { ...season };
+  return { season };
 }
 
 export default connect(mapStateToProps)(Season);

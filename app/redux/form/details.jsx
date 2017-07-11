@@ -18,6 +18,49 @@ function trimObject(orig) {
   return obj;
 };
 
+/**
+ * SEASON create / update
+ */
+
+export const seasonFormName = 'season';
+
+export const seasonDefaults = {
+  title: '',
+  description: '',
+  season: '',
+  lock_at: '',
+  published: false
+};
+
+export function seasonInitialValues(season) {
+  if (season) {
+    return {
+      ...season,
+      lock_at: moment(season.lock_at).format()
+    }
+  } else {
+    return seasonDefaults;
+  }
+};
+
+export function seasonValidation(values) {
+  let errors = {};
+  let nvals = trimObject(values);
+
+  const lock_at = moment(nvals.lock_at);
+  if (!lock_at.isValid()) {
+    errors.lock_at = 'Invalid lock date specified.';
+  }
+  nvals.lock_at = toUnixTime(lock_at);
+
+  nvals.published = !!nvals.published;
+
+  if (isEmpty(errors)) {
+    return nvals;
+  } else {
+    throw new SubmissionError(errors);
+  }
+};
 
 /**
  * EPISODE create / update
@@ -36,7 +79,7 @@ export const episodeDefaults = {
   lock_at: '',
 };
 
-export function episodeValidation (values) {
+export function episodeValidation(values) {
 
   let errors = {};
   let nvals = trimObject(values);

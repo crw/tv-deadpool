@@ -32,6 +32,30 @@ export function isAdmin() {
   return true;
 }
 
+
+/**
+ * Creates edit functions
+ * @returns func
+ */
+function editRef(ref) {
+  return (id, values) => {
+    return firebase.database().ref(`/${ref}/`).update({
+      [`${id}`]: {
+        ...values,
+        updated_at: Date.now()
+      }
+    });
+  };
+};
+
+
+/**
+ * @param object {
+ *  title string
+ *  description string
+ *  published bool
+ * }
+ */
 export function createSeries(title, description, published) {
 
   const seriesId = normalizeName(title);
@@ -50,30 +74,39 @@ export function createSeries(title, description, published) {
 }
 
 
-export function createSeason(seriesId, season, title, description, published) {
+/**
+ * @param object {
+ *  series string id
+ *  season number
+ *  title string
+ *  description string
+ *  lock_at number
+ *  published bool
+ * }
+ */
+export function createSeason(values) {
 
-  const seasonId = `${seriesId}-${season.padStart(2, "0")}`;
+  const { series, season } = values;
+  const id = `${series}-${season.padStart(2, "0")}`;
   const updateData = {
-    [`/seasons/${seasonId}`]: {
-      id: seasonId,
-      series: seriesId,
-      season,
-      title,
-      description,
-      published,
+    [`/seasons/${id}`]: {
+      ...values,
+      id,
       type: 'TV_SEASON',
       created_at: Date.now(),
       updated_at: Date.now()
     },
-    [`/series/${seriesId}/seasons/${seasonId}`]: true
+    [`/series/${series}/seasons/${id}`]: true
   };
   return firebase.database().ref('/').update(updateData);
 }
 
+export const editSeason = editRef('seasons');
+
+
 export function createEpisode(values) {
 
   const { season, episode } = values;
-
   const episodeId = `${season}-${episode.toString().padStart(2, "0")}`;
   const updateData = {
     [`/episodes/${episodeId}`]: {
@@ -118,15 +151,7 @@ export function createBet(values) {
   return firebase.database().ref('/').update(updateData);
 }
 
-export function editBet(id, values) {
-  const updateData = {
-    [`/bets/${id}`]: {
-      ...values,
-      updated_at: Date.now()
-    }
-  }
-  return firebase.database().ref('/').update(updateData);
-}
+export const editBet = editRef('bets');
 
 
 export function placeWager(user, betId, wager, comment) {

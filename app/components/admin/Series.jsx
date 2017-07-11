@@ -1,12 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import SeasonList from 'admin/SeasonList';
-import SeasonForm from 'admin/SeasonForm';
+import { connect } from 'react-redux';
+import { SubmissionError } from 'redux-form';
 import { getKey } from 'app/utils';
 import { startCreateSeason } from 'actions';
-import { SubmissionError } from 'redux-form';
-
+import { seasonValidation } from 'redux/form/details'
+import SeasonList from 'admin/SeasonList';
+import SeasonForm from 'admin/SeasonForm';
+import * as str from 'constants/strings';
 
 export class Series extends React.Component {
 
@@ -17,11 +17,9 @@ export class Series extends React.Component {
 
   handleSubmitSeason(values) {
     const { id, dispatch } = this.props;
-    const { season, title, description, published } = values;
-    const _title = title.trim() || '';
-    const _description = description.trim() || '';
-    const _published = !!published;
-    dispatch(startCreateSeason(id, season, _title, _description, _published));
+    values = seasonValidation(values);
+    values.series = id;
+    dispatch(startCreateSeason(values));
   }
 
   render() {
@@ -43,6 +41,7 @@ export class Series extends React.Component {
           <div>{ published ? 'Published' : 'Not published' }</div>
         </div>
         <SeasonList seriesId={id} />
+        <h3>{str.NEW_SEASON}</h3>
         <SeasonForm onSubmit={this.handleSubmitSeason}/>
       </div>
     );
