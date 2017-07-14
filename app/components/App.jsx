@@ -8,7 +8,7 @@ import SiteLoading from 'SiteLoading';
 
 export const App = props => {
 
-  const { sync, seasons, series, location, children } = props;
+  const { sync, seasons, series, leaderboard, location, children } = props;
 
   if ( !sync || isEmpty(seasons) || isEmpty(series) ) {
     return <SiteLoading/>;
@@ -26,8 +26,8 @@ export const App = props => {
 
 
 function mapStateToProps(state) {
-  const { seasons, series } = state;
-  return { sync: state.api.sync, seasons, series };
+  const { seasons, series, leaderboard } = state;
+  return { sync: state.api.sync, seasons, series, leaderboard };
 };
 
 export default withRouter(connect(mapStateToProps)(App));
