@@ -4,10 +4,10 @@ release:
 	git push --tags
 
 dev:
-	NODE_ENV=development webpack
+	NODE_ENV=development npm run dev
 
 prod:
-	NODE_ENV=production webpack -p
+	NODE_ENV=production npm run dist
 
 dist:
 	firebase use tv-deadpool
