@@ -1,0 +1,144 @@
+path / {
+  read() { isAutomationUser() }
+  write() { isAutomationUser() }
+}
+
+path /users/{userid} {
+  read() { isSignedIn() }
+  write() { isCurrentUser(userid) }
+}
+
+path /users/{userid}/balance/{seasonid} is Number {
+  validate() {
+    isAutomationUser() || // Automation can do whatever it wants
+    (prior(this) == null && this == 100) || // Initialization
+    this == prior(this) || // No change, updating comment
+    (prior(this) != null && this != null && this >= 0) // Not initializing, updating wager value.
+  }
+}
+
+path /users/{userid}/wagers/{wagerid} {
+  validate() {
+    isAutomationUser() ||
+    !hasAired(getEpisodeFromWager(wagerid))
+  }
+}
+
+path /users/{userid}/wagers/{wagerid}/wager {
+  validate() {
+    isAutomationUser() ||
+    (!exists(this) && prior(this) == 0) ||
+    (this >= 0 &&
+      getBalanceForWager(prior(root), userid, wagerid) + default(prior(this), 0) - this ==
+      getBalanceForWager(root, userid, wagerid)
+    )
+  }
+}
+
+path /secure/{userid} {
+  read() { isCurrentUser(userid) }
+  write() { isCurrentUser(userid) }
+}
+
+path /names/{nameid} {
+  read() { true }
+  write() {
+    isSignedIn() &&
+      (prior(this) == null ||
+        (prior(this) != null && this == null && prior(this) == auth.uid))
+  }
+}
+
+path /series {
+  read() { true }
+  write() { isAdmin() }
+}
+
+path /seasons {
+  read() { true }
+  write() { isAdmin() }
+}
+
+path /episodes {
+  read() { true }
+  write() { isAdmin() }
+}
+
+path /events {
+  read() { true }
+}
+
+path /bets {
+  read() { true }
+  write() { isAdmin() }
+}
+
+path /stats {
+  read() { true }
+}
+
+path /labels/{labelid} {
+  read() { true }
+}
+
+path /leaderboard {
+  read() { true }
+}
+
+path /leaderboard/{uid}/displayName {
+  update() { isSignedIn() }
+}
+path /leaderboard/{uid}/anon {
+  update() { isSignedIn() }
+}
+
+// Auth-related functionality
+//
+isSignedIn() { auth != null }
+// Is current user id the logged-in user?
+isCurrentUser(uid) { isSignedIn() && auth.uid == uid }
+// Is the automation user
+isAutomationUser() { auth.uid == 'secret-service-worker' }
+// Is the admin user
+isAdmin() { isSignedIn() && auth.uid == 'Jr9wO5CW1uX2li5HLFepQL9w5bn2' }
+
+// Timestamp-related functionality.
+//
+type Timestamped<T> extends T {
+  modified: CurrentTimestamp,
+  created: InitialTimestamp
+}
+
+type CurrentTimestamp extends Number {
+  validate() { this == now }
+}
+
+type InitialTimestamp extends Number {
+  validate() { initial(this, now) }
+}
+
+// Helper functions - most are pretty specific to rules use cases.
+//
+
+// Returns true if the value is intialized to init, or retains it's prior
+// value, otherwise.
+initial(value, init) { value == (prior(value) == null ? init : prior(value)) }
+
+// Returns the episode id from wager
+getEpisodeFromWager(wagerid) { root.bets[wagerid].episode }
+
+// Get Season id from Episode id
+getSeasonFromWager(wagerid) { root.bets[wagerid].season }
+
+// Has this episode already aired?
+hasAired(episodeid) { root.episodes[episodeid].air_at <= now }
+
+// Property has a value
+exists(item) { item != null }
+
+// Returns the value or a default
+default(item, default) { item != null ? item : default }
+
+getBalanceForWager(item, userid, wagerid) {
+  item.users[userid].balance[getSeasonFromWager(wagerid)]
+}

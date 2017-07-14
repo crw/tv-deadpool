@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, IndexRoute } from 'react-router-dom';
 import { isLoggedIn, isAdmin } from 'api/firebase';
 import App from 'App';
 import Home from 'Home';
@@ -23,7 +23,7 @@ export default (
       <Route exact path="/profile/:userId" component={ProfileBoard}/>
       <Route exact path="/help" component={Help}/>
       <Route exact path="/about" component={About}/>
-      <Route path="/game" component={GameBoard}/>
+      <Route exact path="/game/season/:seasonId" component={GameBoard}/>
       <Route path="/admin" component={Admin}/>
     </App>
   </Router>

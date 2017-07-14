@@ -146,6 +146,15 @@ export const startEditBet = (id, values) => {
   };
 };
 
+export const startPlaceWager = (betId, wager, comment) => {
+  return (dispatch, getStore) => {
+    const state = getStore();
+    const { user } = state.login;
+    const bet = state.bets[betId];
+    return api.placeWager(user, bet, wager, comment);
+  };
+};
+
 
 
 export const startUpdateDisplayName = (uid, displayName) => {
@@ -181,36 +190,6 @@ export const startUpdateDisplayName = (uid, displayName) => {
       }
       // Removes the now-unnecessary fakeDisplayName
       ref.child(`users/${uid}/fakeDisplayName`).remove().catch(errFunc);
-    });
-  };
-};
-
-export const startPlaceWager = (betId, wager, comment) => {
-  return (dispatch, getStore) => {
-    const { uid, user } = getStore().login;
-    const userRef = getUserRef(uid);
-    const prevWager = getKey(user.wagers, betId, null);
-    const prevWagerAmount = getKey(prevWager, wager, 0);
-    // Refund the previous wager, charge the new wager.
-    const newBalance = user.balance + prevWagerAmount - wager;
-
-    if (newBalance < 0) {
-      return Promise.resolve();
-    }
-    const updateData = {
-      [`wagers/${betId}`]: {
-        id: betId,
-        wager,
-        comment,
-        created_at: getKey(prevWager, created_at, Date.now()),
-        updated_at: Date.now()
-      },
-      balance: newBalance
-    };
-    return userRef.update(updateData).then(() => {
-      if (wager === 0 && comment === '') {
-        userRef.child(`wagers/${betId}`).remove();
-      }
     });
   };
 };

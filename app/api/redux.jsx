@@ -1,4 +1,4 @@
-import { toArray, getKey } from 'utils';
+import { isEmpty, toArray, getKey, sortObjectsByKey } from 'utils';
 
 
 function keyFilter(obj, key, filterval) {
@@ -7,6 +7,7 @@ function keyFilter(obj, key, filterval) {
 };
 
 function hydrate(keys, state) {
+  if (isEmpty(keys)) return [];
   let output = [];
   for (let id of Object.keys(keys)) {
     const obj = getKey(state, id);
@@ -15,15 +16,23 @@ function hydrate(keys, state) {
   return output;
 }
 
+export function published(arr) {
+  return arr.filter(item => item.published);
+}
+
+export function ordered(arr, key='order') {
+  return arr.sort(sortObjectsByKey(key, true));
+}
+
 export function getSeasonsForSeries(state, id) {
   return hydrate(state.series[id].seasons, state.seasons);
   // return keyFilter(state.seasons, 'series', seriesId);
 }
 
-export function getEpisodesForSeason(state, seasonId) {
-  return keyFilter(state.episodes, 'season', seasonId);
+export function getEpisodesForSeason(state, id) {
+  return ordered(keyFilter(state.episodes, 'season', id), 'episode');
 };
 
-export function getBetsForEpisode(state, episodeId) {
-  return keyFilter(state.bets, 'episode', episodeId);
+export function getBetsForEpisode(state, id) {
+  return ordered(keyFilter(state.bets, 'episode', id));
 };

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {NavLink} from 'react-router-dom';
-import {startLogout} from 'actions';
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { startLogout } from 'actions';
 import { isLoggedIn } from 'api/firebase';
+import { getKey } from 'utils';
 
 
 export class Navigation extends React.Component {
@@ -17,13 +18,14 @@ export class Navigation extends React.Component {
   }
 
   handleLogout(e) {
-    var {dispatch} = this.props;
+    var { dispatch } = this.props;
     e.preventDefault();
     dispatch(startLogout());
   }
 
   render() {
     const { login } = this.props;
+    const __DEV__ = process.env.NODE_ENV === 'development';
 
     const logoutHtml = (
       <div className="top-bar-right">
@@ -57,6 +59,7 @@ export class Navigation extends React.Component {
                 <li>
                   <NavLink to="/admin" activeClassName="link-active">Admin</NavLink>
                 </li>
+                { __DEV__ ? (<li>{ login.uid }</li>) : '' }
               </ul>
             </div>
             { isLoggedIn() ? logoutHtml : ''}
@@ -66,12 +69,10 @@ export class Navigation extends React.Component {
     );
   }
 }
-/*
-                { login ? (
-                    <li>
-                      <Link to="/profile" activeClassName="link-active">You</Link>
-                    </li>
-                  ) : <li/> }
-*/
 
-export default connect()(Navigation);
+function mapStateToProps(state, ownProps) {
+  const { login } = state;
+  return { login };
+}
+
+export default connect(mapStateToProps)(Navigation);

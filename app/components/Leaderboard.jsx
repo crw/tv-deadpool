@@ -99,17 +99,19 @@ export class Leaderboard extends React.Component {
 
 
 function mapStateToProps(state, ownProps) {
-  const { label } = ownProps;
+  const { label, seasonId } = ownProps;
   const { labels, leaderboard, login: { uid } } = state;
+  const seasonLeaders = getKey(leaderboard, seasonId, {});
 
   let members = Object.keys(getKey(labels, label, {}));
+
 
   // Special cases
   switch (label) {
     // Special case: show the logged-in user with the AVClub staffers
     case str.AVC_STAFFERS: {
       if (members.length !== 0 &&
-        getKey(leaderboard, uid, false) &&
+        getKey(seasonLeaders, uid, false) &&
         members.indexOf(uid) === -1) {
 
           members.push(uid);
@@ -122,11 +124,11 @@ function mapStateToProps(state, ownProps) {
         getKey(labels, str.EXCLUDE_LIST, {}),
         getKey(labels, str.AVC_STAFFERS, {})
       ));
-      members = Object.keys(leaderboard).filter(member => exclude_list.indexOf(member) < 0);
+      members = Object.keys(seasonLeaders).filter(member => exclude_list.indexOf(member) < 0);
       break;
     }
   }
-  const leaders = toArray(leaderboard).filter(leader => members.indexOf(leader.key) > -1);
+  const leaders = toArray(seasonLeaders).filter(leader => members.indexOf(leader.key) > -1);
   return { authUserId: uid, leaders };
 };
 

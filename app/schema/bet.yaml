@@ -20,6 +20,10 @@ properties:
     type: string
     description: ID of the parent Season.
 
+ series:
+    type: string
+    description: ID of the parent Series.
+
   # Descriptive properties
   name:
     type: string

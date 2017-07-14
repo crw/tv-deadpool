@@ -62,7 +62,7 @@ export function now() {
  * @see https://glebbahmutov.com/blog/call-me-maybe/
  */
 export function getKey(obj, keyStr, defaultValue = undefined) {
-
+  if (!isObject(obj)) return defaultValue;
   if (!keyStr) return defaultValue;
 
   return keyStr.split('.').reduce((xs, x) =>
@@ -77,13 +77,12 @@ export function getKey(obj, keyStr, defaultValue = undefined) {
  * @return array
  */
 export function toArray(obj) {
-  if (!isObject(obj)) {
-    return undefined;
-  }
+  if (!isObject(obj)) return [];
   let arr = [];
   Object.keys(obj).forEach((key) => {
     arr.push(obj[key])
-    arr[arr.length-1].key = key; // Preserve the key (usually === the object id).
+    let item = arr[arr.length-1];
+    if (isObject(item)) item.key = key; // Preserve the key (usually === the object id).
   });
   return arr;
 }

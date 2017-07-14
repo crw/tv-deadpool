@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import moment from 'moment';
 // App imports
-import {now, getKey, toCurrencyString} from 'app/utils';
-import {PRETTY_DATE_FORMAT, LOCALE, CURRENCY_FORMAT} from 'app/constants/formats'
-import * as urls from 'app/constants/urls';
+import { now, getKey, toCurrencyString } from 'app/utils';
+import { PRETTY_DATE_FORMAT, LOCALE, CURRENCY_FORMAT } from 'app/constants/formats'
+import * as url from 'constants/urls';
+import * as str from 'constants/strings';
 import BetsList from 'BetsList';
 
 
@@ -13,7 +14,7 @@ export class Event extends React.Component {
   static propTypes = {
     id:  PropTypes.string.isRequired,
     series: PropTypes.string.isRequired,
-    season: PropTypes.number.isRequired,
+    season: PropTypes.string.isRequired,
     episode: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     article: PropTypes.string.isRequired,
@@ -75,7 +76,7 @@ export class Event extends React.Component {
       return closed && !resolved ?
         (
           <div>
-            Results will be posted after being confirmed in <i><a href={urls.AVCLUB_ALL_MEN_MUST_DIE_URL} target="_blank">All Men Must Die</a></i>.
+            Results will be posted after being confirmed in <i><a href={url.AVCLUB_ALL_MEN_MUST_DIE_URL} target="_blank">All Men Must Die</a></i>.
           </div>
         ) :
         (resolved ?
@@ -85,7 +86,7 @@ export class Event extends React.Component {
               </div>
             ) : (
               <div>
-                Results: <i><a href={urls.AVCLUB_ALL_MEN_MUST_DIE_URL} target="_blank">No article this week.</a></i>
+                Results: <i><a href={url.AVCLUB_ALL_MEN_MUST_DIE_URL} target="_blank">No article this week.</a></i>
               </div>
             )) :
           '');
@@ -112,20 +113,25 @@ export class Event extends React.Component {
           {renderConfirmation()}
         </div>
         { resolved && userId && results ? renderResults() : <div className="noresults"/> }
-        <BetsList eventId={id} userId={userId} context={context}/>
+        <BetsList episodeId={id} userId={userId} context={context}/>
       </div>
     );
   }
 }
 
-export default connect((state, ownProps) => {
-  let eventId = ownProps.id;
-  let userId = ownProps.userId || getKey(state, 'login.uid', null);
-  let results = getKey(state, `leaderboard.${userId}.events.${eventId}`, null);
+function mapStateToProps(state, ownProps) {
+  const { id } = ownProps;
+  const userId = ownProps.userId || getKey(state, 'login.uid', null);
+  const episode = getKey(state.episodes, id, {});
+
+  let results = getKey(state, `leaderboard.${episode.season}.${userId}.episodes.${episode.id}`, null);
+
   return {
     context: ownProps.context + '/Event',
     userId,
     results,
-    ...state.events[eventId]
+    ...episode
   };
-})(Event);
+};
+
+export default connect(mapStateToProps)(Event);

@@ -43,7 +43,11 @@ export const EpisodeForm = (props) => {
 
 
 function mapStateToProps(state, ownProps) {
-  const { episodeId } = ownProps;
+  const { episodeId, nextEpisode } = ownProps;
+  // Auto-fill the next episode number, if it has been provided.
+  if (nextEpisode) {
+    episodeDefaults.episode = nextEpisode;
+  }
   const initialValues = getKey(state.episodes, episodeId) || episodeDefaults;
   return { initialValues };
 }

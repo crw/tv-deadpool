@@ -1,63 +1,73 @@
-{"rules":
-  {
-    ".read": "auth.uid === 'secret-service-worker'",
-    ".write":"auth.uid === 'secret-service-worker'",
+{
+  "rules": {
+    ".read": "auth.uid == 'secret-service-worker'",
+    ".write": "auth.uid == 'secret-service-worker'",
     "users": {
-      "$uid": {
+      "$userid": {
         ".read": "auth != null",
-        ".write":"auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid == $userid",
         "balance": {
-          ".validate": "auth.uid === 'secret-service-worker' || (!data.exists() && newData.val() === 100) || data.val() === newData.val() || (data.exists() && newData.exists() && newData.isNumber() && newData.val() >= 0)"
+          "$seasonid": {
+            ".validate": "newData.isNumber() && (auth.uid == 'secret-service-worker' || data.val() == null && newData.val() == 100 || newData.val() == data.val() || data.val() != null && newData.val() != null && newData.val() >= 0)"
+          }
         },
         "wagers": {
-          "$wager_id": {
-            ".validate": "auth.uid === 'secret-service-worker' || root.child('events/'+root.child('bets/'+$wager_id+'/event_id').val()+'/air_at').val() >= now",
+          "$wagerid": {
+            ".validate": "auth.uid == 'secret-service-worker' || !(newData.parent().parent().parent().parent().child('episodes').child(newData.parent().parent().parent().parent().child('bets').child($wagerid).child('episode').val()).child('air_at').val() <= now)",
             "wager": {
-              ".validate": "auth.uid === 'secret-service-worker' ||
-                (!newData.exists() && data.val() === 0) ||
-                (newData.val() >= 0 && (
-                  (data.exists() && data.parent().parent().parent().child('balance').val() + data.val() - newData.val() === newData.parent().parent().parent().child('balance').val()) ||
-                  (!data.exists() && data.parent().parent().parent().child('balance').val() - newData.val() === newData.parent().parent().parent().child('balance').val())
-              ))"
+              ".validate": "auth.uid == 'secret-service-worker' || !(newData.val() != null) && data.val() == 0 || newData.val() >= 0 && root.child('users').child($userid).child('balance').child(newData.parent().parent().parent().parent().parent().child('bets').child($wagerid).child('season').val()).val() + (data.val() != null ? data.val() : 0) - newData.val() == newData.parent().parent().parent().parent().parent().child('users').child($userid).child('balance').child(newData.parent().parent().parent().parent().parent().child('bets').child($wagerid).child('season').val()).val()"
             }
           }
         }
       }
     },
     "secure": {
-      "$uid": {
-        ".read": "auth != null && auth.uid === $uid",
-        ".write": "auth != null && auth.uid === $uid"
+      "$userid": {
+        ".read": "auth != null && auth.uid == $userid",
+        ".write": "auth != null && auth.uid == $userid"
       }
     },
     "names": {
       "$nameid": {
-        ".read": true,
-        ".write": "auth != null && (!data.exists() || (data.exists() && !newData.exists() && data.val() === auth.uid))",
+        ".read": "true",
+        ".write": "auth != null && (data.val() == null || data.val() != null && newData.val() == null && data.val() == auth.uid)"
       }
     },
+    "series": {
+      ".read": "true",
+      ".write": "auth != null && auth.uid == 'Jr9wO5CW1uX2li5HLFepQL9w5bn2'"
+    },
+    "seasons": {
+      ".read": "true",
+      ".write": "auth != null && auth.uid == 'Jr9wO5CW1uX2li5HLFepQL9w5bn2'"
+    },
+    "episodes": {
+      ".read": "true",
+      ".write": "auth != null && auth.uid == 'Jr9wO5CW1uX2li5HLFepQL9w5bn2'"
+    },
     "events": {
-      ".read": true
+      ".read": "true"
     },
     "bets": {
-      ".read": true
+      ".read": "true",
+      ".write": "auth != null && auth.uid == 'Jr9wO5CW1uX2li5HLFepQL9w5bn2'"
     },
     "stats": {
-      ".read": true
+      ".read": "true"
     },
     "labels": {
       "$labelid": {
-        ".read": true
+        ".read": "true"
       }
     },
     "leaderboard": {
-      ".read": true,
+      ".read": "true",
       "$uid": {
         "displayName": {
-          ".write": "$uid === auth.uid && data.exists()"
+          ".write": "data.val() != null && newData.val() != null && auth != null"
         },
         "anon": {
-          ".write": "$uid === auth.uid && data.exists()"
+          ".write": "data.val() != null && newData.val() != null && auth != null"
         }
       }
     }

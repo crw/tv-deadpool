@@ -23,8 +23,9 @@ export function Balance (props) {
 };
 
 
-const mapStateToProps = (state) => {
-  const balance = getKey(state, 'login.user.balance', 0);
+const mapStateToProps = (state, ownProps) => {
+  const { seasonId } = ownProps;
+  const balance = getKey(state.login, `user.balance.${seasonId}`, 0);
   return { balance };
 };
 

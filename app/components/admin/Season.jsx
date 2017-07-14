@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getKey } from 'app/utils';
+import { getKey, toArray } from 'app/utils';
 import { startCreateEpisode, startEditSeason } from 'actions';
 import { episodeValidation, seasonValidation } from 'redux/form/details';
 import EpisodeList from 'admin/EpisodeList';
@@ -19,10 +19,11 @@ export class Season extends React.Component {
   }
 
   handleSubmit(values) {
-    const { id, dispatch } = this.props;
+    const { season, dispatch } = this.props;
 
     values = episodeValidation(values);
-    values.season = id;
+    values.season = season.id;
+    values.series = season.series;
 
     dispatch(startCreateEpisode(values));
   }
@@ -49,7 +50,7 @@ export class Season extends React.Component {
         <h3>{str.UPDATE_SEASON}</h3>
         <SeasonForm seasonId={season.id} onSubmit={this.handleSubmitSeason}/>
         <EpisodeList seasonId={season.id}/>
-        <EpisodeForm onSubmit={this.handleSubmit}/>
+        <EpisodeForm onSubmit={this.handleSubmit} nextEpisode={toArray(season.episodes).length+1}/>
       </div>
     );
   }

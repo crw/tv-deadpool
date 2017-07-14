@@ -123,14 +123,14 @@ export default connect((state, ownProps) => {
   const loginUserId = getKey(state, 'login.uid', null);
   const userId = ownProps.userId || loginUserId;
   const bet = state.bets[ownProps.id];
-  const event = state.events[bet.event_id];
+  const episode = state.episodes[bet.episode];
   const stats = getKey(state, `stats.bets.${bet.id}`, {});
   return {
     ...bet,
     userId,
     loginUserId,
     stats,
-    closed: event.lock_at < now(),
+    closed: episode.lock_at < now(),
     validUser: !!state.login
   };
 })(Bet);

@@ -3,6 +3,9 @@ import 'firebase/auth';
 import 'firebase/database';
 import { normalizeName, getKey } from 'app/utils';
 
+// Special Firebase directive that sets the value to "now" based on the server's clock.
+const { TIMESTAMP } = firebase.database.ServerValue;
+
 const firebaseApp = firebase.initializeApp({
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -42,7 +45,7 @@ function editRef(ref) {
     return firebase.database().ref(`/${ref}/`).update({
       [`${id}`]: {
         ...values,
-        updated_at: Date.now()
+        updated_at: TIMESTAMP
       }
     });
   };
@@ -66,8 +69,8 @@ export function createSeries(title, description, published) {
       description,
       published,
       type: 'TV_SERIES',
-      created_at: Date.now(),
-      updated_at: Date.now()
+      created_at: TIMESTAMP,
+      updated_at: TIMESTAMP
     }
   };
   return firebase.database().ref('/series/').update(updateData);
@@ -93,8 +96,8 @@ export function createSeason(values) {
       ...values,
       id,
       type: 'TV_SEASON',
-      created_at: Date.now(),
-      updated_at: Date.now()
+      created_at: TIMESTAMP,
+      updated_at: TIMESTAMP
     },
     [`/series/${series}/seasons/${id}`]: true
   };
@@ -114,8 +117,8 @@ export function createEpisode(values) {
       resolved: false,
       id: episodeId,
       type: 'TV_EPISODE',
-      created_at: Date.now(),
-      updated_at: Date.now()
+      created_at: TIMESTAMP,
+      updated_at: TIMESTAMP
     },
     [`/seasons/${season}/episodes/${episodeId}`]: true
   }
@@ -143,8 +146,8 @@ export function createBet(values) {
       resolved: false,
       id: betId,
       type: 'TV_EPISODE_BET',
-      created_at: Date.now(),
-      updated_at: Date.now()
+      created_at: TIMESTAMP,
+      updated_at: TIMESTAMP
     },
     [`/episodes/${episode}/bets/${betId}`]: true
   }
@@ -154,30 +157,31 @@ export function createBet(values) {
 export const editBet = editRef('bets');
 
 
-export function placeWager(user, betId, wager, comment) {
+export function placeWager(user, bet, wager, comment) {
 
     const userRef = getUserRef(user.id);
-    const prevWager = getKey(user.wagers, betId, null);
-    const prevWagerAmount = getKey(prevWager, wager, 0);
+    const prevWager = getKey(user.wagers, bet.id, {});
+    const prevWagerAmount = prevWager.wager || 0;
     // Refund the previous wager, charge the new wager.
-    const newBalance = user.balance + prevWagerAmount - wager;
+    const newBalance = user.balance[bet.season] + prevWagerAmount - wager;
 
     if (newBalance < 0) {
       return Promise.resolve();
     }
+
     const updateData = {
-      [`wagers/${betId}`]: {
-        id: betId,
+      [`balance/${bet.season}`]: newBalance,
+      [`wagers/${bet.id}`]: {
+        id: bet.id,
         wager,
         comment,
-        created_at: getKey(prevWager, created_at, Date.now()),
-        updated_at: Date.now()
-      },
-      balance: newBalance
+        created_at: prevWager.created_at || TIMESTAMP,
+        updated_at: TIMESTAMP
+      }
     };
     return userRef.update(updateData).then(() => {
       if (wager === 0 && comment === '') {
-        userRef.child(`wagers/${betId}`).remove();
+        userRef.child(`wagers/${bet.id}`).remove();
       }
     });
 }

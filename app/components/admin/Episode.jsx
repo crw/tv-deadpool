@@ -17,10 +17,12 @@ export class Episode extends React.Component {
   }
 
   handleSubmit(values) {
-    const { id, dispatch, nextBetId } = this.props;
+    const { id, season, series, nextBetId, dispatch } = this.props;
 
     values = betValidation(values);
     values.episode = id;
+    values.season = season;
+    values.series = series;
     values.nextBetId = nextBetId;
 
     dispatch(startCreateBet(values));

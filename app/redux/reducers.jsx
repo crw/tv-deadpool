@@ -13,15 +13,6 @@ function createSimpleReducer(action, defaultState) {
   }, defaultState);
 };
 
-// function clearForm(state, action, trigger) {
-//   switch (action.type) {
-//     case trigger:
-//       return undefined;
-//     default:
-//       return state;
-//   }
-// };
-
 function clearForm(trigger) {
   return (state, action) => {
     switch (action.type) {

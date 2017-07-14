@@ -25,6 +25,9 @@ export const EXCLUDE_LIST = 'EXCLUDE';
 export const BALANCE = 'Balance';
 export const WINNINGS = 'Total Won';
 export const LOSSES = 'Total Lost';
+export const NO_EPISODES = 'No episodes have been created.';
+export const PREV_EPISODE = 'Previous Episode';
+export const NEXT_EPISODE = 'Next Episode';
 
 // Labels for specific form elements
 export const LABEL_TITLE = 'Title:';
@@ -49,7 +52,8 @@ export const CLS_ICON_USER = 'fa fa-fw fa-user';
 export const CLS_ICON_SUBMIT = 'fa fa-fw fa-cog';
 export const CLS_ICON_SUBMITTING = CLS_ICON_SUBMIT + ' fa-spin';
 export const CLS_ICON_CANCEL = 'fa fa-fw fa-ban';
-
+export const CLS_ICON_PREV = 'fa fa-fw fa-arrow-left';
+export const CLS_ICON_NEXT = 'fa fa-fw fa-arrow-right';
 
 // Input element placeholder text
 export const INPUT_PLACEHOLDER_DISPLAYNAME = 'Change your name.';
