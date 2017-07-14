@@ -1,21 +1,6 @@
-import firebase from 'firebase';
+import firebaseApp from './firebase-app';
 import moment from 'moment';
 
-// Initialize the app with a custom auth variable, limiting the server's access
-var config = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
-  storageBucket: process.env.STORAGE_BUCKET,
-  serviceAccount: process.env.FIREBASE_SERVICE_ACCOUNT_FILE || undefined,
-  databaseAuthVariableOverride: {
-    uid: "secret-service-worker"
-  }
-};
-firebase.initializeApp(config);
-
-
-console.log('Using Firebase database', process.env.FIREBASE_DATABASE_URL);
 
 // stats:
 //   bets:
@@ -24,7 +9,7 @@ console.log('Using Firebase database', process.env.FIREBASE_DATABASE_URL);
 //       amount: Number
 //       comments:
 //         $userid: String
-//   events:
+//   events:  // Unused?
 //     $eventid:
 //       count: Number
 //       amount: Number
@@ -32,7 +17,7 @@ console.log('Using Firebase database', process.env.FIREBASE_DATABASE_URL);
 
 function processStats(users) {
 
-  let stats = { events: {}, bets: {} };
+  let stats = { bets: {} };
 
   for (let userId of Object.keys(users)) {
     let user = users[userId];
@@ -54,7 +39,7 @@ function errorFunc (err) {
 }
 
 // The app only has access as defined in the Security Rules
-var db = firebase.database();
+var db = firebaseApp.database();
 var ref = db.ref();
 
 ref.child('users').on('value', (snapshot) => {

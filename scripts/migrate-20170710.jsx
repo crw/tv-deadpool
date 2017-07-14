@@ -1,21 +1,14 @@
-import admin from 'firebase-admin';
+/**
+ * migrate-20170710.jsx - Migrating from single season to many seasons.
+ *
+ * Basically segregates data in each silo by season.
+ * NEVER NEEDS TO BE RUN AGAIN.
+ */
+import firebaseApp from './firebase-app';
 
-
-const serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT_FILE);
-
-// Initialize the app with a custom auth variable, limiting the server's access
-const app = admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
-  databaseAuthVariableOverride: {
-    uid: "secret-service-worker"
-  }
-});
-
-const fb = app.database();
+const fb = firebaseApp.database();
 
 console.log('Migration Script Running on:', process.env.FIREBASE_DATABASE_URL);
-
 
 function convertName(name) {
 

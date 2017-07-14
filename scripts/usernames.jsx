@@ -1,26 +1,19 @@
-import firebase from 'firebase';
+/**
+ * usernames.jsx - general stats monitoring script
+ *
+ * Shows # of signups, % with wager, % with names... general community health stats.
+ * Requires changing the current episode to reflect this week's episode.
+ *
+ */
+const CURRENT_EPISODE = 'gameofthrones-07-01';
+
+import firebaseApp from './firebase-app';
 import moment from 'moment';
-// App imports
-import {toArray} from '../app/utils';
+import { toArray } from '../app/utils';
 
-
-// Initialize the app with a custom auth variable, limiting the server's access
-var config = {
-  serviceAccount: process.env.FIREBASE_SERVICE_ACCOUNT_FILE || undefined,
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
-  storageBucket: process.env.STORAGE_BUCKET,
-  databaseAuthVariableOverride: {
-    uid: "secret-service-worker"
-  }
-};
-firebase.initializeApp(config);
-
-console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
 
 // The app only has access as defined in the Security Rules
-const db = firebase.database();
+const db = firebaseApp.database();
 const ref = db.ref();
 
 const secureRef = ref.child('secure');
@@ -44,7 +37,7 @@ function generateStats(users, secure) {
   let withCurrentWagers = usersArr.filter((item) => {
     let wagers = item.wagers || {};
     return Object.keys(wagers).filter((wagerId) => {
-      return wagerId.indexOf('gameofthrones-6-10') >= 0;
+      return wagerId.indexOf(CURRENT_EPISODE) >= 0;
     }).length > 0;
   }).length;
 
@@ -58,6 +51,7 @@ function generateStats(users, secure) {
 
 }
 
+console.log('Watching episode', CURRENT_EPISODE);
 
 secureRef.on('value', (snapshot) => {
   secure = snapshot.val();
