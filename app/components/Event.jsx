@@ -15,7 +15,7 @@ export class Event extends React.Component {
   static propTypes = {
     episode: PropTypes.object.isRequired,
     results: PropTypes.object,
-    userId: PropTypes.string.isRequired,
+    userId: PropTypes.string,
     context: PropTypes.string.isRequired
   };
 

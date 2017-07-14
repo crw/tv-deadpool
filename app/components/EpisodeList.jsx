@@ -47,9 +47,24 @@ export class EpisodeList extends React.Component {
   render() {
     const { episodes, userId, context } = this.props;
     const { currentEventIndex } = this.state;
-    const profilePage = context.indexOf('ProfileBoard') !== -1;
+    const gameboard = context.indexOf('GameBoard') !== -1;
 
-    const renderDisqus = !profilePage && episodes;
+    if (!episodes || episodes.length === 0) {
+      return (
+        <div>No episodes published for this season.</div>
+      );
+    }
+
+    const renderDisqus = gameboard ? (
+      <div className="disqus">
+        <ReactDisqusComments
+            shortname="tvdeadpoolxyz"
+            identifier={episodes[currentEventIndex].id}
+            title={episodes[currentEventIndex].name}
+            url={"https://tvdeadpool.xyz/event/" + episodes[currentEventIndex].id}
+        />
+      </div>
+    ) : '';
 
     var renderEpisode = () => {
       if (episodes.length === 0) {
@@ -101,16 +116,7 @@ export class EpisodeList extends React.Component {
         </div>
         {renderEpisode()}
 
-        { renderDisqus ? '' :
-          <div className="disqus">
-            <ReactDisqusComments
-                shortname="tvdeadpoolxyz"
-                identifier={episodes[currentEventIndex].id}
-                title={episodes[currentEventIndex].name}
-                url={"https://tvdeadpool.xyz/event/" + episodes[currentEventIndex].id}
-            />
-          </div>
-        }
+        { renderDisqus }
 
 
       </div>

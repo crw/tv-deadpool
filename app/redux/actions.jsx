@@ -4,9 +4,8 @@ import { normalizeName, getKey } from 'utils';
 import firebase, { getUserRef, getSecureRef } from 'api/firebase';
 import * as api from 'api/firebase';
 import * as action_type from 'redux/action_types';
-import INITIAL_BALANCE from 'constants/numbers';
+import { INITIAL_BALANCE } from 'constants/numbers';
 import PROVIDERS from 'constants/providers';
-
 
 // Small error func for catch statements.
 function errFunc(err) {
@@ -27,7 +26,6 @@ export const updateSeasonsData = createAction(action_type.SEASONS_UPDATE_DATA);
 export const updateEpisodesData = createAction(action_type.EPISODES_UPDATE_DATA);
 export const updateBetsData = createAction(action_type.UPDATE_BETS_DATA);
 export const updateStatsData = createAction(action_type.UPDATE_STATS_DATA);
-export const updateEventsData = createAction(action_type.UPDATE_EVENTS_DATA);
 export const updateLeaderboardData = createAction(action_type.UPDATE_LEADERBOARD_DATA);
 // Data Update
 export const login = createAction(action_type.LOGIN);
@@ -61,7 +59,6 @@ export const watchSeriesData = watchFirebaseData('series', updateSeriesData);
 export const watchSeasonsData = watchFirebaseData('seasons', updateSeasonsData);
 export const watchEpisodesData = watchFirebaseData('episodes', updateEpisodesData);
 export const watchBetsData = watchFirebaseData('bets', updateBetsData);
-export const watchEventsData = watchFirebaseData('events', updateEventsData);
 export const watchLeaderboardData = watchFirebaseData('leaderboard', updateLeaderboardData);
 export const watchStatsData = watchFirebaseData('stats', updateStatsData);
 
@@ -219,7 +216,10 @@ export const startLoginWith = (providerData) => {
           // Brand new user, need to set new user data
           {
             id,
-            balance: INITIAL_BALANCE,
+            balance: {
+              ['gameofthrones-06']: INITIAL_BALANCE,
+              ['gameofthrones-07']: INITIAL_BALANCE
+            },
             created_at: Date.now()
           } : undefined;
       }).catch(errorFunc);

@@ -30,7 +30,6 @@ export const seasons = createSimpleReducer(actions.updateSeasonsData, {});
 export const episodes = createSimpleReducer(actions.updateEpisodesData, {});
 export const bets = createSimpleReducer(actions.updateBetsData, {});
 export const stats = createSimpleReducer(actions.updateStatsData, {});
-export const events = createSimpleReducer(actions.updateEventsData, {});
 export const leaderboard = createSimpleReducer(actions.updateLeaderboardData, {});
 
 

@@ -130,6 +130,7 @@ function mapStateToProps(state, ownProps) {
     }
   }
   const leaders = toArray(seasonLeaders).filter(leader => members.indexOf(leader.key) > -1);
+
   return {
     authUserId: uid,
     leaders,
