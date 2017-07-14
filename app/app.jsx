@@ -19,11 +19,11 @@ require('app/styles/app.scss');
 
 let state = {};
 
-try {
-  state = JSON.parse(localStorage.getItem('state')) || {};
-} catch (err) {
-  console.log(err);
-}
+// try {
+//   state = JSON.parse(localStorage.getItem('state')) || {};
+// } catch (err) {
+//   console.log(err);
+// }
 
 var store = require('configureStore').configure(state);
 
@@ -37,14 +37,13 @@ store.subscribe(() => {
 });
 
 // Initialize Firebase; start watching data sources
-store.dispatch(actions.watchSeriesData());
-store.dispatch(actions.watchSeasonsData());
+store.dispatch(actions.startFetchLabel(str.EXCLUDE_LIST));
 store.dispatch(actions.watchEpisodesData());
-store.dispatch(actions.watchEventsData());
 store.dispatch(actions.watchBetsData());
 store.dispatch(actions.watchLeaderboardData());
 store.dispatch(actions.watchStatsData());
-store.dispatch(actions.startFetchLabel(str.EXCLUDE_LIST));
+store.dispatch(actions.watchSeriesData());
+store.dispatch(actions.watchSeasonsData());
 
 firebase.auth().onAuthStateChanged((authData) => {
   if (authData) {

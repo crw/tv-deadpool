@@ -6,12 +6,14 @@ import { normalizeName, getKey } from 'app/utils';
 // Special Firebase directive that sets the value to "now" based on the server's clock.
 const { TIMESTAMP } = firebase.database.ServerValue;
 
-const firebaseApp = firebase.initializeApp({
+const config = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
   databaseURL: process.env.FIREBASE_DATABASE_URL,
   storageBucket: process.env.STORAGE_BUCKET,
-});
+};
+
+const firebaseApp = firebase.initializeApp(config);
 
 
 export function getUserRef(uid) {
