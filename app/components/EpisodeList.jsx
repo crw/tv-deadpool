@@ -7,7 +7,7 @@ import { ordered, published, getEpisodesForSeason } from 'api/redux';
 import Event from 'Event';
 import Episode from 'Episode';
 import * as str from 'constants/strings';
-// import ReactDisqusComments from 'react-disqus-comments';
+import ReactDisqusComments from 'react-disqus-comments';
 
 
 export class EpisodeList extends React.Component {
@@ -101,20 +101,22 @@ export class EpisodeList extends React.Component {
         </div>
         {renderEpisode()}
 
+        { renderDisqus ? '' :
+          <div className="disqus">
+            <ReactDisqusComments
+                shortname="tvdeadpoolxyz"
+                identifier={episodes[currentEventIndex].id}
+                title={episodes[currentEventIndex].name}
+                url={"https://tvdeadpool.xyz/event/" + episodes[currentEventIndex].id}
+            />
+          </div>
+        }
+
+
       </div>
     );
   }
 }
-        // { renderDisqus ? '' :
-        //   <div className="disqus">
-        //     <ReactDisqusComments
-        //         shortname="tvdeadpoolxyz"
-        //         identifier={episodes[currentEventIndex].id}
-        //         title={episodes[currentEventIndex].name}
-        //         url={"https://tvdeadpool.xyz/event/" + episodes[currentEventIndex].id}
-        //     />
-        //   </div>
-        // }
 
 
 function mapStateToProps(state, ownProps) {

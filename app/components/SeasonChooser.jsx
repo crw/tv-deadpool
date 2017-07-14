@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toArray } from 'utils';
+import SeasonHero from 'SeasonHero';
+import * as str from 'constants/strings';
 
 
 export class SeasonChooser extends React.Component {
@@ -11,35 +13,29 @@ export class SeasonChooser extends React.Component {
 
     const now = Date.now();
 
-    const seasonItem = (season) => (
-      <div className="season-list-item" key={season.id}>
-        <Link to={`/game/season/${season.id}`}>
-          <div className="series-title">
-            { series[season.series].title }
-          </div>
-
-          <div className="season-title">
-            Season { season.season }
-          </div>
+    function seasonItem(season, series) {
+      return (
+        <Link to={ `/game/season/${season.id}` }  key={ season.id }>
+          <SeasonHero season={ season } series={ series }/>
         </Link>
-      </div>
-    );
+      );
+    }
 
     const currentSeasons = toArray(seasons)
       .filter(season => season.lock_at >= now)
-      .map(season => seasonItem(season));
+      .map(season => seasonItem(season, series[season.series]));
 
     const pastSeasons = toArray(seasons)
       .filter(season => season.lock_at < now)
-      .map(season => seasonItem(season));
+      .map(season => seasonItem(season, series[season.series]));
 
     return (
-      <div className="row">
+      <div className="row season-chooser">
         <div className="small-12 columns">
-          <h3>Current Seasons</h3>
-          { currentSeasons }
-          <h3>Past Seasons</h3>
-          { pastSeasons }
+          <div className="title">{ str.SEASONS_CURRENT }</div>
+            { currentSeasons }
+          <div className="title">{ str.SEASONS_OLD }</div>
+            { pastSeasons }
         </div>
       </div>
     );

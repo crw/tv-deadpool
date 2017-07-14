@@ -5,7 +5,22 @@
     border-bottom: 1px solid $border-color;
   }
 
-  > .header {
+  .episode-status {
+    border: 2px solid $border-color;
+    background-color: $lightgrey;
+    border-radius: 4px;
+    padding: .2rem 1.5rem;
+    margin: .5rem;
+    float: right;
+  }
+
+  .open {
+    background-color: $open-background-color;
+    border-color: $open-border-color;
+    color: $open-color;
+  }
+
+  .header {
 
     padding: 0.5rem 0.2rem 0.5rem 0.5rem;
     font-weight: bold;
@@ -33,23 +48,9 @@
         color: $lightgrey;
       }
     }
-
-    .episode-status {
-      border: 2px solid $border-color;
-      background-color: $lightgrey;
-      border-radius: 4px;
-      padding: .2rem 1.5rem;
-      margin: .5rem;
-    }
-
-    .open {
-      background-color: $open-background-color;
-      border-color: $open-border-color;
-      color: $open-color;
-    }
   }
 
-  > .body {
+  .body {
 
     background-color: $lightgrey;
     padding: 0.5rem;

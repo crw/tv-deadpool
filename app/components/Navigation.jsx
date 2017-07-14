@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { startLogout } from 'actions';
 import { isLoggedIn } from 'api/firebase';
 import { getKey } from 'utils';
+import * as str from 'constants/strings';
 
 
 export class Navigation extends React.Component {
@@ -48,16 +49,13 @@ export class Navigation extends React.Component {
                   TVDeadpool.xyz
                 </li>
                 <li>
-                  <NavLink to="/" activeClassName="link-active">Bets</NavLink>
+                  <NavLink to="/" activeClassName="link-active">{ str.NAV_SEASONS }</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/help" activeClassName="link-active">Help</NavLink>
+                  <NavLink to="/help" activeClassName="link-active">{ str.NAV_HELP }</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/about" activeClassName="link-active">About</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/admin" activeClassName="link-active">Admin</NavLink>
+                  <NavLink to="/about" activeClassName="link-active">{ str.NAV_ABOUT }</NavLink>
                 </li>
                 { __DEV__ ? (<li>{ login.uid }</li>) : '' }
               </ul>
@@ -69,6 +67,11 @@ export class Navigation extends React.Component {
     );
   }
 }
+
+//                <li>
+//                  <NavLink to="/admin" activeClassName="link-active">{ str.NAV_ADMIN }</NavLink>
+//                </li>
+
 
 function mapStateToProps(state, ownProps) {
   const { login } = state;

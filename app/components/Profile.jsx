@@ -1,13 +1,11 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-// App imports
-import {getKey, toCurrencyString} from 'app/utils';
-import {DEFAULT_DISPLAY_NAME} from 'app/constants/strings'
-import {LOCALE, CURRENCY_FORMAT} from 'app/constants/formats'
-import {INITIAL_BALANCE} from 'app/constants/numbers'
-import {startGetUser} from 'actions';
-import EventList from 'EventList';
+import { connect } from 'react-redux';
+import { getKey, toCurrencyString } from 'app/utils';
+import { DEFAULT_DISPLAY_NAME } from 'constants/strings';
+import { LOCALE, CURRENCY_FORMAT } from 'constants/formats';
+import { INITIAL_BALANCE } from 'constants/numbers';
+import { startGetUser } from 'actions';
+import EpisodeList from 'EpisodeList';
 
 
 export class Profile extends React.Component {
@@ -17,7 +15,6 @@ export class Profile extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.fetchUserData = this.fetchUserData.bind(this);
   }
 
@@ -37,9 +34,11 @@ export class Profile extends React.Component {
   }
 
   render() {
-    let {id, userId, displayName, results, context} = this.props;
+    let { id, userId, displayName, results, context, season } = this.props;
 
-    const balance = !results.balance && results.balance !== 0 ? INITIAL_BALANCE : results.balance;
+    const balance = results ?
+      !results.balance && results.balance !== 0 ? INITIAL_BALANCE : results.balance
+      : 0;
 
     var renderResults = () => {
       return (
@@ -84,7 +83,7 @@ export class Profile extends React.Component {
           </div>
         </div>
         { results ? renderResults() : '' }
-        <EventList userId={userId} context={context}/>
+        <EpisodeList userId={ userId } seasonId={ season } context={ context }/>
       </div>
       :
       <div className="profile ">
@@ -96,14 +95,18 @@ export class Profile extends React.Component {
   }
 }
 
-export default connect((state, ownProps) => {
-  let user = getKey(state, `users.${ownProps.userId}`, null);
-  let results = getKey(state, `leaderboard.${ownProps.userId}`, null);
-  let context = ownProps.context + '/Profile';
+function mapStateToProps(state, ownProps) {
+  const { userId, season, context } = ownProps;
+  const user = getKey(state, `users.${userId}`, null);
+  const results = getKey(state.leaderboard, `${season}.${userId}`, null);
+  const localContext = context + '/Profile';
 
   return {
     ...user,
     results,
-    context
+    season,
+    context: localContext
   };
-})(Profile);
+};
+
+export default connect(mapStateToProps)(Profile);

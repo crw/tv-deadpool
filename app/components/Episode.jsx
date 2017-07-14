@@ -16,7 +16,9 @@ export class Episode extends React.Component {
     name: PropTypes.string.isRequired,
     description: PropTypes.string,
     article: PropTypes.string.isRequired,
-    confirmation: PropTypes.string,
+    confirmation: PropTypes.oneOfType([
+      PropTypes.bool, PropTypes.string
+    ]),
     hbo: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
     air_at: PropTypes.number.isRequired,
@@ -33,11 +35,9 @@ export class Episode extends React.Component {
 
     const closed = Date.now() > lock_at;
 
-    const renderStatus = () => {
-      return closed ?
-        <div className="float-right episode-status closed">Closed</div> :
-        <div className="float-right episode-status open">Open</div>;
-    };
+    const renderStatus = closed ?
+      <div className="episode-status closed">Closed</div> :
+      <div className="episode-status open">Open</div>;
 
     const renderConfirmation = () => {
       return closed && !resolved ?
@@ -60,9 +60,9 @@ export class Episode extends React.Component {
     };
 
     return (
-      <div className="event">
+      <div className="episode">
+        { renderStatus }
         <div className="header">
-          {renderStatus()}
           <div className="episode-title">
             { hbo ? <a href={hbo} target="_blank">"{name}"</a> : <span>"{name}"</span>}
           </div>

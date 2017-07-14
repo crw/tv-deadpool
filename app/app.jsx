@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
-import {hashHistory} from 'react-router';
+import { Provider } from 'react-redux';
+import { hashHistory } from 'react-router';
 // App imports
 import firebase from 'app/api/firebase';
-import {getCurrentUser} from 'app/api/firebase';
-import * as actions from 'actions';
+import { getCurrentUser } from 'app/api/firebase';
 import router from 'app/router/index';
+import * as actions from 'actions';
 import * as str from 'constants/strings';
 
 // Load Foundation
@@ -69,7 +69,7 @@ const reactRootEl = document.getElementById('app');
 if (reactRootEl) {
   ReactDOM.render((
     <Provider store={store}>
-      {router}
+      { router }
     </Provider>
     ), reactRootEl
   );

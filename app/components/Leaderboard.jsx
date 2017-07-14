@@ -44,8 +44,8 @@ export class Leaderboard extends React.Component {
   }
 
   render() {
-    const {leaders, label, userId, authUserId} = this.props;
-    const {key} = this.state;
+    const { leaders, label, userId, authUserId, season } = this.props;
+    const { key } = this.state;
 
     const activeNavLink = keyLink => key === keyLink ? 'link-active ' : '';
 
@@ -73,6 +73,7 @@ export class Leaderboard extends React.Component {
             profileUser={leader.key === userId}
             authUser={leader.key === authUserId}
             renderKey={key}
+            season={season}
           />
         )
       );
@@ -129,7 +130,11 @@ function mapStateToProps(state, ownProps) {
     }
   }
   const leaders = toArray(seasonLeaders).filter(leader => members.indexOf(leader.key) > -1);
-  return { authUserId: uid, leaders };
+  return {
+    authUserId: uid,
+    leaders,
+    season: seasonId
+  };
 };
 
 

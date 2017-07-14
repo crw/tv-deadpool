@@ -28,7 +28,10 @@ export default class LeaderboardEntry extends React.Component {
   }
 
   render() {
-    const { index, userId, displayName, anon, profileUser, authUser, value, renderKey } = this.props;
+    const {
+      index, userId, displayName, anon,
+      profileUser, authUser, value, renderKey, season
+    } = this.props;
 
     const rowCls = authUser ? 'login-user' : profileUser ? 'current-user' : '';
     const displayNameCls = !profileUser && anon ? 'anon' : '';
@@ -44,7 +47,7 @@ export default class LeaderboardEntry extends React.Component {
           <span className={value < 0 ? 'losses' : renderKey}>{toCurrencyString(value)}</span>
         </div>
         <div className="username small-8 columns">
-          <Link className="user-link" to={'/profile/' + userId}>
+          <Link className="user-link" to={`/profile/${season}/${userId}`}>
             <span title={userIconDesc}>
               <i className={userIcon}/>
             </span>{' '}

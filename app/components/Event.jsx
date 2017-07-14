@@ -8,18 +8,15 @@ import { PRETTY_DATE_FORMAT, LOCALE, CURRENCY_FORMAT } from 'app/constants/forma
 import * as url from 'constants/urls';
 import * as str from 'constants/strings';
 import BetsList from 'BetsList';
+import Episode from 'Episode';
 
 
 export class Event extends React.Component {
   static propTypes = {
-    id:  PropTypes.string.isRequired,
-    series: PropTypes.string.isRequired,
-    season: PropTypes.string.isRequired,
-    episode: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    article: PropTypes.string.isRequired,
-    air_at: PropTypes.number.isRequired,
-    lock_at: PropTypes.number.isRequired,
+    episode: PropTypes.object.isRequired,
+    results: PropTypes.object,
+    userId: PropTypes.string.isRequired,
+    context: PropTypes.string.isRequired
   };
 
   constructor(props) {
@@ -27,19 +24,7 @@ export class Event extends React.Component {
   }
 
   render() {
-    let {
-      id, season, episode, series, name, description, air_at, lock_at, resolved,
-      article, confirmation, hbo, reddit, preview,
-      userId, results, context
-    } = this.props;
-
-    let closed = now() > lock_at;
-
-    var renderStatus = () => {
-      return closed ?
-        <div className="float-right episode-status closed">Closed</div> :
-        <div className="float-right episode-status open">Open</div>;
-    };
+    const { episode, userId, results, context } = this.props;
 
     var renderResults = () => {
       return (
@@ -73,16 +58,16 @@ export class Event extends React.Component {
     };
 
     var renderConfirmation = () => {
-      return closed && !resolved ?
+      return episode.closed && !resolved ?
         (
           <div>
             Results will be posted after being confirmed in <i><a href={url.AVCLUB_ALL_MEN_MUST_DIE_URL} target="_blank">All Men Must Die</a></i>.
           </div>
         ) :
-        (resolved ?
-          (confirmation ? (
+        (episode.resolved ?
+          (episode.confirmation ? (
               <div>
-                Results: <i><a href={confirmation} target="_blank">All Men Must Die</a></i>.
+                Results: <i><a href={episode.confirmation} target="_blank">All Men Must Die</a></i>.
               </div>
             ) : (
               <div>
@@ -94,26 +79,9 @@ export class Event extends React.Component {
 
     return (
       <div className="event">
-        <div className="header">
-          {renderStatus()}
-          <div className="series-title">{series}</div>
-          <div className="episode-title">
-            { hbo ? <a href={hbo} target="_blank">"{name}"</a> : <span>"{name}"</span>}
-          </div>
-        </div>
-        <div className="body">
-          <div className="episode-number">Season {season}, Episode {episode}</div>
-          { description ? <div className="episode-description">{description}</div> : ''}
-          <div className="episode-links">
-            Links: { article ? <span><a href={article} target="_blank">A.V. Club <i>You Win Or You Die</i></a></span> : ''}
-            { preview ? <span> - <a href={preview} target="_blank">Preview</a></span> : ''}
-          </div>
-          <div className="episode-aired">{closed? 'Aired' : 'Airs'}: {moment(air_at).format(PRETTY_DATE_FORMAT)}</div>
-          <div className="episode-locked">{closed? 'Closed' : 'Closes'}: {moment(lock_at).format(PRETTY_DATE_FORMAT)}</div>
-          {renderConfirmation()}
-        </div>
-        { resolved && userId && results ? renderResults() : <div className="noresults"/> }
-        <BetsList episodeId={id} userId={userId} context={context}/>
+        <Episode { ...episode }/>
+        { episode.resolved && userId && results ? renderResults() : <div className="noresults"/> }
+        <BetsList episodeId={ episode.id } userId={ userId } context={ context }/>
       </div>
     );
   }
@@ -130,7 +98,7 @@ function mapStateToProps(state, ownProps) {
     context: ownProps.context + '/Event',
     userId,
     results,
-    ...episode
+    episode
   };
 };
 

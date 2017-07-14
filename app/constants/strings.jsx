@@ -28,6 +28,15 @@ export const LOSSES = 'Total Lost';
 export const NO_EPISODES = 'No episodes have been created.';
 export const PREV_EPISODE = 'Previous Episode';
 export const NEXT_EPISODE = 'Next Episode';
+export const SEASONS_CURRENT = 'Current Seasons';
+export const SEASONS_OLD = 'Previous Seasons';
+
+// Navigation strings
+export const NAV_SEASONS = 'Seasons';
+export const NAV_HELP = 'Help';
+export const NAV_ABOUT = 'About';
+export const NAV_ADMIN = 'Admin';
+
 
 // Labels for specific form elements
 export const LABEL_TITLE = 'Title:';
@@ -35,6 +44,7 @@ export const LABEL_DESCRIPTION = 'Description:';
 export const LABEL_PUBLISHED = 'Published?';
 export const LABEL_SEASON_NUMBER = 'Season Number:';
 export const LABEL_EPISODE_NUMBER = 'Episode Number:';
+export const LABEL_HERO = 'URL to hero graphic for this item:';
 export const LABEL_ARTICLE_URI = 'URL to AVClub Article:';
 export const LABEL_OFFICIAL_URI = 'URL to Official Webpage:';
 export const LABEL_PREVIEW_URI = 'URL to video preview:';

@@ -19,8 +19,7 @@ export default (
   <Router basename='/'>
     <App>
       <Route exact path="/" component={Home}/>
-      <Route exact path="/profile" render={protectProfile}/>
-      <Route exact path="/profile/:userId" component={ProfileBoard}/>
+      <Route exact path="/profile/:seasonId/:userId" component={ProfileBoard}/>
       <Route exact path="/help" component={Help}/>
       <Route exact path="/about" component={About}/>
       <Route exact path="/game/season/:seasonId" component={GameBoard}/>
