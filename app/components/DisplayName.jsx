@@ -101,7 +101,7 @@ export class DisplayName extends React.Component {
 
 
 function mapStateToProps (state) {
-  const user = getKey(state, 'login.user', null);
+  const user = getKey(state.login, 'user', {});
   return {
     ...user
   };

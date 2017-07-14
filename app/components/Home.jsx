@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { isLoggedIn } from 'api/firebase';
+import { getKey } from 'utils';
 import Login from 'Login';
 import DisplayName from 'DisplayName';
 import SeasonChooser from 'SeasonChooser';
@@ -13,12 +14,12 @@ export class Home extends React.Component {
   }
 
   render() {
-    var { context } = this.props;
+    var { user, context } = this.props;
 
     return (
       <div className="row">
         <div className="small-12 medium-4 medium-push-8 columns">
-          { isLoggedIn() ? <div><DisplayName/></div> : <Login/> }
+          { isLoggedIn() && user ? <div><DisplayName/></div> : <Login/> }
         </div>
         <div className="small-12 medium-8 medium-pull-4 columns">
           <SeasonChooser/>
@@ -28,5 +29,9 @@ export class Home extends React.Component {
   }
 }
 
+function mapStateToProps(state, ownProps) {
+  const user = getKey(state.login, 'user', null);
+  return { user };
+}
 
-export default connect()(Home);
+export default connect(mapStateToProps)(Home);
