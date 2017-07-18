@@ -85,7 +85,6 @@ fetchUsers.then(users => {
           if (!isEmpty(lbUser.episodes)) {
             updateData[`leaderboard/${seasonId}/${userId}`] = lbUser;
             updateData[`users/${userId}/balance/${seasonId}`] = lbUser.balance;
-            updateData[`users/${userId}/${seasonId}`] = false;
             console.info(`...${userId} processed.`);
             count++;
           } else {
