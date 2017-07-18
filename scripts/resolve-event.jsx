@@ -1,31 +1,18 @@
-import firebase from 'firebase';
-// App imports
-import {DEFAULT_DISPLAY_NAME as DEFAULT_DISPLAY_NAME} from '../app/constants/strings';
-import {getKey} from '../app/utils';
-// Weekly fixture
-import {EVENT_ID, BETS_PAID} from '../app/fixtures/s6e10-resolution.jsx';
+
+import { EPISODE_ID, BETS_PAID, BETS_NOT_RESOLVED } from '../app/fixtures/s7e01-resolution.jsx';
+
+import firebaseApp from './firebase-app';
+import { DEFAULT_DISPLAY_NAME as DEFAULT_DISPLAY_NAME } from '../app/constants/strings';
+import { getKey } from '../app/utils';
 
 
-// Initialize the app with a custom auth variable, limiting the server's access
-var config = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
-  storageBucket: process.env.STORAGE_BUCKET,
-  serviceAccount: process.env.FIREBASE_SERVICE_ACCOUNT_FILE || undefined,
-  databaseAuthVariableOverride: {
-    uid: "secret-service-worker"
-  }
-};
-firebase.initializeApp(config);
+
 
 console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
 
 
-
-
 // The app only has access as defined in the Security Rules
-var db = firebase.database();
+var db = firebaseApp.database();
 var ref = db.ref();
 
 let errorFunc = (err) => {
@@ -33,13 +20,13 @@ let errorFunc = (err) => {
 };
 
 try {
-  ref.child(`events/${EVENT_ID}`).once('value').then((snapshot) => {
+  ref.child(`episodes/${EPISODE_ID}`).once('value').then((snapshot) => {
 
 
-    console.log('Updating event ' + EVENT_ID);
+    console.log('Updating episode ' + EPISODE_ID);
 
-    let event = snapshot.val();
-    let bets = getKey(event, 'bets', {});
+    let episode = snapshot.val();
+    let bets = getKey(episode, 'bets', {});
 
     let updateData = {};
 
@@ -47,8 +34,8 @@ try {
       updateData[`bets/${betId}/paid`] = true;
     }
 
-    updateData[`events/${EVENT_ID}/resolved`] = true;
-    for (let betId of Object.keys(bets)) {
+    updateData[`episodes/${EPISODE_ID}/resolved`] = true;
+    for (let betId of Object.keys(bets).filter(item => !BETS_NOT_RESOLVED.includes(item))) {
       updateData[`bets/${betId}/resolved`] = true;
     }
 

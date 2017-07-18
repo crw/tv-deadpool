@@ -1,9 +1,10 @@
 /**
- * usernames.jsx - general stats monitoring script
+ * user-health-stats.jsx - general stats monitoring script
  *
  * Shows # of signups, % with wager, % with names... general community health stats.
  * Requires changing the current episode to reflect this week's episode.
  *
+ * SAFE TO RUN - DOES NOT ALTER DATA
  */
 const CURRENT_EPISODE = 'gameofthrones-07-01';
 
@@ -30,7 +31,7 @@ function generateStats(users, secure) {
 
   let count = userIds.length;
 
-  let createdPast24 = secureArr.filter((item) => { return item.created_at > Date.now() - 86400000; }).length;
+  let createdPastWeek = secureArr.filter((item) => { return item.created_at > Date.now() - 86400000*7; }).length;
 
   let withNames = usersArr.filter((item) => { return item.displayName; }).length;
 
@@ -47,7 +48,7 @@ function generateStats(users, secure) {
 
   let timestamp = moment().format();
 
-  console.log(`${timestamp}: ${count} users, ${createdPast24} created in past 24 hours, ${wageredPct}% with wagers (${withCurrentWagers} total), ${namePct}% with names (${withNames} total).`);
+  console.log(`${timestamp}: ${count} users, ${createdPastWeek} created in past week, ${wageredPct}% with wagers (${withCurrentWagers} total), ${namePct}% with names (${withNames} total).`);
 
 }
 

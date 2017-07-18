@@ -1,107 +1,127 @@
-import {DEFAULT_DISPLAY_NAME} from '../app/constants/strings';
-import {INITIAL_BALANCE} from '../app/constants/numbers';
-import {sortObjectsByKey, getKey, toArray} from '../app/utils';
+import { DEFAULT_DISPLAY_NAME } from '../app/constants/strings';
+import { INITIAL_BALANCE } from '../app/constants/numbers';
+import { isEmpty, sortObjectsByKey, getKey, toArray } from '../app/utils';
 
 
-function sortWagersIntoEvents(wagers, events, bets) {
+/**
+ * @param {Object} wagers - all of one user's wagers.
+ * @param {Object} bets - all of the bets.
+ * return {Object} of Objects, wagers organized by betId
+ */
+function sortWagersIntoEpisodes(wagers, bets) {
 
-  let wagersByEvent = {};
+  let wagersByEpisode = {};
 
   for (let betId of Object.keys(wagers)) {
-    let eventId = bets[betId].event_id;
-    let wager = wagers[betId];
+    // Only include wagers for bets that exist! Wagers may be from another season.
+    if (bets[betId]) {
+      let episodeId = bets[betId].episode;
+      let wager = wagers[betId];
 
-    if (Array.isArray(wagersByEvent[eventId])) {
-      wagersByEvent[eventId].push(wager);
-    } else {
-      wagersByEvent[eventId] = [wager]
+      if (Array.isArray(wagersByEpisode[episodeId])) {
+        wagersByEpisode[episodeId].push(wager);
+      } else {
+        wagersByEpisode[episodeId] = [wager]
+      }
     }
-  };
-  return wagersByEvent;
+  }
+  return wagersByEpisode;
 }
 
-function processUserWagers(user, events, bets) {
+/**
+ * @param {Object} user - user to process
+ * @param {Array} episodes - episodes to process, filtered by season.
+ * @param {Object} bets - All bets, unfiltered
+ */
+function processUserWagers(user, episodes, bets) {
 
-  const eventsArr = toArray(events).sort(sortObjectsByKey());
-  const wagers = (user.wagers) ? sortWagersIntoEvents(user.wagers, events, bets) : [];
-  const anon = user.displayName ? false : true;
+  const episodesArr = episodes.sort(sortObjectsByKey());
+  const wagers = (user.wagers) ? sortWagersIntoEpisodes(user.wagers, bets) : [];
+
+  const anon = !user.displayName;
   const displayName = user.displayName || DEFAULT_DISPLAY_NAME;
   let balance = INITIAL_BALANCE;
   let winnings = 0;
   let losses = 0;
 
-  let eventsSummary = {};
+  let episodesSummary = {};
 
-  for (let event of eventsArr) {
-    if (event.resolved) {
+  // If this user has any wagers for this season...
+  if (!isEmpty(wagers)) {
 
-      let eventWinnings = 0;
-      let totalWinnings = 0;
-      let eventLosses = 0;
-      let costOfPlay = 0;
-      let payout = 0;
+    for (let episode of episodesArr) {
+      if (episode.resolved) {
 
-      if (wagers[event.id]) {
+        let episodeWinnings = 0;
+        let totalWinnings = 0;
+        let episodeLosses = 0;
+        let costOfPlay = 0;
+        let payout = 0;
 
-        for (let wager of wagers[event.id]) {
-          costOfPlay = costOfPlay + wager.wager;
-          let bet = bets[wager.id];
-          if (bet.resolved) {
-            if (bet.paid) {
-              payout = Math.floor((bet.odds_payout * wager.wager) / bet.odds_wager);
-              eventWinnings = eventWinnings + payout;
-              totalWinnings = totalWinnings + payout + wager.wager;
-            } else {
-              eventLosses = eventLosses - wager.wager
+
+        // if this user has any wagers on this episode...
+        if (wagers[episode.id]) {
+
+          for (let wager of wagers[episode.id]) {
+            costOfPlay = costOfPlay + wager.wager;
+            let bet = bets[wager.id];
+            if (bet.resolved) {
+              if (bet.paid) {
+                payout = Math.floor((bet.odds_payout * wager.wager) / bet.odds_wager);
+                episodeWinnings = episodeWinnings + payout;
+                totalWinnings = totalWinnings + payout + wager.wager;
+              } else {
+                episodeLosses = episodeLosses - wager.wager
+              }
             }
           }
         }
+        let cheated = (balance - costOfPlay < 0);
+        let balanceBeforeWinnings = balance - costOfPlay;
+        balance = balance - costOfPlay + totalWinnings;
+        episodesSummary[episode.id] = {
+          cheated,
+          balance,
+          balanceBeforeWinnings,
+          winnings: episodeWinnings,
+          losses: episodeLosses
+        };
+        winnings = winnings + episodeWinnings;
+        losses = losses + episodeLosses;
       }
-      let cheated = (balance - costOfPlay < 0);
-      let balanceBeforeWinnings = balance - costOfPlay;
-      balance = balance - costOfPlay + totalWinnings;
-      eventsSummary[event.id] = {
-        cheated,
-        balance,
-        balanceBeforeWinnings,
-        winnings: eventWinnings,
-        losses: eventLosses
-      };
-      winnings = winnings + eventWinnings;
-      losses = losses + eventLosses;
     }
   }
-
   return {
     displayName,
     anon,
-    events: eventsSummary,
+    episodes: episodesSummary,
     winnings,
     losses,
     balance
   };
 }
 
-export function processAllWagers(users, events, bets) {
+export function processAllWagers(users, episodes, bets) {
 
   let leaderboard = {};
+
   for (let userId of Object.keys(users)) {
     let user = users[userId];
     let wagers = getKey(user, 'wagers', null);
     let wagerIds = [];
     if (wagers) {
-      wagerIds = Object.keys(wagers); //.filter((wagerId) => { return wagerId.indexOf('gameofthrones-6-8') === -1 });
+      wagerIds = Object.keys(wagers);
     }
     if (wagers && wagerIds.length !== 0) {
-      leaderboard[user.id] = processUserWagers(user, events, bets);
+      leaderboard[user.id] = processUserWagers(user, episodes, bets);
     }
   }
   return leaderboard;
 }
 
-export function processOneUser(user, events, bets) {
+export function processOneUser(user, episodes, bets) {
 
   let leaderboard = {};
-  leaderboard[user.id] = processUserWagers(user, events, bets);
+  leaderboard[user.id] = processUserWagers(user, episodes, bets);
   return leaderboard;
 }

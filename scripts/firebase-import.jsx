@@ -1,133 +1,30 @@
-import firebase from 'firebase';
-//// EVENTS
-// import Events from '../app/fixtures/Events.jsx';
-// import Events from '../app/fixtures/s6e7-event.jsx';
-// import Events from '../app/fixtures/s6e8-event.jsx';
-// import Events from '../app/fixtures/s6e9-event.jsx';
-//// BETS
-// import Bets from '../app/fixtures/Bets.jsx';
-// import Bets from '../app/fixtures/s6e7-bets.jsx';
-// import Bets from '../app/fixtures/s6e8-bets.jsx';
-// import Bets from '../app/fixtures/s6e9-bets.jsx';
-//// USERS
-// import Users from '../app/fixtures/Users.jsx';
-// import Users from '../app/fixtures/Users-drbootslist';
-// import Users from '../app/fixtures/s6e8-users.jsx';
-// import Users from '../app/fixtures/s6e9-users.jsx';
+/**
+ * firebase-import.jsx - imports weekly raw data into the database
+ *
+ * Used to import wagers on GOTS7EP01. Ideally, the FE interface will be finished
+ * in time for Episode 2, because this process suuuuuucks.
+ *
+ * DANGEROUS TO RUN! MODIFIES DATA!
+ */
+ import firebaseApp from './firebase-app';
 
-//// S6 E10
-import Events from '../app/fixtures/s6e10-event.jsx';
-import Bets from '../app/fixtures/s6e10-bets.jsx';
-import Users from '../app/fixtures/s6e10-users.jsx';
-
-
-
-// Initialize the app with a custom auth variable, limiting the server's access
-var config = {
-  serviceAccount: process.env.FIREBASE_SERVICE_ACCOUNT_FILE || undefined,
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
-  storageBucket: process.env.STORAGE_BUCKET,
-  databaseAuthVariableOverride: {
-    uid: "secret-service-worker"
-  }
-};
-firebase.initializeApp(config);
+//// S07 E01
+// import Users from '../app/fixtures/s7e01-avclub-wagers';
 
 console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
 
 // The app only has access as defined in the Security Rules
-var db = firebase.database();
+var db = firebaseApp.database();
 var ref = db.ref();
-
-var normalizeEventId = (event) => {
-  return [
-    event.series.replace(/ /g, '').toLowerCase(),
-    event.season,
-    event.episode
-  ].join('-')
-};
-
-var normalizeBetId = (season, episode, order) => {
-  return [
-    season,
-    episode,
-    order
-  ].join('-');
-};
-
-if (typeof Events !== "undefined" && typeof Bets !== "undefined") {
-
-  console.log('Importing Events...');
-
-  var eventsRef = ref.child('events');
-  var betsRef = ref.child('bets');
-
-  // REMOVE ALL BETS && EVENTS DATA?
-  // eventsRef.remove();
-  // betsRef.remove();
-
-  var eventKeys = {};
-  Events.forEach((event) => {
-    let originalId = event.id;
-    let id = normalizeEventId(event);
-    let updateData = {
-      ...event,
-      id
-    };
-    eventsRef.child(id).update(updateData).then((snapshot) => {
-      console.log(`Event ${id} (${event.series}, ${event.name}) updated.`);
-    });
-    eventKeys[originalId] = id;
-  });
-
-
-  var betsEventMap = {};
-  Object.keys(Bets).forEach((eventId) => {
-    let bets = Bets[eventId];
-    betsEventMap[eventKeys[eventId]] = [];
-
-    bets.forEach((bet) => {
-      let event_id = eventKeys[eventId];
-      let id = normalizeBetId('gameofthrones-6', eventId, bet.order);
-      let updateData = {
-        ...bet,
-        id,
-        event_id,
-        paid: false,
-        note: '',
-        official: true,
-        published: true,
-        resolved: false,
-        created_at: Date.now(),
-        updated_at: Date.now()
-      };
-      betsRef.child(id).update(updateData).then((snapshot) => {
-      console.log(`Bet ${id} (${updateData.odds_payout}:${updateData.odds_wager} ${updateData.name}) updated.`);
-    });
-      betsEventMap[event_id].push(id);
-    });
-  });
-
-  Object.keys(betsEventMap).forEach((eventKey) => {
-    let updateData = {};
-    betsEventMap[eventKey].forEach((betKey) => {
-      updateData[betKey] = true;
-    });
-    eventsRef.child(eventKey).update({ bets: updateData }).then((snapshot) => {
-      console.log('Event ' + eventKey + ' bets field updated.')
-    });
-  });
-
-}
 
 
 if (typeof Users !== "undefined") {
 
   // User:
     // id: 'avclub-staffer-1',
-    // balance: 375,
+    // balance: {
+    //   gameofthrones-07: 100
+    // }
     // created_at: Date.now(),
     // updated_at: Date.now(),
     // wagers:

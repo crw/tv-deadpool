@@ -1,81 +1,109 @@
-import firebase from 'firebase';
-// App imports
-import {isObject, isEmpty, sortObjectsByKey, getKey, toArray} from '../app/utils';
-import {processAllWagers, processOneUser} from './lib';
+/**
+ * process-results.jsx - Calculates leaderboard and balances from scratch
+ *              for one season. Run any time an episode or bet is resolved.
+ *
+ * DANGEROUS TO RUN - ALTERS DATA
+ */
 
+const seasonId = 'gameofthrones-07';
 
-// Initialize the app with a custom auth variable, limiting the server's access
-var config = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
-  storageBucket: process.env.STORAGE_BUCKET,
-  serviceAccount: process.env.FIREBASE_SERVICE_ACCOUNT_FILE || undefined,
-  databaseAuthVariableOverride: {
-    uid: "secret-service-worker"
-  }
-};
-firebase.initializeApp(config);
+import firebaseApp from './firebase-app';
+import { isEmpty, toArray, filterObjectKeys } from '../app/utils';
+import { processAllWagers, processOneUser } from './lib';
 
 console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
 
+const db = firebaseApp.database();
+
 // leaderboard {
-//   uid {
-//     displayName
-//     balance
-//     winnings
-//     losses
-//     events {
-//       event_id {
-//         cheated
+//   seasons {
+//     [season_id] {
+//       [uid] {
 //         balance
 //         winnings
 //         losses
-//         balanceBeforeWinnings
+//         episodes {
+//           [episode_id] {
+//             cheated
+//             balance
+//             winnings
+//             losses
+//             balanceBeforeWinnings
+//           }
+//         }
 //       }
 //     }
 //   }
 // }
 
-// The app only has access as defined in the Security Rules
-var db = firebase.database();
-var ref = db.ref();
+/**
+ * Catch Firebase data errors and quit
+ * @param err {Error} - exception error
+ */
+function err(err) {
+  console.log('Firebase data error:', err);
+  process.exit();
+}
 
-ref.once('value').then((snapshot) => {
-  let val = snapshot.val();
-  let bets = val.bets;
-  let events = val.events;
-  let users = val.users;
 
-  let leaderboard;
+/**
+ * Fetch data promise generator
+ * @param key {String} - location to fetch from Firebase
+ * @return {Function} - generates fetch data promise
+ */
+function fetchFirebaseDataFn(key) {
+  return new Promise((resolve, reject) => {
+    db.ref(key).once('value').then(snapshot => resolve(snapshot.val())).catch(err);
+  });
+}
 
-  try {
+const fetchUsers = fetchFirebaseDataFn('users');
+const fetchBets = fetchFirebaseDataFn('bets');
+const fetchEpisodes = fetchFirebaseDataFn('episodes');
 
-    leaderboard = processAllWagers(users, events, bets);
-    // leaderboard = processOneUser(users['hz9NYEdvzygqx9pDqziRjLrl00h2'], events, bets);
-    let updateData = {};
 
-    for (let userId of Object.keys(leaderboard)) {
+fetchUsers.then(users => {
+  fetchBets.then(bets => {
+    fetchEpisodes.then(episodes => {
 
-      let lbUser = leaderboard[userId];
+      const seasonEps = toArray(episodes).filter(item => item.season === seasonId);
+      const seasonBets = filterObjectKeys(bets, (obj) => item => obj[item].season === seasonId);
 
-      if (!isEmpty(lbUser.events)) {
-        updateData[`leaderboard/${userId}`] = lbUser;
-        updateData[`users/${userId}/balance`] = lbUser.balance;
-        console.log(`...${userId} processed.`);
-      } else {
-        console.log('skipping leaderboard for ' + lbUser.id);
+      try {
+
+        let leaderboard = processAllWagers(users, seasonEps, seasonBets);
+        // leaderboard = processOneUser(users['avclub-staffer-2'], seasonEps, seasonBets);
+        // leaderboard = processOneUser(users['Jr9wO5CW1uX2li5HLFepQL9w5bn2'], seasonEps, seasonBets);
+        let updateData = {};
+        let count = 0;
+        let skipped = 0;
+
+        for (let userId of Object.keys(leaderboard)) {
+
+          let lbUser = leaderboard[userId];
+
+          if (!isEmpty(lbUser.episodes)) {
+            updateData[`leaderboard/${seasonId}/${userId}`] = lbUser;
+            updateData[`users/${userId}/balance/${seasonId}`] = lbUser.balance;
+            updateData[`users/${userId}/${seasonId}`] = false;
+            console.info(`...${userId} processed.`);
+            count++;
+          } else {
+            console.warn('skipping leaderboard for ' + lbUser.displayName, userId);
+            skipped++;
+          }
+        }
+        console.info('Processed', count, 'users, skipped', skipped, 'users');
+
+        db.ref().update(updateData).then(() => {
+          console.info('...done.');
+          process.exit();
+        });
+
+      } catch (err) {
+        console.log('Leaderboard processing error:', err);
+        process.exit();
       }
-    }
-
-    ref.update(updateData).then((snapshot) => {
-      console.log('...done.');
     });
-
-  } catch (e) {
-    console.log('Exception', e);
-  }
-}, (e) => {
-  console.log('error', e);
+  });
 });
-

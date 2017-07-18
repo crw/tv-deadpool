@@ -88,6 +88,22 @@ export function toArray(obj) {
 }
 
 /**
+ * Filters keys from an object, much like Array.prototype.filter
+ * @param orig {Object} - object to filter
+ * @param fn {Function} - filtering function, takes the object  as an argument,
+ *                        needs to return a function that takes the object key as a parameter.
+ * @returns {Object} filtered via the filtering function.
+ */
+export function filterObjectKeys(orig, fn) {
+  return Object.keys(orig)
+  .filter(fn(orig))
+  .reduce((obj, key) => {
+    obj[key] = orig[key];
+    return obj;
+  }, {});
+}
+
+/**
  * Returns a normalized username for deduplication purposes.
  */
 export function normalizeName(name) {
