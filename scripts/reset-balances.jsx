@@ -56,7 +56,7 @@ db.ref('bets').once('value').then(snapshot => {
             id.indexOf('avclub') === -1 &&
             id !== '0yomzuaZZRVJ1c4gzbL5M1ICWyf1') {
 
-            console.log(`Updating ${id} (${displayName}, old balance ${curBalance}, locked up ${locked_up}.)`);
+            console.log(`Updating ${id} (${displayName}, old balance ${curBalance}, locked up ${locked_up}, new balance ${100-locked_up}.)`);
             updateData[`users/${id}/balance/${seasonId}`] = 100 - locked_up;
             count++;
           }
