@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { getKey } from 'utils';
@@ -49,7 +50,13 @@ function mapStateToProps(state, ownProps) {
     episodeDefaults.episode = nextEpisode;
   }
   const initialValues = getKey(state.episodes, episodeId) || episodeDefaults;
-  return { initialValues };
+  return {
+    initialValues: {
+      ...initialValues,
+      air_at: moment(initialValues.air_at).format(),
+      lock_at: moment(initialValues.lock_at).format()
+    }
+  };
 }
 
 export default connect(mapStateToProps)(reduxForm({ form: episodeFormName })(EpisodeForm));
