@@ -84,6 +84,9 @@ export function episodeValidation(values) {
   let errors = {};
   let nvals = trimObject(values);
 
+  // convert to bool
+  nvals.published = !!nvals.published;
+
   const air_at = moment(nvals.air_at);
   if (!air_at.isValid()) {
     errors.air_at = 'Invalid air date specified.';

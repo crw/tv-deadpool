@@ -136,6 +136,12 @@ export function createEpisode(values) {
 /**
  *
  */
+export const editEpisode = editRef('episodes');
+
+
+/**
+ *
+ */
 export function createBet(values) {
 
   const { episode, nextBetId } = values;

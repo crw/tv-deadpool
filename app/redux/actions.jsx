@@ -18,6 +18,7 @@ export const seriesCreated = createAction(action_type.SERIES_CREATED);
 export const seasonCreated = createAction(action_type.SEASON_CREATED);
 export const seasonUpdated = createAction(action_type.SEASON_UPDATED);
 export const episodeCreated = createAction(action_type.EPISODE_CREATED);
+export const episodeUpdated = createAction(action_type.EPISODE_UPDATED);
 export const betCreated = createAction(action_type.BET_CREATED);
 export const betUpdated = createAction(action_type.BET_UPDATED);
 // Mass Import
@@ -129,6 +130,14 @@ export const startCreateEpisode = (values) => {
   return (dispatch, getStore) => {
     return api.createEpisode(values).then(() => {
       dispatch(episodeCreated());
+    });
+  };
+};
+
+export const startEditEpisode = (id, values) => {
+  return (dispatch, getStore) => {
+    return api.editEpisode(id, values).then(() => {
+      dispatch(episodeUpdated());
     });
   };
 };
