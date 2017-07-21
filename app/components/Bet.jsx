@@ -16,7 +16,7 @@ export class Bet extends React.Component {
                 ]).isRequired,
     odds_wager: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    desc: PropTypes.string.isRequired,
+    desc: PropTypes.string,
     closed: PropTypes.bool.isRequired,
     validUser: PropTypes.bool.isRequired,
     paid: PropTypes.bool.isRequired

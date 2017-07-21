@@ -27,6 +27,7 @@ export const updateEpisodesData = createAction(action_type.EPISODES_UPDATE_DATA)
 export const updateBetsData = createAction(action_type.UPDATE_BETS_DATA);
 export const updateStatsData = createAction(action_type.UPDATE_STATS_DATA);
 export const updateLeaderboardData = createAction(action_type.UPDATE_LEADERBOARD_DATA);
+export const updateUsersData = createAction(action_type.USERS_UPDATE_DATA);
 // Data Update
 export const login = createAction(action_type.LOGIN);
 export const logout = createAction(action_type.LOGOUT);
@@ -44,13 +45,16 @@ export const setPreferences = createAction(
   action_type.SET_PREFERENCES, (context, prefs) => ({ context, prefs }));
 
 export const apiUpdated = createAction(action_type.API_UPDATED);
-
+export const requestWatchData = createAction(action_type.API_WATCH_DATA);
+export const confirmWatchData = createAction(action_type.API_WATCH_CONFIRM);
 
 function watchFirebaseData(refName, actionFn) {
   return () => (dispatch, getStore) => {
+    dispatch(requestWatchData());
     const ref = firebase.database().ref(refName);
     return ref.on('value', (snapshot) => {
       dispatch(actionFn(snapshot.val()));
+      dispatch(confirmWatchData());
     });
   };
 };
@@ -61,6 +65,8 @@ export const watchEpisodesData = watchFirebaseData('episodes', updateEpisodesDat
 export const watchBetsData = watchFirebaseData('bets', updateBetsData);
 export const watchLeaderboardData = watchFirebaseData('leaderboard', updateLeaderboardData);
 export const watchStatsData = watchFirebaseData('stats', updateStatsData);
+export const watchUsersData = watchFirebaseData('users', updateUsersData);
+
 
 export const startFetchLabel = (label) => {
   return (dispatch, getStore) => {
@@ -152,6 +158,13 @@ export const startPlaceWager = (betId, wager, comment) => {
   };
 };
 
+export const startPlaceWagerAdmin = (user, betId, wager, comment) => {
+  return (dispatch, getStore) => {
+    const state = getStore();
+    const bet = state.bets[betId];
+    return api.placeWager(user, bet, wager, comment);
+  };
+};
 
 
 export const startUpdateDisplayName = (uid, displayName) => {

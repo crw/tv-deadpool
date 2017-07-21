@@ -106,9 +106,15 @@ export function createSeason(values) {
   return firebase.database().ref('/').update(updateData);
 }
 
+/**
+ *
+ */
 export const editSeason = editRef('seasons');
 
 
+/**
+ *
+ */
 export function createEpisode(values) {
 
   const { season, episode } = values;
@@ -127,6 +133,9 @@ export function createEpisode(values) {
   return firebase.database().ref('/').update(updateData);
 }
 
+/**
+ *
+ */
 export function createBet(values) {
 
   const { episode, nextBetId } = values;
@@ -156,9 +165,15 @@ export function createBet(values) {
   return firebase.database().ref('/').update(updateData);
 }
 
+/**
+ *
+ */
 export const editBet = editRef('bets');
 
 
+/**
+ *
+ */
 export function placeWager(user, bet, wager, comment) {
 
     const userRef = getUserRef(user.id);

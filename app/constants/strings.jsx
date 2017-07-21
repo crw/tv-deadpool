@@ -31,6 +31,7 @@ export const NEXT_EPISODE = 'Next Episode';
 export const SEASONS_CURRENT = 'Current Seasons';
 export const SEASONS_OLD = 'Previous Seasons';
 
+
 // Navigation strings
 export const NAV_SEASONS = 'Seasons';
 export const NAV_HELP = 'Help';
@@ -57,6 +58,10 @@ export const LABEL_BET_NAME = 'Description of terms:';
 export const LABEL_BET_DESCRIPTION = 'Additional info (usually specific character names for group bets):';
 export const LABEL_SEASON_LOCK_AT = 'Close season at (RFC3339 Datetime):';
 
+// Placeholders for form elements
+export const PLACEHOLDER_WAGER = 'Wager...';
+export const PLACEHOLDER_COMMENT = 'Comment...';
+
 // Icons for common nouns
 export const CLS_ICON_USER = 'fa fa-fw fa-user';
 export const CLS_ICON_SUBMIT = 'fa fa-fw fa-cog';
@@ -74,6 +79,7 @@ export const BTN_LABEL_NEW = 'New';
 export const BTN_LABEL_CREATE = 'Create';
 export const BTN_LABEL_SUBMIT = 'Save';
 export const BTN_LABEL_CANCEL = 'Cancel';
+export const BTN_LABEL_UPDATE = 'Update';
 
 
 // Errors

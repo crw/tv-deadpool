@@ -5,6 +5,7 @@ export const UPDATE_LEADERBOARD_DATA = 'UPDATE_LEADERBOARD_DATA';
 export const UPDATE_STATS_DATA = 'UPDATE_STATS_DATA';
 export const UPDATE_LABEL = 'UPDATE_LABEL';
 export const UPDATE_USER = 'UPDATE_USER';
+export const USERS_UPDATE_DATA = '@user/update/all';
 export const UPDATE_SECURE = 'UPDATE_SECURE';
 export const UPDATE_DISPLAY_NAME = 'UPDATE_DISPLAY_NAME';
 export const PLACE_WAGER = 'PLACE_WAGER';
@@ -13,6 +14,8 @@ export const LOGOUT = 'LOGOUT';
 export const SET_PREFERENCE = 'SET_PREFERENCE';
 export const SET_PREFERENCES = 'SET_PREFERENCES';
 export const API_UPDATED = '@api/updated';
+export const API_WATCH_DATA = '@api/firebase/watch_request';
+export const API_WATCH_CONFIRM = '@api/firebase/watch_confirmed';
 
 export const SERIES_CREATED = '@series/created';
 export const SEASON_CREATED = '@season/created';

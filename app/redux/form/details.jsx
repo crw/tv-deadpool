@@ -128,3 +128,16 @@ export function betValidation (values) {
     throw new SubmissionError(errors);
   }
 };
+
+
+/**
+ * Wager form defaults
+ */
+
+// Initial Values
+export const wagerDefaults = {
+  wager: 0,
+  comment: '',
+  betId: ''
+};
+

@@ -10,7 +10,7 @@ path /users/{userid} {
 
 path /users/{userid}/balance/{seasonid} is Number {
   validate() {
-    isAutomationUser() || // Automation can do whatever it wants
+    //isAutomationUser() || // Automation can do whatever it wants
     (prior(this) == null && this == 100) || // Initialization
     this == prior(this) || // No change, updating comment
     (prior(this) != null && this != null && this >= 0) // Not initializing, updating wager value.
@@ -19,14 +19,14 @@ path /users/{userid}/balance/{seasonid} is Number {
 
 path /users/{userid}/wagers/{wagerid} {
   validate() {
-    isAutomationUser() ||
+    //isAutomationUser() ||
     !hasAired(getEpisodeFromWager(wagerid))
   }
 }
 
 path /users/{userid}/wagers/{wagerid}/wager {
   validate() {
-    isAutomationUser() ||
+    //isAutomationUser() ||
     (!exists(this) && prior(this) == 0) ||
     (this >= 0 &&
       getBalanceForWager(prior(root), userid, wagerid) + default(prior(this), 0) - this ==

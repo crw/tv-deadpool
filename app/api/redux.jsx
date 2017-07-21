@@ -36,3 +36,11 @@ export function getEpisodesForSeason(state, id) {
 export function getBetsForEpisode(state, id) {
   return ordered(keyFilter(state.bets, 'episode', id));
 };
+
+export function getWagersForEpisode(state, userId, episodeId) {
+  const user = state.users[userId];
+  const bets = getBetsForEpisode(state, episodeId).map(item => item.id);
+
+  if (!user) return [];
+  return ordered(toArray(user.wagers).filter(item => bets.includes(item.id)));
+}

@@ -36,13 +36,16 @@ export const leaderboard = createSimpleReducer(actions.updateLeaderboardData, {}
 export var users = (state = {}, action) => {
 
   switch(action.type) {
-    case 'UPDATE_USER': {
+    case action_type.USERS_UPDATE_DATA: {
+      return action.payload;
+    }
+    case action_type.UPDATE_USER: {
       return {
         ...state,
         [action.payload.id]: action.payload
       }
     }
-    case 'UPDATE_DISPLAY_NAME': {
+    case action_type.UPDATE_DISPLAY_NAME: {
       const {uid, displayName} = action.payload;
       return {
         ...state,
@@ -52,7 +55,7 @@ export var users = (state = {}, action) => {
         }
       }
     }
-    case 'LOGOUT':
+    case action_type.LOGOUT:
       return {};
     default:
       return state;
@@ -65,7 +68,7 @@ export var login = (state = {}, action) => {
       return {
         uid: action.payload
       };
-    case 'UPDATE_USER': {
+    case action_type.UPDATE_USER: {
       const user = action.payload;
       if (state.uid === user.id) {
         return {
@@ -134,6 +137,7 @@ export const prefs = (state = {}, action) => {
 
 const defaultAPIState = {
   sync: false,    // State updated from server at least once
+  syncing: 0, // Number of outbound sync requests
   updatedAt: undefined // timestamp of most recent update
 };
 export const api = (state = defaultAPIState, action) => {
@@ -142,8 +146,18 @@ export const api = (state = defaultAPIState, action) => {
       return {
         ...state,
         sync: true
-      }
+      };
     };
+    case action_type.API_WATCH_DATA:
+      return {
+        ...state,
+        syncing: state.syncing + 1
+      };
+    case action_type.API_WATCH_CONFIRM:
+      return {
+        ...state,
+        syncing: state.syncing > 0 ? state.syncing - 1 : 0
+      };
     default:
       return state;
   };

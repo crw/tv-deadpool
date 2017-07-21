@@ -10,7 +10,7 @@ export const App = props => {
 
   const { sync, seasons, series, leaderboard, location, children } = props;
 
-  if ( !sync || isEmpty(seasons) || isEmpty(series) ) {
+  if ( sync > 0 ) {
     return <SiteLoading/>;
   }
 
@@ -27,7 +27,7 @@ export const App = props => {
 
 function mapStateToProps(state) {
   const { seasons, series, leaderboard } = state;
-  return { sync: state.api.sync, seasons, series, leaderboard };
+  return { sync: state.api.syncing, seasons, series, leaderboard };
 };
 
 export default withRouter(connect(mapStateToProps)(App));
