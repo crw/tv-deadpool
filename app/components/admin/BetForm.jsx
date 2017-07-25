@@ -15,8 +15,13 @@ export const BetForm = (props) => {
   const { handleSubmit, onCancel, pristine, submitting, invalid, reset } = props;
   const cls_btn_submit = submitting ? str.CLS_ICON_SUBMITTING : str.CLS_ICON_SUBMIT;
 
+
+  function handleBetSubmit(values) {
+    handleSubmit(values).then(reset);
+  }
+
   return (
-    <form onSubmit={handleSubmit} className="">
+    <form onSubmit={handleBetSubmit} className="">
       <Field component={SimpleInput} type="number" name="order"
         validate={[required]} normalize={toInt} label={str.LABEL_BET_ORDER}/>
       <Field component={SimpleInput} type="number" name="odds_payout"
@@ -55,4 +60,4 @@ function mapStateToProps(state, ownProps) {
   return { initialValues };
 }
 
-export default connect(mapStateToProps)(reduxForm({ form: betFormName })(BetForm));
+export default connect(mapStateToProps)(reduxForm({ enableReinitialize: true, form: betFormName })(BetForm));

@@ -26,7 +26,7 @@ export class Episode extends React.Component {
     values.season = season;
     values.series = series;
     values.nextBetId = nextBetId;
-    startCreateBet(values);
+    return startCreateBet(values);
   }
 
   handleEditEpisode(values) {

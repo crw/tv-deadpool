@@ -166,6 +166,5 @@ export const api = (state = defaultAPIState, action) => {
 export const form = formReducer.plugin({
   series: clearForm(action_type.SERIES_CREATED),
   season: clearForm(action_type.SEASON_CREATED),
-  epidode: clearForm(action_type.EPISODE_CREATED),
-  bet: clearForm(action_type.BET_CREATED)
+  epidode: clearForm(action_type.EPISODE_CREATED)
 });
