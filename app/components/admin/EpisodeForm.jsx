@@ -32,6 +32,7 @@ export const EpisodeForm = (props) => {
       <Field component={SimpleInput} type="text" name="article" label={str.LABEL_ARTICLE_URI}/>
       <Field component={SimpleInput} type="text" name="hbo" label={str.LABEL_OFFICIAL_URI}/>
       <Field component={SimpleInput} type="text" name="preview" label={str.LABEL_PREVIEW_URI}/>
+      <Field component={SimpleInput} type="text" name="confirmation" label={str.LABEL_CONFIRMATION_URI}/>
       <Field component={SimpleInput} type="checkbox" name="published" label={str.LABEL_PUBLISHED}/>
       <div>
         <button type="submit" className="button success" disabled={pristine || submitting || invalid}>

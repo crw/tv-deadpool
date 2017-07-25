@@ -49,6 +49,7 @@ export const LABEL_HERO = 'URL to hero graphic for this item:';
 export const LABEL_ARTICLE_URI = 'URL to AVClub Article:';
 export const LABEL_OFFICIAL_URI = 'URL to Official Webpage:';
 export const LABEL_PREVIEW_URI = 'URL to video preview:';
+export const LABEL_CONFIRMATION_URI = 'URL to results confirmation article (All Men Must Die feature):';
 export const LABEL_AIR_AT = 'Airs at (RFC3339 Datetime):';
 export const LABEL_LOCK_AT = 'Lock all betting at (RFC3339 Datetime):';
 export const LABEL_BET_ODDS_PAYOUT = 'Odds Payout (e.g. <b>3</b>:1):';

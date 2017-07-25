@@ -75,8 +75,8 @@ export const episodeDefaults = {
   hbo: '',
   preview: '',
   published: false,
-  air_at: '',
-  lock_at: '',
+  air_at: moment({ hour: 18, minute: 0, second: 0 }).day(7),
+  lock_at: moment({ hour: 17, minute: 55, second: 0 }).day(7)
 };
 
 export function episodeValidation(values) {

@@ -6,4 +6,5 @@ config/*.json
 public/bundle.js
 public/bundle.css
 *.sublime-workspace
+playground/*
 
