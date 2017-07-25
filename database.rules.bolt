@@ -3,6 +3,11 @@ path / {
   write() { isAutomationUser() }
 }
 
+path /users {
+  read() { isUserManager() }
+  write() { isUserManager() }
+}
+
 path /users/{userid} {
   read() { isSignedIn() }
   write() { isCurrentUser(userid) }
@@ -10,7 +15,7 @@ path /users/{userid} {
 
 path /users/{userid}/balance/{seasonid} is Number {
   validate() {
-    //isAutomationUser() || // Automation can do whatever it wants
+    isAutomationUser() ||
     (prior(this) == null && this == 100) || // Initialization
     this == prior(this) || // No change, updating comment
     (prior(this) != null && this != null && this >= 0) // Not initializing, updating wager value.
@@ -19,14 +24,12 @@ path /users/{userid}/balance/{seasonid} is Number {
 
 path /users/{userid}/wagers/{wagerid} {
   validate() {
-    //isAutomationUser() ||
     !hasAired(getEpisodeFromWager(wagerid))
   }
 }
 
 path /users/{userid}/wagers/{wagerid}/wager {
   validate() {
-    //isAutomationUser() ||
     (!exists(this) && prior(this) == 0) ||
     (this >= 0 &&
       getBalanceForWager(prior(root), userid, wagerid) + default(prior(this), 0) - this ==
@@ -51,17 +54,17 @@ path /names/{nameid} {
 
 path /series {
   read() { true }
-  write() { isAdmin() }
+  write() { isDataManager() }
 }
 
 path /seasons {
   read() { true }
-  write() { isAdmin() }
+  write() { isDataManager() }
 }
 
 path /episodes {
   read() { true }
-  write() { isAdmin() }
+  write() { isDataManager() }
 }
 
 path /events {
@@ -70,7 +73,7 @@ path /events {
 
 path /bets {
   read() { true }
-  write() { isAdmin() }
+  write() { isDataManager() }
 }
 
 path /stats {
@@ -100,7 +103,13 @@ isCurrentUser(uid) { isSignedIn() && auth.uid == uid }
 // Is the automation user
 isAutomationUser() { auth.uid == 'secret-service-worker' }
 // Is the admin user
-isAdmin() { isSignedIn() && auth.uid == 'Jr9wO5CW1uX2li5HLFepQL9w5bn2' }
+isAdmin() { isSignedIn() && root.roles.admins.child(auth.uid).val() == true  }
+// Is allowed to input wagers for other users
+isUserManager() { isSignedIn() && root.roles.usermanagers.child(auth.uid).val() == true }
+// Is allowed to input wagers for other users
+isDataManager() { isSignedIn() && root.roles.datamanagers.child(auth.uid).val() == true }
+
+
 
 // Timestamp-related functionality.
 //

@@ -4,7 +4,6 @@
  *
  * DANGEROUS TO RUN - ALTERS DATA
  */
-
 const seasonId = 'gameofthrones-07';
 
 import firebaseApp from './firebase-app';

@@ -1,7 +1,8 @@
 import firebaseApp from './firebase-app';
 
-import updateData from '../app/fixtures/s7e01-avclub-users';
+const updateData = {
 
+};
 
 console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
 
@@ -14,4 +15,4 @@ ref.update(updateData).then((snapshot) => {
 }, (e) => {
   console.log('Update error.');
   console.log(e);
-});
+}).then(process.exit);

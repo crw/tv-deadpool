@@ -6,7 +6,10 @@
  *
  * SAFE TO RUN - DOES NOT ALTER DATA
  */
-const CURRENT_EPISODE = 'gameofthrones-07-01';
+const CURRENT_SEASON = 'gameofthrones-07';
+const CURRENT_EPISODE = 'gameofthrones-07-02';
+
+const TIMESPAN = 86400000*28;
 
 import firebaseApp from './firebase-app';
 import moment from 'moment';
@@ -24,35 +27,49 @@ let users = {};
 let secure = {};
 
 
+function countUsersWithWagers(users, id_str) {
+  return users.filter(item =>
+    Object.keys(item.wagers || {})
+      .filter(wagerId =>
+        wagerId.indexOf(id_str) >= 0
+      ).length > 0
+    ).length;
+}
+
+
 function generateStats(users, secure) {
   const userIds = Object.keys(secure);
   const secureArr = toArray(secure);
   const usersArr = toArray(users);
 
-  let count = userIds.length;
+  const count = userIds.length;
 
-  let createdPastWeek = secureArr.filter((item) => { return item.created_at > Date.now() - 86400000*7; }).length;
+  const createdPastWeek = secureArr.filter((item) => { return item.created_at > Date.now() - TIMESPAN; }).length;
 
-  let withNames = usersArr.filter((item) => { return item.displayName; }).length;
+  const withNames = usersArr.filter((item) => { return item.displayName; }).length;
 
-  let withCurrentWagers = usersArr.filter((item) => {
-    let wagers = item.wagers || {};
-    return Object.keys(wagers).filter((wagerId) => {
-      return wagerId.indexOf(CURRENT_EPISODE) >= 0;
-    }).length > 0;
-  }).length;
+  const seasonUserWagers = countUsersWithWagers(usersArr, CURRENT_SEASON);
+  const episodeUserWagers = countUsersWithWagers(usersArr, CURRENT_EPISODE);
 
   let namePct = Math.floor(withNames*100/count);
-  let wageredPct = Math.floor(withCurrentWagers*100/count);
+  let seasonWageredPct = Math.floor(seasonUserWagers*100/count);
+  let episodeWageredPct = Math.floor(episodeUserWagers*100/count);
 
 
   let timestamp = moment().format();
 
-  console.log(`${timestamp}: ${count} users, ${createdPastWeek} created in past week, ${wageredPct}% with wagers (${withCurrentWagers} total), ${namePct}% with names (${withNames} total).`);
+  console.log(
+    `${timestamp}:`,
+    `${count} users,`,
+    `${createdPastWeek} created,`,
+    `season: ${seasonWageredPct}% (${seasonUserWagers}),`,
+    `episode: ${episodeWageredPct}% (${episodeUserWagers}),`,
+    `${namePct}% named (${withNames}).`
+  );
 
 }
 
-console.log('Watching episode', CURRENT_EPISODE);
+console.log('Watching season', CURRENT_SEASON);
 
 secureRef.on('value', (snapshot) => {
   secure = snapshot.val();

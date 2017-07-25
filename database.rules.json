@@ -3,6 +3,8 @@
     ".read": "auth.uid == 'secret-service-worker'",
     ".write": "auth.uid == 'secret-service-worker'",
     "users": {
+      ".read": "auth != null && root.child('roles').child('usermanagers').child(auth.uid).val() == true",
+      ".write": "auth != null && newData.parent().child('roles').child('usermanagers').child(auth.uid).val() == true",
       "$userid": {
         ".read": "auth != null",
         ".write": "auth != null && auth.uid == $userid",
@@ -13,9 +15,9 @@
         },
         "wagers": {
           "$wagerid": {
-            ".validate": "auth.uid == 'secret-service-worker' || !(newData.parent().parent().parent().parent().child('episodes').child(newData.parent().parent().parent().parent().child('bets').child($wagerid).child('episode').val()).child('air_at').val() <= now)",
+            ".validate": "!(newData.parent().parent().parent().parent().child('episodes').child(newData.parent().parent().parent().parent().child('bets').child($wagerid).child('episode').val()).child('air_at').val() <= now)",
             "wager": {
-              ".validate": "auth.uid == 'secret-service-worker' || !(newData.val() != null) && data.val() == 0 || newData.val() >= 0 && root.child('users').child($userid).child('balance').child(newData.parent().parent().parent().parent().parent().child('bets').child($wagerid).child('season').val()).val() + (data.val() != null ? data.val() : 0) - newData.val() == newData.parent().parent().parent().parent().parent().child('users').child($userid).child('balance').child(newData.parent().parent().parent().parent().parent().child('bets').child($wagerid).child('season').val()).val()"
+              ".validate": "!(newData.val() != null) && data.val() == 0 || newData.val() >= 0 && root.child('users').child($userid).child('balance').child(newData.parent().parent().parent().parent().parent().child('bets').child($wagerid).child('season').val()).val() + (data.val() != null ? data.val() : 0) - newData.val() == newData.parent().parent().parent().parent().parent().child('users').child($userid).child('balance').child(newData.parent().parent().parent().parent().parent().child('bets').child($wagerid).child('season').val()).val()"
             }
           }
         }
@@ -35,22 +37,22 @@
     },
     "series": {
       ".read": "true",
-      ".write": "auth != null && auth.uid == 'Jr9wO5CW1uX2li5HLFepQL9w5bn2'"
+      ".write": "auth != null && newData.parent().child('roles').child('datamanagers').child(auth.uid).val() == true"
     },
     "seasons": {
       ".read": "true",
-      ".write": "auth != null && auth.uid == 'Jr9wO5CW1uX2li5HLFepQL9w5bn2'"
+      ".write": "auth != null && newData.parent().child('roles').child('datamanagers').child(auth.uid).val() == true"
     },
     "episodes": {
       ".read": "true",
-      ".write": "auth != null && auth.uid == 'Jr9wO5CW1uX2li5HLFepQL9w5bn2'"
+      ".write": "auth != null && newData.parent().child('roles').child('datamanagers').child(auth.uid).val() == true"
     },
     "events": {
       ".read": "true"
     },
     "bets": {
       ".read": "true",
-      ".write": "auth != null && auth.uid == 'Jr9wO5CW1uX2li5HLFepQL9w5bn2'"
+      ".write": "auth != null && newData.parent().child('roles').child('datamanagers').child(auth.uid).val() == true"
     },
     "stats": {
       ".read": "true"
