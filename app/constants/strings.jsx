@@ -30,7 +30,7 @@ export const PREV_EPISODE = 'Previous Episode';
 export const NEXT_EPISODE = 'Next Episode';
 export const SEASONS_CURRENT = 'Current Seasons';
 export const SEASONS_OLD = 'Previous Seasons';
-
+export const NO_EPS_TO_DISPLAY = 'No episodes are ready to be reconciled.';
 
 // Navigation strings
 export const NAV_SEASONS = 'Seasons';
@@ -58,6 +58,7 @@ export const LABEL_BET_ORDER = 'Order in the list of bets:';
 export const LABEL_BET_NAME = 'Description of terms:';
 export const LABEL_BET_DESCRIPTION = 'Additional info (usually specific character names for group bets):';
 export const LABEL_SEASON_LOCK_AT = 'Close season at (RFC3339 Datetime):';
+export const LABEL_NOTE = 'Note explaining the win/loss condition triggered:';
 
 // Placeholders for form elements
 export const PLACEHOLDER_WAGER = 'Wager...';

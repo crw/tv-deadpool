@@ -9,6 +9,8 @@ import Episode from 'admin/Episode';
 import EditBet from 'admin/EditBet';
 import UserAdmin from 'admin/UserAdmin';
 import UsersAdmin from 'admin/UsersAdmin';
+import Reconcile from 'admin/Reconcile';
+import ReconcileEpisode from 'admin/ReconcileEpisode';
 
 
 export class Admin extends React.Component {
@@ -47,6 +49,10 @@ export class Admin extends React.Component {
               <Route exact path={ url + "/users/:userId" } component={ UserAdmin }/>
               <Route exact path={ url + "/users" } component={ UsersAdmin }/>
               <Route path={ url + "/series" } component={ SeriesAdmin }/>
+              <Route exact path={ url + "/reconcile" } component={ Reconcile }/>
+              <Route exact path={ url + "/reconcile/:episodeId" } render={ props => (
+                <ReconcileEpisode episodeId={props.match.params.episodeId}/>
+              )}/>
               <Redirect from={ url } to={ url + "/series" }/>
             </Switch>
           </div>
