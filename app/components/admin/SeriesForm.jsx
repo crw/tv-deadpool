@@ -4,14 +4,9 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form'
 import { SimpleInput } from 'redux/form/components';
 import { required } from 'redux/form/validators';
-import * as str from 'app/constants/strings';
+import * as str from 'constants/strings';
+import { seriesFormName, seriesDefaults} from 'redux/form/details';
 
-// Initial Values
-const defaultValues = {
-  title: '',
-  description: '',
-  published: false
-};
 
 export const SeriesForm = (props) => {
 
@@ -22,7 +17,6 @@ export const SeriesForm = (props) => {
     <form onSubmit={handleSubmit} className="display-name-form">
       <h3>{str.NEW_SERIES}</h3>
       <Field component={SimpleInput} type="text" name="title" label={str.LABEL_TITLE} validate={[required]}/>
-      <Field component={SimpleInput} type="text" name="description" label={str.LABEL_DESCRIPTION}/>
       <Field component={SimpleInput} type="checkbox" name="published" label={str.LABEL_PUBLISHED}/>
       <div>
         <button type="submit" className="button success" disabled={pristine || submitting || invalid}>
@@ -35,7 +29,7 @@ export const SeriesForm = (props) => {
 
 
 function mapStateToProps(state) {
-  return { initialValues: defaultValues };
+  return { initialValues: seriesDefaults };
 }
 
-export default connect(mapStateToProps)(reduxForm({ form: 'series' })(SeriesForm));
+export default connect(mapStateToProps)(reduxForm({ form: seriesFormName })(SeriesForm));

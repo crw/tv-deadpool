@@ -18,7 +18,7 @@ export class EditBet extends React.Component {
   handleSubmit(values) {
     const { id, dispatch, history } = this.props;
 
-    dispatch(startEditBet(id, betValidation(values))).then(() => {
+    return dispatch(startEditBet(id, betValidation(values))).then(() => {
       history.goBack();
     });
   }

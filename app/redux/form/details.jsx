@@ -19,16 +19,25 @@ function trimObject(orig) {
 };
 
 /**
+ * SERIES create / update
+ */
+export const seriesFormName = 'series';
+
+export const seriesDefaults = {
+  title: '',
+  published: false
+};
+
+/**
  * SEASON create / update
  */
 
 export const seasonFormName = 'season';
 
 export const seasonDefaults = {
-  title: '',
-  description: '',
   season: '',
   lock_at: '',
+  hero: '',
   published: false
 };
 
@@ -74,6 +83,7 @@ export const episodeDefaults = {
   article: '',
   hbo: '',
   preview: '',
+  confirmation: '',
   published: false,
   air_at: moment({ hour: 18, minute: 0, second: 0 }).day(7),
   lock_at: moment({ hour: 17, minute: 55, second: 0 }).day(7)

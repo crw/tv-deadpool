@@ -14,9 +14,9 @@ export const SeasonList = props => {
 
   const seasonsHtml = seasons.map((item) => (
     <div key={item.id} className="season">
-      <Link to={ `${url}/season/${item.id}` } className="title">Season { item.season.padStart(2, "0") }</Link>
-      { item.title ? <div className="title">{ item.title }</div> : '' }
-      { item.description ? <div className="description">{ item.description }</div> : '' }
+      <Link to={ `${url}/season/${item.id}` } className="title">
+        Season { item.season.padStart(2, "0") }
+      </Link>
     </div>
   ));
 

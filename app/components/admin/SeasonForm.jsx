@@ -19,8 +19,6 @@ export const SeasonForm = (props) => {
     <form onSubmit={handleSubmit} className="display-name-form">
       <Field component={SimpleInput} type="number" name="season" validate={[required]} label={str.LABEL_SEASON_NUMBER}/>
       <Field component={SimpleInput} type="checkbox" name="published" label={str.LABEL_PUBLISHED}/>
-      <Field component={SimpleInput} type="text" name="title" label={str.LABEL_TITLE}/>
-      <Field component={SimpleInput} type="text" name="description" label={str.LABEL_DESCRIPTION}/>
       <Field component={SimpleInput} type="text" name="hero" label={str.LABEL_HERO}/>
       <Field component={SimpleInput} type="text" name="lock_at"
         validate={[required, isValidDatetime]} label={str.LABEL_SEASON_LOCK_AT}/>

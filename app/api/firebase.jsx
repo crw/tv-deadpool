@@ -2,6 +2,8 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import { normalizeName, getKey } from 'app/utils';
+import { seasonDefaults, episodeDefaults, betDefaults } from 'redux/form/details';
+
 
 // Special Firebase directive that sets the value to "now" based on the server's clock.
 const { TIMESTAMP } = firebase.database.ServerValue;
@@ -42,14 +44,15 @@ export function isAdmin() {
  * Creates edit functions
  * @returns func
  */
-function editRef(ref) {
+function editRef(ref, keys) {
   return (id, values) => {
-    return firebase.database().ref(`/${ref}/`).update({
-      [`${id}`]: {
-        ...values,
-        updated_at: TIMESTAMP
-      }
-    });
+    let updateData = {};
+    for (let key of keys) {
+      updateData[`${id}/${key}`] = values[key];
+    }
+    updateData[`${id}/updated_at`] = TIMESTAMP;
+    console.log(updateData);
+    return firebase.database().ref(`/${ref}/`).update(updateData);
   };
 };
 
@@ -109,7 +112,7 @@ export function createSeason(values) {
 /**
  *
  */
-export const editSeason = editRef('seasons');
+export const editSeason = editRef('seasons', Object.keys(seasonDefaults));
 
 
 /**
@@ -136,7 +139,7 @@ export function createEpisode(values) {
 /**
  *
  */
-export const editEpisode = editRef('episodes');
+export const editEpisode = editRef('episodes', Object.keys(episodeDefaults));
 
 
 /**
@@ -174,7 +177,7 @@ export function createBet(values) {
 /**
  *
  */
-export const editBet = editRef('bets');
+export const editBet = editRef('bets', Object.keys(betDefaults));
 
 
 /**
