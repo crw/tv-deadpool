@@ -16,6 +16,13 @@ function hydrate(keys, state) {
   return output;
 }
 
+export function hydrateByKey(state, obj, key) {
+  if (isEmpty(obj)) return obj;
+  let output = Object.assign({}, obj);
+  output[key] = hydrate(obj[key], state[key]);
+  return output;
+}
+
 export function published(arr) {
   return arr.filter(item => item.published);
 }

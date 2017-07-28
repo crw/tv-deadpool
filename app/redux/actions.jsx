@@ -175,6 +175,12 @@ export const startPlaceWagerAdmin = (user, betId, wager, comment) => {
   };
 };
 
+export const startReconcileEpisode = (episode, paid, resolved, notes, confirmation) => {
+  return (dispatch, getStore) => {
+    return api.reconcileEpisode(episode, paid, resolved, notes, confirmation);
+  };
+};
+
 
 export const startUpdateDisplayName = (uid, displayName) => {
   return (dispatch, getStore) => {

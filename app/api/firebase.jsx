@@ -210,4 +210,29 @@ export function placeWager(user, bet, wager, comment) {
 }
 
 
+export function reconcileEpisode(episode, paid, resolved, notes = {}, confirmation = '') {
+
+  let updateData = {
+    [`episodes/${episode.id}/resolved`]: true,
+    [`episodes/${episode.id}/confirmation`]: confirmation,
+  };
+
+  for (let betId of paid) {
+    updateData[`bets/${betId}/paid`] = true;
+  }
+
+  for (let betId of resolved) {
+    updateData[`bets/${betId}/resolved`] = true;
+  }
+
+  for (let betId in notes) {
+    updateData[`bets/${betId}/note`] = notes[betId];
+  }
+
+  console.log('updateData', updateData);
+  return firebase.database().ref().update(updateData);
+
+}
+
+
 export default firebaseApp;
