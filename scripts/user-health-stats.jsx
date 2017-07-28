@@ -7,7 +7,7 @@
  * SAFE TO RUN - DOES NOT ALTER DATA
  */
 const CURRENT_SEASON = 'gameofthrones-07';
-const CURRENT_EPISODE = 'gameofthrones-07-02';
+const CURRENT_EPISODE = 'gameofthrones-07-03';
 
 const TIMESPAN = 86400000*28;
 
