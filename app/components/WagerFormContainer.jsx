@@ -42,7 +42,6 @@ function mapStateToProps(state, props) {
   const { season } = state.bets[id];
   const balance = getKey(state.users, `${uid}.balance.${season}`);
   const wager = getKey(state.users, `${uid}.wagers.${id}`, wagerDefaults);
-  console.log(wager, balance);
   return { wager, balance };
 }
 
