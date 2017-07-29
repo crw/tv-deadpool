@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { SubmissionError } from 'redux-form';
-import { isEmpty } from 'utils';
+import { isEmpty, toCurrencyString } from 'utils';
 import { toUnixTime } from 'redux/form/normalizers';
 
 /*
@@ -150,7 +150,26 @@ export function betValidation (values) {
 // Initial Values
 export const wagerDefaults = {
   wager: 0,
-  comment: '',
-  betId: ''
+  comment: ''
+  // betId: ''
 };
+
+export function wagerValidation(values, prevValues, balance) {
+  let errors = {};
+  let nvals = trimObject(values);
+
+  const remaining = (balance + prevValues.wager) - nvals.wager;
+  if (remaining < 0) {
+    errors._error = `Insufficient funds. Current balance: ${toCurrencyString(balance)}.`;
+  }
+
+  console.log(remaining, errors)
+
+  if (isEmpty(errors)) {
+    return nvals;
+  } else {
+    throw new SubmissionError(errors);
+  }
+
+}
 

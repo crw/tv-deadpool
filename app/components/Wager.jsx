@@ -25,36 +25,27 @@ export class Wager extends React.Component {
   render() {
     let {id, wager, payout, comment, paid, resolved} = this.props;
 
-
-    let renderClass = (defaultClasses) => {
-      let statusClass = '';
-      if (resolved) {
-        statusClass = (paid) ?
-          'wager__won' :
-          'wager__lost';
-      }
-      return defaultClasses + ' ' + statusClass;
-    };
-
-    let renderPayout = () => {
-      if (resolved) {
-        return (paid) ?
-          <span className={renderClass("wager-payout")}> Winnings: {toCurrencyString(payout)}</span> : '';
-      }
-    };
+    const cls_won_lost = resolved ? (paid ? 'wager__won' : 'wager__lost') : '';
 
     if (typeof wager === "undefined") return <span/>;
 
     return (
       <div className="wager">
-        {wager ? (
+        { wager ? (
           <div>
             Your wager:
-            <span className={renderClass("amount")}>{toCurrencyString(wager)}</span>
-            {renderPayout()}
+            <span className={ cls_won_lost + " amount" }>
+              { toCurrencyString(wager) }
+            </span>
+            { resolved && paid ? (
+                <span className={ cls_won_lost + " wager-payout" }>{' '}
+                  Winnings: { toCurrencyString(payout) }
+                </span>
+              ) : ''
+            }
           </div>
         ) : '' }
-        {(comment) ? <div className="comment"> Your comment: {comment}</div> : ''}
+        { comment ? <div className="comment"> Your comment: { comment }</div> : '' }
       </div>
     );
   }
@@ -64,7 +55,7 @@ export class Wager extends React.Component {
 export default connect((state, ownProps) => {
   let betId = ownProps.id;
   let bet = state.bets[betId];
-  let userId = ownProps.userId || getKey(state, 'login.uid', null);
+  let userId = ownProps.userId || getKey(state.login, 'uid', null);
   let user = getKey(state, `users.${userId}`, {});
   let wager = getKey(user, `wagers.${betId}`, {});
   let payout = (wager.wager) ? Math.floor((wager.wager * bet.odds_payout) / bet.odds_wager) : 0;

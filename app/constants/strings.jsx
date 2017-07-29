@@ -1,3 +1,6 @@
+import React from 'react';
+
+
 export const BETSLIST_SORTBY = {
   ARTICLE: 'avc',
   WIN_LOSS: 'winloss'
@@ -10,7 +13,7 @@ export const CURRENCY_FORMAT = { style: 'currency', currency: 'USD', maximumFrac
 export const DEFAULT_DISPLAY_NAME='A Faceless Man';
 
 
-// Words
+// Words and Phrases
 export const EDIT = 'edit';
 export const DELETE = 'delete';
 export const SELECT_SERIES = 'Select Series:';
@@ -31,6 +34,12 @@ export const NEXT_EPISODE = 'Next Episode';
 export const SEASONS_CURRENT = 'Current Seasons';
 export const SEASONS_OLD = 'Previous Seasons';
 export const NO_EPS_TO_DISPLAY = 'No episodes are ready to be reconciled.';
+export const STATS_PHRASE = (count, amount) => (
+  <span className="stats__text">
+    <span className="stats__count">{ count }</span> { count === 1 ? 'user has' : 'users have' } placed wagers totalling <span className="stats__amount">{ amount }</span> on this position.
+  </span>
+);
+export const STATS_HAS_COMMENTS = count => count > 1 ? `${count} user comments` : `${count} user comment`;
 
 // Navigation strings
 export const NAV_SEASONS = 'Seasons';
@@ -71,10 +80,12 @@ export const CLS_ICON_SUBMITTING = CLS_ICON_SUBMIT + ' fa-spin';
 export const CLS_ICON_CANCEL = 'fa fa-fw fa-ban';
 export const CLS_ICON_PREV = 'fa fa-fw fa-arrow-left';
 export const CLS_ICON_NEXT = 'fa fa-fw fa-arrow-right';
+export const CLS_ICON_SHOW = 'fa fa-plus-square-o';
+export const CLS_ICON_HIDE = 'fa fa-minus-square-o';
+
 
 // Input element placeholder text
 export const INPUT_PLACEHOLDER_DISPLAYNAME = 'Change your name.';
-
 
 // Button text
 export const BTN_LABEL_NEW = 'New';

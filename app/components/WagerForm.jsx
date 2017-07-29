@@ -1,51 +1,71 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-// App imports
-import {startPlaceWager} from 'actions';
+import { reduxForm, Field } from 'redux-form';
+import { toInt } from 'redux/form/normalizers';
+import { nonNegative } from 'redux/form/validators';
+import * as str from 'constants/strings';
+
 
 export class WagerForm extends React.Component {
-  static propTypes = {
-    name: PropTypes.string,
-  };
+
+  // static propTypes = {
+  //   name: PropTypes.string,
+  // };
 
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    let {id, dispatch} = this.props;
-    let wager = parseInt(this.refs.wager.value, 10) || 0;
-    let comment = this.refs.comment.value || '';
-
-    if (wager >= 0) {
-      dispatch(startPlaceWager(id, wager, comment));
-      this.refs.wager.value = '';
-      this.refs.comment.value = '';
-    }
+  handleSubmit(values) {
+    const { handleSubmit, reset } = this.props;
+    handleSubmit(values).then(reset);
   }
 
   render() {
+    const { pristine, submitting, invalid, error } = this.props;
+
     return (
       <div className="wager-form">
-        <form ref="form" onSubmit={this.handleSubmit}>
+        <form onSubmit={ this.handleSubmit }>
           <div className="row small-collapse">
             <div className="small-3 columns">
-              <input ref="wager" className="" placeholder="Wager" type="number"/>
+              <Field
+                component="input"
+                type="number"
+                name="wager"
+                placeholder="Wager"
+                normalize={ toInt }
+                validate={ [ nonNegative ] }
+              />
             </div>
             <div className="small-6 columns">
-                <input ref="comment" className="" placeholder="Comment" type="text"/>
+              <Field
+              component="input"
+              name="comment"
+              className=""
+              placeholder="Comment"
+              type="text"
+            />
             </div>
             <div className="small-3 columns">
-              <input type="submit" className="secondary button" value="Place Bet"/>
+              <button
+                type="submit"
+                className="secondary button"
+                disabled={ pristine || submitting || invalid }>
+                Place Bet
+              </button>
             </div>
           </div>
+          { error ?
+            <div className="error">{ error }</div>
+            : ''
+          }
         </form>
+
       </div>
     );
   }
 }
 
-export default connect()(WagerForm);
+export default reduxForm({ enableReinitialize: true })(WagerForm);
