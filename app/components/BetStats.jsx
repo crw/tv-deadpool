@@ -41,7 +41,14 @@ export class BetStats extends React.Component {
 
     return (
       <div className="stats">
-        { str.STATS_PHRASE(count, toCurrencyString(amount)) }{' '}
+        {
+          <span className="stats__text">
+            <span className="stats__count">{ count }</span>{' '}
+            { count === 1 ? 'user has' : 'users have' } placed wagers totalling{' '}
+            <span className="stats__amount">{ toCurrencyString(amount) }</span>{' '}
+            on this position.{' '}
+          </span>
+        }
         { hasComments ? (
           <a href="#" onClick={this.handleToggleComments}>
             { str.STATS_HAS_COMMENTS(hasComments) }{' '}

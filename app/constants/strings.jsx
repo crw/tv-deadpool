@@ -34,11 +34,6 @@ export const NEXT_EPISODE = 'Next Episode';
 export const SEASONS_CURRENT = 'Current Seasons';
 export const SEASONS_OLD = 'Previous Seasons';
 export const NO_EPS_TO_DISPLAY = 'No episodes are ready to be reconciled.';
-export const STATS_PHRASE = (count, amount) => (
-  <span className="stats__text">
-    <span className="stats__count">{ count }</span> { count === 1 ? 'user has' : 'users have' } placed wagers totalling <span className="stats__amount">{ amount }</span> on this position.
-  </span>
-);
 export const STATS_HAS_COMMENTS = count => count > 1 ? `${count} user comments` : `${count} user comment`;
 
 // Navigation strings
