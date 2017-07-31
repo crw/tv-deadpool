@@ -71,8 +71,10 @@ export class Episode extends React.Component {
           <div className="episode-number">Episode {episode}</div>
           { description ? <div className="episode-description">{description}</div> : ''}
           <div className="episode-links">
-            Links: { article ? <span><a href={article} target="_blank">A.V. Club <i>You Win Or You Die</i></a></span> : ''}
-            { preview ? <span> - <a href={preview} target="_blank">Preview</a></span> : ''}
+            Links:{' '}
+            { article ? <span><a href={article} target="_blank">A.V. Club <i>You Win Or You Die</i></a></span> : ''}
+            { preview ? <span> - <a href={preview} target="_blank">Preview</a></span> : '' }
+            { hbo ? <a href={hbo} target="_blank">HBO</a> : '' }
           </div>
           <div className="episode-aired">{closed? 'Aired' : 'Airs'}: {moment(air_at).format(PRETTY_DATE_FORMAT)}</div>
           <div className="episode-locked">
