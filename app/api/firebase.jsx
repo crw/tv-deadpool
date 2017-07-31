@@ -220,12 +220,12 @@ export function reconcileEpisode(episode, paid, resolved, notes = {}, confirmati
     [`episodes/${episode.id}/confirmation`]: confirmation,
   };
 
-  for (let betId of paid) {
-    updateData[`bets/${betId}/paid`] = true;
+  for (let betId in paid) {
+    updateData[`bets/${betId}/paid`] = paid[betId];
   }
 
-  for (let betId of resolved) {
-    updateData[`bets/${betId}/resolved`] = true;
+  for (let betId in resolved) {
+    updateData[`bets/${betId}/resolved`] = resolved[betId];
   }
 
   for (let betId in notes) {

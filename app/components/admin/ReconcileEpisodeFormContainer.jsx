@@ -19,19 +19,27 @@ export class ReconcileEpisodeFormContainer extends React.Component {
 
   handleSubmit(values) {
 
-    const keysToArray = (values, name) => Object.keys(values)
+    const saveFormat = (values, name, normalize=item=>item) => Object.keys(values)
       .filter(item => item.indexOf(name) !== -1)
-      .map(item => item.split('_')[1]);
+      .map(item => item.split('_')[1])
+      .reduce((obj, item) => {
+        obj[item] = normalize(values[`${name}_${item}`]);
+        return obj;
+      }, {});
 
-    const { episode, dispatch } = this.props;
+    const { episode, startReconcileEpisode } = this.props;
     const { confirmation } = values;
 
-    const paid = keysToArray(values, 'paid');
-    const resolved = keysToArray(values, 'resolved');
-    const notes = keysToArray(values, 'note')
-      .reduce((obj, item) => { obj[item] = values[`note_${item}`]; return obj; }, {});
+    const paid = saveFormat(values, 'paid', item => !!item);
+    const resolved = saveFormat(values, 'resolved', item => !!item);
+    const notes = saveFormat(values, 'note')
 
-    return dispatch(startReconcileEpisode(episode, paid, resolved, notes, confirmation));
+
+    console.log('values', values);
+    console.log('paid', paid);
+    console.log('resolved', resolved);
+
+    return startReconcileEpisode(episode, paid, resolved, notes, confirmation);
   }
 
   render() {
@@ -59,5 +67,5 @@ function mapStateToProps(state, props) {
   return { initialValues, episode: ep };
 }
 
-export default connect(mapStateToProps)(ReconcileEpisodeFormContainer);
+export default connect(mapStateToProps, { startReconcileEpisode })(ReconcileEpisodeFormContainer);
 
