@@ -4,6 +4,28 @@ import { isEmpty, sortObjectsByKey, getKey, toArray } from '../app/utils';
 
 
 /**
+ * Catch Firebase data errors and quit
+ * @param err {Error} - exception error
+ */
+export function err(err) {
+  console.log('Firebase data error:', err);
+  process.exit();
+}
+
+
+/**
+ * Fetch data promise generator
+ * @param key {String} - location to fetch from Firebase
+ * @return {Function} - generates fetch data promise
+ */
+export function fetchFirebaseDataFn(fbDb, key) {
+  return new Promise((resolve, reject) => {
+    fbDb.ref(key).once('value').then(snapshot => resolve(snapshot.val())).catch(err);
+  });
+}
+
+
+/**
  * @param {Object} wagers - all of one user's wagers.
  * @param {Object} bets - all of the bets.
  * return {Object} of Objects, wagers organized by betId

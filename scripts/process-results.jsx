@@ -8,7 +8,7 @@ const seasonId = 'gameofthrones-07';
 
 import firebaseApp from './firebase-app';
 import { isEmpty, toArray, filterObjectKeys } from '../app/utils';
-import { processAllWagers, processOneUser } from './lib';
+import { processAllWagers, processOneUser, err, fetchFirebaseDataFn } from './lib';
 
 console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
 
@@ -35,30 +35,9 @@ const db = firebaseApp.database();
 //   }
 // }
 
-/**
- * Catch Firebase data errors and quit
- * @param err {Error} - exception error
- */
-function err(err) {
-  console.log('Firebase data error:', err);
-  process.exit();
-}
-
-
-/**
- * Fetch data promise generator
- * @param key {String} - location to fetch from Firebase
- * @return {Function} - generates fetch data promise
- */
-function fetchFirebaseDataFn(key) {
-  return new Promise((resolve, reject) => {
-    db.ref(key).once('value').then(snapshot => resolve(snapshot.val())).catch(err);
-  });
-}
-
-const fetchUsers = fetchFirebaseDataFn('users');
-const fetchBets = fetchFirebaseDataFn('bets');
-const fetchEpisodes = fetchFirebaseDataFn('episodes');
+const fetchUsers = fetchFirebaseDataFn(db, 'users');
+const fetchBets = fetchFirebaseDataFn(db, 'bets');
+const fetchEpisodes = fetchFirebaseDataFn(db, 'episodes');
 
 
 fetchUsers.then(users => {
