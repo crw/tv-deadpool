@@ -34,11 +34,6 @@ export class ReconcileEpisodeFormContainer extends React.Component {
     const resolved = saveFormat(values, 'resolved', item => !!item);
     const notes = saveFormat(values, 'note')
 
-
-    console.log('values', values);
-    console.log('paid', paid);
-    console.log('resolved', resolved);
-
     return startReconcileEpisode(episode, paid, resolved, notes, confirmation);
   }
 
