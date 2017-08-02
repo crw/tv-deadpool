@@ -12,8 +12,9 @@ import * as str from 'app/constants/strings';
 
 export const SeasonForm = (props) => {
 
-  const { handleSubmit, onCancel, pristine, submitting, invalid } = props;
+  const { handleSubmit, onCancel, pristine, submitting, invalid, editing } = props;
   const cls_btn_submit = submitting ? str.CLS_ICON_SUBMITTING : str.CLS_ICON_SUBMIT;
+  const lbl_btn_submit = editing ? str.BTN_LABEL_UPDATE : str.BTN_LABEL_CREATE;
 
   return (
     <form onSubmit={handleSubmit} className="display-name-form">
@@ -24,7 +25,7 @@ export const SeasonForm = (props) => {
         validate={[required, isValidDatetime]} label={str.LABEL_SEASON_LOCK_AT}/>
       <div>
         <button type="submit" className="button success" disabled={pristine || submitting || invalid}>
-          <i className={cls_btn_submit}/> {str.BTN_LABEL_CREATE}
+          <i className={cls_btn_submit}/> {lbl_btn_submit}
         </button>
       </div>
     </form>
@@ -32,10 +33,11 @@ export const SeasonForm = (props) => {
 };
 
 
-function mapStateToProps(state, ownProps) {
-  const season = getKey(state.seasons, ownProps.seasonId);
+function mapStateToProps(state, props) {
+  const editing = !!props.seasonId;
+  const season = getKey(state.seasons, props.seasonId);
   const initialValues = seasonInitialValues(season);
-  return { initialValues };
+  return { initialValues, editing };
 };
 
 export default connect(mapStateToProps)(reduxForm({ form: seasonFormName })(SeasonForm));

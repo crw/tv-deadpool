@@ -14,8 +14,9 @@ import * as str from 'app/constants/strings';
 
 export const EpisodeForm = (props) => {
 
-  const { handleSubmit, onCancel, pristine, submitting, invalid } = props;
+  const { handleSubmit, onCancel, pristine, submitting, invalid, editing } = props;
   const cls_btn_submit = submitting ? str.CLS_ICON_SUBMITTING : str.CLS_ICON_SUBMIT;
+  const lbl_btn_submit = editing ? str.BTN_LABEL_UPDATE : str.BTN_LABEL_CREATE;
 
   return (
     <form onSubmit={handleSubmit} className="display-name-form">
@@ -36,7 +37,7 @@ export const EpisodeForm = (props) => {
       <Field component={SimpleInput} type="checkbox" name="published" label={str.LABEL_PUBLISHED}/>
       <div>
         <button type="submit" className="button success" disabled={pristine || submitting || invalid}>
-          <i className={cls_btn_submit}/> {str.BTN_LABEL_CREATE}
+          <i className={cls_btn_submit}/> {lbl_btn_submit}
         </button>
       </div>
     </form>
@@ -46,6 +47,7 @@ export const EpisodeForm = (props) => {
 
 function mapStateToProps(state, ownProps) {
   const { episodeId, nextEpisode } = ownProps;
+  const editing = !!episodeId;
   // Auto-fill the next episode number, if it has been provided.
   if (nextEpisode) {
     episodeDefaults.episode = nextEpisode;
@@ -56,7 +58,8 @@ function mapStateToProps(state, ownProps) {
       ...initialValues,
       air_at: moment(initialValues.air_at).format(),
       lock_at: moment(initialValues.lock_at).format()
-    }
+    },
+    editing
   };
 }
 

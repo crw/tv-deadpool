@@ -12,8 +12,9 @@ import * as str from 'app/constants/strings';
 
 export const BetForm = (props) => {
 
-  const { handleSubmit, onCancel, pristine, submitting, invalid, reset } = props;
+  const { handleSubmit, onCancel, pristine, submitting, invalid, reset, editing } = props;
   const cls_btn_submit = submitting ? str.CLS_ICON_SUBMITTING : str.CLS_ICON_SUBMIT;
+  const lbl_btn_submit = editing ? str.BTN_LABEL_UPDATE : str.BTN_LABEL_CREATE;
 
 
   function handleBetSubmit(values) {
@@ -33,7 +34,7 @@ export const BetForm = (props) => {
       <Field component={SimpleInput} type="text" name="desc" label={str.LABEL_BET_DESCRIPTION}/>
       <div className="buttons">
         <button type="submit" className="button success" disabled={pristine || submitting || invalid}>
-          <i className={cls_btn_submit}/> {str.BTN_LABEL_CREATE}
+          <i className={cls_btn_submit}/> {lbl_btn_submit}
         </button>
         <button
           type="button"
@@ -50,14 +51,14 @@ export const BetForm = (props) => {
 
 function mapStateToProps(state, ownProps) {
   const { betId, order } = ownProps;
-
+  const editing = !!betId;
   const defaults = {
     ...betDefaults,
     order
   };
   const initialValues = getKey(state.bets, betId) || defaults;
 
-  return { initialValues };
+  return { initialValues, editing };
 }
 
 export default connect(mapStateToProps)(reduxForm({ enableReinitialize: true, form: betFormName })(BetForm));
