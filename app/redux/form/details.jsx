@@ -126,7 +126,7 @@ export const betDefaults = {
   name: '',
   desc: '',
   odds_payout: '',
-  odds_wager: '',
+  odds_wager: 1,
   order: '',
 };
 
