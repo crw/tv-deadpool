@@ -14,11 +14,13 @@ export const BetList = props => {
   const { bets, match: { url } } = props;
 
   const html = bets.map((item) => (
-    <div className="list-item" key={ item.id }>
-      <Link to={`${url}/bet/${item.id}`}>
-        [{ item.order }] { item.odds_payout }:{ item.odds_wager } { item.name }
+    <div className="list-bets" key={ item.id }>
+      <Link className="list-item" to={`${url}/bet/${item.id}`}>
+        <div>
+          [{ item.order }] { item.odds_payout }:{ item.odds_wager } { item.name }
+        </div>{' '}
+        <div className="description">{ item.desc }</div>
       </Link>
-      {' '}<i>{ item.desc }</i>
     </div>
   ));
 
@@ -33,7 +35,7 @@ export const BetList = props => {
 
 function mapStateToProps(state, ownProps) {
   const { episodeId } = ownProps;
-  const bets = api.getBetsForEpisode(state, episodeId);
+  const bets = api.getBetsForEpisode(state, episodeId).reverse();
   return { bets };
 };
 

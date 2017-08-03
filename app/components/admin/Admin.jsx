@@ -33,7 +33,7 @@ export class Admin extends React.Component {
           </div>
         </div>
 
-        <div className="row">
+        <div className="admin-content row">
           <div className="small-12 columns">
             <Switch>
               <Route exact

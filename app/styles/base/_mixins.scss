@@ -1,0 +1,36 @@
+// _mixins.scss
+// @see https://gist.github.com/garyharan/957284
+@CHARSET "UTF-8";
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+@mixin linear-gradient($from, $to, $start: top, $end: 100%) {
+  /* fallback/image non-cover color */
+  background-color: $from;
+  /* W3C Default (someday) */
+  background-image: linear-gradient($start, $from, $to $end);
+  /* Firefox 3.6+ */
+  background-image: -moz-linear-gradient($start, $from, $to $end);
+  /* Safari 4+, Chrome 1+ */
+  background-image: -webkit-gradient(linear, 0% 0%, 0% $end, from($from), to($to));
+  /* Safari 5.1+, Chrome 10+ */
+  background-image: -webkit-linear-gradient($start, $from, $to $end);
+  /* Opera 11.10+ */
+  background-image: -o-linear-gradient($start, $from, $to $end);
+}
+
+@mixin rounded($radius: 0.5em) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}

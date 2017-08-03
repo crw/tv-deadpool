@@ -1,61 +1,96 @@
 
-.admin.users {
+.admin {
 
-  .display-name, .user-id, .created_at, .count {
-    display: inline-block;
-    margin-right: 1rem;
+  &.users {
+    .display-name, .user-id, .created_at, .count {
+      display: inline-block;
+      margin-right: 1rem;
+    }
+
+    .count {
+      text-align: right;
+      width: 4rem;
+    }
   }
 
-  .count {
-    text-align: right;
-    width: 4rem;
-  }
+  &.user {
+    select {
+      margin-bottom: 0.75rem;
+    }
 
+    .user-item {
+      margin-bottom: 2rem;
+
+      .user-id, .display-name {
+        // display: inline-block;
+        font-size: 2rem;
+        margin-right: 1rem;
+      }
+    }
+
+    .user-balance {
+      font-weight: bold;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .wagers-list {
+      // padding: 1rem;
+    }
+
+    .new-wager {
+      background-color: lightgray;
+    }
+
+    .wager-form {
+
+      border: 1px solid lightgray;
+      padding: 0.5rem;
+      // margin-bottom: 1rem;
+
+      .title {
+        font-weight: bold;
+      }
+    }
+  }
 }
 
 .admin-navbar {
   margin-bottom: 1rem;
 }
 
-.admin.user {
+.admin-content {
 
-  select {
-    margin-bottom: 0.75rem;
-  }
+  .list-item {
+    @include rounded(0.25em);
+    border: solid 1px #C6C6C6;
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+    padding: 0.25rem;
+    width: 100%;
 
-  .user-item {
-    margin-bottom: 2rem;
+    &:hover, &:focus {
+      border-color: gray;
+      background: #EDEDED;
 
-    .user-id, .display-name {
-      // display: inline-block;
-      font-size: 2rem;
-      margin-right: 1rem;
     }
   }
 
-  .user-balance {
-    font-weight: bold;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
+  .list-bets {
+    .list-item {
+      font-size: 1.15rem;
+    }
 
-  .wagers-list {
-    // padding: 1rem;
-  }
-
-  .new-wager {
-    background-color: lightgray;
-  }
-
-  .wager-form {
-
-    border: 1px solid lightgray;
-    padding: 0.5rem;
-    // margin-bottom: 1rem;
-
-    .title {
-      font-weight: bold;
+    .description {
+      background: #EDEDED;
+      color: #555;
+      font-size: 85%;
+      font-style: italic;
+      padding-left: 1rem;
     }
   }
 }
+
+
 

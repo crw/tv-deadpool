@@ -11,7 +11,7 @@ export const SeriesList = props => {
 
   const seriesHtml = toArray(series).map((item) => (
     <div key={item.id} className="series">
-      <Link to={ `${url}/${item.id}` } className="title">{ item.title }</Link>
+      <Link to={ `${url}/${item.id}` } className="list-item">{ item.title }</Link>
     </div>
   ));
 

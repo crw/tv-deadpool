@@ -14,7 +14,7 @@ export const SeasonList = props => {
 
   const seasonsHtml = seasons.map((item) => (
     <div key={item.id} className="season">
-      <Link to={ `${url}/season/${item.id}` } className="title">
+      <Link to={ `${url}/season/${item.id}` } className="list-item">
         Season { item.season.padStart(2, "0") }
       </Link>
     </div>

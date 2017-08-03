@@ -14,8 +14,8 @@ export const EpisodeList = props => {
   const { episodes, match: { url } } = props;
 
   const html = episodes.map((item) => (
-    <div className="list-item" key={ item.id }>
-      <Link to={`${url}/episode/${item.id}`}>
+    <div className="list-episodes" key={ item.id }>
+      <Link className="list-item" to={`${url}/episode/${item.id}`}>
         Episode { item.episode }: { item.name } ({ item.id })
       </Link>
     </div>
