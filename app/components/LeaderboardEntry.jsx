@@ -9,7 +9,7 @@ export default class LeaderboardEntry extends React.Component {
 
   static propTypes = {
     index: PropTypes.number.isRequired,
-    userId: PropTypes.string.isRequired,
+    userId: PropTypes.string,
     displayName: PropTypes.string.isRequired,
     anon: PropTypes.bool.isRequired,
     profileUser: PropTypes.bool.isRequired,

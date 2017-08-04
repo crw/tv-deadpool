@@ -29,14 +29,6 @@ export class Event extends React.Component {
     var renderResults = () => {
       return (
         <div className="results row ">
-          <div className="result balance small-4 columns">
-            <div className="title">
-              Balance
-            </div>
-            <div className="body">
-              {toCurrencyString(results.balance)}
-            </div>
-          </div>
           <div className="result winnings small-4 columns">
             <div className="title">
               Winnings
@@ -53,28 +45,16 @@ export class Event extends React.Component {
               {toCurrencyString(results.losses)}
             </div>
           </div>
+          <div className="result balance small-4 columns">
+            <div className="title">
+              Result
+            </div>
+            <div className="body">
+              {toCurrencyString(results.balance)}
+            </div>
+          </div>
         </div>
       );
-    };
-
-    var renderConfirmation = () => {
-      return episode.closed && !resolved ?
-        (
-          <div>
-            Results will be posted after being confirmed in <i><a href={url.AVCLUB_ALL_MEN_MUST_DIE_URL} target="_blank">All Men Must Die</a></i>.
-          </div>
-        ) :
-        (episode.resolved ?
-          (episode.confirmation ? (
-              <div>
-                Results: <i><a href={episode.confirmation} target="_blank">All Men Must Die</a></i>.
-              </div>
-            ) : (
-              <div>
-                Results: <i><a href={url.AVCLUB_ALL_MEN_MUST_DIE_URL} target="_blank">No article this week.</a></i>
-              </div>
-            )) :
-          '');
     };
 
     return (
@@ -87,15 +67,14 @@ export class Event extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  const { id } = ownProps;
-  const userId = ownProps.userId || getKey(state, 'login.uid', null);
+function mapStateToProps(state, props) {
+  const { id } = props;
+  const userId = props.userId || getKey(state.login, 'uid', null);
   const episode = getKey(state.episodes, id, {});
-
-  let results = getKey(state, `leaderboard.${episode.season}.${userId}.episodes.${episode.id}`, null);
+  let results = getKey(state.leaderboard, `${episode.season}.${userId}.episodes.${episode.id}`, null);
 
   return {
-    context: ownProps.context + '/Event',
+    context: props.context + '/Event',
     userId,
     results,
     episode

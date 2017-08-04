@@ -54,12 +54,12 @@ export class Bet extends React.Component {
           </div>
           <div className="body">
             { desc ? <div className="desc">{desc}</div> : '' }
-            { showStats ? <BetStats betId={ id }/> : '' }
             { note ? <div className="note">Editor's Note: {note}</div> : '' }
           </div>
         </div>
         { validUser || userId ? <Wager id={id} userId={userId}/> : ''}
         { validUser && !closed && userId === loginUserId ? <WagerForm id={id}/> : ''}
+        { showStats ? <BetStats betId={ id }/> : '' }
       </div>
     );
   }
