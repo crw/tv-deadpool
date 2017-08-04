@@ -1,23 +1,23 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {Link} from 'react-router';
-// App imports
-import LeaderboardEntry from 'LeaderboardEntry';
-import {LOCALE, CURRENCY_FORMAT} from 'app/constants/formats';
-import {DEFAULT_DISPLAY_NAME} from 'app/constants/strings';
-import {getKey, sortObjectsByKey, toArray, isElementInViewport, toCurrencyString} from 'app/utils';
-import {startFetchLabel} from 'actions';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router';
+import { sortObjectsByKey, isElementInViewport, toCurrencyString } from 'utils';
+import { startFetchLabel } from 'actions';
 import * as str from 'constants/strings';
-
-const KEY = {
-  BALANCE: 'balance',
-  WINNINGS: 'winnings',
-  LOSSES: 'losses'
-}
+import LeaderboardEntry from 'LeaderboardEntry';
+const KEY = str.LEADERBOARD_DISPLAY_KEY;
 
 
 export class Leaderboard extends React.Component {
+
+  static propTypes = {
+    leaders: PropTypes.array.isRequired,
+    label: PropTypes.string.isRequired,
+    userId: PropTypes.string,
+    authUserId: PropTypes.string.isRequired,
+    season: PropTypes.string.isRequired,
+    dispatch: PropTypes.func.isRequired
+  }
 
   constructor(props) {
     super(props);
@@ -97,46 +97,4 @@ export class Leaderboard extends React.Component {
   }
 }
 
-
-
-function mapStateToProps(state, ownProps) {
-  const { label, seasonId } = ownProps;
-  const { labels, leaderboard, login: { uid } } = state;
-  const seasonLeaders = getKey(leaderboard, seasonId, {});
-
-  let members = Object.keys(getKey(labels, label, {}));
-
-
-  // Special cases
-  switch (label) {
-    // Special case: show the logged-in user with the AVClub staffers
-    case str.AVC_STAFFERS: {
-      if (members.length !== 0 &&
-        getKey(seasonLeaders, uid, false) &&
-        members.indexOf(uid) === -1) {
-
-          members.push(uid);
-      }
-      break;
-    }
-    // Special case: The Field (all players excluding staff)
-    case str.THE_FIELD: {
-      const exclude_list = Object.keys(Object.assign({},
-        getKey(labels, str.EXCLUDE_LIST, {}),
-        getKey(labels, str.AVC_STAFFERS, {})
-      ));
-      members = Object.keys(seasonLeaders).filter(member => exclude_list.indexOf(member) < 0);
-      break;
-    }
-  }
-  const leaders = toArray(seasonLeaders).filter(leader => members.indexOf(leader.key) > -1);
-
-  return {
-    authUserId: uid,
-    leaders,
-    season: seasonId
-  };
-};
-
-
-export default connect(mapStateToProps)(Leaderboard);
+export default Leaderboard;

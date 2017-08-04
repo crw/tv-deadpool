@@ -8,8 +8,9 @@ import Login from 'Login';
 import DisplayName from 'DisplayName';
 import EpisodeList from 'EpisodeList';
 import Balance from 'Balance';
-import Leaderboard from 'Leaderboard';
 import SeasonHero from 'SeasonHero';
+import Score from 'Score';
+import { default as Leaderboard } from 'LeaderboardContainer';
 
 
 export class GameBoard extends React.Component {
@@ -24,7 +25,14 @@ export class GameBoard extends React.Component {
     return (
       <div className="row">
         <div className="small-12 medium-4 medium-push-8 columns">
-          { isLoggedIn() && user ? <div><DisplayName/><Balance seasonId={ seasonId }/></div> : <Login/> }
+          { isLoggedIn() && user ? (
+              <div>
+                <DisplayName/>
+                <Balance seasonId={ seasonId }/>
+                <Score seasonId={ seasonId }/>
+              </div>
+            ) : <Login/>
+          }
           <Leaderboard label="AVClub Staffers" seasonId={ seasonId } userId="0"/>
           <Leaderboard label="The Field" seasonId={ seasonId } userId="0"/>
         </div>
@@ -38,9 +46,9 @@ export class GameBoard extends React.Component {
 }
 
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state, props) {
   const user = getKey(state.login, 'user', null);
-  const { seasonId } = ownProps.match.params;
+  const { seasonId } = props.match.params;
   const season = getKey(state.seasons, seasonId, {});
   return { user, season, seasonId, context: 'GameBoard' };
 };

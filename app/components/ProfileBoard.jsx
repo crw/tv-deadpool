@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-// App components
 import { getKey } from 'app/utils';
-import Profile from 'Profile';
-import Leaderboard from 'Leaderboard';
 import SeasonHero from 'SeasonHero';
+import Profile from 'Profile';
+import { default as Leaderboard } from 'LeaderboardContainer';
 
 
 export class ProfileBoard extends React.Component {

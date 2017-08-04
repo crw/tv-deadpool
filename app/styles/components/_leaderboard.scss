@@ -4,7 +4,6 @@
 
   .title {
     @extend .component__title;
-    font-size: 2rem;
   }
 
   .row {
@@ -77,5 +76,10 @@
       font-weight: bold;
     }
   }
+}
 
+.user-score {
+  .login-user {
+    background-color: white;
+  }
 }

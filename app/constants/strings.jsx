@@ -6,6 +6,12 @@ export const BETSLIST_SORTBY = {
   WIN_LOSS: 'winloss'
 }
 
+export const LEADERBOARD_DISPLAY_KEY = {
+  BALANCE: 'balance',
+  WINNINGS: 'winnings',
+  LOSSES: 'losses'
+}
+
 // Defaults
 export const PRETTY_DATE_FORMAT = 'ddd, MMM Do YYYY, h:mm:ss a Z';
 export const LOCALE = 'en-US';
@@ -35,6 +41,8 @@ export const SEASONS_CURRENT = 'Current Seasons';
 export const SEASONS_OLD = 'Previous Seasons';
 export const NO_EPS_TO_DISPLAY = 'No episodes are ready to be reconciled.';
 export const STATS_HAS_COMMENTS = count => count > 1 ? `${count} user comments` : `${count} user comment`;
+export const SCORE_TITLE = 'Your Score';
+
 
 // Navigation strings
 export const NAV_SEASONS = 'Seasons';
@@ -77,6 +85,13 @@ export const CLS_ICON_PREV = 'fa fa-fw fa-arrow-left';
 export const CLS_ICON_NEXT = 'fa fa-fw fa-arrow-right';
 export const CLS_ICON_SHOW = 'fa fa-plus-square-o';
 export const CLS_ICON_HIDE = 'fa fa-minus-square-o';
+
+export const TXT_USER_ICON_DESC_YOU = 'You!';
+export const TXT_USER_ICON_DESC_ANON = 'Anonymous user with randomly-generated name.';
+export const TXT_USER_ICON_DESC_DEFAULT = '';
+export const ICON_USER_YOU = 'fa fa-user';
+export const ICON_USER_ANON = 'fa fa-question';
+export const ICON_USER_DEFAULT = '';
 
 
 // Input element placeholder text
