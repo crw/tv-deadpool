@@ -7,4 +7,5 @@ public/bundle.js
 public/bundle.css
 *.sublime-workspace
 playground/*
+*.log
 
