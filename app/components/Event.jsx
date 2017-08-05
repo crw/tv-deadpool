@@ -9,6 +9,7 @@ import * as url from 'constants/urls';
 import * as str from 'constants/strings';
 import BetsList from 'BetsList';
 import Episode from 'Episode';
+import EpisodeUserStats from 'EpisodeUserStats';
 
 
 export class Event extends React.Component {
@@ -24,43 +25,16 @@ export class Event extends React.Component {
   }
 
   render() {
-    const { episode, userId, results, context } = this.props;
-
-    var renderResults = () => {
-      return (
-        <div className="results row ">
-          <div className="result winnings small-4 columns">
-            <div className="title">
-              Winnings
-            </div>
-            <div className="body">
-              {toCurrencyString(results.winnings)}
-            </div>
-          </div>
-          <div className="result losses small-4 columns">
-            <div className="title">
-              Losses
-            </div>
-            <div className="body">
-              {toCurrencyString(results.losses)}
-            </div>
-          </div>
-          <div className="result balance small-4 columns">
-            <div className="title">
-              Result
-            </div>
-            <div className="body">
-              {toCurrencyString(results.balance)}
-            </div>
-          </div>
-        </div>
-      );
-    };
+    const { episode, userId, context } = this.props;
 
     return (
       <div className="event">
         <Episode { ...episode }/>
-        { episode.resolved && userId && results ? renderResults() : <div className="noresults"/> }
+        {
+          episode.resolved && userId ?
+          <EpisodeUserStats episodeId={ episode.id }/> :
+          <div className="noresults"/>
+        }
         <BetsList episodeId={ episode.id } userId={ userId } context={ context }/>
       </div>
     );
@@ -71,12 +45,10 @@ function mapStateToProps(state, props) {
   const { id } = props;
   const userId = props.userId || getKey(state.login, 'uid', null);
   const episode = getKey(state.episodes, id, {});
-  let results = getKey(state.leaderboard, `${episode.season}.${userId}.episodes.${episode.id}`, null);
 
   return {
     context: props.context + '/Event',
     userId,
-    results,
     episode
   };
 };
