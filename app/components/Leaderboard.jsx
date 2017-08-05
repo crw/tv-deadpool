@@ -66,14 +66,14 @@ export class Leaderboard extends React.Component {
 
       return leaders.sort(sortObjectsByKey(key, reverse)).map(
         leader => (
-          <LeaderboardEntry {...leader}
-            userId={leader.key}
-            value={leader[key]}
-            index={i++}
-            profileUser={leader.key === userId}
-            authUser={leader.key === authUserId}
-            renderKey={key}
-            season={season}
+          <LeaderboardEntry { ...leader }
+            userId={ leader.key }
+            value={ leader[key] }
+            index={ i++ }
+            profileUser={ leader.key === userId }
+            authUser={ leader.key === authUserId }
+            renderKey={ key }
+            season={ season }
           />
         )
       );

@@ -18,7 +18,8 @@ export function Score(props) {
 function mapStateToProps(state, props) {
   const { seasonId } = props;
   const { login: { uid } } = state;
-  const userScore = getKey(state.leaderboard, `${seasonId}.${uid}`, {});
+  let userScore = getKey(state.leaderboard, `${seasonId}.${uid}`, {});
+  userScore.key = uid;
 
   return {
     authUserId: uid,
