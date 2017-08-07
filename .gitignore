@@ -8,4 +8,5 @@ public/bundle.css
 *.sublime-workspace
 playground/*
 *.log
+this_season.txt
 
