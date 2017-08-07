@@ -99,11 +99,13 @@ function processUserWagers(user, episodes, bets) {
           }
         }
         let cheated = (balance - costOfPlay < 0);
+        let previousBalance = balance;
         let balanceBeforeWinnings = balance - costOfPlay;
         balance = balance - costOfPlay + totalWinnings;
         episodesSummary[episode.id] = {
           cheated,
           balance,
+          previousBalance,
           balanceBeforeWinnings,
           winnings: episodeWinnings,
           losses: episodeLosses

@@ -32,7 +32,7 @@ export class Event extends React.Component {
         <Episode { ...episode }/>
         {
           episode.resolved && userId ?
-          <EpisodeUserStats episodeId={ episode.id }/> :
+          <EpisodeUserStats userId={ userId } episodeId={ episode.id }/> :
           <div className="noresults"/>
         }
         <BetsList episodeId={ episode.id } userId={ userId } context={ context }/>

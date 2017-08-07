@@ -20,7 +20,7 @@ export class EpisodeUserStats extends React.Component {
       <div className="results row ">
         <div className="result balance small-3 columns">
           <div className="title">
-            Result
+            Previous Balance
           </div>
           <div className="body">
             { toCurrencyString(previousBalance) }
@@ -62,6 +62,7 @@ export class EpisodeUserStats extends React.Component {
 function mapStateToProps(state, props) {
   const { episodeId } = props;
   const userId = props.userId || getKey(state.login, 'uid', null);
+  const episode = getKey(state.episodes, episodeId, {});
   const results = getKey(state.leaderboard, `${episode.season}.${userId}.episodes.${episodeId}`, {});
 
   return {
