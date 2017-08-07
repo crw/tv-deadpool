@@ -116,7 +116,7 @@ export class EpisodeList extends React.Component {
         </div>
         {renderEpisode()}
 
-        { renderDisqus }
+        { process.env.NODE_ENV !== 'development' ? renderDisqus : '' }
 
 
       </div>

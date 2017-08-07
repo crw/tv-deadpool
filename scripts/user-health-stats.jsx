@@ -71,10 +71,10 @@ function generateStats(users, secure) {
 
 console.log('Watching season', CURRENT_SEASON);
 
-secureRef.on('value', (snapshot) => {
-  secure = snapshot.val();
-  userRef.once('value').then((snapshot) => {
-    users = snapshot.val();
+userRef.on('value', (snapshot) => {
+  users = snapshot.val();
+  secureRef.once('value').then((snapshot) => {
+    secure = snapshot.val();
     try {
       generateStats(users, secure);
     } catch (err) {

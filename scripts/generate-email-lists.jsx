@@ -6,8 +6,8 @@
  */
 const PAST_SEASON = 'gameofthrones-06';
 const CURRENT_SEASON = 'gameofthrones-07';
-const SEASON_EPISODES = ['gameofthrones-07-01', 'gameofthrones-07-02'];
-const CURRENT_EPISODE = 'gameofthrones-07-03';
+const SEASON_EPISODES = ['gameofthrones-07-01', 'gameofthrones-07-02', 'gameofthrones-07-03'];
+const CURRENT_EPISODE = 'gameofthrones-07-04';
 
 import fs from 'fs';
 import firebaseApp from './firebase-app';
@@ -53,23 +53,26 @@ function generateEmailLists(users, secure, bets) {
 
       const seasonsArr = Object.keys(seasons);
 
-      wageredLastSeason = seasonsArr.includes(PAST_SEASON) && !seasonsArr.includes(CURRENT_SEASON);
+      // wageredLastSeason = seasonsArr.includes(PAST_SEASON) && !seasonsArr.includes(CURRENT_SEASON);
+      // Don't recalculate last season emails.
+      wageredLastSeason = false;
       wageredThisSeason = !episodes[CURRENT_EPISODE] && SEASON_EPISODES.reduce((result, item) => episodes[item] || result, false);
 
-      console.log(seasons)
-      console.log('last season:', wageredLastSeason)
+      // console.log(seasons)
+      // console.log('last season:', wageredLastSeason)
       console.log(episodes)
       console.log('this season:', wageredThisSeason)
 
       if (wageredThisSeason) {
         emails_this_season.push(email);
-      } else if (wageredLastSeason) {
-        emails_last_season.push(email);
       }
+      // } else if (wageredLastSeason) {
+      //   emails_last_season.push(email);
+      // }
     }
   }
 
-  const emails_last_season_str = emails_last_season.sort().reduce((str, item) => { return str + item + '\n'}, '');
+  // const emails_last_season_str = emails_last_season.sort().reduce((str, item) => { return str + item + '\n'}, '');
   const emails_this_season_str = emails_this_season.sort().reduce((str, item) => { return str + item + '\n'}, '');
 
 
@@ -78,8 +81,9 @@ function generateEmailLists(users, secure, bets) {
     fs.writeFile('this_season.txt', emails_this_season_str, err);
   }
 
-  fs.writeFile('last_season.txt', emails_last_season_str, writeThisSeason);
-  console.log('EMAILS FROM LAST YEAR', emails_last_season.length)
+  writeThisSeason(false);
+  // fs.writeFile('last_season.txt', emails_last_season_str, writeThisSeason);
+  // console.log('EMAILS FROM LAST YEAR', emails_last_season.length)
   console.log('EMAILS FROM THIS YEAR', emails_this_season.length);
 }
 
