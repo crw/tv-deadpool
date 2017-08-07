@@ -10,16 +10,19 @@ Balance.propTypes = {
 };
 
 export function Balance (props) {
-    return (
-      <div className="player-balance container">
-        <div className="balance-label">
-          Balance
-        </div>
-        <div className="balance-value">
-          {toCurrencyString(props.balance)}
-        </div>
+  const { balance } = props;
+  const cls_balance = balance < 0 ? 'loss' : 'win';
+
+  return (
+    <div className="player-balance container">
+      <div className="balance-label">
+        Balance
       </div>
-    );
+      <div className={ "balance-value " + cls_balance }>
+        {toCurrencyString(props.balance)}
+      </div>
+    </div>
+  );
 };
 
 
