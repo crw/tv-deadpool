@@ -3,16 +3,17 @@
  *
  * SAFE TO RUN
  */
-const seasonId = 'gameofthrones-07';
+const SEASON_ID = 'gameofthrones-07';
 
-import firebaseApp from './firebase-app';
+import firebaseApp from './lib/firebase-app';
 import moment from 'moment';
 import { toCurrencyString } from '../app/utils';
+import { fetchFirebaseDataFn, err } from './lib/lib';
 
-// The app only has access as defined in the Security Rules
+
 const db = firebaseApp.database();
 
-
+const getLeaderboard = fetchFirebaseDataFn(db, `leaderboard/${SEASON_ID}`);
 
 function processHouseStats(leaderboard) {
 
@@ -32,18 +33,15 @@ function processHouseStats(leaderboard) {
   return stats;
 }
 
-
-db.ref(`leaderboard/${seasonId}`).once('value').then((snapshot) => {
-  let leaderboard = snapshot.val();
-
+getLeaderboard.then(leaderboard => {
   try {
-
     const stats = processHouseStats(leaderboard);
-
     console.log(`The house: balance: ${toCurrencyString(stats.balance)}, winnings: ${toCurrencyString(stats.winnings)}, losses: ${toCurrencyString(stats.losses)}`);
-
-  } catch (err) {
-    console.log('Main program exception', err);
+    process.exit();
+  } catch (e) {
+    console.log(e);
+    process.exit();
   }
-});
+}, err);
+
 

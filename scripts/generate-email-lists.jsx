@@ -10,10 +10,10 @@ const SEASON_EPISODES = ['gameofthrones-07-01', 'gameofthrones-07-02', 'gameofth
 const CURRENT_EPISODE = 'gameofthrones-07-04';
 
 import fs from 'fs';
-import firebaseApp from './firebase-app';
+import firebaseApp from './lib/firebase-app';
 import moment from 'moment';
 import { toArray } from '../app/utils';
-import { fetchFirebaseDataFn, err } from './lib';
+import { fetchFirebaseDataFn, err } from './lib/lib';
 
 
 // The app only has access as defined in the Security Rules
@@ -58,10 +58,6 @@ function generateEmailLists(users, secure, bets) {
       wageredLastSeason = false;
       wageredThisSeason = !episodes[CURRENT_EPISODE] && SEASON_EPISODES.reduce((result, item) => episodes[item] || result, false);
 
-      // console.log(seasons)
-      // console.log('last season:', wageredLastSeason)
-      console.log(episodes)
-      console.log('this season:', wageredThisSeason)
 
       if (wageredThisSeason) {
         emails_this_season.push(email);
@@ -84,7 +80,7 @@ function generateEmailLists(users, secure, bets) {
   writeThisSeason(false);
   // fs.writeFile('last_season.txt', emails_last_season_str, writeThisSeason);
   // console.log('EMAILS FROM LAST YEAR', emails_last_season.length)
-  console.log('EMAILS FROM THIS YEAR', emails_this_season.length);
+  console.log('Emails from this season without wagers in', CURRENT_EPISODE, emails_this_season.length);
 }
 
 

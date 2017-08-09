@@ -1,6 +1,6 @@
-import { DEFAULT_DISPLAY_NAME } from '../app/constants/strings';
-import { INITIAL_BALANCE } from '../app/constants/numbers';
-import { isEmpty, sortObjectsByKey, getKey, toArray } from '../app/utils';
+import { DEFAULT_DISPLAY_NAME } from '../../app/constants/strings';
+import { INITIAL_BALANCE } from '../../app/constants/numbers';
+import { isEmpty, sortObjectsByKey, getKey, toArray } from '../../app/utils';
 
 
 /**

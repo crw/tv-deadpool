@@ -11,32 +11,38 @@ const CURRENT_EPISODE = 'gameofthrones-07-04';
 
 const TIMESPAN = 86400000*28;
 
-import firebaseApp from './firebase-app';
+import firebaseApp from './lib/firebase-app';
 import moment from 'moment';
 import { toArray } from '../app/utils';
+import { err } from './lib/lib';
 
-
-// The app only has access as defined in the Security Rules
-const db = firebaseApp.database();
-const ref = db.ref();
-
+const ref = firebaseApp.database().ref();
 const secureRef = ref.child('secure');
 const userRef = ref.child('users');
 
-let users = {};
-let secure = {};
 
-
-function countUsersWithWagers(users, id_str) {
+/**
+ * Returns the number of users that have wagers with ids matching _match_
+ * This works because of the iterative nature of ids (gameofthrones_04_02)
+ * @param { Object } users
+ * @param { String } match
+ * @return Number
+ */
+function countUsersWithWagers(users, match) {
   return users.filter(item =>
     Object.keys(item.wagers || {})
       .filter(wagerId =>
-        wagerId.indexOf(id_str) >= 0
+        wagerId.indexOf(match) >= 0
       ).length > 0
     ).length;
 }
 
-
+/**
+ * Logs stats whenever a user is updated
+ * @param { Object } users
+ * @param { Object } secure
+ * @return undefined
+ */
 function generateStats(users, secure) {
   const userIds = Object.keys(secure);
   const secureArr = toArray(secure);
@@ -72,13 +78,13 @@ function generateStats(users, secure) {
 console.log('Watching season', CURRENT_SEASON);
 
 userRef.on('value', (snapshot) => {
-  users = snapshot.val();
+  const users = snapshot.val();
   secureRef.once('value').then((snapshot) => {
-    secure = snapshot.val();
+    const secure = snapshot.val();
     try {
       generateStats(users, secure);
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      err(e);
     }
   });
 });

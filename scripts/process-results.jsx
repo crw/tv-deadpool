@@ -4,15 +4,6 @@
  *
  * DANGEROUS TO RUN - ALTERS DATA
  */
-const seasonId = 'gameofthrones-07';
-
-import firebaseApp from './firebase-app';
-import { isEmpty, toArray, filterObjectKeys } from '../app/utils';
-import { processAllWagers, processOneUser, err, fetchFirebaseDataFn } from './lib';
-
-console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
-
-const db = firebaseApp.database();
 
 // leaderboard {
 //   seasons {
@@ -28,12 +19,23 @@ const db = firebaseApp.database();
 //             winnings
 //             losses
 //             balanceBeforeWinnings
+//             previousBalance
 //           }
 //         }
 //       }
 //     }
 //   }
 // }
+const seasonId = 'gameofthrones-07';
+
+import firebaseApp from './lib/firebase-app';
+import { isEmpty, toArray, filterObjectKeys } from '../app/utils';
+import { processAllWagers, processOneUser, err, fetchFirebaseDataFn } from './lib/lib';
+
+console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
+
+const db = firebaseApp.database();
+
 
 const fetchUsers = fetchFirebaseDataFn(db, 'users');
 const fetchBets = fetchFirebaseDataFn(db, 'bets');

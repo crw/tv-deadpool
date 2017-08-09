@@ -9,7 +9,7 @@
 const seasonId = 'gameofthrones-07';
 
 
-import firebaseApp from './firebase-app';
+import firebaseApp from './lib/firebase-app';
 import moment from 'moment';
 import { toArray } from '../app/utils';
 

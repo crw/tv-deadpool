@@ -1,56 +1,37 @@
-import firebase from 'firebase';
+import firebaseApp from './lib/firebase-app';
 import moment from 'moment';
-// App imports
-import {toArray} from '../app/utils';
+import { toArray } from '../app/utils';
+import { fetchFirebaseDataFn, err } from './lib/lib';
 
 
-// Initialize the app with a custom auth variable, limiting the server's access
-var config = {
-  serviceAccount: process.env.FIREBASE_SERVICE_ACCOUNT_FILE || undefined,
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
-  storageBucket: process.env.STORAGE_BUCKET,
-  databaseAuthVariableOverride: {
-    uid: "secret-service-worker"
-  }
-};
-firebase.initializeApp(config);
-
-console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
-
-// The app only has access as defined in the Security Rules
-const db = firebase.database();
+const db = firebaseApp.database();
 const ref = db.ref();
 
-const secureRef = ref.child('secure');
-const userRef = ref.child('users');
+const getSecure = fetchFirebaseDataFn(db, 'secure');
+const getUsers = fetchFirebaseDataFn(db, 'users');
 
-let users = {};
-let secure = {};
+let search = process.argv[2];
 
-let search = 'Anderson';
+if (!search) {
+  console.log('Requires one argument: search term');
+  process.exit();
+}
 
-secureRef.on('value', (snapshot) => {
-  secure = snapshot.val();
-  userRef.once('value').then((snapshot) => {
-    users = snapshot.val();
+getSecure.then(secure => {
+  getUsers.then(users => {
     try {
-
-      let secureArr = toArray(secure);
-
-      for (let secureUser of secureArr) {
-
-        let displayName = secureUser.displayName || '';
-        let email = secureUser.email || '';
+      for (const secureUser of toArray(secure)) {
+        const displayName = secureUser.displayName || '';
+        const email = secureUser.email || '';
         if (displayName.indexOf(search) !== -1 || email.indexOf(search) !== -1) {
           console.log(`${secureUser.id}: '${displayName}', '${email}', '${users[secureUser.id].displayName}'`);
         }
       }
-
-    } catch (err) {
-      console.log(err);
+      process.exit();
+    } catch (e) {
+      err(e);
+      process.exit();
     }
-  });
-});
+  }, err);
+}, err);
 
