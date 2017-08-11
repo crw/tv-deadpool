@@ -52,14 +52,14 @@ export class Bet extends React.Component {
             {renderWinLose()}{' '}
             {odds_payout}:{odds_wager} {name}
           </div>
-          <div className="body">
+          <div className={ desc || note ? "body" : '' }>
             { desc ? <div className="desc">{desc}</div> : '' }
             { note ? <div className="note">Editor's Note: {note}</div> : '' }
           </div>
+          { validUser || userId ? <Wager id={id} userId={userId}/> : ''}
+          { validUser && !closed && userId === loginUserId ? <WagerForm id={id}/> : ''}
+          { showStats ? <BetStats betId={ id }/> : '' }
         </div>
-        { validUser || userId ? <Wager id={id} userId={userId}/> : ''}
-        { validUser && !closed && userId === loginUserId ? <WagerForm id={id}/> : ''}
-        { showStats ? <BetStats betId={ id }/> : '' }
       </div>
     );
   }
