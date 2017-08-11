@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { getKey } from 'utils';
 import { SimpleInput } from 'redux/form/components';
-import { required, greaterThanZero, isValidDatetime } from 'redux/form/validators';
+import { required, greaterThanZero, nonNegative, isValidDatetime } from 'redux/form/validators';
 import { toInt } from 'redux/form/normalizers';
 import { betDefaults, betFormName } from 'redux/form/details.jsx';
 import * as str from 'app/constants/strings';
@@ -26,7 +26,7 @@ export const BetForm = (props) => {
       <Field component={SimpleInput} type="number" name="order"
         validate={[required]} normalize={toInt} label={str.LABEL_BET_ORDER}/>
       <Field component={SimpleInput} type="number" name="odds_payout"
-        validate={[required, greaterThanZero]} normalize={toInt} label={str.LABEL_BET_ODDS_PAYOUT}/>
+        validate={[required, nonNegative]} normalize={toInt} label={str.LABEL_BET_ODDS_PAYOUT}/>
       <Field component={SimpleInput} type="number" name="odds_wager"
         validate={[required, greaterThanZero]} normalize={toInt} label={str.LABEL_BET_ODDS_WAGER}/>
       <Field component={SimpleInput} type="text" name="name"
