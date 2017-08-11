@@ -6,8 +6,13 @@
  */
 const PAST_SEASON = 'gameofthrones-06';
 const CURRENT_SEASON = 'gameofthrones-07';
-const SEASON_EPISODES = ['gameofthrones-07-01', 'gameofthrones-07-02', 'gameofthrones-07-03'];
-const CURRENT_EPISODE = 'gameofthrones-07-04';
+const SEASON_EPISODES = [
+  'gameofthrones-07-01',
+  'gameofthrones-07-02',
+  'gameofthrones-07-03',
+  'gameofthrones-07-04'
+];
+const CURRENT_EPISODE = 'gameofthrones-07-05';
 
 import fs from 'fs';
 import firebaseApp from './lib/firebase-app';
