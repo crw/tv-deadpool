@@ -12,12 +12,14 @@
 //         balance
 //         winnings
 //         losses
+//         loan
 //         episodes {
 //           [episode_id] {
 //             cheated
 //             balance
 //             winnings
 //             losses
+//             loan
 //             balanceBeforeWinnings
 //             previousBalance
 //           }
@@ -30,13 +32,13 @@ const seasonId = 'gameofthrones-07';
 
 import firebaseApp from './lib/firebase-app';
 import { isEmpty, toArray, filterObjectKeys } from '../app/utils';
-import { processAllWagers, processOneUser, err, fetchFirebaseDataFn } from './lib/lib';
+import { err, fetchFirebaseDataFn } from './lib/lib';
+import { processAllWagers, processOneUser } from './lib/process';
+
 
 console.log('Updating Firebase database', process.env.FIREBASE_DATABASE_URL);
 
 const db = firebaseApp.database();
-
-
 const fetchUsers = fetchFirebaseDataFn(db, 'users');
 const fetchBets = fetchFirebaseDataFn(db, 'bets');
 const fetchEpisodes = fetchFirebaseDataFn(db, 'episodes');
