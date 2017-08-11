@@ -18,7 +18,7 @@ export class EpisodeUserStats extends React.Component {
     const cls_prev_balance = previousBalance < 0 ? 'losses' : '';
     const cls_balance = balance < previousBalance ? 'losses' : 'winnings';
 
-    const resultsHtml = balance ? (
+    const resultsHtml = balance !== undefined ? (
       <div className="results row ">
         <div className={"result prevbalance small-3 columns " + cls_prev_balance }>
           <div className="title">
