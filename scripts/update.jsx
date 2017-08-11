@@ -3,6 +3,7 @@ import { err } from './lib/lib';
 
 
 const updateData = {
+  ['names/c0diator']: 'Jr9wO5CW1uX2li5HLFepQL9w5bn2',
   ['users/Jr9wO5CW1uX2li5HLFepQL9w5bn2']: true,
   ['secure/Jr9wO5CW1uX2li5HLFepQL9w5bn2']: true,
   ['roles/datamanagers/Jr9wO5CW1uX2li5HLFepQL9w5bn2']: true,
