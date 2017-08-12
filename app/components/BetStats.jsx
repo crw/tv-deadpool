@@ -81,7 +81,7 @@ function mapStateToProps(state, props) {
   const leaderboard = getKey(state.leaderboard, bet.season, {});
   let names = {};
   for (const id in stats.comments) {
-    names[id] = leaderboard[id].displayName;
+    names[id] = getKey(leaderboard, `${id}.displayName`, str.DEFAULT_DISPLAY_NAME);
   }
   return { ...stats, names, profileUrl: `/profile/${bet.season}` };
 }
