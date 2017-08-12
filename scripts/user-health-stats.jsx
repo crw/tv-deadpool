@@ -9,7 +9,7 @@
 const CURRENT_SEASON = 'gameofthrones-07';
 const CURRENT_EPISODE = 'gameofthrones-07-05';
 
-const TIMESPAN = 86400000*28;
+const TIMESPAN = 86400000*45;
 
 import firebaseApp from './lib/firebase-app';
 import moment from 'moment';
