@@ -61,9 +61,15 @@
 
       .stats__comment {
         background-color: $offwhitegrey;
-        font-style: italic;
         margin: 0.2rem 0;
         padding: 0.2rem 0.5rem;
+
+        .name {
+
+        }
+        .comment {
+          font-style: italic;
+        }
       }
     }
 

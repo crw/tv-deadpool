@@ -1,6 +1,7 @@
 import React from 'react';
 import PropType from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getKey, isEmpty, toCurrencyString } from 'utils';
 import * as str from 'constants/strings';
 
@@ -10,7 +11,9 @@ export class BetStats extends React.Component {
   static propTypes = {
     count: PropType.number,
     amount: PropType.number,
-    comments: PropType.object
+    comments: PropType.object, // Comments indexed by user id
+    names: PropType.object,    // Usernames indexed by user id
+    profileUrl: PropType.string // base path to a user profile URL
   }
 
   constructor(props) {
@@ -30,7 +33,7 @@ export class BetStats extends React.Component {
   }
 
   render() {
-    const { count, amount, comments } = this.props;
+    const { count, amount, comments, names, profileUrl } = this.props;
     const { showComments } = this.state;
 
     const cls_icon_show_hide = showComments ? str.CLS_ICON_HIDE : str.CLS_ICON_SHOW;
@@ -59,7 +62,8 @@ export class BetStats extends React.Component {
           <div className="stats__comments">
             { Object.keys(comments).map(id => (
                 <div className="stats__comment" key={ id }>
-                  <i className="fa fa-chevron-right"/> { comments[id] }
+                  <Link className="name" to={ `${profileUrl}/${id}` }>{ names[id] }</Link>{': '}
+                  <span className="comment">{ comments[id] }</span>
                 </div>
             ))}
           </div>
@@ -72,9 +76,14 @@ export class BetStats extends React.Component {
 
 function mapStateToProps(state, props) {
   const { betId } = props;
-  const stats = getKey(state.stats, `bets.${betId}`, { count: 0, amount: 0, comments: {} });
-
-  return { ...stats };
+  const bet = getKey(state.bets, betId, { id: null, season: null });
+  const stats = getKey(state.stats.bets, bet.id, { count: 0, amount: 0, comments: {} });
+  const leaderboard = getKey(state.leaderboard, bet.season, {});
+  let names = {};
+  for (const id in stats.comments) {
+    names[id] = leaderboard[id].displayName;
+  }
+  return { ...stats, names, profileUrl: `/profile/${bet.season}` };
 }
 
 
