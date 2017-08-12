@@ -163,7 +163,9 @@ export function wagerValidation(values, prevValues, balance) {
     errors._error = `Insufficient funds. Current balance: ${toCurrencyString(balance)}.`;
   }
 
-  console.log(remaining, errors)
+  if (/^\d+$/.test(nvals.comment) && nvals.wager === 0) {
+    errors._error = `Comment is only a number (${nvals.comment}); was that meant to be your wager?`;
+  }
 
   if (isEmpty(errors)) {
     return nvals;

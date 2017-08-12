@@ -19,7 +19,11 @@ export class WagerForm extends React.Component {
 
   handleSubmit(values) {
     const { handleSubmit, reset } = this.props;
-    handleSubmit(values).then(reset);
+    try {
+      handleSubmit(values).then(reset);
+    } catch (e) {
+      // If handleSubmit throws, it does not return a promise
+    }
   }
 
   render() {
