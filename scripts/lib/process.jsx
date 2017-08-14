@@ -11,6 +11,16 @@ import { isEmpty, sortObjectsByKey, getKey, toArray } from '../../app/utils';
  * Functions that produce the loan amount for each episode
  */
 const loanFn = {
+  'gameofthrones-06-01': (balance, locked) => balance,
+  'gameofthrones-06-02': (balance, locked) => balance,
+  'gameofthrones-06-03': (balance, locked) => balance,
+  'gameofthrones-06-04': (balance, locked) => balance,
+  'gameofthrones-06-05': (balance, locked) => balance,
+  'gameofthrones-06-06': (balance, locked) => balance,
+  'gameofthrones-06-07': (balance, locked) => balance,
+  'gameofthrones-06-08': (balance, locked) => balance,
+  'gameofthrones-06-09': (balance, locked) => balance,
+  'gameofthrones-06-10': (balance, locked) => balance,
   // First week, no loans.
   'gameofthrones-07-01': (balance, locked) => 100,
   // Everyone with < 100 gets 100 - locked-up wager amounts
@@ -134,7 +144,8 @@ function processUserWagers(user, episodes, bets) {
     winnings,
     losses,
     balance,
-    loan: totalLoan
+    loan: totalLoan,
+    ratio: winnings / (losses === 0 ? 1 : losses*-1)
   };
 }
 

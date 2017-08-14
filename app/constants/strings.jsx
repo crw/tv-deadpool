@@ -9,7 +9,8 @@ export const BETSLIST_SORTBY = {
 export const LEADERBOARD_DISPLAY_KEY = {
   BALANCE: 'balance',
   WINNINGS: 'winnings',
-  LOSSES: 'losses'
+  LOSSES: 'losses',
+  RATIO: 'ratio'
 }
 
 // Defaults
@@ -34,6 +35,7 @@ export const EXCLUDE_LIST = 'EXCLUDE';
 export const BALANCE = 'Balance';
 export const WINNINGS = 'Total Won';
 export const LOSSES = 'Total Lost';
+export const RATIO = 'W/L Ratio';
 export const NO_EPISODES = 'No episodes have been created.';
 export const PREV_EPISODE = 'Previous Episode';
 export const NEXT_EPISODE = 'Next Episode';

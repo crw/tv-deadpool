@@ -15,7 +15,7 @@ export default class LeaderboardEntry extends React.Component {
     profileUser: PropTypes.bool.isRequired,
     authUser: PropTypes.bool.isRequired,
     value: PropTypes.number.isRequired,
-    renderKey: PropTypes.oneOf(['balance', 'winnings', 'losses']).isRequired
+    renderKey: PropTypes.oneOf(['balance', 'winnings', 'losses', 'ratio']).isRequired
   };
 
   constructor(props) {
@@ -41,6 +41,10 @@ export default class LeaderboardEntry extends React.Component {
         str.TXT_USER_ICON_DESC_ANON :
         str.TXT_USER_ICON_DESC_DEFAULT;
 
+    const fmtValue = renderKey === str.LEADERBOARD_DISPLAY_KEY.RATIO
+      ? value.toFixed(2)
+      : toCurrencyString(value);
+
     return (
       <div className={'result-row ' + rowCls}>
         <Link className="user-link" to={`/profile/${season}/${userId}`}>
@@ -48,7 +52,7 @@ export default class LeaderboardEntry extends React.Component {
             {index}.
           </div>
           <div className="align-right small-3 columns">
-            <span className={value < 0 ? 'losses' : renderKey}>{toCurrencyString(value)}</span>
+            <span className={value < 0 ? 'losses' : renderKey}>{fmtValue}</span>
           </div>
           <div className="username small-8 columns">
               <span title={userIconDesc}>
