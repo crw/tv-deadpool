@@ -29,7 +29,7 @@ const loanFn = {
   // Everyone gets max(200, balance+200)
   'gameofthrones-07-04': (balance, locked) => balance + 200 < 200 ? 200 : balance + 200,
   'gameofthrones-07-05': (balance, locked) => balance + 300 < 300 ? 300 : balance + 300,
-  'gameofthrones-07-06': (balance, locked) => balance,
+  'gameofthrones-07-06': (balance, locked) => balance + 500 < 500 ? 500 : balance + 500,
   'gameofthrones-07-07': (balance, locked) => balance
 };
 

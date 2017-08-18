@@ -38,7 +38,7 @@ db.ref('bets').once('value').then(snapshot => {
 
           const { id, balance, displayName, wagers } = user;
 
-          const curBalance = balance[seasonId];
+          const curBalance = balance[seasonId] || 100;
 
           let locked_up = 0;
           if (wagers) {
@@ -64,7 +64,7 @@ db.ref('bets').once('value').then(snapshot => {
 
           // ... is not Marah Eakin
           if (id.indexOf('avclub') === -1 && id !== '0yomzuaZZRVJ1c4gzbL5M1ICWyf1') {
-            const newBalance = curBalance + 300 < 300 ? 300 : curBalance + 300;
+            const newBalance = curBalance + 500 < 500 ? 500 : curBalance + 500;
             console.log(`Updating ${id} (${displayName}, old balance ${curBalance}, locked up ${locked_up}, new balance ${newBalance}.)`);
             updateData[`users/${id}/balance/${seasonId}`] = newBalance;
             count++;
