@@ -38,6 +38,7 @@ store.subscribe(() => {
 
 // Initialize Firebase; start watching data sources
 store.dispatch(actions.startFetchLabel(str.EXCLUDE_LIST));
+store.dispatch(actions.startFetchLabel(str.THREE_EYED_RAVEN));
 store.dispatch(actions.watchEpisodesData());
 store.dispatch(actions.watchBetsData());
 store.dispatch(actions.watchLeaderboardData());
