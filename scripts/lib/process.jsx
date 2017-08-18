@@ -74,6 +74,8 @@ function processUserWagers(user, episodes, bets) {
   let winnings = 0;
   let losses = 0;
   let totalLoan = 0;
+  // Episodes with a wager
+  let epsPlayed = { count: 0 };
 
   let episodesSummary = {};
 
@@ -91,9 +93,10 @@ function processUserWagers(user, episodes, bets) {
         // How much of the wager amount is locked up in season wagers?
         let locked = 0;
 
-
         // if this user has any wagers on this episode...
         if (wagers[episode.id]) {
+          epsPlayed.count++;
+          epsPlayed[episode.id] = true;
 
           for (let wager of wagers[episode.id]) {
             costOfPlay = costOfPlay + wager.wager;
@@ -145,7 +148,8 @@ function processUserWagers(user, episodes, bets) {
     losses,
     balance,
     loan: totalLoan,
-    ratio: winnings / (losses === 0 ? 1 : losses*-1)
+    ratio: winnings / (losses === 0 ? 1 : losses*-1),
+    epsPlayed
   };
 }
 

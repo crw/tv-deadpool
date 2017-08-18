@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 export const SeasonHero = (props) => {
@@ -12,18 +13,17 @@ export const SeasonHero = (props) => {
     // fontFamily: season.font ? season.font : ''
 
   return (
-    <div className="season-hero" style={ divStyle }>
-
-      <div className="bottom_aligner"/>
-      <div className="series-title">
-        { series.title }
+    <Link to={ `/game/season/${season.id}` }>
+      <div className="season-hero" style={ divStyle }>
+        <div className="bottom_aligner"/>
+        <div className="series-title">
+          { series.title }
+        </div>
+        <div className="season-title">
+          Season { season.season }
+        </div>
       </div>
-
-      <div className="season-title">
-        Season { season.season }
-      </div>
-
-    </div>
+    </Link>
   );
 }
 

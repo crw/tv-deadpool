@@ -44,7 +44,7 @@ export class Profile extends React.Component {
       return (
         <div className="profile__body">
           <div className="results row">
-            <div className="result balance small-3 columns">
+            <div className="result balance small-4 columns">
               <div className="title">
                 Balance
               </div>
@@ -52,7 +52,7 @@ export class Profile extends React.Component {
                 {toCurrencyString(balance)}
               </div>
             </div>
-            <div className="result winnings small-3 columns">
+            <div className="result winnings small-4 columns">
               <div className="title">
                 Winnings
               </div>
@@ -60,20 +60,12 @@ export class Profile extends React.Component {
                 {toCurrencyString(results.winnings)}
               </div>
             </div>
-            <div className="result losses small-3 columns">
+            <div className="result losses small-4 columns">
               <div className="title">
                 Losses
               </div>
               <div className="body">
                 {toCurrencyString(results.losses)}
-              </div>
-            </div>
-            <div className="result small-3 end columns">
-              <div className="title">
-                Win/Loss Ratio
-              </div>
-              <div className="body">
-                {results.ratio.toFixed(2)}
               </div>
             </div>
           </div>
@@ -100,6 +92,7 @@ export class Profile extends React.Component {
 
   }
 }
+
 
 function mapStateToProps(state, ownProps) {
   const { userId, season, context } = ownProps;

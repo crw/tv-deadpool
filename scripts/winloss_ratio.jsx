@@ -20,20 +20,9 @@ const fetchLeaderboard = fetchFirebaseDataFn(db, `leaderboard/${seasonId}`);
 
 fetchLeaderboard.then(leaderboard => {
 
-  let winloss = [];
-
-  for (const uid in leaderboard) {
-    const user = leaderboard[uid];
-    const loss = user.losses*-1;
-    const ratio = user.winnings / (loss===0 ? 1 : loss);
-    winloss.push({ id: uid, ratio, ...user, loan: undefined, episodes: undefined });
+  for (const id in leaderboard) {
+    const { displayName, ratio, winnings, losses, epsPlayed } = leaderboard[id];
+    console.log(`${id}, "${displayName}", ${ratio}, ${winnings}, ${losses}, ${epsPlayed}`);
   }
-
-  let output = winloss.sort((a, b) => a.balance - b.balance);
-
-  for (const item of output) {
-    console.log(`${item.displayName}: ${item.ratio} (${item.winnings}/${item.losses})`);
-  }
-
   process.exit();
 });

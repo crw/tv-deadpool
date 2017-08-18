@@ -78,7 +78,6 @@ export class Leaderboard extends React.Component {
         )
       );
     };
-
     return (
       <div className="leaderboard">
         <div className="title">
@@ -87,8 +86,10 @@ export class Leaderboard extends React.Component {
         <div className="leaderboard__navigation">
           { navLink(KEY.BALANCE, str.BALANCE) }{' - '}
           { navLink(KEY.WINNINGS, str.WINNINGS) }{' - '}
-          { navLink(KEY.LOSSES, str.LOSSES) }{' - '}
-          { navLink(KEY.RATIO, str.RATIO) }
+          { navLink(KEY.LOSSES, str.LOSSES) }
+          { process.env.NODE_ENV === 'development' ? ' - ' : '' }
+          { process.env.NODE_ENV === 'development' ? navLink(KEY.RATIO, str.RATIO) : '' }
+
         </div>
         <div className="standings row">
           { renderLeaders() }

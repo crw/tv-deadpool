@@ -19,6 +19,10 @@ export const LOCALE = 'en-US';
 export const CURRENCY_FORMAT = { style: 'currency', currency: 'USD', maximumFractionDigits: 0 };
 export const DEFAULT_DISPLAY_NAME = 'A Faceless Man';
 
+// Leaderboard Labels
+export const THE_FIELD = 'The Field';
+export const AVC_STAFFERS = 'AVClub Staffers';
+export const THREE_EYED_RAVEN = 'Three-Eyed Raven';
 
 // Words and Phrases
 export const EDIT = 'edit';
@@ -29,8 +33,6 @@ export const NEW_SEASON = 'Create new season:';
 export const UPDATE_SEASON = 'Update season';
 export const NEW_EPISODE = 'Create new episode:';
 export const NEW_BET = 'Create new bet:';
-export const THE_FIELD = 'The Field';
-export const AVC_STAFFERS = 'AVClub Staffers';
 export const EXCLUDE_LIST = 'EXCLUDE';
 export const BALANCE = 'Balance';
 export const WINNINGS = 'Total Won';

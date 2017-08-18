@@ -13,21 +13,17 @@ export class SeasonChooser extends React.Component {
 
     const now = Date.now();
 
-    function seasonItem(season, series) {
-      return (
-        <Link to={ `/game/season/${season.id}` }  key={ season.id }>
-          <SeasonHero season={ season } series={ series }/>
-        </Link>
-      );
+    function seasonItem(season) {
+      return <SeasonHero season={ season } key={ season.id }/>;
     }
 
     const currentSeasons = toArray(seasons)
       .filter(season => season.lock_at >= now)
-      .map(season => seasonItem(season, series[season.series]));
+      .map(season => seasonItem(season));
 
     const pastSeasons = toArray(seasons)
       .filter(season => season.lock_at < now)
-      .map(season => seasonItem(season, series[season.series]));
+      .map(season => seasonItem(season));
 
     return (
       <div className="row season-chooser">

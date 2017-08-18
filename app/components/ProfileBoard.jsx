@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getKey } from 'app/utils';
-import SeasonHero from 'SeasonHero';
+import Board from 'Board';
 import Profile from 'Profile';
-import { default as Leaderboard } from 'LeaderboardContainer';
 
 
 export class ProfileBoard extends React.Component {
@@ -15,38 +14,23 @@ export class ProfileBoard extends React.Component {
     context: PropTypes.string
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    var { userId, context, season, seasonId } = this.props;
+    var { userId, context, seasonId } = this.props;
 
     return (
-      <div className="row">
-        <div className="small-12 medium-4 medium-push-8 columns">
-          <Leaderboard label="AVClub Staffers" seasonId={ seasonId } userId={ userId }/>
-          <Leaderboard label="The Field" seasonId={ seasonId } userId={ userId }/>
-        </div>
-        <div className="small-12 medium-8 medium-pull-4 columns">
-          <SeasonHero season={ season }/>
-          <Profile season={ seasonId } userId={ userId } context={ context }/>
-        </div>
-      </div>
+      <Board seasonId={ seasonId }>
+        <Profile season={ seasonId } userId={ userId } context={ context }/>
+      </Board>
     );
   }
 }
 
 function mapStateToProps(state, ownProps) {
   const { userId, seasonId } = ownProps.match.params;
-  const uid = userId || getKey(state.login, 'uid');
-  const context = "ProfileBoard";
-  const season = getKey(state.seasons, seasonId, {});
   return {
-    season,
     seasonId,
-    context,
-    userId: uid
+    context:  'ProfileBoard',
+    userId: userId || getKey(state.login, 'uid')
   };
 }
 
