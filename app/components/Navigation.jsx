@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { startLogout } from 'actions';
 import { isLoggedIn } from 'api/firebase';
 import { getKey } from 'utils';
@@ -45,8 +45,10 @@ export class Navigation extends React.Component {
           <div className="small-12 columns">
             <div className="top-bar-left">
               <ul className="menu">
-                <li className="menu-text">
-                  TVDeadpool.xyz
+                <li>
+                  <Link to="/" className="brand-icon">
+                    <img src="/favicon-32x32.png"/>
+                  </Link>
                 </li>
                 <li>
                   <NavLink to="/" activeClassName="link-active">{ str.NAV_SEASONS }</NavLink>
