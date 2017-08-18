@@ -34,10 +34,6 @@ export class GameBoard extends React.Component {
             ) : <Login/>
           }
           <Leaderboard label={ str.AVC_STAFFERS } seasonId={ season.id } userId="0"/>
-          { getKey(user, `data.${season.id}.three_eyed_raven`, false)
-              ? <Leaderboard label={ str.THREE_EYED_RAVEN } seasonId={ season.id } userId="0"/>
-              : ''
-          }
           <Leaderboard label={ str.THE_FIELD } seasonId={ season.id } userId="0"/>
         </div>
         <div className="small-12 medium-8 medium-pull-4 columns">
