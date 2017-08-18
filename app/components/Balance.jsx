@@ -10,16 +10,24 @@ Balance.propTypes = {
 };
 
 export function Balance (props) {
-  const { balance } = props;
-  const cls_balance = balance < 0 ? 'loss' : 'win';
+  const { balance, leaderboard } = props;
+  const cls_balance = balance > -1 ? 'win' : 'loss';
+  const cls_loan = leaderboard.loan === 0 ? 'win' : 'loss';
+  const cls_score = leaderboard.balance >-1 ? 'win' : 'loss';
 
   return (
     <div className="player-balance container">
       <div className="balance-label">
         Balance
       </div>
-      <div className={ "balance-value " + cls_balance }>
-        {toCurrencyString(props.balance)}
+      <div className={ "balance-item value " + cls_balance }>
+        {toCurrencyString(balance)}
+      </div>
+      <div className={ "balance-item score " }>
+        Score: <span className={ cls_score }>{toCurrencyString(leaderboard.balance)}</span>
+      </div>
+      <div className={ "balance-item loan " }>
+        Iron Bank Loans: <span className={cls_loan}>{toCurrencyString(leaderboard.loan)}</span>
       </div>
     </div>
   );
@@ -28,8 +36,10 @@ export function Balance (props) {
 
 const mapStateToProps = (state, ownProps) => {
   const { seasonId } = ownProps;
+  const uid = getKey(state.login, 'uid', null);
   const balance = getKey(state.login, `user.balance.${seasonId}`, 0);
-  return { balance };
+  const leaderboard = getKey(state.leaderboard, `${seasonId}.${uid}`, {});
+  return { balance, leaderboard };
 };
 
 export default connect(mapStateToProps)(Balance);

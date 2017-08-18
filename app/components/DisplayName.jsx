@@ -92,7 +92,7 @@ export class DisplayName extends React.Component {
     };
 
     return (
-      <div className="player-balance container">
+      <div className="container">
         {renderDisplayName()}
       </div>
     );

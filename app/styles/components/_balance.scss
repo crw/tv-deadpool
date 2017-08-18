@@ -1,49 +1,55 @@
+.player-display-name {
+  font-size: 1.25rem;
+  padding: 0.5rem;
+  padding-left: 0.1rem;
+
+  .display-name {
+    border: 1px solid white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'GameOfThrones';
+    padding: 0.5rem;
+    padding-bottom: 0.1rem;
+    word-spacing: 0.35rem;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid black;
+    }
+  }
+
+  .fa-pencil {
+    cursor: pointer;
+  }
+}
+
 .player-balance {
 
-  .player-display-name {
-    font-size: 1.25rem;
-    padding: 0.5rem;
-    padding-left: 0.1rem;
-
-    .display-name {
-      border: 1px solid white;
-      font-size: 1.5rem;
-      font-weight: bold;
-      font-family: 'GameOfThrones';
-      padding: 0.5rem;
-      padding-bottom: 0.1rem;
-      word-spacing: 0.35rem;
-      cursor: pointer;
-
-      &:hover {
-        border: 1px solid black;
-      }
-    }
-
-    .fa-pencil {
-      cursor: pointer;
-    }
-
-  }
+  border: 1px solid #aaa;
+  padding-bottom: 1rem;
 
   .balance-label {
     @extend .component__title;
   }
 
-  .balance-value {
-    border: 1px solid $border-color;
-    border-top: 0px;
-    padding: 0.25rem;
-    padding-left: 1rem;
-    font-size: 3rem;
+  .balance-item {
+    // border: 1px solid $border-color;
+    // border-top: 0px;
     font-weight: bold;
+    // padding: 0.25rem;
+    padding-left: 1rem;
 
-    &.win {
-      color: $color-winning;
-    }
-
-    &.loss {
-      color: $color-losing;
+    &.value {
+      font-size: 3rem;
     }
   }
+
+  .win {
+    color: $color-winning;
+  }
+
+  .loss {
+    color: $color-losing;
+  }
+
 }
