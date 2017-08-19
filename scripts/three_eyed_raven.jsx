@@ -26,12 +26,13 @@ fetchLeaderboard.then(leaderboard => {
     const { displayName, balance, ratio, winnings, losses, epsPlayed } = leaderboard[id];
 
     // if (Object.keys(epsPlayed).length === 2 && epsPlayed['gameofthrones-07-05'] && losses === 0) {
-    if (epsPlayed.count > 2 && ratio > 500) {
+    if ((epsPlayed.count > 2 && ratio > 500) || (losses === 0)) {
       updateData[`users/${id}/data/${seasonId}/three_eyed_raven`] = true;
       updateData[`labels/Three-Eyed Raven/${id}`] = true;
 
       console.log(`${id}, "${displayName}", ${balance}, ${ratio}, ${winnings}, ${losses}, ${epsPlayed.count}`);
     }
   }
-  db.ref().update(updateData).then(() => process.exit());
+  // db.ref().update(updateData).then(() => process.exit());
+  process.exit();
 });
