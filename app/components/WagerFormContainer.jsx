@@ -23,12 +23,13 @@ export class WagerFormContainer extends React.Component {
   }
 
   render() {
-    const { id, wager } = this.props;
+    const { id, wager, canComment } = this.props;
     return (
       <div className="wager-form-container">
         <WagerForm
           form={`wager-${id}`}
           initialValues={ wager }
+          canComment={ canComment }
           onSubmit={ this.handleSubmit }/>
       </div>
     );
@@ -37,12 +38,13 @@ export class WagerFormContainer extends React.Component {
 
 
 function mapStateToProps(state, props) {
-  const uid = getKey(state.login, 'uid', null);
+  const user = getKey(state.login, 'user', null);
   const { id } = props;
   const { season } = state.bets[id];
-  const balance = getKey(state.users, `${uid}.balance.${season}`);
-  const wager = getKey(state.users, `${uid}.wagers.${id}`, wagerDefaults);
-  return { wager, balance };
+  const balance = getKey(user, `balance.${season}`);
+  const wager = getKey(user, `wagers.${id}`, wagerDefaults);
+  const canComment = getKey(user, 'canComment', true);
+  return { wager, balance, canComment };
 }
 
 export default connect(mapStateToProps, { startPlaceWager })(WagerFormContainer);

@@ -27,7 +27,7 @@ export class WagerForm extends React.Component {
   }
 
   render() {
-    const { pristine, submitting, invalid, error } = this.props;
+    const { pristine, submitting, invalid, error, canComment } = this.props;
 
     return (
       <div className="wager-form">
@@ -43,15 +43,18 @@ export class WagerForm extends React.Component {
                 validate={ [ nonNegative ] }
               />
             </div>
-            <div className="small-6 columns">
-              <Field
-              component="input"
-              name="comment"
-              className=""
-              placeholder="Comment"
-              type="text"
-            />
-            </div>
+            { canComment ? (
+                <div className="small-6 columns">
+                  <Field
+                    component="input"
+                    name="comment"
+                    className=""
+                    placeholder="Comment"
+                    type="text"
+                    />
+                </div>
+              ) : ''
+            }
             <div className="small-3 columns">
               <button
                 type="submit"
@@ -60,6 +63,7 @@ export class WagerForm extends React.Component {
                 Place Bet
               </button>
             </div>
+            { canComment ? '' : <div className="small-6 columns"/> }
           </div>
           { error ?
             <div className="error">{ error }</div>
