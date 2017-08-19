@@ -35,6 +35,7 @@ function generateEmailLists(users, secure, bets) {
 
   let emails_last_season = [];
   let emails_this_season = [];
+  let emails_this_ep = [];
 
   for (let userId in users) {
     const user = users[userId];
@@ -48,6 +49,7 @@ function generateEmailLists(users, secure, bets) {
 
       let wageredLastSeason = false;
       let wageredThisSeason = false;
+      let alreadyWageredThisEp = false;
 
       let seasons = {};
       let episodes = {};
@@ -62,11 +64,15 @@ function generateEmailLists(users, secure, bets) {
       // wageredLastSeason = seasonsArr.includes(PAST_SEASON) && !seasonsArr.includes(CURRENT_SEASON);
       // Don't recalculate last season emails.
       wageredLastSeason = false;
-      wageredThisSeason = !episodes[CURRENT_EPISODE] && SEASON_EPISODES.reduce((result, item) => episodes[item] || result, false);
+      wageredThisSeason = SEASON_EPISODES.reduce((result, item) => episodes[item] || result, false);
+      alreadyWageredThisEp = !!episodes[CURRENT_EPISODE];
 
 
       if (wageredThisSeason) {
         emails_this_season.push(email);
+      }
+      if (wageredThisSeason && !alreadyWageredThisEp) {
+        emails_this_ep.push(email);
       }
       // } else if (wageredLastSeason) {
       //   emails_last_season.push(email);
@@ -76,6 +82,7 @@ function generateEmailLists(users, secure, bets) {
 
   // const emails_last_season_str = emails_last_season.sort().reduce((str, item) => { return str + item + '\n'}, '');
   const emails_this_season_str = emails_this_season.sort().reduce((str, item) => { return str + item + '\n'}, '');
+  const emails_this_ep_str = emails_this_ep.sort().reduce((str, item) => { return str + item + '\n'}, '');
 
 
   function writeThisSeason(e) {
@@ -83,12 +90,11 @@ function generateEmailLists(users, secure, bets) {
     fs.writeFile('this_season.txt', emails_this_season_str, err);
   }
 
-  writeThisSeason(false);
-  // fs.writeFile('last_season.txt', emails_last_season_str, writeThisSeason);
-  // console.log('EMAILS FROM LAST YEAR', emails_last_season.length)
-  console.log('Emails from this season without wagers in', CURRENT_EPISODE, emails_this_season.length);
-}
+  // writeThisSeason(false);
+  fs.writeFile('current_episode.txt', emails_this_ep_str, writeThisSeason);
 
+  console.log('Emails from this season without wagers in', CURRENT_EPISODE, emails_this_ep.length);
+}
 
 
 fetchUsers.then(users => {

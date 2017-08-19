@@ -9,4 +9,5 @@ public/bundle.css
 playground/*
 *.log
 this_season.txt
+current_episode.txt
 
