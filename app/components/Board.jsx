@@ -20,7 +20,7 @@ export class GameBoard extends React.Component {
   }
 
   render() {
-    var { user, season } = this.props;
+    var { user, season, profileUserId } = this.props;
 
     return (
       <div className="row">
@@ -33,8 +33,8 @@ export class GameBoard extends React.Component {
               </div>
             ) : <Login/>
           }
-          <Leaderboard label={ str.AVC_STAFFERS } seasonId={ season.id } userId="0"/>
-          <Leaderboard label={ str.THE_FIELD } seasonId={ season.id } userId="0"/>
+          <Leaderboard label={ str.AVC_STAFFERS } seasonId={ season.id } userId={profileUserId}/>
+          <Leaderboard label={ str.THE_FIELD } seasonId={ season.id } userId={profileUserId}/>
         </div>
         <div className="small-12 medium-8 medium-pull-4 columns">
           <SeasonHero season={ season }/>
@@ -47,9 +47,11 @@ export class GameBoard extends React.Component {
 
 
 function mapStateToProps(state, props) {
+  const { userId } = props.match.params;
+  const profileUserId = userId || "0";
   const user = getKey(state.login, 'user', null);
   const season = getKey(state.seasons, props.seasonId, {});
-  return { user, season };
+  return { user, season, profileUserId };
 };
 
 export default withRouter(connect(mapStateToProps)(GameBoard));
