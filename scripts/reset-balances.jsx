@@ -7,7 +7,7 @@
  * Running process-results.jsx will undo / rollback any changes made by this script.
  */
 const seasonId = 'gameofthrones-07';
-
+const grant = 1000;
 
 import firebaseApp from './lib/firebase-app';
 import moment from 'moment';
@@ -64,7 +64,7 @@ db.ref('bets').once('value').then(snapshot => {
 
           // ... is not Marah Eakin
           if (id.indexOf('avclub') === -1 && id !== '0yomzuaZZRVJ1c4gzbL5M1ICWyf1') {
-            const newBalance = curBalance + 500 < 500 ? 500 : curBalance + 500;
+            const newBalance = curBalance + grant < grant ? grant : curBalance + grant;
             console.log(`Updating ${id} (${displayName}, old balance ${curBalance}, locked up ${locked_up}, new balance ${newBalance}.)`);
             updateData[`users/${id}/balance/${seasonId}`] = newBalance;
             count++;
