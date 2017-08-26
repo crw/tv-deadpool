@@ -30,7 +30,7 @@ const loanFn = {
   'gameofthrones-07-04': (balance, locked) => balance + 200 < 200 ? 200 : balance + 200,
   'gameofthrones-07-05': (balance, locked) => balance + 300 < 300 ? 300 : balance + 300,
   'gameofthrones-07-06': (balance, locked) => balance + 500 < 500 ? 500 : balance + 500,
-  'gameofthrones-07-07': (balance, locked) => balance
+  'gameofthrones-07-07': (balance, locked) => balance + 1000 < 1000 ? 1000 : balance + 1000,
 };
 
 /**
@@ -177,3 +177,52 @@ export function processOneUser(user, episodes, bets) {
   leaderboard[user.id] = processUserWagers(user, episodes, bets);
   return leaderboard;
 }
+
+
+
+
+/**
+ * @param {Object} user - user to process
+ * @param {Array} leaderboard - entry for the processing user
+ * @param {Object} bets - All bets, unfiltered
+ * @param {Array} valid_wagers - The wager ids to correct.
+ */
+export function reconcileLimitedWagers(user, bets, valid_wagers) {
+
+
+  const wagers = user.wagers || [];
+  const seasonId = bets[valid_wagers[0]].season;
+
+  let balance = user.balance[seasonId];
+  let winnings = 0;
+  let costOfPlay = 0;
+  let totalPayout = 0;
+
+  // If this user has any wagers for this season...
+  if (!isEmpty(wagers)) {
+    for (let wagerId of valid_wagers) {
+
+      const wager = wagers[wagerId] || false;
+      const bet = bets[wagerId];
+
+      if (wager && bet.resolved) {
+
+        if (bet.paid) {
+          costOfPlay += wager.wager;
+          let payout = Math.floor((bet.odds_payout * wager.wager) / bet.odds_wager);
+          balance += payout;
+          totalPayout += payout;
+        }
+      }
+    }
+  }
+  return {
+    userId: user.id,
+    displayName: user.displayName,
+    wager: costOfPlay,
+    prebalance: user.balance[seasonId],
+    balance,
+    totalPayout
+  };
+}
+
