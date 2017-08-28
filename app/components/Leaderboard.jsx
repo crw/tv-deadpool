@@ -87,9 +87,8 @@ export class Leaderboard extends React.Component {
           { navLink(KEY.BALANCE, str.BALANCE) }{' - '}
           { navLink(KEY.WINNINGS, str.WINNINGS) }{' - '}
           { navLink(KEY.LOSSES, str.LOSSES) }
-          { process.env.NODE_ENV === 'development' ? ' - ' : '' }
-          { process.env.NODE_ENV === 'development' ? navLink(KEY.RATIO, str.RATIO) : '' }
-
+          { str.SHOW_WINLOSS_RATIO ? ' - ' : '' }
+          { str.SHOW_WINLOSS_RATIO ? navLink(KEY.RATIO, str.RATIO) : '' }
         </div>
         <div className="standings row">
           { renderLeaders() }

@@ -13,6 +13,9 @@ export const LEADERBOARD_DISPLAY_KEY = {
   RATIO: 'ratio'
 }
 
+// Determines whether or not to show the win/loss ratio feature.
+export const SHOW_WINLOSS_RATIO = true;
+
 // Defaults
 export const PRETTY_DATE_FORMAT = 'ddd, MMM Do YYYY, h:mm:ss a Z';
 export const LOCALE = 'en-US';

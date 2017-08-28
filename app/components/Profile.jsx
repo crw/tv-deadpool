@@ -6,12 +6,10 @@ import { LOCALE, CURRENCY_FORMAT } from 'constants/formats';
 import { INITIAL_BALANCE } from 'constants/numbers';
 import { startGetUser } from 'actions';
 import EpisodeList from 'EpisodeList';
+import * as str from 'constants/strings';
 
 
 export class Profile extends React.Component {
-  static propTypes = {
-    // name: PropTypes.string,
-  };
 
   constructor(props) {
     super(props);
@@ -40,11 +38,13 @@ export class Profile extends React.Component {
       !results.balance && results.balance !== 0 ? INITIAL_BALANCE : results.balance
       : 0;
 
+    const cls_columns = str.SHOW_WINLOSS_RATIO ? 'small-3' : 'small-4';
+
     var renderResults = () => {
       return (
         <div className="profile__body">
           <div className="results row">
-            <div className="result balance small-4 columns">
+            <div className={"result balance columns " + cls_columns}>
               <div className="title">
                 Balance
               </div>
@@ -52,7 +52,7 @@ export class Profile extends React.Component {
                 {toCurrencyString(balance)}
               </div>
             </div>
-            <div className="result winnings small-4 columns">
+            <div className={"result winnings columns " + cls_columns}>
               <div className="title">
                 Winnings
               </div>
@@ -60,7 +60,7 @@ export class Profile extends React.Component {
                 {toCurrencyString(results.winnings)}
               </div>
             </div>
-            <div className="result losses small-4 columns">
+            <div className={"result losses columns " + cls_columns}>
               <div className="title">
                 Losses
               </div>
@@ -68,6 +68,18 @@ export class Profile extends React.Component {
                 {toCurrencyString(results.losses)}
               </div>
             </div>
+            { str.SHOW_WINLOSS_RATIO ? (
+                <div className={"result balance columns " + cls_columns}>
+                  <div className="title">
+                    W/L Ratio
+                  </div>
+                  <div className="body">
+                    { results.ratio.toFixed(2) }
+                  </div>
+                </div>
+              ) :
+              ''
+            }
           </div>
         </div>
       );

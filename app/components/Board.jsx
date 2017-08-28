@@ -22,8 +22,6 @@ export class GameBoard extends React.Component {
   render() {
     const { user, season, profileUserId, isAdmin } = this.props;
 
-    console.log(isAdmin);
-
     return (
       <div className="row">
         <div className="small-12 medium-4 medium-push-8 columns">
