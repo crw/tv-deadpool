@@ -1,4 +1,4 @@
-## Game of Thrones Dead Pool Site
+## Odds-based TV Deadpool Site
 
 > What is dead may never die.
 
