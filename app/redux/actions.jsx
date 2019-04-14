@@ -246,7 +246,8 @@ export const startLoginWith = (providerData) => {
             id,
             balance: {
               ['gameofthrones-06']: INITIAL_BALANCE,
-              ['gameofthrones-07']: INITIAL_BALANCE
+              ['gameofthrones-07']: INITIAL_BALANCE,
+              ['gameofthrones-08']: INITIAL_BALANCE
             },
             created_at: Date.now()
           } : undefined;

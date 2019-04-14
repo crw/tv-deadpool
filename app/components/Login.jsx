@@ -47,7 +47,9 @@ export class Login extends React.Component {
             <button className="button button__login button__google expanded" onClick={this.handleLoginGoogle}><i className="fa fw fa-google 4x"/> Google</button>
           </div>
           <div>
-            <button className="button button__login button__facebook  expanded" onClick={this.handleLoginFacebook}><i className="fa fw fa-facebook 4x"/> Facebook</button>
+            <div>
+              <a href="https://github.com/crw/tv-deadpool/issues/48" target="_blank">Facebook Login is no longer available. Please click here for more info.</a>
+            </div>
           </div>
         </div>
       </div>

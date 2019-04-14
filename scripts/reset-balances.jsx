@@ -6,8 +6,8 @@
  * DANGEROUS TO RUN - ALTERS DATA
  * Running process-results.jsx will undo / rollback any changes made by this script.
  */
-const seasonId = 'gameofthrones-07';
-const grant = 1000;
+const seasonId = 'gameofthrones-08';
+const grant = 100;
 
 import firebaseApp from './lib/firebase-app';
 import moment from 'moment';
