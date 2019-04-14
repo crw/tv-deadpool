@@ -227,7 +227,7 @@ export const startLoginWith = (providerData) => {
       provider.addScope(scope);
     });
 
-    return firebase.auth().signInWithPopup(provider).then((result) => {
+    return firebase.auth().signInWithRedirect(provider).then((result) => {
       // On successful authentication, we need to store this fresh user data.
       // This may be a new OR an existing user. Transaction lets us
       // create or update based on existing state.
