@@ -18,5 +18,5 @@ fromRef.once('value').then(snapshot => {
     // fromRef.remove();
     console.log(`Moved ${FROM_ID} to ${TO_ID}.`);
     process.exit();
-  });
+  }, err);
 }, err);
