@@ -1,8 +1,10 @@
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import 'firebase/firestore';
 import { normalizeName, getKey } from 'app/utils';
 import { seasonDefaults, episodeDefaults, betDefaults } from 'redux/form/details';
+
 
 
 // Special Firebase directive that sets the value to "now" based on the server's clock.

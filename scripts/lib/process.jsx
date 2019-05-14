@@ -31,6 +31,12 @@ const loanFn = {
   'gameofthrones-07-05': (balance, locked) => balance + 300 < 300 ? 300 : balance + 300,
   'gameofthrones-07-06': (balance, locked) => balance + 500 < 500 ? 500 : balance + 500,
   'gameofthrones-07-07': (balance, locked) => balance + 1000 < 1000 ? 1000 : balance + 1000,
+  'gameofthrones-08-01': (balance, locked) => 100,
+  'gameofthrones-08-02': (balance, locked) => balance + 100 < 100 ? 100 : balance + 100,
+  'gameofthrones-08-03': (balance, locked) => balance + 200 < 200 ? 200 : balance + 200,
+  'gameofthrones-08-04': (balance, locked) => balance + 200 < 200 ? 200 : balance + 200,
+  'gameofthrones-08-05': (balance, locked) => balance + 1000 < 1000 ? 1000 : balance + 1000,
+  'gameofthrones-08-06': (balance, locked) => balance + 1000 < 1000 ? 1000 : balance + 1000
 };
 
 /**

@@ -3,7 +3,7 @@
  *
  * SAFE TO RUN
  */
-const SEASON_ID = 'gameofthrones-07';
+const SEASON_ID = 'gameofthrones-08';
 
 import firebaseApp from './lib/firebase-app';
 import moment from 'moment';

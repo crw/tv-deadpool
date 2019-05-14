@@ -28,7 +28,7 @@
 //     }
 //   }
 // }
-const seasonId = 'gameofthrones-07';
+const seasonId = 'gameofthrones-08';
 
 import firebaseApp from './lib/firebase-app';
 import { isEmpty, toArray, filterObjectKeys } from '../app/utils';
